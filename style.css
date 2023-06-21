@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+}
+html{
+  scroll-behavior:smooth;
+  min-width: 870px;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+/* css for navbar */
+header{
+  width: 100%;
+  position: fixed;
+  padding: 25px 50px 10px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000 ;
+}
+.logo{
+  height: 65px;
+}
+#nav li{
+  list-style: none;
+  display: inline-block;
+  padding-top: 7px;
+  margin: 0px 20px 20px 20px;
+}
+#nav li a{
+  color: black;
+  text-decoration: none;
+}
+body {
+  margin: 0;
+}
+.homeimage {
+  min-height: 245px;
+  min-width: 245px;
+  size: auto;
+  margin: auto ;
+  margin-top: 50px;
+}
+.container {
+  padding: 64px;
+}
+.container2 {
+  padding: 64px;
+  padding-top: 130px
+}
+.row:after {
+  content: "";
+  display:grid;
+  clear: both;
+}
+.column-1 {
+  float: left;
+  width: 33.33333%;
+  padding: 25px;
+}
+.column-1a {
+  float: left;
+  width: 33.33333%;
+  padding: 20px;
+}
+.column-1b {
+  float: left;
+  width: 33.33333%;
+  padding: 25px;
+  padding-top: 50px;
+}
+.column-1c {
+  float: left;
+  width: 33.33333%;
+  padding: 25px;
+  padding-top: 50px;
+}
+.column-2 {
+  float: left;
+  width: 66.66666%;
+  padding: 25px;
+} 
+.title-head {
+  font-size: 70px;
+  font-weight: bold;
+}
+.subtitle-head {
+  font-size: 40px;
+}
+.title-normal{
+  font-size: 55px;
+  font-weight: bold;
+}
+.subtitle-normal {
+  font-size: 30px;
+}
+.button {
+  border: none;
+  /* color: rgb(240, 7, 7); */
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0457aa;
+}
+.button:hover {
+  background-color: #003a69;
+}
+.button2 {
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0457aa;
+}
+.button2:hover {
+  background-color: #003a69;
+}
+.button-center{
+  text-align: center;
+}
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+#or{
+  padding-top: 50%;
+  text-align: center;
+}
+footer{
+  background-color: #003a69;
+  padding: 20px 0 20px 0;
+}
+.text-footer{
+  text-align: center;
+  color: white;
+  font-style: italic  ;
+  margin: 0;
+}
+#ab{
+  box-shadow: 0 0 10px lightblue;
+}
+#vis{
+  visibility: hidden;
+}
+@media screen and (max-width: 1000px) {
+  .column-2,
+  .column-1 {
+    width: 100%;
+    text-align: center;
+  }.column-1b {
+    width: 50%;
+    text-align: center;
+  } .column-1c{
+    visibility: collapse;
+    width: 0;
+    padding: 0px;
+  } img {
+    margin: auto;
+  } .homeimage {
+    content: url(images/IHSPresident.png);
+    margin-left: 110%;
+  } #vmis{
+    padding-top: 0;
+  }.container2 {
+    padding-top: 39px;
+  } #or{
+    padding-top: 0;
+  } #activities_image{
+    width: 250px;
+  } #vis{
+    visibility: visible;
+  } #ab {
+    box-shadow: none;
+  } #activities_image {
+    width: 70%;
+  } iframe {
+    width: 600px;
+  }
+}
