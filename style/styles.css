@@ -1,0 +1,128 @@
+body {
+	background: #fffbe6 url('https://www.transparenttextures.com/patterns/cheese.png'); /* cheese pattern */
+	font-family: 'Comic Sans MS', 'Comic Neue', Arial, sans-serif;
+	color: #4d3300;
+	margin: 0;
+}
+
+.cv-photo {
+	width: 130px;
+	height: 130px;
+	object-fit: cover;
+	border-radius: 50%;
+	border: 6px dashed #ffd700;
+	margin-right: 32px;
+	box-shadow: 0 2px 12px rgba(255,204,0,0.15);
+}
+
+.cv-wrapper {
+	max-width: 1000px;
+	margin: 40px auto;
+	box-shadow: 0 4px 24px rgba(255, 204, 0.15, 0.15);
+	border-radius: 24px;
+	background: #fffde7;
+	overflow: hidden;
+	border: 4px dashed #ffe066;
+}
+
+.cv-header {
+	background: linear-gradient(90deg, #ffe066 0%, #fffde7 100%);
+	padding: 32px 40px 24px 40px;
+	border-bottom: 3px dotted #ffd700;
+	display: flex;
+	align-items: center;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+}
+.cv-header-main {
+	flex: 1;
+}
+.cv-name {
+	font-size: 2.8em;
+	margin: 0;
+	color: #ffb300;
+	font-family: 'Comic Sans MS', 'Comic Neue', Arial, sans-serif;
+	text-shadow: 2px 2px 0 #fffbe6, 4px 4px 0 #ffe066;
+}
+.cv-title {
+	font-size: 1.4em;
+	margin: 8px 0 12px 0;
+	color: #d4a200;
+}
+.cv-contact {
+	font-size: 1em;
+	color: #7c5c00;
+}
+
+.cv-container {
+	display: flex;
+	min-height: 70vh;
+}
+.cv-sidebar {
+	width: 22%;
+	background: #fffbe6;
+	padding: 32px 24px;
+	border-right: 3px dotted #ffd700;
+	border-bottom-left-radius: 20px;
+}
+.cv-sidebar h3 {
+	color: #ffb300;
+	margin-top: 0;
+	font-size: 1.3em;
+}
+.cv-sidebar ul {
+	list-style: none;
+	padding: 0;
+}
+.cv-sidebar li {
+	margin-bottom: 14px;
+	font-size: 1.1em;
+	background: #ffe066;
+	border-radius: 12px;
+	padding: 6px 14px;
+	box-shadow: 1px 1px 0 #fffbe6;
+	border: 2px solid #ffd700;
+}
+
+.cv-main {
+	width: 78%;
+	padding: 32px 40px;
+}
+.cv-main section {
+	margin-bottom: 32px;
+}
+.cv-main h3 {
+	color: #d4a200;
+	margin-bottom: 10px;
+	font-size: 1.2em;
+}
+.cv-job, .cv-edu {
+	margin-bottom: 24px;
+	background: #fffbe6;
+	border-radius: 12px;
+	padding: 12px 18px;
+	border: 2px solid #ffe066;
+	box-shadow: 1px 1px 0 #ffd700;
+}
+.cv-job strong, .cv-edu strong {
+	color: #ffb300;
+}
+.cv-job-date, .cv-edu-date {
+	color: #d4a200;
+	font-size: 0.95em;
+	margin-left: 8px;
+}
+.cv-job-company, .cv-edu-school {
+	color: #7c5c00;
+	font-size: 1em;
+}
+footer {
+	text-align: center;
+	padding: 18px 0;
+	background: #ffe066;
+	color: #7c5c00;
+	font-size: 1.1em;
+	border-top: 3px dotted #ffd700;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
