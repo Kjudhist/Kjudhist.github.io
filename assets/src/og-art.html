@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" class="theme-dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Share image: The Willow Atelier</title>
+  <!-- Source for assets/og/og-art.jpg. Serve the site locally and screenshot this page at 1200x630.
+       The willow is borrowed from the art page so the two never drift apart. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../../css/base.css">
+  <link rel="stylesheet" href="../../css/art.css">
+  <style>
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+    }
+
+    body {
+      animation: none;
+    }
+
+    .art-hero {
+      min-height: 630px;
+      height: 630px;
+      padding: 0 0 92px;
+    }
+
+    .art-hero__text {
+      width: auto;
+      margin: 0 0 0 104px;
+    }
+
+    .art-hero__text > *,
+    .willow__sway {
+      animation: none;
+    }
+
+    .art-hero__title {
+      font-size: 96px;
+    }
+
+    .art-hero__tagline {
+      font-size: 28px;
+    }
+
+    .art-hero__moon {
+      left: 20%;
+      top: 18%;
+      width: 64px;
+    }
+  </style>
+</head>
+<body class="art">
+  <section class="art-hero">
+    <div class="art-hero__sky"><span class="art-hero__moon"></span></div>
+    <div id="willow"></div>
+    <div class="art-hero__mist"></div>
+    <div class="art-hero__text">
+      <p class="art-hero__mark" lang="ja">柳</p>
+      <h1 class="art-hero__title latin">
+        <span class="art-hero__line">The Willow</span>
+        <span class="art-hero__line">Atelier</span>
+      </h1>
+      <p class="art-hero__tagline">Where the lost come to rest.</p>
+    </div>
+  </section>
+  <script>
+    fetch('../../art/index.html')
+      .then(function (res) { return res.text(); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var willow = doc.querySelector('.willow');
+        if (willow) document.getElementById('willow').replaceWith(willow);
+        document.title += ' (ready)';
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex">
+  <title>Icons</title>
+  <!-- Draws ../icons/favicon.svg at every size the site needs and prints each PNG as a data URL.
+       Open it from a local server, then save the PNGs (and build favicon.ico from the 16/32/48 ones). -->
+</head>
+<body>
+  <pre id="out"></pre>
+  <script>
+    // Full-bleed version for the home screen; iOS rounds the corners itself.
+    function square(svg) {
+      return svg.replace('rx="7"', 'rx="0"');
+    }
+
+    function draw(svg, size) {
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = function () {
+          var canvas = document.createElement('canvas');
+          canvas.width = canvas.height = size;
+          canvas.getContext('2d').drawImage(img, 0, 0, size, size);
+          resolve(canvas.toDataURL('image/png'));
+        };
+        img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+      });
+    }
+
+    fetch('../icons/favicon.svg')
+      .then(function (res) { return res.text(); })
+      .then(async function (svg) {
+        var out = {};
+        for (var size of [16, 32, 48]) out['ico-' + size] = await draw(svg, size);
+        out['apple-touch-icon'] = await draw(square(svg), 180);
+        out['icon-192'] = await draw(square(svg), 192);
+        out['icon-512'] = await draw(square(svg), 512);
+        document.getElementById('out').textContent = JSON.stringify(out);
+        document.title = 'Icons (ready)';
+      });
+  </script>
+</body>
+</html>
