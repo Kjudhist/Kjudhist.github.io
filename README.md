@@ -22,7 +22,8 @@ Live at https://kjudhist.github.io/
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
 │   ├── main.js           shared bits: page fades, scroll reveals, menu, local links
-│   └── gate.js           door behaviour (hover, tap twice on phones, walk through)
+│   ├── gate.js           door behaviour (hover, tap twice on phones, walk through)
+│   └── art.js            the atelier: ink bloom, night garden, emaki, viewer, noren
 ├── assets/
 │   ├── art/              placeholder artworks (SVG)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)
@@ -79,6 +80,19 @@ Which language a visitor sees, in order:
 
 The Indonesian and Japanese strings are first drafts and need a read from a native speaker. The QA pitch and the atelier tagline are final in all three.
 
+## The atelier page
+
+The art side is built as a night garden you walk through:
+
+- **Arrival:** the page opens through spreading ink.
+- **Hero:** a moon with drifting clouds, misty hills and a pond (click the water). Willow strands swing away from the cursor. Fireflies wander, and gather around the cursor when it rests.
+- **Seasons:** the hero follows the visitor's calendar: spring petals, summer fireflies, autumn leaves, winter snow. Preview any season with `?season=spring`, `summer`, `autumn` or `winter`.
+- **Works:** an emaki (handscroll). On screens 900px and wider it pins in place and scrolling down unrolls it sideways while an ink river paints itself. On phones it's a swipeable strip. Clicking a piece opens it full size.
+- **About:** a sheet of washi with torn edges, where an ensō paints itself around the tagline.
+- **Links:** two noren (shop curtains) that sway, and part when hovered or tapped.
+
+With reduced motion turned on, all of that becomes a still scene: no bloom, nothing pinned, the ink and ensō already drawn.
+
 ## Replacing placeholders
 
 Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.js`. Search for `[` there and fill in all three languages. Placeholders are styled with the `ph` class (muted, dotted underline). Remove `class="ph"` from the element once it has real content.
@@ -86,9 +100,9 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 | What | Where |
 |---|---|
 | About, extra job bullet, case studies, skill and tool placeholders | `js/i18n.js` |
-| Artworks | swap the files in `assets/art/`, then update `width`/`height` on each `<img>` in `art/index.html` to the new image's size so the layout doesn't jump |
+| Artworks | swap the files in `assets/art/`, then update `width`/`height` on each `<img>` in `art/index.html` to the new image's size. How tall each piece sits on the scroll is `--h` in `css/art.css` (`.emaki__work--1` to `--6`), as a share of the paper's height |
 | Artwork titles, medium, year | `art.ph.*` keys in `js/i18n.js`. Each artwork needs its own keys once they're real |
-| Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete the "[Link coming soon]" lines |
+| Instagram and shop links | `art/index.html`: add `href="..."` to the two noren `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
 | CV | replace `assets/cv/kevin-jg-cv.pdf`, keeping the file name |
 | LinkedIn | `qa/index.html`: uncomment the LinkedIn block in the contact list |
 | Share images | `assets/og/og-gate.jpg` and `og-art.jpg`. Sources are in `assets/src/` (see below) |
@@ -124,6 +138,7 @@ Key elements carry `data-testid` attributes:
 - Switcher: `lang-switcher`, `lang-option-en`, `lang-option-id`, `lang-option-ja`
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
+- Atelier: `art-tile-1` to `art-tile-6`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 
 The door logic and the language logic are small named functions exposed on `window.gate` and `window.i18n`, so they can be called directly from a test.

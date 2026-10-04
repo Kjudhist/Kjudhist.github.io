@@ -39,8 +39,26 @@
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/art.js" defer></script>
 </head>
 <body class="art">
+  <!-- The page arrives through spreading ink. Only shown when JS can lift it again. -->
+  <svg class="bloom" aria-hidden="true" focusable="false" data-bloom>
+    <defs>
+      <filter id="bloom-edge" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency=".012" numOctaves="3" seed="4"/>
+        <feDisplacementMap in="SourceGraphic" scale="90"/>
+      </filter>
+      <mask id="bloom-mask">
+        <rect width="100%" height="100%" fill="#fff"/>
+        <circle cx="34%" cy="58%" r="0" fill="#000" filter="url(#bloom-edge)">
+          <animate attributeName="r" from="0%" to="95%" dur="2.4s" begin="indefinite" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines=".55 0 .2 1"/>
+        </circle>
+      </mask>
+    </defs>
+    <rect width="100%" height="100%" fill="#0f1626" mask="url(#bloom-mask)"/>
+  </svg>
+
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
@@ -70,162 +88,248 @@
 
   <main id="main">
 
-    <!-- Hero: dusk, a moon, willow hanging in from the right -->
-    <section class="art-hero" id="top" data-testid="section-hero">
+    <!-- Hero: a night garden. Moon, clouds, hills, a pond, willow, and whatever the season brings. -->
+    <section class="art-hero" id="top" data-testid="section-hero" data-hero>
       <div class="art-hero__sky" aria-hidden="true">
-        <span class="art-hero__moon"></span>
+        <span class="art-hero__stars"></span>
+        <span class="art-hero__stars art-hero__stars--b"></span>
+        <span class="art-hero__moon" data-depth=".12"></span>
+        <span class="art-hero__cloud art-hero__cloud--1"></span>
+        <span class="art-hero__cloud art-hero__cloud--2"></span>
+        <span class="art-hero__cloud art-hero__cloud--3"></span>
       </div>
-      <!-- willow:start -->
-      <svg class="willow" viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" focusable="false">
-        <g class="willow__back" fill="none" stroke="currentColor" stroke-linecap="round"><path class="" d="M1430.3 113.8C1425.3 283.2 1365.7 462.2 1312.8 597.7" stroke-width="1.5" opacity="0.5"/><path d="M1430.3 113.8C1425.3 283.2 1365.7 462.2 1312.8 597.7" stroke-width="4.1" opacity="0.4" stroke-dasharray="4 7 6 10 3 8"/><path class="" d="M1411.6 112C1419.1 182.4 1384.9 256.9 1363.1 313.2" stroke-width="0.9" opacity="0.3"/><path d="M1411.6 112C1419.1 182.4 1384.9 256.9 1363.1 313.2" stroke-width="3.5" opacity="0.2" stroke-dasharray="5 9 3 7 6 11"/><path class="" d="M1389.4 111.5C1382.3 221.4 1337.3 337.6 1294.6 425.5" stroke-width="1.4" opacity="0.4"/><path d="M1389.4 111.5C1382.3 221.4 1337.3 337.6 1294.6 425.5" stroke-width="4" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/><path class="" d="M1382.6 111.6C1370.1 247.3 1306.9 390.7 1244.9 499.2" stroke-width="0.9" opacity="0.3"/><path d="M1382.6 111.6C1370.1 247.3 1306.9 390.7 1244.9 499.2" stroke-width="3.5" opacity="0.2" stroke-dasharray="6 10 4 8 5 7"/><path class="" d="M1347.6 113.8C1347.5 285.4 1314.7 466.8 1287.7 604.1" stroke-width="0.9" opacity="0.4"/><path d="M1347.6 113.8C1347.5 285.4 1314.7 466.8 1287.7 604.1" stroke-width="3.5" opacity="0.3" stroke-dasharray="4 7 6 10 3 8"/><path class="" d="M1331.3 115.5C1339.5 265.5 1304.7 424 1282.9 544" stroke-width="1" opacity="0.4"/><path d="M1331.3 115.5C1339.5 265.5 1304.7 424 1282.9 544" stroke-width="3.6" opacity="0.3" stroke-dasharray="5 9 3 7 6 11"/><path class="" d="M1301.1 119.4C1307.6 194.8 1273.6 274.5 1251.1 334.9" stroke-width="1.5" opacity="0.3"/><path d="M1301.1 119.4C1307.6 194.8 1273.6 274.5 1251.1 334.9" stroke-width="4.1" opacity="0.2" stroke-dasharray="3 8 5 6 4 12"/><path class="" d="M1277.8 122.8C1265.7 287.6 1241.8 461.7 1212.4 593.5" stroke-width="0.9" opacity="0.5"/><path d="M1277.8 122.8C1265.7 287.6 1241.8 461.7 1212.4 593.5" stroke-width="3.5" opacity="0.4" stroke-dasharray="6 10 4 8 5 7"/><path class="" d="M1257.4 126C1244.6 233.9 1209.6 348 1170.5 434.3" stroke-width="1.2" opacity="0.4"/><path d="M1257.4 126C1244.6 233.9 1209.6 348 1170.5 434.3" stroke-width="3.8" opacity="0.3" stroke-dasharray="4 7 6 10 3 8"/><path class="" d="M1232.9 129.9C1223 223.8 1171.5 323 1121.3 398.1" stroke-width="1" opacity="0.3"/><path d="M1232.9 129.9C1223 223.8 1171.5 323 1121.3 398.1" stroke-width="3.6" opacity="0.2" stroke-dasharray="5 9 3 7 6 11"/><path class="" d="M1208.4 133.6C1221.6 208.2 1189.9 287 1174.7 346.6" stroke-width="1.5" opacity="0.4"/><path d="M1208.4 133.6C1221.6 208.2 1189.9 287 1174.7 346.6" stroke-width="4.1" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/><path class="" d="M1191.6 136C1192.1 309.6 1164.8 493.2 1142.8 632.1" stroke-width="0.9" opacity="0.4"/><path d="M1191.6 136C1192.1 309.6 1164.8 493.2 1142.8 632.1" stroke-width="3.5" opacity="0.3" stroke-dasharray="6 10 4 8 5 7"/><path class="" d="M1167.4 138.8C1169.5 333 1146.7 538.4 1129.7 693.7" stroke-width="1.1" opacity="0.3"/><path d="M1167.4 138.8C1169.5 333 1146.7 538.4 1129.7 693.7" stroke-width="3.7" opacity="0.2" stroke-dasharray="4 7 6 10 3 8"/><path class="" d="M1143.3 140.6C1136.8 250.7 1117.4 367.1 1096.2 455.2" stroke-width="1.1" opacity="0.4"/><path d="M1143.3 140.6C1136.8 250.7 1117.4 367.1 1096.2 455.2" stroke-width="3.7" opacity="0.3" stroke-dasharray="5 9 3 7 6 11"/><path class="" d="M1125 141.1C1131.2 338.4 1061.7 547 1009.9 704.9" stroke-width="1.5" opacity="0.4"/><path d="M1125 141.1C1131.2 338.4 1061.7 547 1009.9 704.9" stroke-width="4.1" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/><path class="" d="M1107.9 140.6C1105 311.8 1072.8 492.7 1044 629.6" stroke-width="1.3" opacity="0.3"/><path d="M1107.9 140.6C1105 311.8 1072.8 492.7 1044 629.6" stroke-width="3.9" opacity="0.2" stroke-dasharray="6 10 4 8 5 7"/></g>
-        <g class="willow__front" fill="none" stroke="currentColor" stroke-linecap="round">
-          <path d="M1500 26C1300 -14 1060 96 800 56" stroke-width="7" opacity=".95"/>
-          <path d="M1150 62C1090 110 1010 150 930 150" stroke-width="3" opacity=".9"/>
-          <g class="willow__sway willow__sway--a"><path class="willow__strand" d="M1475.6 21.9C1481.6 124.2 1400 232.3 1338.2 314.1" stroke-width="1.6" opacity="0.7"/><path d="M1475.6 21.9C1481.6 124.2 1400 232.3 1338.2 314.1" stroke-width="4.2" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1411.4 17.2C1422.8 286.1 1380 570.5 1354.2 785.7" stroke-width="1.2" opacity="0.6"/><path d="M1411.4 17.2C1422.8 286.1 1380 570.5 1354.2 785.7" stroke-width="3.8" opacity="0.5" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1340.7 19.6C1336.4 117.9 1313.6 221.8 1291.5 300.4" stroke-width="1.5" opacity="0.6"/><path d="M1340.7 19.6C1336.4 117.9 1313.6 221.8 1291.5 300.4" stroke-width="4.1" opacity="0.5" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1275.2 26.4C1279.2 176.1 1247.2 334.3 1224.3 454" stroke-width="1.4" opacity="0.6"/><path d="M1275.2 26.4C1279.2 176.1 1247.2 334.3 1224.3 454" stroke-width="4" opacity="0.5" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1215 34.7C1216.5 301.1 1140 582.8 1078.6 795.9" stroke-width="1.9" opacity="0.6"/><path d="M1215 34.7C1216.5 301.1 1140 582.8 1078.6 795.9" stroke-width="4.5" opacity="0.5" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1152.7 43.9C1138.4 178 1135.6 319.8 1121.7 427.1" stroke-width="2" opacity="0.9"/><path d="M1152.7 43.9C1138.4 178 1135.6 319.8 1121.7 427.1" stroke-width="4.6" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1087 53C1089 325 1039.8 612.5 1001.2 830" stroke-width="1.2" opacity="0.7"/><path d="M1087 53C1089 325 1039.8 612.5 1001.2 830" stroke-width="3.8" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1004.1 61.6C1005.7 308 976.1 568.5 953.2 765.7" stroke-width="1.5" opacity="0.8"/><path d="M1004.1 61.6C1005.7 308 976.1 568.5 953.2 765.7" stroke-width="4.1" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M944 64.7C951 229.4 897.3 403.5 859.1 535.3" stroke-width="1.4" opacity="0.7"/><path d="M944 64.7C951 229.4 897.3 403.5 859.1 535.3" stroke-width="4" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M858 62.6C855.9 304.2 794.7 559.6 742.8 752.8" stroke-width="1.4" opacity="0.9"/><path d="M858 62.6C855.9 304.2 794.7 559.6 742.8 752.8" stroke-width="4" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1123.4 81.8C1123.3 352.2 1056.1 638.1 1000.9 854.5" stroke-width="1.5" opacity="0.8"/><path d="M1123.4 81.8C1123.3 352.2 1056.1 638.1 1000.9 854.5" stroke-width="4.1" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1064.7 116.2C1057.5 382.7 1029 664.5 999.8 877.8" stroke-width="1.1" opacity="0.8"/><path d="M1064.7 116.2C1057.5 382.7 1029 664.5 999.8 877.8" stroke-width="3.7" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1003.3 139.6C996.4 343.7 950.8 559.5 907.9 722.7" stroke-width="1.9" opacity="0.7"/><path d="M1003.3 139.6C996.4 343.7 950.8 559.5 907.9 722.7" stroke-width="4.5" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M935.9 149.9C948.1 397 887.3 658.1 847.6 855.7" stroke-width="1.3" opacity="0.7"/><path d="M935.9 149.9C948.1 397 887.3 658.1 847.6 855.7" stroke-width="3.9" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__sway willow__sway--b"><path class="willow__strand" d="M1448.8 18.9C1455.7 153.6 1398.8 295.9 1357.9 403.7" stroke-width="1.3" opacity="0.6"/><path d="M1448.8 18.9C1455.7 153.6 1398.8 295.9 1357.9 403.7" stroke-width="3.9" opacity="0.5" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1393.4 17.1C1401.2 161.1 1343.7 313.3 1303.1 428.4" stroke-width="1.1" opacity="0.9"/><path d="M1393.4 17.1C1401.2 161.1 1343.7 313.3 1303.1 428.4" stroke-width="3.7" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1332.1 20.3C1329.9 251.1 1293.3 495 1261.5 679.7" stroke-width="1.5" opacity="0.9"/><path d="M1332.1 20.3C1329.9 251.1 1293.3 495 1261.5 679.7" stroke-width="4.1" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1257.5 28.7C1267.3 287.4 1207.8 560.9 1167.2 767.8" stroke-width="1.7" opacity="0.9"/><path d="M1257.5 28.7C1267.3 287.4 1207.8 560.9 1167.2 767.8" stroke-width="4.3" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1194.1 37.8C1195.6 188.5 1133.8 347.8 1084.5 468.4" stroke-width="1.8" opacity="0.9"/><path d="M1194.1 37.8C1195.6 188.5 1133.8 347.8 1084.5 468.4" stroke-width="4.4" opacity="0.7" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1124 48.1C1126.9 141.7 1070.1 240.7 1026 315.5" stroke-width="1.8" opacity="0.9"/><path d="M1124 48.1C1126.9 141.7 1070.1 240.7 1026 315.5" stroke-width="4.4" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1062.3 56C1069.4 295.1 993.7 547.8 937.5 739.1" stroke-width="1.7" opacity="0.9"/><path d="M1062.3 56C1069.4 295.1 993.7 547.8 937.5 739.1" stroke-width="4.3" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M992 62.5C991.3 199.1 948.9 343.5 913.7 452.8" stroke-width="1.2" opacity="0.6"/><path d="M992 62.5C991.3 199.1 948.9 343.5 913.7 452.8" stroke-width="3.8" opacity="0.5" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M907.8 64.8C908.7 285.2 842.9 518.1 789.8 694.4" stroke-width="1.9" opacity="0.7"/><path d="M907.8 64.8C908.7 285.2 842.9 518.1 789.8 694.4" stroke-width="4.5" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M844.7 61.5C854.6 218.3 799.3 384 762.2 509.4" stroke-width="1.4" opacity="0.9"/><path d="M844.7 61.5C854.6 218.3 799.3 384 762.2 509.4" stroke-width="4" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1100.1 96.9C1090 288.1 1043.8 490.2 997.8 643.2" stroke-width="1.8" opacity="0.7"/><path d="M1100.1 96.9C1090 288.1 1043.8 490.2 997.8 643.2" stroke-width="4.4" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1041.5 126.5C1055.4 360.2 974.8 607.3 920.3 794.3" stroke-width="1.2" opacity="0.9"/><path d="M1041.5 126.5C1055.4 360.2 974.8 607.3 920.3 794.3" stroke-width="3.8" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M992 142.5C993.8 365 947.5 600.2 911 778.2" stroke-width="1.6" opacity="0.9"/><path d="M992 142.5C993.8 365 947.5 600.2 911 778.2" stroke-width="4.2" opacity="0.7" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__sway willow__sway--c"><path class="willow__strand" d="M1424.1 17.5C1420.1 202.8 1395.6 398.8 1372.4 547" stroke-width="1.3" opacity="0.8"/><path d="M1424.1 17.5C1420.1 202.8 1395.6 398.8 1372.4 547" stroke-width="3.9" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1366.2 18C1380.2 222.1 1308.5 437.9 1261.4 601.2" stroke-width="1.7" opacity="0.9"/><path d="M1366.2 18C1380.2 222.1 1308.5 437.9 1261.4 601.2" stroke-width="4.3" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1300.4 23.4C1296.1 239.7 1263.9 468.3 1234 641.3" stroke-width="1.2" opacity="0.6"/><path d="M1300.4 23.4C1296.1 239.7 1263.9 468.3 1234 641.3" stroke-width="3.8" opacity="0.5" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1245.5 30.3C1257.2 217.8 1189.7 415.9 1144.1 565.9" stroke-width="2.1" opacity="0.9"/><path d="M1245.5 30.3C1257.2 217.8 1189.7 415.9 1144.1 565.9" stroke-width="4.7" opacity="0.7" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M1170.9 41.2C1175.2 282.1 1128.4 536.6 1093.6 729.3" stroke-width="1.8" opacity="0.8"/><path d="M1170.9 41.2C1175.2 282.1 1128.4 536.6 1093.6 729.3" stroke-width="4.4" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M1107.5 50.3C1116.7 320.8 1051.7 606.8 1006 823.2" stroke-width="1.7" opacity="0.9"/><path d="M1107.5 50.3C1116.7 320.8 1051.7 606.8 1006 823.2" stroke-width="4.3" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1031.3 59.3C1031 284.3 957 522.2 896.2 702.2" stroke-width="1.3" opacity="0.8"/><path d="M1031.3 59.3C1031 284.3 957 522.2 896.2 702.2" stroke-width="3.9" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M968.2 63.8C979.4 159.2 945.2 260.1 926.4 336.4" stroke-width="2.1" opacity="0.6"/><path d="M968.2 63.8C979.4 159.2 945.2 260.1 926.4 336.4" stroke-width="4.7" opacity="0.5" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M887.8 64.3C896.1 208.5 839.4 361 799.8 476.4" stroke-width="1.1" opacity="0.7"/><path d="M887.8 64.3C896.1 208.5 839.4 361 799.8 476.4" stroke-width="3.7" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/><path class="willow__strand" d="M813.9 58C815 228.4 776.9 408.6 746.7 544.9" stroke-width="1.3" opacity="0.9"/><path d="M813.9 58C815 228.4 776.9 408.6 746.7 544.9" stroke-width="3.9" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/><path class="willow__strand" d="M1086.1 105C1079.9 351.8 1046.4 612.7 1013.9 810.2" stroke-width="1.1" opacity="0.8"/><path d="M1086.1 105C1079.9 351.8 1046.4 612.7 1013.9 810.2" stroke-width="3.7" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/><path class="willow__strand" d="M1031.5 130.4C1037.9 319.4 991.4 519.2 958.5 670.4" stroke-width="1.8" opacity="0.8"/><path d="M1031.5 130.4C1037.9 319.4 991.4 519.2 958.5 670.4" stroke-width="4.4" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/><path class="willow__strand" d="M956.7 148.6C950.3 267.5 934 393.1 915.5 488.3" stroke-width="1.6" opacity="0.7"/><path d="M956.7 148.6C950.3 267.5 934 393.1 915.5 488.3" stroke-width="4.2" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/></g>
-        </g>
-      </svg>
-      <!-- willow:end -->
-      <div class="art-hero__mist" aria-hidden="true"></div>
 
-      <div class="art-hero__text wrap">
-        <p class="art-hero__mark" lang="ja" aria-hidden="true">柳</p>
+      <div class="art-hero__land" aria-hidden="true" data-depth=".25">
+        <!-- hills:start -->
+        <svg class="art-hero__hills" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path class="art-hero__hill art-hero__hill--far" d="M0 220L0 90L11.3 88.9L22.5 85.4L33.8 85.2L45 82.9L56.3 83.1L67.5 83.1L78.8 85L90 86.3L101.3 85.2L112.5 85.7L123.8 82.7L135 79.2L146.3 76.9L157.5 71.8L168.8 70.2L180 70.4L191.3 66.6L202.5 63.7L213.8 63.5L225 62.5L236.3 61.4L247.5 61L258.8 60.1L270 61.9L281.3 60.2L292.5 58.9L303.8 57.6L315 53.7L326.3 54.3L337.5 52.2L348.8 50.4L360 47.3L371.3 46.6L382.5 47.3L393.8 51.3L405 52.9L416.3 52.6L427.5 49.9L438.8 48.8L450 48.4L461.3 46.1L472.5 42.6L483.8 40.6L495 41.3L506.3 38.8L517.5 34.7L528.8 33.6L540 30.9L551.3 27.5L562.5 26.7L573.8 25.6L585 24.2L596.3 23.6L607.5 25.9L618.8 25.7L630 24.5L641.3 23.3L652.5 22L663.8 18.5L675 13.6L686.3 12.9L697.5 10.5L708.8 12.3L720 13.4L731.3 15.9L742.5 15.8L753.8 17.6L765 22.2L776.3 21.4L787.5 23L798.8 23.7L810 22L821.3 22.1L832.5 20.5L843.8 21.8L855 23.5L866.3 23.1L877.5 21.8L888.8 19.7L900 19.5L911.3 22.4L922.5 24.4L933.8 26.4L945 31.6L956.3 29.3L967.5 30.4L978.8 31.8L990 34.9L1001.3 38.1L1012.5 42.8L1023.8 44.6L1035 48.4L1046.3 50.6L1057.5 51L1068.8 52.1L1080 56.2L1091.3 53.3L1102.5 52.9L1113.8 50.9L1125 47.1L1136.3 45.4L1147.5 44.7L1158.8 44.2L1170 42.7L1181.3 46.5L1192.5 47.4L1203.8 46L1215 47.1L1226.3 47.2L1237.5 45.8L1248.8 46.7L1260 48.8L1271.3 48.8L1282.5 48.4L1293.8 51L1305 52.5L1316.3 54.4L1327.5 53.6L1338.8 55.5L1350 57.6L1361.3 58.1L1372.5 60.4L1383.8 58.4L1395 59L1406.3 56.2L1417.5 56L1428.8 55.5L1440 55.7L1440 220Z"/>
+          <path class="art-hero__hill art-hero__hill--near" d="M0 220L0 150L11.3 149.1L22.5 147.9L33.8 146.4L45 144.2L56.3 143.2L67.5 143.3L78.8 142.7L90 141.7L101.3 141.4L112.5 141.9L123.8 141.5L135 141.4L146.3 140.8L157.5 140.5L168.8 141L180 141.7L191.3 142.2L202.5 143.7L213.8 145.1L225 145.6L236.3 146.7L247.5 146.7L258.8 146.6L270 147.4L281.3 148.2L292.5 148.6L303.8 149L315 150.6L326.3 150.6L337.5 151L348.8 150.9L360 150.7L371.3 150L382.5 150.6L393.8 151.3L405 152.5L416.3 151.2L427.5 151L438.8 150.1L450 149.9L461.3 150.3L472.5 151.9L483.8 152.5L495 153.4L506.3 154.3L517.5 154.3L528.8 154.7L540 155.3L551.3 153.1L562.5 152.1L573.8 151.4L585 151.3L596.3 151.4L607.5 151.9L618.8 150.9L630 150.2L641.3 150.7L652.5 152.3L663.8 153.6L675 154.3L686.3 154.3L697.5 153.1L708.8 153.4L720 153.6L731.3 154L742.5 154.4L753.8 155.4L765 157L776.3 158.5L787.5 160.9L798.8 163.4L810 164.8L821.3 164.8L832.5 164.2L843.8 165L855 166.2L866.3 166.4L877.5 166.6L888.8 167.6L900 168.3L911.3 168.8L922.5 170.1L933.8 171L945 171.9L956.3 173.8L967.5 175.6L978.8 177.2L990 178.7L1001.3 180.6L1012.5 181.4L1023.8 181.4L1035 181.8L1046.3 180.9L1057.5 180.1L1068.8 181.1L1080 180.9L1091.3 179.6L1102.5 178.8L1113.8 178.8L1125 177.6L1136.3 177.3L1147.5 176L1158.8 174.2L1170 173.2L1181.3 173.5L1192.5 173.9L1203.8 174L1215 172.8L1226.3 173.3L1237.5 173.6L1248.8 173.6L1260 172.7L1271.3 174.1L1282.5 174.2L1293.8 174.7L1305 174L1316.3 174.6L1327.5 176L1338.8 176.1L1350 176.4L1361.3 175.7L1372.5 174.2L1383.8 174.3L1395 174.1L1406.3 174.4L1417.5 174.7L1428.8 175.7L1440 175.9L1440 220Z"/>
+        </svg>
+        <!-- hills:end -->
+        <span class="art-hero__mist"></span>
+      </div>
+
+      <div class="art-hero__pond" aria-hidden="true" data-pond>
+        <span class="art-hero__reflection"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+
+      <div class="art-hero__willow" aria-hidden="true" data-depth=".55">
+        <!-- willow:start -->
+        <svg class="willow" viewBox="0 0 1440 900" preserveAspectRatio="xMaxYMin slice" aria-hidden="true" focusable="false" data-willow>
+          <g class="willow__back" fill="none" stroke="currentColor" stroke-linecap="round"><g class="willow__strand" data-x="1430.3" data-y="113.8" data-dx="-117.5" data-len="483.9"><path d="M1430.3 113.8C1425.3 283.2 1365.7 462.2 1312.8 597.7" stroke-width="1.5" opacity="0.5"/><path d="M1430.3 113.8C1425.3 283.2 1365.7 462.2 1312.8 597.7" stroke-width="4.1" opacity="0.4" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1411.6" data-y="112" data-dx="-48.4" data-len="201.1"><path d="M1411.6 112C1419.1 182.4 1384.9 256.9 1363.1 313.2" stroke-width="0.9" opacity="0.3"/><path d="M1411.6 112C1419.1 182.4 1384.9 256.9 1363.1 313.2" stroke-width="3.5" opacity="0.2" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1389.4" data-y="111.5" data-dx="-94.8" data-len="313.9"><path d="M1389.4 111.5C1382.3 221.4 1337.3 337.6 1294.6 425.5" stroke-width="1.4" opacity="0.4"/><path d="M1389.4 111.5C1382.3 221.4 1337.3 337.6 1294.6 425.5" stroke-width="4" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1382.6" data-y="111.6" data-dx="-137.7" data-len="387.6"><path d="M1382.6 111.6C1370.1 247.3 1306.9 390.7 1244.9 499.2" stroke-width="0.9" opacity="0.3"/><path d="M1382.6 111.6C1370.1 247.3 1306.9 390.7 1244.9 499.2" stroke-width="3.5" opacity="0.2" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1347.6" data-y="113.8" data-dx="-59.9" data-len="490.4"><path d="M1347.6 113.8C1347.5 285.4 1314.7 466.8 1287.7 604.1" stroke-width="0.9" opacity="0.4"/><path d="M1347.6 113.8C1347.5 285.4 1314.7 466.8 1287.7 604.1" stroke-width="3.5" opacity="0.3" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1331.3" data-y="115.5" data-dx="-48.5" data-len="428.6"><path d="M1331.3 115.5C1339.5 265.5 1304.7 424 1282.9 544" stroke-width="1" opacity="0.4"/><path d="M1331.3 115.5C1339.5 265.5 1304.7 424 1282.9 544" stroke-width="3.6" opacity="0.3" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1301.1" data-y="119.4" data-dx="-50" data-len="215.5"><path d="M1301.1 119.4C1307.6 194.8 1273.6 274.5 1251.1 334.9" stroke-width="1.5" opacity="0.3"/><path d="M1301.1 119.4C1307.6 194.8 1273.6 274.5 1251.1 334.9" stroke-width="4.1" opacity="0.2" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1277.8" data-y="122.8" data-dx="-65.5" data-len="470.6"><path d="M1277.8 122.8C1265.7 287.6 1241.8 461.7 1212.4 593.5" stroke-width="0.9" opacity="0.5"/><path d="M1277.8 122.8C1265.7 287.6 1241.8 461.7 1212.4 593.5" stroke-width="3.5" opacity="0.4" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1257.4" data-y="126" data-dx="-87" data-len="308.3"><path d="M1257.4 126C1244.6 233.9 1209.6 348 1170.5 434.3" stroke-width="1.2" opacity="0.4"/><path d="M1257.4 126C1244.6 233.9 1209.6 348 1170.5 434.3" stroke-width="3.8" opacity="0.3" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1232.9" data-y="129.9" data-dx="-111.5" data-len="268.2"><path d="M1232.9 129.9C1223 223.8 1171.5 323 1121.3 398.1" stroke-width="1" opacity="0.3"/><path d="M1232.9 129.9C1223 223.8 1171.5 323 1121.3 398.1" stroke-width="3.6" opacity="0.2" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1208.4" data-y="133.6" data-dx="-33.7" data-len="212.9"><path d="M1208.4 133.6C1221.6 208.2 1189.9 287 1174.7 346.6" stroke-width="1.5" opacity="0.4"/><path d="M1208.4 133.6C1221.6 208.2 1189.9 287 1174.7 346.6" stroke-width="4.1" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1191.6" data-y="136" data-dx="-48.8" data-len="496.1"><path d="M1191.6 136C1192.1 309.6 1164.8 493.2 1142.8 632.1" stroke-width="0.9" opacity="0.4"/><path d="M1191.6 136C1192.1 309.6 1164.8 493.2 1142.8 632.1" stroke-width="3.5" opacity="0.3" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1167.4" data-y="138.8" data-dx="-37.7" data-len="555"><path d="M1167.4 138.8C1169.5 333 1146.7 538.4 1129.7 693.7" stroke-width="1.1" opacity="0.3"/><path d="M1167.4 138.8C1169.5 333 1146.7 538.4 1129.7 693.7" stroke-width="3.7" opacity="0.2" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1143.3" data-y="140.6" data-dx="-47.1" data-len="314.6"><path d="M1143.3 140.6C1136.8 250.7 1117.4 367.1 1096.2 455.2" stroke-width="1.1" opacity="0.4"/><path d="M1143.3 140.6C1136.8 250.7 1117.4 367.1 1096.2 455.2" stroke-width="3.7" opacity="0.3" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1125" data-y="141.1" data-dx="-115.1" data-len="563.7"><path d="M1125 141.1C1131.2 338.4 1061.7 547 1009.9 704.9" stroke-width="1.5" opacity="0.4"/><path d="M1125 141.1C1131.2 338.4 1061.7 547 1009.9 704.9" stroke-width="4.1" opacity="0.3" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1107.9" data-y="140.6" data-dx="-64" data-len="489"><path d="M1107.9 140.6C1105 311.8 1072.8 492.7 1044 629.6" stroke-width="1.3" opacity="0.3"/><path d="M1107.9 140.6C1105 311.8 1072.8 492.7 1044 629.6" stroke-width="3.9" opacity="0.2" stroke-dasharray="6 10 4 8 5 7"/></g></g>
+          <g class="willow__front" fill="none" stroke="currentColor" stroke-linecap="round">
+            <path d="M1500 26C1300 -14 1060 96 800 56" stroke-width="7" opacity=".95"/>
+            <path d="M1150 62C1090 110 1010 150 930 150" stroke-width="3" opacity=".9"/>
+            <g class="willow__sway willow__sway--a"><g class="willow__strand" data-x="1475.6" data-y="21.9" data-dx="-137.5" data-len="292.2"><path d="M1475.6 21.9C1481.6 124.2 1400 232.3 1338.2 314.1" stroke-width="1.6" opacity="0.7"/><path d="M1475.6 21.9C1481.6 124.2 1400 232.3 1338.2 314.1" stroke-width="4.2" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1411.4" data-y="17.2" data-dx="-57.2" data-len="768.5"><path d="M1411.4 17.2C1422.8 286.1 1380 570.5 1354.2 785.7" stroke-width="1.2" opacity="0.6"/><path d="M1411.4 17.2C1422.8 286.1 1380 570.5 1354.2 785.7" stroke-width="3.8" opacity="0.5" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1340.7" data-y="19.6" data-dx="-49.2" data-len="280.8"><path d="M1340.7 19.6C1336.4 117.9 1313.6 221.8 1291.5 300.4" stroke-width="1.5" opacity="0.6"/><path d="M1340.7 19.6C1336.4 117.9 1313.6 221.8 1291.5 300.4" stroke-width="4.1" opacity="0.5" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1275.2" data-y="26.4" data-dx="-50.9" data-len="427.7"><path d="M1275.2 26.4C1279.2 176.1 1247.2 334.3 1224.3 454" stroke-width="1.4" opacity="0.6"/><path d="M1275.2 26.4C1279.2 176.1 1247.2 334.3 1224.3 454" stroke-width="4" opacity="0.5" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1215" data-y="34.7" data-dx="-136.4" data-len="761.2"><path d="M1215 34.7C1216.5 301.1 1140 582.8 1078.6 795.9" stroke-width="1.9" opacity="0.6"/><path d="M1215 34.7C1216.5 301.1 1140 582.8 1078.6 795.9" stroke-width="4.5" opacity="0.5" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1152.7" data-y="43.9" data-dx="-31" data-len="383.2"><path d="M1152.7 43.9C1138.4 178 1135.6 319.8 1121.7 427.1" stroke-width="2" opacity="0.9"/><path d="M1152.7 43.9C1138.4 178 1135.6 319.8 1121.7 427.1" stroke-width="4.6" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1087" data-y="53" data-dx="-85.8" data-len="777"><path d="M1087 53C1089 325 1039.8 612.5 1001.2 830" stroke-width="1.2" opacity="0.7"/><path d="M1087 53C1089 325 1039.8 612.5 1001.2 830" stroke-width="3.8" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1004.1" data-y="61.6" data-dx="-50.9" data-len="704"><path d="M1004.1 61.6C1005.7 308 976.1 568.5 953.2 765.7" stroke-width="1.5" opacity="0.8"/><path d="M1004.1 61.6C1005.7 308 976.1 568.5 953.2 765.7" stroke-width="4.1" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="944" data-y="64.7" data-dx="-84.9" data-len="470.6"><path d="M944 64.7C951 229.4 897.3 403.5 859.1 535.3" stroke-width="1.4" opacity="0.7"/><path d="M944 64.7C951 229.4 897.3 403.5 859.1 535.3" stroke-width="4" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="858" data-y="62.6" data-dx="-115.2" data-len="690.2"><path d="M858 62.6C855.9 304.2 794.7 559.6 742.8 752.8" stroke-width="1.4" opacity="0.9"/><path d="M858 62.6C855.9 304.2 794.7 559.6 742.8 752.8" stroke-width="4" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1123.4" data-y="81.8" data-dx="-122.5" data-len="772.7"><path d="M1123.4 81.8C1123.3 352.2 1056.1 638.1 1000.9 854.5" stroke-width="1.5" opacity="0.8"/><path d="M1123.4 81.8C1123.3 352.2 1056.1 638.1 1000.9 854.5" stroke-width="4.1" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1064.7" data-y="116.2" data-dx="-64.9" data-len="761.6"><path d="M1064.7 116.2C1057.5 382.7 1029 664.5 999.8 877.8" stroke-width="1.1" opacity="0.8"/><path d="M1064.7 116.2C1057.5 382.7 1029 664.5 999.8 877.8" stroke-width="3.7" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1003.3" data-y="139.6" data-dx="-95.4" data-len="583.2"><path d="M1003.3 139.6C996.4 343.7 950.8 559.5 907.9 722.7" stroke-width="1.9" opacity="0.7"/><path d="M1003.3 139.6C996.4 343.7 950.8 559.5 907.9 722.7" stroke-width="4.5" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="935.9" data-y="149.9" data-dx="-88.3" data-len="705.8"><path d="M935.9 149.9C948.1 397 887.3 658.1 847.6 855.7" stroke-width="1.3" opacity="0.7"/><path d="M935.9 149.9C948.1 397 887.3 658.1 847.6 855.7" stroke-width="3.9" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/></g></g>
+            <g class="willow__sway willow__sway--b"><g class="willow__strand" data-x="1448.8" data-y="18.9" data-dx="-90.9" data-len="384.8"><path d="M1448.8 18.9C1455.7 153.6 1398.8 295.9 1357.9 403.7" stroke-width="1.3" opacity="0.6"/><path d="M1448.8 18.9C1455.7 153.6 1398.8 295.9 1357.9 403.7" stroke-width="3.9" opacity="0.5" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1393.4" data-y="17.1" data-dx="-90.3" data-len="411.3"><path d="M1393.4 17.1C1401.2 161.1 1343.7 313.3 1303.1 428.4" stroke-width="1.1" opacity="0.9"/><path d="M1393.4 17.1C1401.2 161.1 1343.7 313.3 1303.1 428.4" stroke-width="3.7" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1332.1" data-y="20.3" data-dx="-70.6" data-len="659.4"><path d="M1332.1 20.3C1329.9 251.1 1293.3 495 1261.5 679.7" stroke-width="1.5" opacity="0.9"/><path d="M1332.1 20.3C1329.9 251.1 1293.3 495 1261.5 679.7" stroke-width="4.1" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1257.5" data-y="28.7" data-dx="-90.3" data-len="739.1"><path d="M1257.5 28.7C1267.3 287.4 1207.8 560.9 1167.2 767.8" stroke-width="1.7" opacity="0.9"/><path d="M1257.5 28.7C1267.3 287.4 1207.8 560.9 1167.2 767.8" stroke-width="4.3" opacity="0.7" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1194.1" data-y="37.8" data-dx="-109.7" data-len="430.6"><path d="M1194.1 37.8C1195.6 188.5 1133.8 347.8 1084.5 468.4" stroke-width="1.8" opacity="0.9"/><path d="M1194.1 37.8C1195.6 188.5 1133.8 347.8 1084.5 468.4" stroke-width="4.4" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1124" data-y="48.1" data-dx="-98.1" data-len="267.5"><path d="M1124 48.1C1126.9 141.7 1070.1 240.7 1026 315.5" stroke-width="1.8" opacity="0.9"/><path d="M1124 48.1C1126.9 141.7 1070.1 240.7 1026 315.5" stroke-width="4.4" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1062.3" data-y="56" data-dx="-124.8" data-len="683"><path d="M1062.3 56C1069.4 295.1 993.7 547.8 937.5 739.1" stroke-width="1.7" opacity="0.9"/><path d="M1062.3 56C1069.4 295.1 993.7 547.8 937.5 739.1" stroke-width="4.3" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="992" data-y="62.5" data-dx="-78.3" data-len="390.3"><path d="M992 62.5C991.3 199.1 948.9 343.5 913.7 452.8" stroke-width="1.2" opacity="0.6"/><path d="M992 62.5C991.3 199.1 948.9 343.5 913.7 452.8" stroke-width="3.8" opacity="0.5" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="907.8" data-y="64.8" data-dx="-118" data-len="629.6"><path d="M907.8 64.8C908.7 285.2 842.9 518.1 789.8 694.4" stroke-width="1.9" opacity="0.7"/><path d="M907.8 64.8C908.7 285.2 842.9 518.1 789.8 694.4" stroke-width="4.5" opacity="0.6" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="844.7" data-y="61.5" data-dx="-82.5" data-len="447.9"><path d="M844.7 61.5C854.6 218.3 799.3 384 762.2 509.4" stroke-width="1.4" opacity="0.9"/><path d="M844.7 61.5C854.6 218.3 799.3 384 762.2 509.4" stroke-width="4" opacity="0.7" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1100.1" data-y="96.9" data-dx="-102.3" data-len="546.3"><path d="M1100.1 96.9C1090 288.1 1043.8 490.2 997.8 643.2" stroke-width="1.8" opacity="0.7"/><path d="M1100.1 96.9C1090 288.1 1043.8 490.2 997.8 643.2" stroke-width="4.4" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1041.5" data-y="126.5" data-dx="-121.2" data-len="667.8"><path d="M1041.5 126.5C1055.4 360.2 974.8 607.3 920.3 794.3" stroke-width="1.2" opacity="0.9"/><path d="M1041.5 126.5C1055.4 360.2 974.8 607.3 920.3 794.3" stroke-width="3.8" opacity="0.7" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="992" data-y="142.5" data-dx="-81" data-len="635.7"><path d="M992 142.5C993.8 365 947.5 600.2 911 778.2" stroke-width="1.6" opacity="0.9"/><path d="M992 142.5C993.8 365 947.5 600.2 911 778.2" stroke-width="4.2" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/></g></g>
+            <g class="willow__sway willow__sway--c"><g class="willow__strand" data-x="1424.1" data-y="17.5" data-dx="-51.7" data-len="529.6"><path d="M1424.1 17.5C1420.1 202.8 1395.6 398.8 1372.4 547" stroke-width="1.3" opacity="0.8"/><path d="M1424.1 17.5C1420.1 202.8 1395.6 398.8 1372.4 547" stroke-width="3.9" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1366.2" data-y="18" data-dx="-104.8" data-len="583.2"><path d="M1366.2 18C1380.2 222.1 1308.5 437.9 1261.4 601.2" stroke-width="1.7" opacity="0.9"/><path d="M1366.2 18C1380.2 222.1 1308.5 437.9 1261.4 601.2" stroke-width="4.3" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1300.4" data-y="23.4" data-dx="-66.4" data-len="617.9"><path d="M1300.4 23.4C1296.1 239.7 1263.9 468.3 1234 641.3" stroke-width="1.2" opacity="0.6"/><path d="M1300.4 23.4C1296.1 239.7 1263.9 468.3 1234 641.3" stroke-width="3.8" opacity="0.5" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1245.5" data-y="30.3" data-dx="-101.4" data-len="535.6"><path d="M1245.5 30.3C1257.2 217.8 1189.7 415.9 1144.1 565.9" stroke-width="2.1" opacity="0.9"/><path d="M1245.5 30.3C1257.2 217.8 1189.7 415.9 1144.1 565.9" stroke-width="4.7" opacity="0.7" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="1170.9" data-y="41.2" data-dx="-77.3" data-len="688"><path d="M1170.9 41.2C1175.2 282.1 1128.4 536.6 1093.6 729.3" stroke-width="1.8" opacity="0.8"/><path d="M1170.9 41.2C1175.2 282.1 1128.4 536.6 1093.6 729.3" stroke-width="4.4" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="1107.5" data-y="50.3" data-dx="-101.5" data-len="772.9"><path d="M1107.5 50.3C1116.7 320.8 1051.7 606.8 1006 823.2" stroke-width="1.7" opacity="0.9"/><path d="M1107.5 50.3C1116.7 320.8 1051.7 606.8 1006 823.2" stroke-width="4.3" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1031.3" data-y="59.3" data-dx="-135.1" data-len="643"><path d="M1031.3 59.3C1031 284.3 957 522.2 896.2 702.2" stroke-width="1.3" opacity="0.8"/><path d="M1031.3 59.3C1031 284.3 957 522.2 896.2 702.2" stroke-width="3.9" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="968.2" data-y="63.8" data-dx="-41.8" data-len="272.5"><path d="M968.2 63.8C979.4 159.2 945.2 260.1 926.4 336.4" stroke-width="2.1" opacity="0.6"/><path d="M968.2 63.8C979.4 159.2 945.2 260.1 926.4 336.4" stroke-width="4.7" opacity="0.5" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="887.8" data-y="64.3" data-dx="-88" data-len="412.2"><path d="M887.8 64.3C896.1 208.5 839.4 361 799.8 476.4" stroke-width="1.1" opacity="0.7"/><path d="M887.8 64.3C896.1 208.5 839.4 361 799.8 476.4" stroke-width="3.7" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g><g class="willow__strand" data-x="813.9" data-y="58" data-dx="-67.2" data-len="486.9"><path d="M813.9 58C815 228.4 776.9 408.6 746.7 544.9" stroke-width="1.3" opacity="0.9"/><path d="M813.9 58C815 228.4 776.9 408.6 746.7 544.9" stroke-width="3.9" opacity="0.7" stroke-dasharray="5 9 3 7 6 11"/></g><g class="willow__strand" data-x="1086.1" data-y="105" data-dx="-72.2" data-len="705.1"><path d="M1086.1 105C1079.9 351.8 1046.4 612.7 1013.9 810.2" stroke-width="1.1" opacity="0.8"/><path d="M1086.1 105C1079.9 351.8 1046.4 612.7 1013.9 810.2" stroke-width="3.7" opacity="0.6" stroke-dasharray="4 7 6 10 3 8"/></g><g class="willow__strand" data-x="1031.5" data-y="130.4" data-dx="-73" data-len="540"><path d="M1031.5 130.4C1037.9 319.4 991.4 519.2 958.5 670.4" stroke-width="1.8" opacity="0.8"/><path d="M1031.5 130.4C1037.9 319.4 991.4 519.2 958.5 670.4" stroke-width="4.4" opacity="0.6" stroke-dasharray="6 10 4 8 5 7"/></g><g class="willow__strand" data-x="956.7" data-y="148.6" data-dx="-41.2" data-len="339.7"><path d="M956.7 148.6C950.3 267.5 934 393.1 915.5 488.3" stroke-width="1.6" opacity="0.7"/><path d="M956.7 148.6C950.3 267.5 934 393.1 915.5 488.3" stroke-width="4.2" opacity="0.6" stroke-dasharray="3 8 5 6 4 12"/></g></g>
+          </g>
+        </svg>
+        <!-- willow:end -->
+      </div>
+
+      <canvas class="art-hero__sprites" aria-hidden="true" data-sprites></canvas>
+      <div class="art-hero__fade" aria-hidden="true"></div>
+
+      <div class="art-hero__text wrap" data-depth="-.08">
+        <p class="art-hero__mark">
+          <svg class="mon art-hero__mon" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><use href="#mon"/></svg>
+          <span class="art-hero__season" data-season>
+            <span class="art-hero__season-kanji" lang="ja" aria-hidden="true" data-season-kanji>秋</span>
+            <span data-season-name data-i18n="art.season.autumn">Autumn</span>
+          </span>
+        </p>
         <h1 class="art-hero__title latin" translate="no">
           <span class="art-hero__line">The Willow</span>
           <span class="art-hero__line">Atelier</span>
         </h1>
-        <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
+        <p class="art-hero__tagline">
+          <span class="art-hero__tagline-text" data-i18n="art.tagline" data-split-source>Where the lost come to rest.</span>
+          <span class="art-hero__tagline-chars" aria-hidden="true" data-split-target></span>
+        </p>
       </div>
 
       <span class="art-hero__scroll" aria-hidden="true"></span>
     </section>
 
-    <!-- Works -->
-    <section class="section works" id="works" aria-labelledby="works-title" data-testid="section-works">
-      <div class="wrap">
-        <header class="section-head" data-reveal>
-          <span class="section-head__num section-head__num--kanji" lang="ja" aria-hidden="true">壱</span>
-          <h2 class="section-head__title" id="works-title" data-i18n="art.works.title">Works</h2>
-        </header>
-        <p class="works__intro ph" data-reveal data-i18n="art.works.intro">[A line about the pieces shown here.]</p>
+    <!-- Works: an emaki (handscroll). On wide screens scrolling down unrolls it sideways. -->
+    <section class="emaki" id="works" aria-labelledby="works-title" data-testid="section-works" data-emaki>
+      <div class="emaki__pin">
+        <div class="emaki__viewport" role="region" aria-label="Works, laid out on a handscroll" data-i18n-attr="aria-label:art.works.label" data-emaki-viewport>
+          <div class="emaki__scroll" data-emaki-track>
+            <span class="emaki__roller emaki__roller--start" aria-hidden="true"></span>
 
-        <div class="gallery">
-          <figure class="piece piece--1" data-reveal data-testid="art-tile-1">
-            <div class="piece__frame">
-              <img src="../assets/art/moon-water.svg" width="800" height="1000" loading="lazy" decoding="async" alt="Placeholder artwork: a pale moon over still water at dusk." data-i18n-attr="alt:art.alt.1">
-            </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 01</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+            <div class="emaki__paper" data-emaki-paper>
+              <svg class="emaki__ink" aria-hidden="true" focusable="false" data-emaki-ink><path class="emaki__ink-wash"/><path class="emaki__ink-line"/></svg>
 
-          <figure class="piece piece--2" data-reveal data-testid="art-tile-2">
-            <div class="piece__frame">
-              <img src="../assets/art/willow-ink.svg" width="1200" height="800" loading="lazy" decoding="async" alt="Placeholder artwork: willow branches in ink on paper." data-i18n-attr="alt:art.alt.2">
-            </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 02</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+              <header class="emaki__title">
+                <p class="emaki__kanji" lang="ja" aria-hidden="true">作品</p>
+                <div class="emaki__heading">
+                  <span class="section-head__num section-head__num--kanji" lang="ja" aria-hidden="true">壱</span>
+                  <h2 class="emaki__h2" id="works-title" data-i18n="art.works.title">Works</h2>
+                  <p class="emaki__intro ph" data-i18n="art.works.intro">[A line about the pieces shown here.]</p>
+                  <p class="emaki__hint" aria-hidden="true">
+                    <span class="emaki__hint-scroll" data-i18n="art.works.hint">Scroll to unroll</span>
+                    <span class="emaki__hint-swipe" data-i18n="art.works.hintTouch">Swipe to unroll</span>
+                    <svg class="arrow" viewBox="0 0 32 10" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+                  </p>
+                </div>
+              </header>
 
-          <figure class="piece piece--3" data-reveal data-testid="art-tile-3">
-            <div class="piece__frame">
-              <img src="../assets/art/mountains.svg" width="1200" height="750" loading="lazy" decoding="async" alt="Placeholder artwork: layered mountains fading into mist." data-i18n-attr="alt:art.alt.3">
-            </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 03</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+              <figure class="emaki__work emaki__work--1" data-testid="art-tile-1">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/moon-water.svg" width="800" height="1000" loading="lazy" decoding="async" alt="Placeholder artwork: a pale moon over still water at dusk." data-i18n-attr="alt:art.alt.1">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">壱</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
 
-          <figure class="piece piece--4" data-reveal data-testid="art-tile-4">
-            <div class="piece__frame">
-              <img src="../assets/art/enso.svg" width="900" height="900" loading="lazy" decoding="async" alt="Placeholder artwork: an ink circle drawn in one stroke." data-i18n-attr="alt:art.alt.4">
-            </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 04</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+              <figure class="emaki__work emaki__work--2" data-testid="art-tile-2">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/willow-ink.svg" width="1200" height="800" loading="lazy" decoding="async" alt="Placeholder artwork: willow branches in ink on paper." data-i18n-attr="alt:art.alt.2">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">弐</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
 
-          <figure class="piece piece--5" data-reveal data-testid="art-tile-5">
-            <div class="piece__frame">
-              <img src="../assets/art/rain-lantern.svg" width="800" height="1200" loading="lazy" decoding="async" alt="Placeholder artwork: a paper lantern glowing in the rain." data-i18n-attr="alt:art.alt.5">
-            </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 05</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+              <figure class="emaki__work emaki__work--3" data-testid="art-tile-3">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/mountains.svg" width="1200" height="750" loading="lazy" decoding="async" alt="Placeholder artwork: layered mountains fading into mist." data-i18n-attr="alt:art.alt.3">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">参</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
 
-          <figure class="piece piece--6" data-reveal data-testid="art-tile-6">
-            <div class="piece__frame">
-              <img src="../assets/art/reeds.svg" width="1000" height="1250" loading="lazy" decoding="async" alt="Placeholder artwork: reeds bending in the wind under an evening sky." data-i18n-attr="alt:art.alt.6">
+              <figure class="emaki__work emaki__work--4" data-testid="art-tile-4">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/enso.svg" width="900" height="900" loading="lazy" decoding="async" alt="Placeholder artwork: an ink circle drawn in one stroke." data-i18n-attr="alt:art.alt.4">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">四</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
+
+              <figure class="emaki__work emaki__work--5" data-testid="art-tile-5">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/rain-lantern.svg" width="800" height="1200" loading="lazy" decoding="async" alt="Placeholder artwork: a paper lantern glowing in the rain." data-i18n-attr="alt:art.alt.5">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">五</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
+
+              <figure class="emaki__work emaki__work--6" data-testid="art-tile-6">
+                <button class="emaki__open" type="button" data-view>
+                  <img src="../assets/art/reeds.svg" width="1000" height="1250" loading="lazy" decoding="async" alt="Placeholder artwork: reeds bending in the wind under an evening sky." data-i18n-attr="alt:art.alt.6">
+                  <span class="emaki__view" data-i18n="art.view">View</span>
+                </button>
+                <figcaption class="emaki__caption">
+                  <span class="emaki__no" lang="ja" aria-hidden="true">六</span>
+                  <span class="emaki__ctitle ph" data-i18n="art.ph.title">[Title]</span>
+                  <span class="emaki__cmeta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
+                </figcaption>
+              </figure>
+
+              <div class="emaki__colophon" aria-hidden="true">
+                <svg class="mon emaki__seal" viewBox="0 0 100 100" focusable="false"><use href="#mon"/></svg>
+                <p class="emaki__end" lang="ja">終</p>
+              </div>
             </div>
-            <figcaption class="piece__caption">
-              <span class="piece__no">No. 06</span>
-              <span class="piece__title ph" data-i18n="art.ph.title">[Title]</span>
-              <span class="piece__meta ph" data-i18n="art.ph.meta">[Medium], [Year]</span>
-            </figcaption>
-          </figure>
+
+            <span class="emaki__roller emaki__roller--end" aria-hidden="true"></span>
+          </div>
         </div>
+        <div class="emaki__progress" aria-hidden="true"><span data-emaki-progress></span></div>
       </div>
     </section>
 
-    <!-- About the atelier -->
-    <section class="section atelier" id="about" aria-labelledby="atelier-title" data-testid="section-about">
-      <div class="wrap atelier__inner">
-        <svg class="atelier__sketch" viewBox="0 0 220 560" aria-hidden="true" focusable="false" data-reveal>
-          <circle cx="64" cy="118" r="38" fill="none" stroke="currentColor" stroke-width=".8" opacity=".5"/>
-          <g fill="none" stroke="currentColor" stroke-linecap="round">
-            <path d="M220 6C170 2 128 14 96 30" stroke-width="2.4"/>
-            <path d="M176 6C172 140 160 300 140 540" stroke-width="1"/>
-            <path d="M176 6C172 140 160 300 140 540" stroke-width="3.4" stroke-dasharray="4 11" opacity=".7"/>
-            <path d="M140 14C136 120 126 240 108 420" stroke-width=".9" opacity=".8"/>
-            <path d="M140 14C136 120 126 240 108 420" stroke-width="3" stroke-dasharray="4 12" opacity=".55"/>
-            <path d="M110 26C104 110 94 200 80 310" stroke-width=".8" opacity=".6"/>
-            <path d="M110 26C104 110 94 200 80 310" stroke-width="2.8" stroke-dasharray="4 12" opacity=".4"/>
-          </g>
-        </svg>
+    <!-- About: a sheet of washi laid into the night -->
+    <section class="story" id="about" aria-labelledby="atelier-title" data-testid="section-about">
+      <!-- deckle-top:start -->
+        <svg class="deckle deckle--top" viewBox="0 0 1440 28" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 28L0 11.2L6 13.3L12 8.5L18 9.8L24 9.3L30 13.5L36 9.9L42 10.3L48 6.8L54 12.6L60 9.8L66 10L72 10.1L78 0.3L84 11.5L90 11.2L96 13.5L102 12.9L108 8.1L114 13.1L120 9.5L126 3.7L132 8.7L138 5.2L144 12.3L150 13.4L156 8.9L162 12.5L168 10.9L174 6.6L180 11.8L186 6.5L192 10.6L198 8.9L204 9.5L210 11.9L216 11.3L222 11.6L228 10.3L234 6.8L240 13L246 9.9L252 8.1L258 8.9L264 10.1L270 8.2L276 10.4L282 9.7L288 6.5L294 11.8L300 10.7L306 6.6L312 13.4L318 10.8L324 12.4L330 10.2L336 11.9L342 10.5L348 8.9L354 9.2L360 12.1L366 9.3L372 10L378 12L384 7.8L390 11.4L396 12.1L402 12.8L408 12.5L414 10.3L420 10.7L426 3.4L432 9.3L438 8.1L444 8.2L450 8.6L456 12.1L462 12.6L468 8.2L474 10L480 11.6L486 12.8L492 10.3L498 6.7L504 7.5L510 9.6L516 11.5L522 10.4L528 12.5L534 7.3L540 8.2L546 9.8L552 9.3L558 7.9L564 9.4L570 12.1L576 9.1L582 10.1L588 13.1L594 11.9L600 13.5L606 9.1L612 12.7L618 11.8L624 8.2L630 11.3L636 12.7L642 10.6L648 12.7L654 12.7L660 11.7L666 9.3L672 10.1L678 12.1L684 8.1L690 7.9L696 7L702 11.5L708 11.1L714 10.3L720 8.5L726 7.5L732 11.7L738 6.6L744 12.4L750 5.3L756 9.4L762 4.9L768 8.3L774 13.2L780 4.5L786 11.2L792 6.6L798 8.4L804 9.2L810 11.2L816 7.1L822 7.2L828 9.6L834 12.6L840 13L846 7.3L852 10.2L858 7.6L864 10.2L870 10L876 8.2L882 6.6L888 7.7L894 11.5L900 12.2L906 9.6L912 8L918 12.5L924 8.4L930 12.8L936 7.7L942 12.2L948 12.1L954 11.6L960 11.7L966 12L972 8L978 10.4L984 12.7L990 8.1L996 13.5L1002 13.1L1008 12.7L1014 11.6L1020 9.5L1026 7.5L1032 8.5L1038 11.2L1044 10.8L1050 9.8L1056 8.7L1062 5.5L1068 8L1074 10.4L1080 6.5L1086 13.3L1092 12.1L1098 7.8L1104 9L1110 8.7L1116 10.8L1122 8.3L1128 10.9L1134 7.4L1140 9.1L1146 9.3L1152 7.3L1158 10.8L1164 8.9L1170 11.8L1176 10.6L1182 7.1L1188 13.4L1194 13.2L1200 12.7L1206 8.4L1212 7L1218 12.8L1224 9.6L1230 11.8L1236 7.3L1242 9.3L1248 12.4L1254 8L1260 10.1L1266 13.2L1272 8.1L1278 8.6L1284 8.5L1290 8.2L1296 11.4L1302 9.8L1308 8.2L1314 8L1320 8L1326 12.7L1332 9.5L1338 6.9L1344 7L1350 10.2L1356 11.1L1362 10.2L1368 8.7L1374 8.2L1380 5.8L1386 9.5L1392 11.7L1398 7.4L1404 9.6L1410 10.8L1416 9.9L1422 10.6L1428 8.5L1434 8.7L1440 8.4L1440 28Z"/></svg>
+        <!-- deckle-top:end -->
+      <div class="wrap story__inner">
+        <div class="story__art" aria-hidden="true">
+          <svg class="story__enso" viewBox="0 0 200 200" focusable="false" data-reveal>
+            <defs>
+              <filter id="story-ink" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency=".07" numOctaves="3" seed="11"/>
+                <feDisplacementMap in="SourceGraphic" scale="5"/>
+              </filter>
+            </defs>
+            <path class="story__enso-stroke" d="M146.3 44.8A72 72 0 1 1 93.7 28.3" pathLength="1" filter="url(#story-ink)"/>
+          </svg>
+          <p class="story__poem" lang="ja" data-reveal>迷えるものが、<br>やすらぐ場所。</p>
+          <svg class="mon story__seal" viewBox="0 0 100 100" focusable="false" data-reveal><use href="#mon"/></svg>
+        </div>
 
-        <div class="atelier__body">
+        <div class="story__body">
           <header class="section-head" data-reveal>
             <span class="section-head__num section-head__num--kanji" lang="ja" aria-hidden="true">弐</span>
             <h2 class="section-head__title" id="atelier-title" data-i18n="art.about.title">About the atelier</h2>
           </header>
-          <p class="atelier__lead ph" data-reveal data-i18n="art.about.p1">[How The Willow Atelier started.]</p>
-          <p class="atelier__text ph" data-reveal data-i18n="art.about.p2">[What you make: mediums, themes, the feeling you’re after.]</p>
-          <p class="atelier__text ph" data-reveal data-i18n="art.about.p3">[Who it’s for.]</p>
+          <p class="story__lead ph" data-reveal data-i18n="art.about.p1">[How The Willow Atelier started.]</p>
+          <p class="story__text ph" data-reveal data-i18n="art.about.p2">[What you make: mediums, themes, the feeling you’re after.]</p>
+          <p class="story__text ph" data-reveal data-i18n="art.about.p3">[Who it’s for.]</p>
         </div>
       </div>
+      <!-- deckle-bottom:start -->
+        <svg class="deckle deckle--bottom" viewBox="0 0 1440 28" preserveAspectRatio="none" aria-hidden="true" focusable="false" style="transform: scaleY(-1)"><path d="M0 28L0 8.3L6 10.5L12 11.6L18 2.5L24 7L30 10.8L36 5.6L42 8.9L48 12.7L54 6.9L60 11.5L66 7.7L72 10.6L78 12.3L84 12.6L90 11.4L96 12.6L102 13.5L108 9.8L114 6L120 11.8L126 9.4L132 7.5L138 9.6L144 8.6L150 8.2L156 12.1L162 12.9L168 9.6L174 13.3L180 8.4L186 10.4L192 12.4L198 13.2L204 7.5L210 11L216 11.6L222 12.9L228 11.1L234 9.7L240 8.5L246 8.4L252 12.8L258 6.9L264 6.8L270 12.4L276 11.6L282 8L288 8.4L294 13.3L300 7.7L306 9.7L312 6.9L318 10.8L324 9.2L330 11.5L336 7.6L342 7.6L348 10.4L354 10.1L360 10.1L366 9.6L372 7.4L378 13.4L384 6.8L390 11.8L396 8.9L402 7L408 10.1L414 7.4L420 9.7L426 6.7L432 12.4L438 10.9L444 13.5L450 4L456 10.8L462 13.4L468 7.8L474 11.8L480 13L486 9.4L492 12.2L498 5.2L504 7.3L510 13.4L516 10.2L522 2.7L528 10.8L534 9.6L540 10.7L546 9.7L552 8.6L558 10.1L564 9L570 12.2L576 8.3L582 8.4L588 9.6L594 9.9L600 8.7L606 4.9L612 13.2L618 8.7L624 12.5L630 12.1L636 5.5L642 6.9L648 10.7L654 7.3L660 9L666 9.8L672 12.6L678 10.2L684 6.7L690 10.6L696 11.9L702 10.9L708 7L714 7.2L720 11.4L726 7.3L732 11.1L738 6.8L744 10.8L750 7.9L756 10.7L762 8.3L768 6.6L774 7.2L780 6.2L786 12.2L792 8.4L798 13L804 7.7L810 9.1L816 13L822 9.3L828 9.5L834 13.5L840 11.9L846 13L852 13L858 4.6L864 7.6L870 9.3L876 8.5L882 7.6L888 8.3L894 7.9L900 7.9L906 11.4L912 6.9L918 7.5L924 7.9L930 13.4L936 10.5L942 10.7L948 7.2L954 0.7L960 7.7L966 7L972 10.1L978 7L984 8.3L990 6.9L996 12.1L1002 10.7L1008 11.5L1014 13L1020 9.9L1026 9.9L1032 13.2L1038 9.2L1044 12.4L1050 8.5L1056 11L1062 12.2L1068 7.6L1074 8.7L1080 10.2L1086 10L1092 7.9L1098 12.3L1104 11.4L1110 7.3L1116 13.3L1122 13.2L1128 13.3L1134 8.9L1140 7.5L1146 8.6L1152 11.4L1158 7.7L1164 9.9L1170 10.4L1176 7.3L1182 9.4L1188 8.2L1194 13L1200 3.3L1206 10.6L1212 13.1L1218 9.7L1224 9.3L1230 10.5L1236 6.9L1242 12.2L1248 11.3L1254 7.3L1260 6.8L1266 7.4L1272 7.4L1278 8.6L1284 10.9L1290 6.6L1296 8.7L1302 8.4L1308 12L1314 6.4L1320 8L1326 6.7L1332 10.3L1338 9.1L1344 7L1350 12.1L1356 13.2L1362 9.2L1368 8.1L1374 11.4L1380 11.2L1386 12.6L1392 12.4L1398 12.6L1404 8L1410 8.4L1416 10.8L1422 10.2L1428 9.9L1434 12.8L1440 8L1440 28Z"/></svg>
+        <!-- deckle-bottom:end -->
     </section>
 
-    <!-- Links -->
-    <section class="section art-links" id="links" aria-labelledby="links-title" data-testid="section-links">
+    <!-- Links: two noren, the curtains that hang in a shop doorway -->
+    <section class="section noren-section" id="links" aria-labelledby="links-title" data-testid="section-links">
+      <div class="noren-section__leaves" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="wrap">
         <header class="section-head" data-reveal>
           <span class="section-head__num section-head__num--kanji" lang="ja" aria-hidden="true">参</span>
           <h2 class="section-head__title" id="links-title" data-i18n="art.links.title">Find the atelier</h2>
         </header>
 
-        <!-- Placeholders: add href="..." to each link once the account and shop are live. -->
-        <ul class="art-links__list" data-reveal>
-          <li class="art-links__item">
-            <a class="art-links__link" data-testid="link-instagram">
-              <span class="art-links__name" data-i18n="art.links.instagram">Instagram</span>
-              <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+        <!-- Placeholders: add href="..." to each link once the account and shop are live,
+             then delete its "[Link coming soon]" line. -->
+        <ul class="noren-row" data-reveal>
+          <li>
+            <a class="noren" data-noren data-testid="link-instagram">
+              <span class="noren__name" data-i18n="art.links.instagram">Instagram</span>
+              <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+              <span class="noren__door" aria-hidden="true">
+                <span class="noren__light"></span>
+                <span class="noren__panel noren__panel--l"></span>
+                <span class="noren__panel noren__panel--r"></span>
+                <span class="noren__rod"></span>
+              </span>
             </a>
           </li>
-          <li class="art-links__item">
-            <a class="art-links__link" data-testid="link-shop">
-              <span class="art-links__name" data-i18n="art.links.shop">Shop</span>
-              <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+          <li>
+            <a class="noren" data-noren data-testid="link-shop">
+              <span class="noren__name" data-i18n="art.links.shop">Shop</span>
+              <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+              <span class="noren__door" aria-hidden="true">
+                <span class="noren__light"></span>
+                <span class="noren__panel noren__panel--l"></span>
+                <span class="noren__panel noren__panel--r"></span>
+                <span class="noren__rod"></span>
+              </span>
             </a>
           </li>
         </ul>
@@ -234,7 +338,36 @@
   </main>
 
   <footer class="credit" data-testid="site-footer">
+    <svg class="mon credit__mon" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><use href="#mon"/></svg>
     <p><span>© 2026 The Willow Atelier</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
+
+  <!-- Full view of a single piece -->
+  <dialog class="viewer" aria-labelledby="viewer-title" data-viewer>
+    <div class="viewer__inner">
+      <figure class="viewer__figure">
+        <img class="viewer__img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" data-viewer-img>
+        <figcaption class="viewer__caption">
+          <span class="viewer__no" lang="ja" aria-hidden="true" data-viewer-no></span>
+          <span class="viewer__title ph" id="viewer-title" data-viewer-title></span>
+          <span class="viewer__meta ph" data-viewer-meta></span>
+        </figcaption>
+      </figure>
+      <button class="viewer__close" type="button" aria-label="Close" data-i18n-attr="aria-label:art.close" data-viewer-close data-testid="viewer-close"><span aria-hidden="true"></span></button>
+    </div>
+  </dialog>
+
+  <!-- The atelier's crest: three willow leaves turning in the wind -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="mon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3.5"/>
+      <g fill="currentColor">
+        <path id="mon-leaf" d="M50 48C40 38 40 21 54 8C57 22 58 37 50 48Z"/>
+        <use href="#mon-leaf" transform="rotate(120 50 50)"/>
+        <use href="#mon-leaf" transform="rotate(240 50 50)"/>
+        <circle cx="50" cy="50" r="3.2"/>
+      </g>
+    </symbol>
+  </svg>
 </body>
 </html>

@@ -5,7 +5,7 @@
   <meta name="robots" content="noindex">
   <title>Share image: The Willow Atelier</title>
   <!-- Source for assets/og/og-art.jpg. Serve the site locally and screenshot this page at 1200x630.
-       The willow is borrowed from the art page so the two never drift apart. -->
+       The garden is borrowed from the art page itself so the two never drift apart. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap">
   <link rel="stylesheet" href="../../css/base.css">
   <link rel="stylesheet" href="../../css/art.css">
@@ -24,7 +24,7 @@
     .art-hero {
       min-height: 630px;
       height: 630px;
-      padding: 0 0 92px;
+      padding: 0 0 190px;
     }
 
     .art-hero__text {
@@ -33,12 +33,22 @@
     }
 
     .art-hero__text > *,
+    .art-hero__mark,
+    .art-hero__stars,
+    .art-hero__cloud,
+    .art-hero__mist,
+    .art-hero__reflection i,
     .willow__sway {
       animation: none;
     }
 
+    .art-hero__scroll,
+    .art-hero__season {
+      display: none;
+    }
+
     .art-hero__title {
-      font-size: 96px;
+      font-size: 92px;
     }
 
     .art-hero__tagline {
@@ -46,33 +56,43 @@
     }
 
     .art-hero__moon {
-      left: 20%;
-      top: 18%;
-      width: 64px;
+      width: 74px;
+    }
+
+    .art-hero__cloud--1 {
+      transform: translate3d(330px, 0, 0);
+    }
+
+    .art-hero__cloud--2 {
+      transform: translate3d(620px, 0, 0);
+    }
+
+    .art-hero__cloud--3 {
+      display: none;
     }
   </style>
 </head>
 <body class="art">
-  <section class="art-hero">
-    <div class="art-hero__sky"><span class="art-hero__moon"></span></div>
-    <div id="willow"></div>
-    <div class="art-hero__mist"></div>
-    <div class="art-hero__text">
-      <p class="art-hero__mark" lang="ja">柳</p>
-      <h1 class="art-hero__title latin">
-        <span class="art-hero__line">The Willow</span>
-        <span class="art-hero__line">Atelier</span>
-      </h1>
-      <p class="art-hero__tagline">Where the lost come to rest.</p>
-    </div>
-  </section>
+  <div id="hero"></div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3.5"/>
+      <g fill="currentColor">
+        <path id="mon-leaf" d="M50 48C40 38 40 21 54 8C57 22 58 37 50 48Z"/>
+        <use href="#mon-leaf" transform="rotate(120 50 50)"/>
+        <use href="#mon-leaf" transform="rotate(240 50 50)"/>
+        <circle cx="50" cy="50" r="3.2"/>
+      </g>
+    </symbol>
+  </svg>
   <script>
     fetch('../../art/index.html')
       .then(function (res) { return res.text(); })
       .then(function (html) {
         var doc = new DOMParser().parseFromString(html, 'text/html');
-        var willow = doc.querySelector('.willow');
-        if (willow) document.getElementById('willow').replaceWith(willow);
+        var hero = doc.querySelector('.art-hero');
+        hero.querySelectorAll('canvas, [data-split-target]').forEach(function (el) { el.remove(); });
+        document.getElementById('hero').replaceWith(hero);
         document.title += ' (ready)';
       });
   </script>

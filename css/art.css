@@ -1,62 +1,337 @@
 /* ==========================================================================
-   The Willow Atelier: dusk, ink, a little moonlight.
+   The Willow Atelier
+   A night garden, a handscroll of works, a sheet of washi, two noren.
    ========================================================================== */
+
+.art {
+  --moon-x: 22%;
+  /* dark ink flecks for the scroll paper */
+  --paper-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5 .18' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 .9 0 0 0 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  /* the crest in undyed white, for the noren */
+  --mon-white: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%23f1ece1'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23f1ece1' stroke-width='3.5'/%3E%3Cpath id='l' d='M50 48C40 38 40 21 54 8C57 22 58 37 50 48Z'/%3E%3Cuse href='%23l' transform='rotate(120 50 50)'/%3E%3Cuse href='%23l' transform='rotate(240 50 50)'/%3E%3Ccircle cx='50' cy='50' r='3.2'/%3E%3C/g%3E%3C/svg%3E");
+}
 
 /* let the hero run up behind the header */
 .art .topbar {
   margin-bottom: -4.5rem;
 }
 
+.mon {
+  display: block;
+}
+
 /* --------------------------------------------------------------------------
-   Hero
+   Arrival: ink spreading open
+   -------------------------------------------------------------------------- */
+
+.bloom {
+  display: none;
+}
+
+.js .bloom {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: bloom-failsafe 0.01s 4.5s forwards;
+}
+
+.js .bloom.is-done {
+  display: none;
+}
+
+@keyframes bloom-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero: the night garden
+   Layers carrying data-depth drift with the cursor and with scroll.
    -------------------------------------------------------------------------- */
 
 .art-hero {
+  --mx: 0;
+  --my: 0;
+  --sy: 0;
   position: relative;
   isolation: isolate;
   display: grid;
   align-items: end;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 8rem 0 clamp(6rem, 16vh, 10rem);
+  padding: 8rem 0 calc(21vh + 3.5rem);
+  padding-bottom: calc(21svh + 3.5rem);
   overflow: hidden;
+  background: var(--indigo-900);
+}
+
+.art-hero [data-depth] {
+  transform: translate3d(
+    calc(var(--mx) * var(--d, 0) * -34px),
+    calc(var(--my) * var(--d, 0) * -18px + var(--sy) * var(--d, 0) * 1px),
+    0
+  );
 }
 
 .art-hero__sky {
   position: absolute;
-  inset: 0;
-  z-index: -3;
+  inset: 0 0 21% 0;
+  z-index: -6;
   background:
-    radial-gradient(55% 38% at 24% 26%, rgba(184, 198, 224, 0.16), transparent 70%),
-    radial-gradient(90% 26% at 50% 88%, rgba(142, 165, 205, 0.22), transparent 70%),
-    linear-gradient(180deg, #0a1020 0%, #111a30 26%, #1b2a4a 52%, #314c7a 76%, #48638f 86%, #2a3d63 100%);
+    radial-gradient(46% 34% at var(--moon-x) 24%, rgba(184, 198, 224, 0.16), transparent 70%),
+    radial-gradient(90% 30% at 50% 100%, rgba(142, 165, 205, 0.24), transparent 70%),
+    linear-gradient(180deg, #060a14 0%, #0b1326 26%, #15223f 52%, #273f6a 80%, #46618f 100%);
+}
+
+.art-hero__stars {
+  position: absolute;
+  inset: 0 0 48% 0;
+  background-image:
+    radial-gradient(1.2px 1.2px at 8% 14%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 17% 33%, #fff 50%, transparent 100%),
+    radial-gradient(1.4px 1.4px at 29% 8%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 41% 26%, #fff 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 52% 12%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 58% 41%, #fff 50%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 67% 19%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 76% 7%, #fff 50%, transparent 100%),
+    radial-gradient(1.1px 1.1px at 88% 29%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 94% 11%, #fff 50%, transparent 100%);
+  opacity: 0.7;
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+.art-hero__stars--b {
+  background-image:
+    radial-gradient(1px 1px at 4% 38%, #fff 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 12% 6%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 35% 44%, #fff 50%, transparent 100%),
+    radial-gradient(1.3px 1.3px at 46% 4%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 63% 31%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 71% 46%, #fff 50%, transparent 100%),
+    radial-gradient(1.2px 1.2px at 82% 17%, #fff 50%, transparent 100%),
+    radial-gradient(1px 1px at 97% 36%, #fff 50%, transparent 100%);
+  animation-duration: 8s;
+  animation-delay: -4s;
+}
+
+@keyframes twinkle {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 0.85;
+  }
 }
 
 .art-hero__moon {
   position: absolute;
-  left: 22%;
-  top: 22%;
-  width: clamp(3.25rem, 6vw, 5.5rem);
+  left: var(--moon-x);
+  top: 17%;
+  width: clamp(4rem, 7vw, 6.5rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 42% 40%, #f7f3ea 0%, #e6dfcf 68%, #d3cab6 100%);
+  background:
+    radial-gradient(circle at 63% 36%, rgba(60, 50, 30, 0.05), transparent 11%),
+    radial-gradient(circle at 36% 63%, rgba(60, 50, 30, 0.045), transparent 15%),
+    radial-gradient(circle at 70% 68%, rgba(60, 50, 30, 0.035), transparent 8%),
+    radial-gradient(circle at 40% 38%, #fbf8f0 0%, #ebe4d3 62%, #d6cdb8 100%);
   box-shadow:
-    0 0 40px 8px rgba(236, 231, 218, 0.16),
-    0 0 160px 50px rgba(142, 165, 205, 0.16);
-  opacity: 0.94;
+    0 0 30px 6px rgba(240, 234, 218, 0.22),
+    0 0 120px 40px rgba(142, 165, 205, 0.2),
+    0 0 260px 90px rgba(100, 130, 190, 0.12);
+}
+
+/* thin clouds crossing the moon */
+.art-hero__cloud {
+  position: absolute;
+  top: 18%;
+  left: 0;
+  width: 34vw;
+  height: max(1.6rem, 3vw);
+  border-radius: 50%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(170, 186, 214, 0.34), rgba(170, 186, 214, 0) 70%);
+  filter: blur(6px);
+  opacity: 0.8;
+  animation: cloud-drift 95s linear infinite;
+  animation-delay: -38s;
+}
+
+.art-hero__cloud--2 {
+  top: 25%;
+  width: 24vw;
+  opacity: 0.5;
+  animation-duration: 125s;
+  animation-delay: -70s;
+}
+
+.art-hero__cloud--3 {
+  top: 9%;
+  width: 42vw;
+  opacity: 0.35;
+  animation-duration: 160s;
+  animation-delay: -20s;
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(-45vw, 0, 0);
+  }
+  to {
+    transform: translate3d(110vw, 0, 0);
+  }
+}
+
+.art-hero__land {
+  position: absolute;
+  left: -4%;
+  right: -4%;
+  bottom: 20.5%;
+  z-index: -5;
+  height: 24%;
+}
+
+.art-hero__hills {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.art-hero__hill--far {
+  fill: #1e2f53;
+  opacity: 0.85;
+}
+
+.art-hero__hill--near {
+  fill: #121c35;
+}
+
+.art-hero__mist {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12%;
+  height: 70%;
+  background: linear-gradient(180deg, transparent, rgba(126, 150, 196, 0.2) 55%, rgba(126, 150, 196, 0.08) 80%, transparent);
+  animation: mist-breathe 14s var(--ease) infinite alternate;
+}
+
+@keyframes mist-breathe {
+  from {
+    opacity: 0.55;
+    transform: translate3d(-2%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(2%, 0, 0);
+  }
+}
+
+/* the pond, holding the moon */
+.art-hero__pond {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -4;
+  height: 21%;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 7px, rgba(184, 198, 224, 0.03) 7px 8px),
+    linear-gradient(180deg, rgba(64, 90, 136, 0.6) 0%, rgba(20, 31, 56, 0.95) 22%, #0c1427 100%);
+}
+
+.art-hero__pond::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 198, 224, 0.5) 25%, rgba(184, 198, 224, 0.15) 70%, transparent);
+}
+
+.art-hero__reflection {
+  position: absolute;
+  top: 6%;
+  left: calc(var(--moon-x) + clamp(2rem, 3.5vw, 3.25rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  transform: translateX(-50%);
+}
+
+.art-hero__reflection i {
+  display: block;
+  width: var(--w, 4rem);
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(236, 231, 218, var(--o, 0.6));
+  filter: blur(0.4px);
+  animation: shimmer 3.4s var(--ease) infinite alternate;
+  animation-delay: calc(var(--n, 0) * -0.45s);
+}
+
+.art-hero__reflection i:nth-child(1) { --w: 5.5rem; --o: 0.7; --n: 1; }
+.art-hero__reflection i:nth-child(2) { --w: 4.6rem; --o: 0.6; --n: 2; }
+.art-hero__reflection i:nth-child(3) { --w: 5rem; --o: 0.5; --n: 3; }
+.art-hero__reflection i:nth-child(4) { --w: 3.6rem; --o: 0.45; --n: 4; }
+.art-hero__reflection i:nth-child(5) { --w: 3rem; --o: 0.36; --n: 5; }
+.art-hero__reflection i:nth-child(6) { --w: 2.4rem; --o: 0.28; --n: 6; }
+.art-hero__reflection i:nth-child(7) { --w: 1.6rem; --o: 0.2; --n: 7; }
+.art-hero__reflection i:nth-child(8) { --w: 1rem; --o: 0.14; --n: 8; }
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-5px) scaleX(0.78);
+    opacity: 0.55;
+  }
+  to {
+    transform: translateX(5px) scaleX(1.08);
+    opacity: 1;
+  }
+}
+
+.ripple {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 1px solid rgba(220, 228, 240, 0.65);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: ripple 2.8s var(--ease-out) forwards;
+}
+
+@keyframes ripple {
+  to {
+    width: 18rem;
+    height: 3.6rem;
+    opacity: 0;
+  }
+}
+
+.art-hero__willow {
+  position: absolute;
+  inset: 0 -4% 0 -2%;
+  z-index: -3;
 }
 
 .willow {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
+  display: block;
   width: 100%;
   height: 100%;
-  color: #070c18;
+  color: #050913;
 }
 
 .willow__back {
-  color: #22335a;
+  color: #1e2f54;
 }
 
 .willow__sway {
@@ -84,41 +359,71 @@
   }
 }
 
-.art-hero__mist {
+/* fireflies, petals, leaves or snow, drawn by art.js */
+.art-hero__sprites {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.art-hero__fade {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: -1;
-  height: 48%;
-  background: linear-gradient(180deg, transparent 0%, rgba(15, 22, 38, 0.5) 55%, var(--indigo-900) 100%);
+  height: 16%;
+  background: linear-gradient(180deg, transparent, var(--indigo-900));
+  pointer-events: none;
 }
 
 .art-hero__text {
   position: relative;
-}
-
-.art-hero__text > * {
-  animation: rise 2.2s var(--ease-out) backwards;
+  z-index: 1;
 }
 
 .art-hero__mark {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.1rem;
   margin-bottom: clamp(1.25rem, 3vw, 2rem);
-  font-family: var(--font-display-ja);
-  font-size: 1.05rem;
-  color: var(--gold-300);
-  animation-delay: 0.2s;
 }
 
-.art-hero__mark::after {
-  content: "";
-  width: 3rem;
-  height: 1px;
-  background: var(--gold-300);
-  opacity: 0.6;
+.art-hero__mon {
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--gold-300);
+}
+
+.art-hero__season {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(201, 180, 138, 0.45);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--washi-300);
+}
+
+html[lang="ja"] .art-hero__season {
+  letter-spacing: 0.14em;
+}
+
+.art-hero__season-kanji {
+  font-family: var(--font-display-ja);
+  font-size: 1.05rem;
+  letter-spacing: 0;
+  color: var(--gold-300);
+}
+
+html:not(.js) .art-hero__season {
+  display: none;
 }
 
 .art-hero__title {
@@ -127,8 +432,7 @@
   line-height: 0.95;
   letter-spacing: 0.035em;
   color: var(--washi-50);
-  text-shadow: 0 2px 30px rgba(10, 16, 32, 0.45);
-  animation-delay: 0.4s;
+  text-shadow: 0 2px 30px rgba(10, 16, 32, 0.5);
 }
 
 .art-hero__line {
@@ -140,6 +444,43 @@
   font-style: italic;
 }
 
+/* brushed on from left to right */
+.js .art-hero__line {
+  -webkit-mask-image: linear-gradient(100deg, #000 42%, transparent 58%);
+  mask-image: linear-gradient(100deg, #000 42%, transparent 58%);
+  -webkit-mask-size: 260% 100%;
+  mask-size: 260% 100%;
+  -webkit-mask-position: 100% 0;
+  mask-position: 100% 0;
+  animation: ink-wipe 2.4s var(--ease-out) 1s both;
+}
+
+.js .art-hero__line + .art-hero__line {
+  animation-delay: 1.4s;
+}
+
+@keyframes ink-wipe {
+  from {
+    filter: blur(6px);
+  }
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+    filter: blur(0);
+  }
+}
+
+.art-hero__mark {
+  animation: rise 2s var(--ease-out) 0.6s backwards;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+}
+
 .art-hero__tagline {
   margin-top: clamp(1.5rem, 3vw, 2.25rem);
   font-family: var(--font-display);
@@ -148,7 +489,6 @@
   line-height: 1.4;
   letter-spacing: 0.02em;
   color: var(--indigo-100);
-  animation-delay: 0.8s;
 }
 
 html[lang="ja"] .art-hero__tagline {
@@ -158,10 +498,35 @@ html[lang="ja"] .art-hero__tagline {
   letter-spacing: 0.14em;
 }
 
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0);
+/* once art.js has split the line into characters, the plain copy is for screen readers only */
+.art-hero__tagline.is-split .art-hero__tagline-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.art-hero__tagline-chars .w {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.art-hero__tagline-chars .ch {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translate3d(0, 0.45em, 0);
+  animation: ch-in 1.3s var(--ease-out) forwards;
+  animation-delay: calc(var(--base, 0s) + var(--i) * 45ms);
+}
+
+@keyframes ch-in {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
   }
 }
 
@@ -171,6 +536,12 @@ html[lang="ja"] .art-hero__tagline {
   bottom: 0;
   width: 1px;
   height: clamp(3rem, 8vh, 5rem);
+}
+
+.art-hero__scroll::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background: linear-gradient(var(--washi-300), transparent);
   transform-origin: top;
   animation: fall 3.6s var(--ease) infinite;
@@ -179,11 +550,11 @@ html[lang="ja"] .art-hero__tagline {
 @keyframes fall {
   0% {
     transform: scaleY(0);
-    opacity: 0.7;
+    opacity: 0.8;
   }
   60% {
     transform: scaleY(1);
-    opacity: 0.7;
+    opacity: 0.8;
   }
   100% {
     transform: scaleY(1);
@@ -192,7 +563,7 @@ html[lang="ja"] .art-hero__tagline {
 }
 
 /* --------------------------------------------------------------------------
-   Section heads here count in kanji
+   Kanji numerals for section heads on this side
    -------------------------------------------------------------------------- */
 
 .section-head__num--kanji {
@@ -202,258 +573,923 @@ html[lang="ja"] .art-hero__tagline {
 }
 
 /* --------------------------------------------------------------------------
-   Works: an uneven hang, like a real wall
+   Works: an emaki
+   Phones and reduced motion: a native sideways scroll with snap points.
+   Wide screens: pinned, and scrolling down unrolls it (art.js adds .is-pinned).
    -------------------------------------------------------------------------- */
 
-.works__intro {
-  max-width: 34rem;
-  margin: -1rem 0 clamp(3.5rem, 8vw, 6.5rem);
-}
-
-.gallery {
-  display: grid;
-  gap: clamp(3.5rem, 8vw, 6rem) clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.piece {
+.emaki {
+  --paper-h: min(62vh, 580px);
   position: relative;
-  align-self: start;
+  padding: clamp(4rem, 10vh, 7rem) 0 clamp(3rem, 8vh, 5rem);
 }
 
-/* a picture light above each frame */
-.piece::before {
+.emaki__viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 1.75rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 180, 138, 0.4) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.emaki__scroll {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: 0 var(--gutter);
+}
+
+/* the wooden rollers at either end */
+.emaki__roller {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  width: 22px;
+  height: calc(var(--paper-h) + 34px);
+  border-radius: 11px;
+  background: linear-gradient(90deg, #241a14 0%, #6b513c 32%, #93724f 50%, #4a372a 76%, #1d1611 100%);
+  box-shadow: 0 14px 26px -10px rgba(0, 0, 0, 0.75);
+}
+
+.emaki__roller::before,
+.emaki__roller::after {
   content: "";
   position: absolute;
-  left: -14%;
-  right: -14%;
-  top: -22%;
-  height: 80%;
-  background: radial-gradient(closest-side, rgba(184, 198, 224, 0.11), transparent);
-  opacity: 0.6;
-  pointer-events: none;
-  transition: opacity 1.2s var(--ease);
+  left: 50%;
+  width: 14px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #7d6a43, #e2cf9f 50%, #7d6a43);
+  transform: translateX(-50%);
 }
 
-.piece__frame {
+.emaki__roller::before {
+  top: -9px;
+}
+
+.emaki__roller::after {
+  bottom: -9px;
+}
+
+.emaki__roller--start {
+  margin-right: -8px;
+}
+
+.emaki__roller--end {
+  margin-left: -8px;
+}
+
+.emaki__paper {
+  --fg: var(--sumi-800);
+  --fg-strong: var(--sumi-900);
+  --muted: var(--sumi-600);
+  --line-strong: rgba(40, 40, 44, 0.28);
   position: relative;
-  padding: clamp(0.85rem, 2.2vw, 1.6rem);
-  background: linear-gradient(145deg, #f1ece1, #e5ddcd);
-  border: clamp(4px, 0.5vw, 7px) solid #120e0b;
+  display: flex;
+  align-items: center;
+  height: var(--paper-h);
+  padding: 0 clamp(3rem, 6vw, 6rem);
+  color: var(--fg);
+  background:
+    /* soft creases from being rolled */
+    repeating-linear-gradient(90deg, transparent 0 560px, rgba(80, 60, 30, 0.06) 560px 562px, rgba(255, 255, 255, 0.22) 562px 566px, transparent 566px 640px),
+    var(--paper-ink),
+    linear-gradient(180deg, #f2ebdb 0%, #ece3cf 100%);
+  background-size: auto, 220px 220px, auto;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 14px 28px -10px rgba(0, 0, 0, 0.55),
-    0 40px 70px -30px rgba(0, 0, 0, 0.7);
-  transition: transform 1.2s var(--ease), box-shadow 1.2s var(--ease);
+    0 30px 60px -30px rgba(0, 0, 0, 0.85),
+    0 10px 22px -10px rgba(0, 0, 0, 0.6);
 }
 
-.piece__frame img {
+/* indigo silk mounting along both edges, with a hishi lattice in gold */
+.emaki__paper::before,
+.emaki__paper::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 5px, rgba(201, 180, 138, 0.32) 5px 6px),
+    repeating-linear-gradient(-45deg, transparent 0 5px, rgba(201, 180, 138, 0.32) 5px 6px),
+    #1b2a4d;
+}
+
+.emaki__paper::before {
+  top: -12px;
+}
+
+.emaki__paper::after {
+  bottom: -12px;
+}
+
+/* an ink river that paints itself as the scroll opens */
+.emaki__ink {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.16),
-    0 0 0 4px rgba(255, 255, 255, 0.5);
-  transition: filter 1.2s var(--ease);
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
 }
 
-.piece:hover::before {
-  opacity: 1;
+.emaki__ink-line {
+  fill: none;
+  stroke: var(--indigo-700);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.7;
 }
 
-.piece:hover .piece__frame {
-  transform: translate3d(0, -6px, 0);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    0 22px 36px -12px rgba(0, 0, 0, 0.6),
-    0 60px 90px -36px rgba(0, 0, 0, 0.75);
+.emaki__ink-wash {
+  fill: none;
+  stroke: var(--indigo-500);
+  stroke-width: 34;
+  stroke-linecap: round;
+  opacity: 0.07;
 }
 
-.piece:hover .piece__frame img {
-  filter: brightness(1.05);
+.emaki__title {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-right: clamp(4rem, 8vw, 8rem);
 }
 
-.piece__caption {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: baseline;
-  gap: 0.15rem 1rem;
-  margin-top: 1.25rem;
+.emaki__kanji {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display-ja);
+  font-size: clamp(3.25rem, 7vh, 5.25rem);
+  line-height: 1;
+  letter-spacing: 0.25em;
+  color: var(--indigo-800);
 }
 
-.piece__no {
-  grid-row: span 2;
-  align-self: stretch;
-  padding-right: 1rem;
-  border-right: 1px solid var(--line-strong);
+.emaki__heading {
+  max-width: 17rem;
+}
+
+.emaki .section-head__num--kanji {
+  color: var(--indigo-500);
+}
+
+.emaki__h2 {
+  margin: 0.6rem 0 1rem;
   font-family: var(--font-display);
-  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(2.4rem, 5vh, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: 0.05em;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .emaki__h2 {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.8rem, 4vh, 2.4rem);
+}
+
+.emaki__intro {
   font-size: 0.95rem;
-  color: var(--accent);
 }
 
-.piece__title {
-  font-family: var(--font-display);
+.emaki__hint {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 2rem;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--indigo-600);
+  transition: opacity 0.8s var(--ease);
+}
+
+html[lang="ja"] .emaki__hint {
+  letter-spacing: 0.1em;
+}
+
+.emaki__hint .arrow {
+  animation: nudge 2.4s var(--ease) infinite;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(0.6rem);
+  }
+}
+
+.emaki__hint-scroll {
+  display: none;
+}
+
+.emaki.is-pinned .emaki__hint-scroll {
+  display: inline;
+}
+
+.emaki.is-pinned .emaki__hint-swipe {
+  display: none;
+}
+
+.emaki.is-started .emaki__hint {
+  opacity: 0;
+}
+
+.emaki__work {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+  margin-right: clamp(3.5rem, 7vw, 7rem);
+  scroll-snap-align: center;
+}
+
+.emaki__work--1 { --h: 0.76; }
+.emaki__work--2 { --h: 0.5; align-self: flex-end; margin-bottom: calc(var(--paper-h) * 0.1); }
+.emaki__work--3 { --h: 0.54; align-self: flex-start; margin-top: calc(var(--paper-h) * 0.1); }
+.emaki__work--4 { --h: 0.6; }
+.emaki__work--5 { --h: 0.8; }
+.emaki__work--6 { --h: 0.66; align-self: flex-end; margin-bottom: calc(var(--paper-h) * 0.08); }
+
+.emaki__open {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.emaki__open img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: calc(var(--paper-h) * var(--h));
+  box-shadow:
+    0 0 0 1px rgba(60, 45, 25, 0.12),
+    0 10px 24px -14px rgba(40, 30, 15, 0.55);
+  transition: filter 1s var(--ease), transform 1.4s var(--ease);
+}
+
+.emaki__open:focus-visible {
+  outline: 2px solid var(--indigo-600);
+  outline-offset: 6px;
+}
+
+.emaki__view {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 4.75rem;
+  height: 4.75rem;
+  margin: -2.375rem 0 0 -2.375rem;
+  border-radius: 50%;
+  background: rgba(243, 239, 230, 0.9);
+  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--indigo-800);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
+}
+
+.emaki__open:hover img,
+.emaki__open:focus-visible img {
+  filter: brightness(1.04) contrast(1.03);
+  transform: scale(1.015);
+}
+
+.emaki__open:hover .emaki__view,
+.emaki__open:focus-visible .emaki__view {
+  opacity: 1;
+  transform: none;
+}
+
+/* captions written down the paper, the way a scroll would label them */
+.emaki__caption {
+  writing-mode: vertical-rl;
+  display: flex;
+  gap: 0.35rem;
+  max-height: calc(var(--paper-h) * var(--h));
+  color: var(--fg);
+}
+
+.emaki__no {
+  margin-left: 0.35rem;
+  font-family: var(--font-display-ja);
   font-size: 1.15rem;
-  line-height: 1.3;
+  color: var(--indigo-600);
+  text-orientation: upright;
 }
 
-html[lang="ja"] .piece__title {
+.emaki__ctitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .emaki__ctitle {
   font-family: var(--font-display-ja);
   font-size: 0.95rem;
 }
 
-.piece__meta {
-  font-size: 0.78rem;
+.emaki__cmeta {
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
 }
 
+.emaki__colophon {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-left: clamp(1rem, 3vw, 3rem);
+}
+
+.emaki__seal {
+  width: 3.25rem;
+  height: 3.25rem;
+  color: var(--indigo-700);
+  opacity: 0.85;
+}
+
+.emaki__end {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display-ja);
+  font-size: 2rem;
+  color: var(--sumi-800);
+}
+
+.emaki__progress {
+  width: min(18rem, 50vw);
+  height: 1px;
+  margin: 0.75rem auto 0;
+  background: var(--line-strong);
+}
+
+.emaki__progress span {
+  display: block;
+  height: 100%;
+  background: var(--gold-300);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+}
+
+.emaki.is-pinned {
+  height: var(--emaki-h, auto);
+  padding: 0;
+}
+
+.emaki.is-pinned .emaki__pin {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.emaki.is-pinned .emaki__viewport {
+  overflow: visible;
+}
+
+.emaki.is-pinned .emaki__scroll {
+  transform: translate3d(var(--emaki-x, 0px), 0, 0);
+  will-change: transform;
+}
+
 @media (max-width: 639.98px) {
-  .piece:nth-child(odd) {
-    margin-right: 8%;
+  /* on a narrow screen the willow keeps to the right, clear of the moon and title */
+  .art {
+    --moon-x: 9%;
   }
 
-  .piece:nth-child(even) {
-    margin-left: 8%;
-  }
-}
-
-@media (min-width: 640px) {
-  .gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .art-hero__willow {
+    inset: 0 -12% 32% 30%;
   }
 
-  .piece:nth-child(even) {
-    margin-top: clamp(4rem, 10vw, 8rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .gallery {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+  .emaki {
+    --paper-h: min(56svh, 440px);
   }
 
-  .piece:nth-child(even) {
-    margin-top: 0;
+  .emaki__kanji {
+    font-size: 3rem;
   }
 
-  .piece--1 {
-    grid-column: 1 / span 5;
-  }
-
-  .piece--2 {
-    grid-column: 7 / span 6;
-    margin-top: 9rem;
-  }
-
-  .piece--3 {
-    grid-column: 1 / span 7;
-  }
-
-  .piece--4 {
-    grid-column: 9 / span 4;
-    margin-top: 12rem;
-  }
-
-  .piece--5 {
-    grid-column: 2 / span 4;
-  }
-
-  .piece--6 {
-    grid-column: 7 / span 5;
-    margin-top: 7rem;
+  .emaki__heading {
+    max-width: 13rem;
   }
 }
 
 /* --------------------------------------------------------------------------
-   About the atelier
+   Viewer: one piece at a time
    -------------------------------------------------------------------------- */
 
-.atelier__inner {
-  display: grid;
-  gap: 3rem;
+.viewer {
+  width: 100vw;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--washi-100);
 }
 
-.atelier__sketch {
-  display: none;
-  width: clamp(7rem, 15vw, 12rem);
+.viewer::backdrop {
+  background: rgba(5, 8, 16, 0.92);
+}
+
+.viewer[open] {
+  animation: viewer-in 0.9s var(--ease-out);
+}
+
+.viewer[open]::backdrop {
+  animation: fade-in 0.8s var(--ease);
+}
+
+.viewer.is-closing {
+  animation: viewer-out 0.45s var(--ease) forwards;
+}
+
+.viewer.is-closing::backdrop {
+  animation: fade-out 0.45s var(--ease) forwards;
+}
+
+@keyframes viewer-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes viewer-out {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+.viewer__inner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: clamp(1.5rem, 5vw, 4rem);
+}
+
+.viewer__figure {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.viewer__img {
+  width: auto;
   height: auto;
-  justify-self: center;
-  color: var(--indigo-300);
-  opacity: 0.7;
+  max-width: min(76vw, 1100px);
+  max-height: calc(100dvh - 8rem);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+}
+
+.viewer__caption {
+  writing-mode: vertical-rl;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.viewer__no {
+  margin-left: 0.5rem;
+  font-family: var(--font-display-ja);
+  font-size: 1.4rem;
+  color: var(--gold-300);
+  text-orientation: upright;
+}
+
+.viewer__title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--washi-50);
+}
+
+.viewer__meta {
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.viewer__close {
+  position: absolute;
+  top: clamp(1rem, 3vw, 1.75rem);
+  right: clamp(1rem, 3vw, 1.75rem);
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(243, 239, 230, 0.4);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.6s var(--ease), transform 0.8s var(--ease);
+}
+
+.viewer__close span,
+.viewer__close span::before {
+  position: absolute;
+  width: 18px;
+  height: 1px;
+  background: var(--washi-100);
+}
+
+.viewer__close span {
+  left: 50%;
+  top: 50%;
+  margin-left: -9px;
+  transform: rotate(45deg);
+}
+
+.viewer__close span::before {
+  content: "";
+  left: 0;
+  top: 0;
+  transform: rotate(-90deg);
+}
+
+.viewer__close:hover {
+  border-color: var(--washi-100);
+  transform: rotate(90deg);
+}
+
+@media (max-width: 639.98px) {
+  .viewer__figure {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .viewer__img {
+    max-width: 100%;
+    max-height: 68dvh;
+  }
+
+  .viewer__caption {
+    writing-mode: horizontal-tb;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 0.9rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Story: a sheet of washi in the dark
+   -------------------------------------------------------------------------- */
+
+.story {
+  --bg: var(--washi-100);
+  --fg: var(--sumi-800);
+  --fg-strong: var(--sumi-900);
+  --muted: var(--sumi-600);
+  --line: rgba(40, 40, 44, 0.14);
+  --line-strong: rgba(40, 40, 44, 0.28);
+  --accent: var(--indigo-700);
+  --focus: var(--indigo-600);
+  position: relative;
+  margin-top: clamp(4rem, 10vw, 8rem);
+  padding: clamp(6rem, 12vw, 10rem) 0;
+  background: var(--washi-100);
+  color: var(--fg);
+}
+
+.deckle {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 28px;
+  fill: var(--washi-100);
+  pointer-events: none;
+}
+
+.deckle--top {
+  top: -27px;
+}
+
+.deckle--bottom {
+  bottom: -27px;
+}
+
+.story__inner {
+  display: grid;
+  gap: 3.5rem;
 }
 
 @media (min-width: 900px) {
-  .atelier__inner {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+  .story__inner {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     column-gap: clamp(3rem, 8vw, 8rem);
-    align-items: start;
-  }
-
-  .atelier__sketch {
-    display: block;
+    align-items: center;
   }
 }
 
-.atelier__lead {
+/* ensō, the poem inside it, and a seal: all stacked in one cell */
+.story__art {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: clamp(16rem, 32vw, 25rem);
+  aspect-ratio: 1;
+}
+
+.story__art > * {
+  grid-area: 1 / 1;
+}
+
+.story__enso {
+  width: 100%;
+  height: 100%;
+}
+
+.story__enso-stroke {
+  fill: none;
+  stroke: var(--indigo-800);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.8s var(--ease) 0.3s;
+}
+
+.story__enso.is-visible .story__enso-stroke,
+html:not(.js) .story__enso-stroke {
+  stroke-dashoffset: 0;
+}
+
+.story__poem {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
+  line-height: 2.3;
+  letter-spacing: 0.3em;
+  color: var(--sumi-900);
+  transition-delay: 1.2s;
+}
+
+.story__seal {
+  align-self: end;
+  justify-self: end;
+  width: clamp(2rem, 3.4vw, 2.6rem);
+  height: auto;
+  margin: 0 11% 11% 0;
+  color: var(--indigo-700);
+  transition-delay: 2.4s;
+}
+
+.story__lead {
   max-width: 34rem;
   font-family: var(--font-display);
   font-size: clamp(1.45rem, 1.1rem + 1.2vw, 2.05rem);
   line-height: 1.5;
 }
 
-html[lang="ja"] .atelier__lead {
+html[lang="ja"] .story__lead {
   font-family: var(--font-display-ja);
   font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
   line-height: 2;
 }
 
-.atelier__text {
+.story__text {
   max-width: var(--measure);
   margin-top: 1.5rem;
 }
 
 /* --------------------------------------------------------------------------
-   Links
+   Noren: shop curtains for the links
    -------------------------------------------------------------------------- */
 
-.art-links__list {
-  border-top: 1px solid var(--line-strong);
+.noren-section {
+  position: relative;
+  padding-top: calc(var(--section-space) + 1rem);
+  overflow: hidden;
 }
 
-.art-links__item {
-  border-bottom: 1px solid var(--line);
+.noren-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 6vw, 6rem);
+  max-width: 44rem;
+  margin: 0 auto;
 }
 
-.art-links__link {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 2rem;
-  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+.noren {
+  display: grid;
+  grid-template-areas:
+    "door"
+    "name"
+    "note";
+  justify-items: center;
+  gap: 1rem;
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.art-links__name {
+.noren[href] {
+  cursor: pointer;
+}
+
+.noren__door {
+  grid-area: door;
+  position: relative;
+  display: block;
+  width: min(88%, 16rem);
+  aspect-ratio: 3 / 4;
+}
+
+.noren__rod {
+  position: absolute;
+  top: 0;
+  left: -9%;
+  right: -9%;
+  z-index: 3;
+  height: 11px;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #93724f, #4a372a 60%, #241a14);
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.6);
+}
+
+/* lamplight inside the shop */
+.noren__light {
+  position: absolute;
+  inset: 4% 4% 0;
+  background: radial-gradient(60% 55% at 50% 62%, rgba(236, 220, 180, 0.55), rgba(201, 180, 138, 0.18) 45%, transparent 75%);
+  opacity: 0.22;
+  transition: opacity 1.4s var(--ease);
+}
+
+.noren__panel {
+  position: absolute;
+  top: 5px;
+  bottom: 0;
+  z-index: 2;
+  width: 50.6%;
+  border-radius: 0 0 2px 2px;
+  background:
+    var(--mon-white) no-repeat,
+    linear-gradient(0deg, transparent 6%, rgba(241, 236, 225, 0.8) 6% 7.2%, transparent 7.2%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.28)),
+    #1f3157;
+  background-size: 76% auto, auto, auto, auto, auto;
+  box-shadow: inset 0 8px 10px -8px rgba(0, 0, 0, 0.5);
+  transform-origin: 50% 0;
+  animation: noren-sway 7s var(--ease) infinite alternate;
+  transition: rotate 1.5s var(--ease-out), translate 1.5s var(--ease-out), opacity 0.8s var(--ease);
+}
+
+/* each half carries half the crest, so it splits as they part */
+.noren__panel--l {
+  left: 0;
+  background-position: 253% 20%, 0 0, 0 0, 0 0, 0 0;
+}
+
+.noren__panel--r {
+  right: 0;
+  background-position: -153% 20%, 0 0, 0 0, 0 0, 0 0;
+  animation-delay: -2.6s;
+}
+
+@keyframes noren-sway {
+  from {
+    transform: skewX(1.3deg);
+  }
+  to {
+    transform: skewX(-1.3deg);
+  }
+}
+
+.noren__name {
+  grid-area: name;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
   line-height: 1.1;
-  letter-spacing: 0.03em;
-  color: var(--fg-strong);
-  transition: color 0.8s var(--ease), letter-spacing 1.2s var(--ease);
-}
-
-html[lang="ja"] .art-links__name {
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.4rem);
-}
-
-.art-links__note {
-  font-size: 0.85rem;
-}
-
-a[href].art-links__link:hover .art-links__name {
-  color: var(--indigo-200);
   letter-spacing: 0.06em;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .noren__name {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem);
+}
+
+/* sits behind the curtain, in the light */
+.noren__note {
+  grid-area: door;
+  align-self: center;
+  z-index: 1;
+  max-width: 38%;
+  padding-top: 22%;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--washi-200);
+  opacity: 0;
+  transition: opacity 1s var(--ease) 0.2s;
+}
+
+.noren:hover .noren__panel--l,
+.noren.is-open .noren__panel--l {
+  rotate: 9deg;
+  translate: -22% 0;
+}
+
+.noren:hover .noren__panel--r,
+.noren.is-open .noren__panel--r {
+  rotate: -9deg;
+  translate: 22% 0;
+}
+
+.noren:hover .noren__light,
+.noren.is-open .noren__light,
+.noren:hover .noren__note,
+.noren.is-open .noren__note {
+  opacity: 1;
+}
+
+@media (max-width: 639.98px) {
+  .noren-row {
+    gap: 2.75rem;
+  }
+
+  .noren__rod {
+    left: -5%;
+    right: -5%;
+  }
+}
+
+/* willow leaves drifting through */
+.noren-section__leaves i {
+  position: absolute;
+  top: -4rem;
+  left: var(--x);
+  width: 5px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(196, 186, 128, 0.85), rgba(150, 150, 96, 0.6));
+  opacity: 0.55;
+  animation: leaf-fall var(--t) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.noren-section__leaves i:nth-child(1) { --x: 8%; --t: 19s; --delay: -2s; }
+.noren-section__leaves i:nth-child(2) { --x: 22%; --t: 24s; --delay: -14s; }
+.noren-section__leaves i:nth-child(3) { --x: 47%; --t: 21s; --delay: -7s; }
+.noren-section__leaves i:nth-child(4) { --x: 64%; --t: 27s; --delay: -19s; }
+.noren-section__leaves i:nth-child(5) { --x: 81%; --t: 22s; --delay: -10s; }
+.noren-section__leaves i:nth-child(6) { --x: 93%; --t: 26s; --delay: -4s; }
+
+@keyframes leaf-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(20deg);
+  }
+  25% {
+    transform: translate3d(4vw, 22vh, 0) rotate(-35deg);
+  }
+  50% {
+    transform: translate3d(-2vw, 46vh, 0) rotate(40deg);
+  }
+  75% {
+    transform: translate3d(5vw, 70vh, 0) rotate(-25deg);
+  }
+  100% {
+    transform: translate3d(1vw, 96vh, 0) rotate(30deg);
+  }
 }
 
 .art .credit {
@@ -462,21 +1498,96 @@ a[href].art-links__link:hover .art-links__name {
   border-top: 1px solid var(--line);
 }
 
+.credit__mon {
+  width: 1.6rem;
+  height: 1.6rem;
+  margin: 0 auto 1rem;
+  color: var(--gold-300);
+  opacity: 0.75;
+}
+
 /* --------------------------------------------------------------------------
-   Reduced motion
+   Reduced motion: a still night, nothing pinned, everything drawn
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
+  .js .bloom {
+    display: none;
+  }
+
+  .art-hero [data-depth] {
+    transform: none;
+  }
+
+  .art-hero__stars,
+  .art-hero__cloud,
+  .art-hero__mist,
+  .art-hero__reflection i,
   .willow__sway,
-  .art-hero__scroll {
+  .art-hero__scroll::after,
+  .emaki__hint .arrow,
+  .noren__panel {
     animation: none;
   }
 
-  .art-hero__text > * {
-    animation: page-in 0.6s linear backwards;
+  .art-hero__cloud--1 {
+    transform: translate3d(14vw, 0, 0);
   }
 
-  .piece:hover .piece__frame {
+  .art-hero__cloud--2,
+  .art-hero__cloud--3 {
+    display: none;
+  }
+
+  .js .art-hero__line {
+    -webkit-mask-image: none;
+    mask-image: none;
+    animation: page-in 0.8s linear both;
+  }
+
+  .art-hero__mark {
+    animation: page-in 0.8s linear backwards;
+  }
+
+  .art-hero__tagline-chars .ch {
+    opacity: 1;
+    filter: none;
     transform: none;
+    animation: none;
+  }
+
+  .emaki__open img,
+  .emaki__view {
+    transition-duration: 0.2s;
+  }
+
+  .emaki__open:hover img,
+  .emaki__open:focus-visible img {
+    transform: none;
+  }
+
+  .story__enso-stroke {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .noren:hover .noren__panel--l,
+  .noren.is-open .noren__panel--l,
+  .noren:hover .noren__panel--r,
+  .noren.is-open .noren__panel--r {
+    rotate: none;
+    translate: none;
+    opacity: 0.25;
+  }
+
+  .noren-section__leaves {
+    display: none;
+  }
+
+  .viewer[open],
+  .viewer[open]::backdrop,
+  .viewer.is-closing,
+  .viewer.is-closing::backdrop {
+    animation: none;
   }
 }
