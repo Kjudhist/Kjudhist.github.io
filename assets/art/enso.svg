@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" width="900" height="900">
+<defs>
+<radialGradient id="paper" cx=".45" cy=".4" r=".8"><stop offset="0" stop-color="#f3eee3"/><stop offset="1" stop-color="#e3dac8"/></radialGradient>
+<filter id="dry" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="2"/><feDisplacementMap in="SourceGraphic" scale="12"/></filter>
+<filter id="g" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 0.3 0"/></filter>
+</defs>
+<rect width="900" height="900" fill="url(#paper)"/>
+<g fill="none" stroke="#1b2848" stroke-linecap="round" filter="url(#dry)">
+<path d="M613.9 254.7A255 255 0 0 1 229.2 577.5" stroke-width="58"/>
+<path d="M229.2 577.5A255 255 0 0 1 516 203.7" stroke-width="44"/>
+<path d="M516 203.7A255 255 0 0 1 458.9 195.2" stroke-width="22" opacity=".8"/>
+</g>
+<rect x="760" y="760" width="40" height="40" fill="#22365e"/>
+<path d="M767 793h26" stroke="#c9b48a" stroke-width="1.4"/>
+<rect width="900" height="900" filter="url(#g)" opacity=".5"/>
+</svg>
