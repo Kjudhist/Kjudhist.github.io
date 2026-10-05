@@ -834,6 +834,26 @@ html[lang="ja"] .emaki__hint {
   transform: none;
 }
 
+/* an empty place on the scroll, waiting for a piece */
+.emaki__slot {
+  display: grid;
+  place-items: center;
+  height: calc(var(--paper-h) * var(--h));
+  border: 1px dashed rgba(34, 54, 94, 0.35);
+  background: #f4eee1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--indigo-500);
+}
+
+html[lang="ja"] .emaki__slot {
+  font-family: var(--font-display-ja);
+  font-style: normal;
+  font-size: 1.05rem;
+}
+
 /* captions written down the paper, the way a scroll would label them */
 .emaki__caption {
   writing-mode: vertical-rl;

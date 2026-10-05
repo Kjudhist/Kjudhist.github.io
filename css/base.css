@@ -684,6 +684,50 @@ html[lang="ja"] .btn {
   letter-spacing: 0.12em;
 }
 
+/* a button that isn't ready yet: greyed out, with a note on hover or focus */
+.btn.is-pending {
+  position: relative;
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.is-pending:hover {
+  background: transparent;
+  color: inherit;
+}
+
+.btn.is-pending:hover .arrow {
+  transform: none;
+}
+
+.btn.is-pending:hover,
+.btn.is-pending:focus-visible {
+  opacity: 0.7;
+}
+
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.75rem);
+  padding: 0.45rem 0.8rem;
+  white-space: nowrap;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  color: var(--bg);
+  background: var(--fg-strong);
+  opacity: 0;
+  transform: translate(-50%, 0.3rem);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+  pointer-events: none;
+}
+
+.btn.is-pending:hover .tip,
+.btn.is-pending:focus-visible .tip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .arrow {
   width: 2rem;
   height: 0.6rem;

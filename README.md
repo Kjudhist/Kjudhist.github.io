@@ -25,7 +25,7 @@ Live at https://kjudhist.github.io/
 │   ├── gate.js           door behaviour (hover, tap twice on phones, walk through)
 │   └── art.js            the atelier: ink bloom, night garden, emaki, viewer
 ├── assets/
-│   ├── art/              placeholder artworks (SVG)
+│   ├── art/              artworks for the scroll (empty for now)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)
 │   ├── icons/            favicon.svg, favicon.ico, apple-touch-icon, manifest icons
 │   ├── og/               share images, 1200×630
@@ -97,11 +97,11 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 
 | What | Where |
 |---|---|
-| About, extra job bullet, case studies, skill and tool placeholders | `js/i18n.js` |
-| Artworks | swap the files in `assets/art/`, then update `width`/`height` on each `<img>` in `art/index.html` to the new image's size. How tall each piece sits on the scroll is `--h` in `css/art.css` (`.emaki__work--1` to `--6`), as a share of the paper's height |
-| Artwork titles, medium, year | `art.ph.*` keys in `js/i18n.js`. Each artwork needs its own keys once they're real |
+| About the atelier text | `art.about.*` in `js/i18n.js` |
+| Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
+| Artworks | the scroll has six empty slots ("Art 1" to "Art 6") in `art/index.html`. Put the image in `assets/art/`, then swap a slot's `<div class="emaki__slot">` for `<button class="emaki__open" type="button" data-view><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"><span class="emaki__view" data-i18n="art.view">View</span></button>`. Clicking it then opens the full-size viewer. `--h` in `css/art.css` sets how tall each piece sits on the paper |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
-| CV | replace `assets/cv/kevin-jg-cv.pdf`, keeping the file name |
+| CV | the download buttons are greyed out ("Still in progress"). Replace `assets/cv/kevin-jg-cv.pdf`, then turn both `<span class="btn is-pending">` back into links (see the comments in `qa/index.html`) |
 | LinkedIn | `qa/index.html`: uncomment the LinkedIn block in the contact list |
 | Share images | `assets/og/og-gate.jpg` and `og-art.jpg`. Sources are in `assets/src/` (see below) |
 

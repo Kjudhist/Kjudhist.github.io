@@ -56,7 +56,6 @@
         <li><a class="nav__link" href="#about" data-i18n="qa.nav.about" data-testid="nav-about">About</a></li>
         <li><a class="nav__link" href="#experience" data-i18n="qa.nav.experience" data-testid="nav-experience">Experience</a></li>
         <li><a class="nav__link" href="#skills" data-i18n="qa.nav.skills" data-testid="nav-skills">Skills</a></li>
-        <li><a class="nav__link" href="#work" data-i18n="qa.nav.work" data-testid="nav-work">Work</a></li>
         <li><a class="nav__link" href="#contact" data-i18n="qa.nav.contact" data-testid="nav-contact">Contact</a></li>
       </ul>
     </nav>
@@ -92,10 +91,13 @@
         <p class="eyebrow hero__sub" data-reveal style="--delay: .45s" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</p>
 
         <div class="hero__actions" data-reveal style="--delay: .6s">
-          <a class="btn" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf" data-testid="hero-cv">
+          <!-- CV not ready yet. When it is, turn this back into
+               <a class="btn" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf"> and drop the tip. -->
+          <span class="btn is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="hero-cv">
             <span data-i18n="qa.hero.cv">Download CV</span>
-            <svg class="arrow arrow--down" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-          </a>
+            <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+            <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
+          </span>
           <a class="link-arrow" href="#contact" data-testid="hero-contact">
             <span data-i18n="qa.hero.contact">Get in touch</span>
             <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
@@ -117,7 +119,7 @@
         <div class="split__body">
           <p class="about__lead" data-reveal data-i18n="qa.about.p1">I’m a QA engineer at Inteleq, part of Indivara Group, in Jakarta. I test payment and online banking products across several projects, including system integration testing.</p>
           <p class="about__text" data-reveal data-i18n="qa.about.p2">I got here through Indivara’s Java development training. Before that, I studied Informatics Engineering at Brawijaya University and ran the Homeband division of my faculty’s sports and arts body.</p>
-          <p class="about__text ph" data-reveal data-i18n="qa.about.p3">[A line or two about how you approach testing, and what you care about in a product.]</p>
+          <p class="about__text" data-reveal data-i18n="qa.about.p3">When I test, I keep the client’s side in mind: what they’ll actually get at the end, not just whether a case passes or fails.</p>
 
           <dl class="facts" aria-label="At a glance" data-i18n-attr="aria-label:qa.facts.label" data-reveal>
             <div class="facts__item">
@@ -163,7 +165,6 @@
                 <p class="role__type" data-i18n="qa.exp.r1.type">Full-time</p>
                 <ul class="role__points">
                   <li data-i18n="qa.exp.r1.p1">Quality assurance for payment and online banking products across multiple projects, including System Integration Testing (SIT).</li>
-                  <li class="ph" data-i18n="qa.exp.r1.p2">[Add 1–2 more bullets]</li>
                 </ul>
               </div>
             </li>
@@ -231,10 +232,11 @@
             <ul class="skillset__list">
               <li data-i18n="qa.skill.qa">Quality assurance</li>
               <li data-i18n="qa.skill.sit">System integration testing (SIT)</li>
-              <li class="ph" data-i18n="qa.skill.manual">[Manual testing]</li>
-              <li class="ph" data-i18n="qa.skill.cases">[Test case design]</li>
-              <li class="ph" data-i18n="qa.skill.bugs">[Bug reporting]</li>
-              <li class="ph" data-i18n="qa.skill.auto">[Automation tool]</li>
+              <li data-i18n="qa.skill.manual">Manual testing</li>
+              <li data-i18n="qa.skill.cases">Test case design</li>
+              <li data-i18n="qa.skill.bugs">Bug reporting</li>
+              <li data-i18n="qa.skill.auto">Automation</li>
+              <li data-i18n="qa.skill.ai">AI-assisted automation</li>
             </ul>
           </div>
           <div class="skillset__row" data-reveal>
@@ -266,82 +268,17 @@
               <li translate="no">Git</li>
               <li translate="no">Figma</li>
               <li translate="no">Balsamiq</li>
-              <li class="ph" data-i18n="qa.tool.tm">[Test management tool]</li>
-              <li class="ph" data-i18n="qa.tool.bt">[Bug tracker]</li>
-              <li class="ph" data-i18n="qa.tool.api">[API testing tool]</li>
+              <li data-i18n="qa.tool.tm">Test management tools</li>
+              <li data-i18n="qa.tool.bt">Bug trackers</li>
+              <li data-i18n="qa.tool.api">API testing tools</li>
             </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Case studies -->
-    <section class="section work" id="work" aria-labelledby="work-title" data-testid="section-work">
-      <div class="wrap">
-        <header class="section-head work__head" data-reveal>
-          <span class="section-head__num" aria-hidden="true">04</span>
-          <h2 class="section-head__title" id="work-title" data-i18n="qa.work.title">Case studies</h2>
-        </header>
-        <p class="work__note" data-reveal data-i18n="qa.work.note">Work in payments and banking is usually confidential, so these are anonymized.</p>
-
-        <ol class="cases">
-          <li class="case" data-reveal data-testid="case-1">
-            <span class="case__num" aria-hidden="true">01</span>
-            <h3 class="case__title ph" data-i18n="qa.work.c1">[A payment platform]</h3>
-            <div class="case__flow">
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.problem">Problem</h4>
-                <p class="ph" data-i18n="qa.work.phProblem">[What was at risk, and for whom.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.tested">What I tested</h4>
-                <p class="ph" data-i18n="qa.work.phTested">[Scope, approach, and the cases that mattered most.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.result">Result</h4>
-                <p class="ph" data-i18n="qa.work.phResult">[What changed. Only numbers you’re allowed to share.]</p>
-              </div>
-            </div>
-          </li>
-          <li class="case" data-reveal data-testid="case-2">
-            <span class="case__num" aria-hidden="true">02</span>
-            <h3 class="case__title ph" data-i18n="qa.work.c2">[An online banking feature]</h3>
-            <div class="case__flow">
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.problem">Problem</h4>
-                <p class="ph" data-i18n="qa.work.phProblem">[What was at risk, and for whom.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.tested">What I tested</h4>
-                <p class="ph" data-i18n="qa.work.phTested">[Scope, approach, and the cases that mattered most.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.result">Result</h4>
-                <p class="ph" data-i18n="qa.work.phResult">[What changed. Only numbers you’re allowed to share.]</p>
-              </div>
-            </div>
-          </li>
-          <li class="case" data-reveal data-testid="case-3">
-            <span class="case__num" aria-hidden="true">03</span>
-            <h3 class="case__title ph" data-i18n="qa.work.c3">[Project title]</h3>
-            <div class="case__flow">
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.problem">Problem</h4>
-                <p class="ph" data-i18n="qa.work.phProblem">[What was at risk, and for whom.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.tested">What I tested</h4>
-                <p class="ph" data-i18n="qa.work.phTested">[Scope, approach, and the cases that mattered most.]</p>
-              </div>
-              <div class="case__step">
-                <h4 class="case__label" data-i18n="qa.work.result">Result</h4>
-                <p class="ph" data-i18n="qa.work.phResult">[What changed. Only numbers you’re allowed to share.]</p>
-              </div>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
+    <!-- Case studies: hidden until there's something to show. The markup is in git history
+         (commit "Add the QA page"); put it back here along with the "Work" link in the nav. -->
 
     <!-- CV -->
     <section class="section cv" id="cv" aria-labelledby="cv-title" data-testid="section-cv">
@@ -349,10 +286,12 @@
         <div class="wrap cv__inner" data-reveal>
           <h2 class="cv__title" id="cv-title" data-i18n="qa.cv.title">CV</h2>
           <p class="cv__text" data-i18n="qa.cv.text">Everything above, on one page.</p>
-          <a class="btn btn--light" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf" data-testid="cv-download">
+          <!-- Same as the hero button: becomes a real download link once the CV is ready. -->
+          <span class="btn btn--light is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="cv-download">
             <span data-i18n="qa.cv.button">Download CV (PDF)</span>
             <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
-          </a>
+            <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
+          </span>
         </div>
       </div>
     </section>
@@ -361,7 +300,7 @@
     <section class="section contact" id="contact" aria-labelledby="contact-title" data-testid="section-contact">
       <div class="wrap">
         <header class="section-head contact__head" data-reveal>
-          <span class="section-head__num" aria-hidden="true">05</span>
+          <span class="section-head__num" aria-hidden="true">04</span>
           <h2 class="section-head__title" id="contact-title" data-i18n="qa.contact.title">Contact</h2>
         </header>
         <p class="contact__text" data-reveal data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
