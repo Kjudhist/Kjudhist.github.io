@@ -1,7 +1,7 @@
 /* ==========================================================================
    The atelier.
    Arrival bloom, the night garden (parallax, wind in the willow, fireflies
-   and drifting leaves), the emaki, the viewer, and the noren.
+   and drifting leaves), the emaki, and the viewer.
    ========================================================================== */
 
 (function () {
@@ -695,29 +695,6 @@
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Noren: on touch, the first tap parts the curtain
-     ------------------------------------------------------------------------ */
-
-  function initNoren() {
-    let lastPointer = 'mouse';
-    document.addEventListener('pointerdown', function (event) {
-      lastPointer = event.pointerType || 'mouse';
-    }, { passive: true });
-    document.querySelectorAll('[data-noren]').forEach(function (noren) {
-      noren.addEventListener('click', function (event) {
-        if (lastPointer === 'mouse') return;
-        const wasOpen = noren.classList.contains('is-open');
-        const isLink = noren.hasAttribute('href');
-        if (isLink && !wasOpen) event.preventDefault();
-        document.querySelectorAll('[data-noren].is-open').forEach(function (other) {
-          if (other !== noren) other.classList.remove('is-open');
-        });
-        noren.classList.toggle('is-open', isLink ? true : !wasOpen);
-      });
-    });
-  }
-
   /* ------------------------------------------------------------------------ */
 
   function init() {
@@ -731,7 +708,6 @@
     }
     initEmaki();
     initViewer();
-    initNoren();
   }
 
   window.atelier = {

@@ -23,7 +23,7 @@ Live at https://kjudhist.github.io/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
 │   ├── main.js           shared bits: page fades, scroll reveals, menu, local links
 │   ├── gate.js           door behaviour (hover, tap twice on phones, walk through)
-│   └── art.js            the atelier: ink bloom, night garden, emaki, viewer, noren
+│   └── art.js            the atelier: ink bloom, night garden, emaki, viewer
 ├── assets/
 │   ├── art/              placeholder artworks (SVG)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)
@@ -88,7 +88,6 @@ The art side is built as a night garden you walk through:
 - **Hero:** a moon with drifting clouds, misty hills and a pond (click the water). Willow strands swing away from the cursor. Fireflies wander, and gather around the cursor when it rests.
 - **Works:** an emaki (handscroll). On screens 900px and wider it pins in place and scrolling down unrolls it sideways while an ink river paints itself. On phones it's a swipeable strip. Clicking a piece opens it full size.
 - **About:** a sheet of washi with torn edges, where an ensō paints itself around the tagline.
-- **Links:** two noren (shop curtains) that sway, and part when hovered or tapped.
 
 With reduced motion turned on, all of that becomes a still scene: no bloom, nothing pinned, the ink and ensō already drawn.
 
@@ -101,7 +100,7 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 | About, extra job bullet, case studies, skill and tool placeholders | `js/i18n.js` |
 | Artworks | swap the files in `assets/art/`, then update `width`/`height` on each `<img>` in `art/index.html` to the new image's size. How tall each piece sits on the scroll is `--h` in `css/art.css` (`.emaki__work--1` to `--6`), as a share of the paper's height |
 | Artwork titles, medium, year | `art.ph.*` keys in `js/i18n.js`. Each artwork needs its own keys once they're real |
-| Instagram and shop links | `art/index.html`: add `href="..."` to the two noren `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
+| Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
 | CV | replace `assets/cv/kevin-jg-cv.pdf`, keeping the file name |
 | LinkedIn | `qa/index.html`: uncomment the LinkedIn block in the contact list |
 | Share images | `assets/og/og-gate.jpg` and `og-art.jpg`. Sources are in `assets/src/` (see below) |

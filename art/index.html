@@ -132,6 +132,7 @@
       <div class="art-hero__fade" aria-hidden="true"></div>
 
       <div class="art-hero__text wrap" data-depth="-.08">
+        <p class="art-hero__mark" lang="ja" aria-hidden="true">柳</p>
         <h1 class="art-hero__title latin" translate="no">
           <span class="art-hero__line">The Willow</span>
           <span class="art-hero__line">Atelier</span>
@@ -283,9 +284,9 @@
         <!-- deckle-bottom:end -->
     </section>
 
-    <!-- Links: two noren, the curtains that hang in a shop doorway -->
-    <section class="section noren-section" id="links" aria-labelledby="links-title" data-testid="section-links">
-      <div class="noren-section__leaves" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <!-- Links -->
+    <section class="section art-links" id="links" aria-labelledby="links-title" data-testid="section-links">
+      <div class="art-links__leaves" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <div class="wrap">
         <header class="section-head" data-reveal>
           <span class="section-head__num" aria-hidden="true">03</span>
@@ -294,29 +295,19 @@
 
         <!-- Placeholders: add href="..." to each link once the account and shop are live,
              then delete its "[Link coming soon]" line. -->
-        <ul class="noren-row" data-reveal>
+        <ul class="art-links__list" data-reveal>
           <li>
-            <a class="noren" data-noren data-testid="link-instagram">
-              <span class="noren__name" data-i18n="art.links.instagram">Instagram</span>
-              <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
-              <span class="noren__door" aria-hidden="true">
-                <span class="noren__light"></span>
-                <span class="noren__panel noren__panel--l"><span class="noren__kanji" lang="ja">柳</span></span>
-                <span class="noren__panel noren__panel--r"><span class="noren__kanji" lang="ja">柳</span></span>
-                <span class="noren__rod"></span>
-              </span>
+            <a class="art-links__link" data-testid="link-instagram">
+              <span class="art-links__name" data-i18n="art.links.instagram">Instagram</span>
+              <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
             </a>
           </li>
           <li>
-            <a class="noren" data-noren data-testid="link-shop">
-              <span class="noren__name" data-i18n="art.links.shop">Shop</span>
-              <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
-              <span class="noren__door" aria-hidden="true">
-                <span class="noren__light"></span>
-                <span class="noren__panel noren__panel--l"><span class="noren__kanji" lang="ja">柳</span></span>
-                <span class="noren__panel noren__panel--r"><span class="noren__kanji" lang="ja">柳</span></span>
-                <span class="noren__rod"></span>
-              </span>
+            <a class="art-links__link" data-testid="link-shop">
+              <span class="art-links__name" data-i18n="art.links.shop">Shop</span>
+              <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
+              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
             </a>
           </li>
         </ul>

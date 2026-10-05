@@ -1,6 +1,6 @@
 /* ==========================================================================
    The Willow Atelier
-   A night garden, a handscroll of works, a sheet of washi, two noren.
+   A night garden, a handscroll of works, a sheet of washi, and the links.
    ========================================================================== */
 
 .art {
@@ -377,6 +377,34 @@
 .art-hero__text {
   position: relative;
   z-index: 1;
+}
+
+.art-hero__mark {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  font-family: var(--font-display-ja);
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--gold-300);
+  animation: rise 2s var(--ease-out) 0.6s backwards;
+}
+
+/* a short gold rule after the kanji */
+.art-hero__mark::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background: var(--gold-300);
+  opacity: 0.6;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
 }
 
 .art-hero__title {
@@ -1186,186 +1214,89 @@ html[lang="ja"] .story__lead {
 }
 
 /* --------------------------------------------------------------------------
-   Noren: shop curtains for the links
+   Links: plain and large, with a hairline that draws in on hover
    -------------------------------------------------------------------------- */
 
-.noren-section {
+.art-links {
   position: relative;
-  padding-top: calc(var(--section-space) + 1rem);
   overflow: hidden;
 }
 
-.noren-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.5rem, 6vw, 6rem);
-  max-width: 44rem;
-  margin: 0 auto;
+.art-links__list {
+  border-top: 1px solid var(--line-strong);
 }
 
-.noren {
-  display: grid;
-  grid-template-areas:
-    "door"
-    "name"
-    "note";
-  justify-items: center;
-  gap: 1rem;
-  color: var(--fg);
-  -webkit-tap-highlight-color: transparent;
+.art-links__list li {
+  border-bottom: 1px solid var(--line);
 }
 
-.noren[href] {
+.art-links__link {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 2rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
+}
+
+.art-links__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--gold-300);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s var(--ease);
+}
+
+.art-links__name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  color: var(--fg-strong);
+  transition: letter-spacing 1.2s var(--ease), color 0.8s var(--ease);
+}
+
+html[lang="ja"] .art-links__name {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.4rem);
+}
+
+.art-links__note {
+  font-size: 0.85rem;
+}
+
+.art-links__arrow {
+  margin-left: auto;
+  align-self: center;
+  color: var(--muted);
+}
+
+a[href].art-links__link {
   cursor: pointer;
 }
 
-.noren__door {
-  grid-area: door;
-  position: relative;
-  display: block;
-  width: min(88%, 16rem);
-  aspect-ratio: 3 / 4;
+a[href].art-links__link:hover::after,
+a[href].art-links__link:focus-visible::after {
+  transform: scaleX(1);
 }
 
-.noren__rod {
-  position: absolute;
-  top: 0;
-  left: -9%;
-  right: -9%;
-  z-index: 3;
-  height: 11px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #93724f, #4a372a 60%, #241a14);
-  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.6);
-}
-
-/* lamplight inside the shop */
-.noren__light {
-  position: absolute;
-  inset: 4% 4% 0;
-  background: radial-gradient(60% 55% at 50% 62%, rgba(236, 220, 180, 0.55), rgba(201, 180, 138, 0.18) 45%, transparent 75%);
-  opacity: 0.22;
-  transition: opacity 1.4s var(--ease);
-}
-
-.noren__panel {
-  position: absolute;
-  top: 5px;
-  bottom: 0;
-  z-index: 2;
-  width: 50.6%;
-  border-radius: 0 0 2px 2px;
-  overflow: hidden;
-  background:
-    linear-gradient(0deg, transparent 6%, rgba(241, 236, 225, 0.8) 6% 7.2%, transparent 7.2%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.28)),
-    #1f3157;
-  box-shadow: inset 0 8px 10px -8px rgba(0, 0, 0, 0.5);
-  transform-origin: 50% 0;
-  animation: noren-sway 7s var(--ease) infinite alternate;
-  transition: rotate 1.5s var(--ease-out), translate 1.5s var(--ease-out), opacity 0.8s var(--ease);
-}
-
-.noren__panel--l {
-  left: 0;
-}
-
-.noren__panel--r {
-  right: 0;
-  animation-delay: -2.6s;
-}
-
-/* 柳 printed in white across the split, so each half carries half of it */
-.noren__kanji {
-  position: absolute;
-  top: 16%;
-  font-family: var(--font-display-ja);
-  font-size: clamp(2.1rem, 5.5vw, 3.6rem);
-  line-height: 1;
-  color: rgba(241, 236, 225, 0.92);
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.noren__panel--l .noren__kanji {
-  left: 98.8%;
-}
-
-.noren__panel--r .noren__kanji {
-  left: 1.2%;
-}
-
-@keyframes noren-sway {
-  from {
-    transform: skewX(1.3deg);
-  }
-  to {
-    transform: skewX(-1.3deg);
-  }
-}
-
-.noren__name {
-  grid-area: name;
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem);
-  line-height: 1.1;
+a[href].art-links__link:hover .art-links__name {
   letter-spacing: 0.06em;
+  color: var(--indigo-200);
+}
+
+a[href].art-links__link:hover .art-links__arrow {
+  transform: translateX(0.4rem);
   color: var(--fg-strong);
 }
 
-html[lang="ja"] .noren__name {
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.2rem, 1rem + 1vw, 1.7rem);
-}
-
-/* sits behind the curtain, in the light */
-.noren__note {
-  grid-area: door;
-  align-self: center;
-  z-index: 1;
-  max-width: 38%;
-  padding-top: 22%;
-  font-size: 0.74rem;
-  line-height: 1.5;
-  text-align: center;
-  color: var(--washi-200);
-  opacity: 0;
-  transition: opacity 1s var(--ease) 0.2s;
-}
-
-.noren:hover .noren__panel--l,
-.noren.is-open .noren__panel--l {
-  rotate: 9deg;
-  translate: -22% 0;
-}
-
-.noren:hover .noren__panel--r,
-.noren.is-open .noren__panel--r {
-  rotate: -9deg;
-  translate: 22% 0;
-}
-
-.noren:hover .noren__light,
-.noren.is-open .noren__light,
-.noren:hover .noren__note,
-.noren.is-open .noren__note {
-  opacity: 1;
-}
-
-@media (max-width: 639.98px) {
-  .noren-row {
-    gap: 2.75rem;
-  }
-
-  .noren__rod {
-    left: -5%;
-    right: -5%;
-  }
-}
-
 /* willow leaves drifting through */
-.noren-section__leaves i {
+.art-links__leaves i {
   position: absolute;
   top: -4rem;
   left: var(--x);
@@ -1378,12 +1309,12 @@ html[lang="ja"] .noren__name {
   animation-delay: var(--delay);
 }
 
-.noren-section__leaves i:nth-child(1) { --x: 8%; --t: 19s; --delay: -2s; }
-.noren-section__leaves i:nth-child(2) { --x: 22%; --t: 24s; --delay: -14s; }
-.noren-section__leaves i:nth-child(3) { --x: 47%; --t: 21s; --delay: -7s; }
-.noren-section__leaves i:nth-child(4) { --x: 64%; --t: 27s; --delay: -19s; }
-.noren-section__leaves i:nth-child(5) { --x: 81%; --t: 22s; --delay: -10s; }
-.noren-section__leaves i:nth-child(6) { --x: 93%; --t: 26s; --delay: -4s; }
+.art-links__leaves i:nth-child(1) { --x: 8%; --t: 19s; --delay: -2s; }
+.art-links__leaves i:nth-child(2) { --x: 22%; --t: 24s; --delay: -14s; }
+.art-links__leaves i:nth-child(3) { --x: 47%; --t: 21s; --delay: -7s; }
+.art-links__leaves i:nth-child(4) { --x: 64%; --t: 27s; --delay: -19s; }
+.art-links__leaves i:nth-child(5) { --x: 81%; --t: 22s; --delay: -10s; }
+.art-links__leaves i:nth-child(6) { --x: 93%; --t: 26s; --delay: -4s; }
 
 @keyframes leaf-fall {
   0% {
@@ -1428,8 +1359,7 @@ html[lang="ja"] .noren__name {
   .art-hero__reflection i,
   .willow__sway,
   .art-hero__scroll::after,
-  .emaki__hint .arrow,
-  .noren__panel {
+  .emaki__hint .arrow {
     animation: none;
   }
 
@@ -1446,6 +1376,10 @@ html[lang="ja"] .noren__name {
     -webkit-mask-image: none;
     mask-image: none;
     animation: page-in 0.8s linear both;
+  }
+
+  .art-hero__mark {
+    animation: page-in 0.8s linear backwards;
   }
 
   .art-hero__tagline-chars .ch {
@@ -1470,16 +1404,8 @@ html[lang="ja"] .noren__name {
     transition: none;
   }
 
-  .noren:hover .noren__panel--l,
-  .noren.is-open .noren__panel--l,
-  .noren:hover .noren__panel--r,
-  .noren.is-open .noren__panel--r {
-    rotate: none;
-    translate: none;
-    opacity: 0.25;
-  }
 
-  .noren-section__leaves {
+  .art-links__leaves {
     display: none;
   }
 
