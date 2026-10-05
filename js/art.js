@@ -131,7 +131,68 @@
       target.append(word);
     });
     target.style.setProperty('--base', firstTime ? '1.9s' : '0s');
+    // the whole line lands in about a second, however long it is
+    target.style.setProperty('--step', Math.min(45, 1100 / Math.max(1, i)).toFixed(1) + 'ms');
     source.parentElement.classList.add('is-split');
+  }
+
+  /* ------------------------------------------------------------------------
+     Willow leaves. The HTML ships each strand with a dashed stroke as a
+     stand-in; this swaps it for slender leaves angled down the strand.
+     ------------------------------------------------------------------------ */
+
+  function cubicAt(p0, p1, p2, p3, t) {
+    const u = 1 - t;
+    return [
+      u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+      u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1]
+    ];
+  }
+
+  function cubicTangent(p0, p1, p2, p3, t) {
+    const u = 1 - t;
+    const x = 3 * u * u * (p1[0] - p0[0]) + 6 * u * t * (p2[0] - p1[0]) + 3 * t * t * (p3[0] - p2[0]);
+    const y = 3 * u * u * (p1[1] - p0[1]) + 6 * u * t * (p2[1] - p1[1]) + 3 * t * t * (p3[1] - p2[1]);
+    const len = Math.hypot(x, y) || 1;
+    return [x / len, y / len];
+  }
+
+  function leafWillow(svg) {
+    if (!svg) return;
+    const fmt = function (p) {
+      return p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+    };
+    svg.querySelectorAll('.willow__strand').forEach(function (strand, index) {
+      const paths = strand.querySelectorAll('path');
+      const n = paths.length > 1 ? (paths[0].getAttribute('d').match(/-?\d*\.?\d+/g) || []).map(Number) : [];
+      if (n.length < 8) return;
+      const p0 = [n[0], n[1]];
+      const p1 = [n[2], n[3]];
+      const p2 = [n[4], n[5]];
+      const p3 = [n[6], n[7]];
+      const rand = seeded(index + 7);
+      const count = Math.round((Number(strand.dataset.len) || 400) / 12);
+      let d = '';
+      for (let i = 0; i < count; i++) {
+        const t = 0.05 + (0.95 * (i + rand() * 0.6)) / count;
+        const at = cubicAt(p0, p1, p2, p3, t);
+        const tan = cubicTangent(p0, p1, p2, p3, t);
+        const angle = (i % 2 ? 1 : -1) * (0.16 + rand() * 0.24);
+        const dir = [tan[0] * Math.cos(angle) - tan[1] * Math.sin(angle), tan[0] * Math.sin(angle) + tan[1] * Math.cos(angle)];
+        const length = (11 + rand() * 7) * (1 - t * 0.3);
+        const width = length * (0.15 + rand() * 0.05);
+        const tip = [at[0] + dir[0] * length, at[1] + dir[1] * length];
+        const mid = [at[0] + dir[0] * length * 0.5, at[1] + dir[1] * length * 0.5];
+        const c1 = [mid[0] - dir[1] * width, mid[1] + dir[0] * width];
+        const c2 = [mid[0] + dir[1] * width, mid[1] - dir[0] * width];
+        d += 'M' + fmt(at) + 'Q' + fmt(c1) + ' ' + fmt(tip) + 'Q' + fmt(c2) + ' ' + fmt(at) + 'Z';
+      }
+      const leaves = paths[1];
+      leaves.setAttribute('d', d);
+      leaves.removeAttribute('stroke-dasharray');
+      leaves.setAttribute('stroke', 'none');
+      leaves.setAttribute('fill', 'currentColor');
+    });
   }
 
   /* ------------------------------------------------------------------------
@@ -416,6 +477,7 @@
     const season = seasonFor(new Date(), new URLSearchParams(window.location.search).get('season'));
     hero.setAttribute('data-season-now', season);
     applySeasonLabel(season);
+    leafWillow(hero.querySelector('[data-willow]'));
     initRipples(hero);
     if (reduced) return;
 
@@ -538,10 +600,13 @@
       if (!W || !H) return;
       ink.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       const title = paper.querySelector('.emaki__title');
+      const colophon = paper.querySelector('.emaki__colophon');
       const startX = title ? title.offsetLeft + title.offsetWidth + 24 : 0;
+      const endX = colophon ? colophon.offsetLeft - 40 : W + 20;
       const rand = seeded(19);
       const pts = [];
-      for (let x = startX; x <= W + 240; x += 220 + rand() * 120) pts.push([Math.min(x, W + 20), H * (0.22 + rand() * 0.56)]);
+      for (let x = startX; x < endX; x += 220 + rand() * 120) pts.push([x, H * (0.22 + rand() * 0.56)]);
+      pts.push([endX, H * 0.5]);
       let d = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
       for (let i = 0; i < pts.length - 1; i++) {
         const p0 = pts[i - 1] || pts[i];
@@ -736,7 +801,8 @@
 
   window.atelier = {
     seasonFor: seasonFor,
-    splitTagline: splitTagline
+    splitTagline: splitTagline,
+    leafWillow: leafWillow
   };
 
   init();

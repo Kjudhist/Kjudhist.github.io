@@ -85,6 +85,7 @@
       </g>
     </symbol>
   </svg>
+  <script src="../../js/art.js"></script>
   <script>
     fetch('../../art/index.html')
       .then(function (res) { return res.text(); })
@@ -93,6 +94,7 @@
         var hero = doc.querySelector('.art-hero');
         hero.querySelectorAll('canvas, [data-split-target]').forEach(function (el) { el.remove(); });
         document.getElementById('hero').replaceWith(hero);
+        if (window.atelier) window.atelier.leafWillow(hero.querySelector('[data-willow]'));
         document.title += ' (ready)';
       });
   </script>
