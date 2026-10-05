@@ -133,7 +133,7 @@
 
       <div class="art-hero__text wrap" data-depth="-.08">
         <p class="art-hero__mark" aria-hidden="true">
-          <svg class="mon art-hero__mon" viewBox="0 0 100 100" focusable="false"><use href="#mon"/></svg>
+          <span class="art-hero__kanji" lang="ja">柳</span>
         </p>
         <h1 class="art-hero__title latin" translate="no">
           <span class="art-hero__line">The Willow</span>
@@ -245,7 +245,7 @@
               </figure>
 
               <div class="emaki__colophon" aria-hidden="true">
-                <svg class="mon emaki__seal" viewBox="0 0 100 100" focusable="false"><use href="#mon"/></svg>
+                <p class="emaki__yanagi" lang="ja">柳</p>
                 <p class="emaki__end" lang="ja">終</p>
               </div>
             </div>
@@ -274,7 +274,7 @@
             <path class="story__enso-stroke" d="M146.3 44.8A72 72 0 1 1 93.7 28.3" pathLength="1" filter="url(#story-ink)"/>
           </svg>
           <p class="story__poem" lang="ja" data-reveal>迷えるものが、<br>やすらぐ場所。</p>
-          <svg class="mon story__seal" viewBox="0 0 100 100" focusable="false" data-reveal><use href="#mon"/></svg>
+          <p class="story__sign" lang="ja" data-reveal>柳</p>
         </div>
 
         <div class="story__body">
@@ -310,8 +310,8 @@
               <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
               <span class="noren__door" aria-hidden="true">
                 <span class="noren__light"></span>
-                <span class="noren__panel noren__panel--l"></span>
-                <span class="noren__panel noren__panel--r"></span>
+                <span class="noren__panel noren__panel--l"><span class="noren__kanji" lang="ja">柳</span></span>
+                <span class="noren__panel noren__panel--r"><span class="noren__kanji" lang="ja">柳</span></span>
                 <span class="noren__rod"></span>
               </span>
             </a>
@@ -322,8 +322,8 @@
               <span class="noren__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
               <span class="noren__door" aria-hidden="true">
                 <span class="noren__light"></span>
-                <span class="noren__panel noren__panel--l"></span>
-                <span class="noren__panel noren__panel--r"></span>
+                <span class="noren__panel noren__panel--l"><span class="noren__kanji" lang="ja">柳</span></span>
+                <span class="noren__panel noren__panel--r"><span class="noren__kanji" lang="ja">柳</span></span>
                 <span class="noren__rod"></span>
               </span>
             </a>
@@ -334,7 +334,7 @@
   </main>
 
   <footer class="credit" data-testid="site-footer">
-    <svg class="mon credit__mon" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><use href="#mon"/></svg>
+    <p class="credit__kanji" lang="ja" aria-hidden="true">柳</p>
     <p><span>© 2026 The Willow Atelier</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
 
@@ -353,17 +353,5 @@
     </div>
   </dialog>
 
-  <!-- The atelier's crest: three willow leaves turning in the wind -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <symbol id="mon" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3.5"/>
-      <g fill="currentColor">
-        <path id="mon-leaf" d="M50 48C40 38 40 21 54 8C57 22 58 37 50 48Z"/>
-        <use href="#mon-leaf" transform="rotate(120 50 50)"/>
-        <use href="#mon-leaf" transform="rotate(240 50 50)"/>
-        <circle cx="50" cy="50" r="3.2"/>
-      </g>
-    </symbol>
-  </svg>
 </body>
 </html>
