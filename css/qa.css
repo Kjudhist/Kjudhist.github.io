@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-/* a faint shoji grid behind the vertical text */
+/* a faint shoji grid at the right of the hero */
 .hero__lattice {
   position: absolute;
   top: 0;
@@ -33,23 +33,6 @@
     repeating-linear-gradient(180deg, transparent 0 calc(7rem - 1px), rgba(34, 54, 94, 0.08) calc(7rem - 1px) 7rem);
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 100% 45%, #000 20%, transparent 72%);
   mask-image: radial-gradient(ellipse 80% 70% at 100% 45%, #000 20%, transparent 72%);
-  pointer-events: none;
-}
-
-.hero__vertical {
-  position: absolute;
-  top: 50%;
-  right: max(var(--gutter), calc((100% - 76rem) / 2));
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-  font-family: var(--font-display-ja);
-  font-size: clamp(3rem, 6vw, 5.25rem);
-  line-height: 1;
-  letter-spacing: 0.5em;
-  color: var(--indigo-700);
-  opacity: 0.12;
-  transform: translateY(-50%);
-  user-select: none;
   pointer-events: none;
 }
 
@@ -159,7 +142,6 @@ html[lang="ja"] .hero__pitch {
 }
 
 @media (max-width: 719.98px) {
-  .hero__vertical,
   .hero__lattice {
     display: none;
   }
@@ -575,11 +557,12 @@ html[lang="ja"] .skillset__group {
 
 .case__num {
   display: block;
-  font-family: var(--font-display-ja);
-  font-size: 2.25rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.6rem;
   line-height: 1;
   color: var(--accent);
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 @media (min-width: 900px) {

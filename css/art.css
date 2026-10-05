@@ -379,29 +379,6 @@
   z-index: 1;
 }
 
-.art-hero__mark {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  margin-bottom: clamp(1.25rem, 3vw, 2rem);
-}
-
-/* a short gold rule after the kanji */
-.art-hero__mark::after {
-  content: "";
-  width: 3rem;
-  height: 1px;
-  background: var(--gold-300);
-  opacity: 0.6;
-}
-
-.art-hero__kanji {
-  font-family: var(--font-display-ja);
-  font-size: 1.35rem;
-  line-height: 1;
-  color: var(--gold-300);
-}
-
 .art-hero__title {
   font-weight: 400;
   font-size: clamp(3rem, 1.2rem + 7vw, 8rem);
@@ -443,17 +420,6 @@
     -webkit-mask-position: 0 0;
     mask-position: 0 0;
     filter: blur(0);
-  }
-}
-
-.art-hero__mark {
-  animation: rise 2s var(--ease-out) 0.6s backwards;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
   }
 }
 
@@ -541,12 +507,6 @@ html[lang="ja"] .art-hero__tagline {
 /* --------------------------------------------------------------------------
    Kanji numerals for section heads on this side
    -------------------------------------------------------------------------- */
-
-.section-head__num--kanji {
-  font-family: var(--font-display-ja);
-  font-style: normal;
-  font-size: 1.1rem;
-}
 
 /* --------------------------------------------------------------------------
    Works: an emaki
@@ -696,20 +656,11 @@ html[lang="ja"] .art-hero__tagline {
   margin-right: clamp(4rem, 8vw, 8rem);
 }
 
-.emaki__kanji {
-  writing-mode: vertical-rl;
-  font-family: var(--font-display-ja);
-  font-size: clamp(3.25rem, 7vh, 5.25rem);
-  line-height: 1;
-  letter-spacing: 0.25em;
-  color: var(--indigo-800);
-}
-
 .emaki__heading {
   max-width: 17rem;
 }
 
-.emaki .section-head__num--kanji {
+.emaki .section-head__num {
   color: var(--indigo-500);
 }
 
@@ -864,12 +815,14 @@ html[lang="ja"] .emaki__hint {
   color: var(--fg);
 }
 
+/* numbers sit upright inside the vertical caption, two digits to one square */
 .emaki__no {
   margin-left: 0.35rem;
-  font-family: var(--font-display-ja);
-  font-size: 1.15rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
   color: var(--indigo-600);
-  text-orientation: upright;
+  text-combine-upright: all;
 }
 
 .emaki__ctitle {
@@ -886,29 +839,6 @@ html[lang="ja"] .emaki__ctitle {
 .emaki__cmeta {
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-}
-
-.emaki__colophon {
-  flex: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-left: clamp(1rem, 3vw, 3rem);
-}
-
-.emaki__yanagi {
-  font-family: var(--font-display-ja);
-  font-size: 2.6rem;
-  line-height: 1;
-  color: var(--indigo-700);
-}
-
-.emaki__end {
-  writing-mode: vertical-rl;
-  font-family: var(--font-display-ja);
-  font-size: 2rem;
-  color: var(--sumi-800);
 }
 
 .emaki__progress {
@@ -965,10 +895,6 @@ html[lang="ja"] .emaki__ctitle {
 @media (max-width: 639.98px) {
   .emaki {
     --paper-h: min(56svh, 440px);
-  }
-
-  .emaki__kanji {
-    font-size: 3rem;
   }
 
   .emaki__heading {
@@ -1071,10 +997,11 @@ html[lang="ja"] .emaki__ctitle {
 
 .viewer__no {
   margin-left: 0.5rem;
-  font-family: var(--font-display-ja);
-  font-size: 1.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
   color: var(--gold-300);
-  text-orientation: upright;
+  text-combine-upright: all;
 }
 
 .viewer__title {
@@ -1238,17 +1165,6 @@ html:not(.js) .story__enso-stroke {
   letter-spacing: 0.3em;
   color: var(--sumi-900);
   transition-delay: 1.2s;
-}
-
-.story__sign {
-  align-self: end;
-  justify-self: end;
-  margin: 0 12% 10% 0;
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  line-height: 1;
-  color: var(--indigo-700);
-  transition-delay: 2.4s;
 }
 
 .story__lead {
@@ -1493,14 +1409,6 @@ html[lang="ja"] .noren__name {
   border-top: 1px solid var(--line);
 }
 
-.credit__kanji {
-  margin-bottom: 0.9rem;
-  font-family: var(--font-display-ja);
-  font-size: 1.15rem;
-  color: var(--gold-300);
-  opacity: 0.8;
-}
-
 /* --------------------------------------------------------------------------
    Reduced motion: a still night, nothing pinned, everything drawn
    -------------------------------------------------------------------------- */
@@ -1538,10 +1446,6 @@ html[lang="ja"] .noren__name {
     -webkit-mask-image: none;
     mask-image: none;
     animation: page-in 0.8s linear both;
-  }
-
-  .art-hero__mark {
-    animation: page-in 0.8s linear backwards;
   }
 
   .art-hero__tagline-chars .ch {

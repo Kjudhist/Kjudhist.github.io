@@ -536,9 +536,8 @@
       if (!W || !H) return;
       ink.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       const title = paper.querySelector('.emaki__title');
-      const colophon = paper.querySelector('.emaki__colophon');
       const startX = title ? title.offsetLeft + title.offsetWidth + 24 : 0;
-      const endX = colophon ? colophon.offsetLeft - 40 : W + 20;
+      const endX = W - 48;
       const rand = seeded(19);
       const pts = [];
       for (let x = startX; x < endX; x += 220 + rand() * 120) pts.push([x, H * (0.22 + rand() * 0.56)]);
