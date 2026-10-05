@@ -392,43 +392,19 @@
   margin-bottom: clamp(1.25rem, 3vw, 2rem);
 }
 
+/* a short gold rule after the crest */
+.art-hero__mark::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background: var(--gold-300);
+  opacity: 0.6;
+}
+
 .art-hero__mon {
   width: 2.6rem;
   height: 2.6rem;
   color: var(--gold-300);
-}
-
-.art-hero__season {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  padding-left: 1.1rem;
-  border-left: 1px solid rgba(201, 180, 138, 0.45);
-  font-size: 0.7rem;
-  font-weight: 400;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--washi-300);
-}
-
-html[lang="ja"] .art-hero__season {
-  letter-spacing: 0.14em;
-}
-
-.art-hero__season-kanji {
-  font-family: var(--font-display-ja);
-  font-size: 1.05rem;
-  letter-spacing: 0;
-  color: var(--gold-300);
-}
-
-html:not(.js) .art-hero__season {
-  display: none;
-}
-
-/* the name already reads 秋の夜 in Japanese */
-html[lang="ja"] .art-hero__season-kanji {
-  display: none;
 }
 
 .art-hero__title {
@@ -1468,7 +1444,7 @@ html[lang="ja"] .noren__name {
   width: 5px;
   height: 20px;
   border-radius: 50%;
-  background: linear-gradient(180deg, rgba(196, 186, 128, 0.85), rgba(150, 150, 96, 0.6));
+  background: linear-gradient(180deg, rgba(186, 194, 166, 0.85), rgba(136, 152, 136, 0.6));
   opacity: 0.55;
   animation: leaf-fall var(--t) linear infinite;
   animation-delay: var(--delay);

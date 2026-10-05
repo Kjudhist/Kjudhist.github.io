@@ -1,7 +1,7 @@
 /* ==========================================================================
    The atelier.
    Arrival bloom, the night garden (parallax, wind in the willow, fireflies
-   and the season), the emaki, the viewer, and the noren.
+   and drifting leaves), the emaki, the viewer, and the noren.
    ========================================================================== */
 
 (function () {
@@ -9,10 +9,6 @@
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  function t(key) {
-    return window.i18n ? window.i18n.t(key) : null;
-  }
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -27,38 +23,6 @@
       n = (n + Math.imul(n ^ (n >>> 7), 61 | n)) ^ n;
       return ((n ^ (n >>> 14)) >>> 0) / 4294967296;
     };
-  }
-
-  /* ------------------------------------------------------------------------
-     Season: the garden follows the visitor's calendar
-     ------------------------------------------------------------------------ */
-
-  const SEASONS = {
-    spring: { kanji: '春', months: [2, 3, 4] },
-    summer: { kanji: '夏', months: [5, 6, 7] },
-    autumn: { kanji: '秋', months: [8, 9, 10] },
-    winter: { kanji: '冬', months: [11, 0, 1] }
-  };
-
-  // ?season=spring|summer|autumn|winter previews the others.
-  function seasonFor(date, override) {
-    if (override && SEASONS[override]) return override;
-    const month = date.getMonth();
-    return Object.keys(SEASONS).find(function (name) {
-      return SEASONS[name].months.indexOf(month) !== -1;
-    });
-  }
-
-  function applySeasonLabel(season) {
-    const kanji = document.querySelector('[data-season-kanji]');
-    const name = document.querySelector('[data-season-name]');
-    if (kanji) kanji.textContent = SEASONS[season].kanji;
-    if (name) {
-      const key = 'art.season.' + season;
-      name.setAttribute('data-i18n', key);
-      const text = t(key);
-      if (text) name.textContent = text;
-    }
   }
 
   /* ------------------------------------------------------------------------
@@ -254,7 +218,7 @@
   }
 
   /* ------------------------------------------------------------------------
-     Fireflies, plus petals, leaves or snow
+     Fireflies, and willow leaves drifting down
      ------------------------------------------------------------------------ */
 
   function makeGlow() {
@@ -271,13 +235,14 @@
     return c;
   }
 
-  const LEAF_COLOURS = ['rgb(200, 186, 120)', 'rgb(176, 170, 104)', 'rgb(214, 196, 138)', 'rgb(160, 152, 100)'];
+  // willow green, silvered by the moon
+  const LEAF_COLOURS = ['rgb(168, 180, 152)', 'rgb(150, 166, 142)', 'rgb(186, 194, 166)', 'rgb(136, 152, 136)'];
 
-  function createSprites(canvas, season) {
+  function createSprites(canvas) {
     const ctx = canvas.getContext('2d');
     const small = window.innerWidth < 640;
-    const flyCount = season === 'summer' ? (small ? 18 : 32) : (small ? 8 : 14);
-    const fallCount = { spring: small ? 12 : 22, summer: 0, autumn: small ? 8 : 14, winter: small ? 26 : 48 }[season];
+    const flyCount = small ? 12 : 22;
+    const fallCount = small ? 6 : 10;
     const glow = makeGlow();
     const rand = Math.random;
     const flies = [];
@@ -311,37 +276,20 @@
     }
 
     function newFall(fromTop) {
-      const p = {
+      return {
         x: rand() * (w + 120) - 60,
         y: fromTop ? -20 - rand() * h * 0.25 : rand() * h,
         phase: rand() * 10,
         rot: rand() * Math.PI * 2,
-        alpha: 0.5 + rand() * 0.4
+        alpha: 0.45 + rand() * 0.3,
+        size: 6 + rand() * 5,
+        vy: 18 + rand() * 18,
+        sway: 18 + rand() * 14,
+        swayRate: 0.7 + rand() * 0.8,
+        drift: 10 + rand() * 12,
+        spin: (rand() - 0.5) * 2.6,
+        colour: LEAF_COLOURS[Math.floor(rand() * LEAF_COLOURS.length)]
       };
-      if (season === 'winter') {
-        p.size = 0.8 + rand() * 1.8;
-        p.vy = 8 + p.size * 7;
-        p.sway = 6 + rand() * 8;
-        p.swayRate = 0.6 + rand() * 0.8;
-        p.drift = 2 + rand() * 5;
-        p.spin = 0;
-      } else if (season === 'spring') {
-        p.size = 3.2 + rand() * 2.4;
-        p.vy = 16 + rand() * 18;
-        p.sway = 14 + rand() * 14;
-        p.swayRate = 0.8 + rand() * 0.9;
-        p.drift = 8 + rand() * 10;
-        p.spin = (rand() - 0.5) * 2;
-      } else {
-        p.size = 6 + rand() * 5;
-        p.vy = 20 + rand() * 20;
-        p.sway = 18 + rand() * 14;
-        p.swayRate = 0.7 + rand() * 0.8;
-        p.drift = 10 + rand() * 12;
-        p.spin = (rand() - 0.5) * 2.6;
-        p.colour = LEAF_COLOURS[Math.floor(rand() * LEAF_COLOURS.length)];
-      }
-      return p;
     }
 
     resize();
@@ -401,20 +349,11 @@
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rot);
       ctx.globalAlpha = p.alpha;
+      // a slender leaf turning over as it falls
+      ctx.scale(0.4 + 0.6 * Math.abs(Math.sin(time * p.swayRate + p.phase)), 1);
+      ctx.fillStyle = p.colour;
       ctx.beginPath();
-      if (season === 'winter') {
-        ctx.fillStyle = '#eef1f6';
-        ctx.arc(0, 0, p.size, 0, Math.PI * 2);
-      } else if (season === 'spring') {
-        // a petal turning over as it falls
-        ctx.scale(1, 0.35 + 0.65 * Math.abs(Math.sin(time * p.swayRate * 1.4 + p.phase)));
-        ctx.fillStyle = 'rgb(240, 220, 226)';
-        ctx.ellipse(0, 0, p.size, p.size * 0.66, 0, 0, Math.PI * 2);
-      } else {
-        ctx.scale(0.4 + 0.6 * Math.abs(Math.sin(time * p.swayRate + p.phase)), 1);
-        ctx.fillStyle = p.colour;
-        ctx.ellipse(0, 0, p.size * 0.24, p.size, 0, 0, Math.PI * 2);
-      }
+      ctx.ellipse(0, 0, p.size * 0.22, p.size, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
@@ -474,9 +413,6 @@
     const hero = document.querySelector('[data-hero]');
     if (!hero) return;
 
-    const season = seasonFor(new Date(), new URLSearchParams(window.location.search).get('season'));
-    hero.setAttribute('data-season-now', season);
-    applySeasonLabel(season);
     leafWillow(hero.querySelector('[data-willow]'));
     initRipples(hero);
     if (reduced) return;
@@ -486,7 +422,7 @@
     });
 
     const canvas = hero.querySelector('[data-sprites]');
-    const sprites = canvas && canvas.getContext ? createSprites(canvas, season) : null;
+    const sprites = canvas && canvas.getContext ? createSprites(canvas) : null;
     const willow = hero.querySelector('[data-willow]');
     const wind = willow ? createWind(willow) : null;
     const pointer = { x: 0, y: 0, nx: 0, ny: 0, vx: 0, vy: 0, inside: false, lastMove: 0 };
@@ -800,7 +736,6 @@
   }
 
   window.atelier = {
-    seasonFor: seasonFor,
     splitTagline: splitTagline,
     leafWillow: leafWillow
   };

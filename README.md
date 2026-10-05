@@ -86,7 +86,6 @@ The art side is built as a night garden you walk through:
 
 - **Arrival:** the page opens through spreading ink.
 - **Hero:** a moon with drifting clouds, misty hills and a pond (click the water). Willow strands swing away from the cursor. Fireflies wander, and gather around the cursor when it rests.
-- **Seasons:** the hero follows the visitor's calendar: spring petals, summer fireflies, autumn leaves, winter snow. Preview any season with `?season=spring`, `summer`, `autumn` or `winter`.
 - **Works:** an emaki (handscroll). On screens 900px and wider it pins in place and scrolling down unrolls it sideways while an ink river paints itself. On phones it's a swipeable strip. Clicking a piece opens it full size.
 - **About:** a sheet of washi with torn edges, where an ensō paints itself around the tagline.
 - **Links:** two noren (shop curtains) that sway, and part when hovered or tapped.
