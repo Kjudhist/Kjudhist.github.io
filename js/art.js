@@ -415,7 +415,9 @@
 
     leafWillow(hero.querySelector('[data-willow]'));
     initRipples(hero);
-    if (reduced) return;
+    // lite mode (main.js) keeps the garden still: no parallax, wind or fireflies
+    let lite = Boolean(window.site && window.site.isLite());
+    if (reduced || lite) return;
 
     hero.querySelectorAll('[data-depth]').forEach(function (el) {
       el.style.setProperty('--d', el.getAttribute('data-depth'));
@@ -454,7 +456,7 @@
     }
 
     function frame(now) {
-      if (!visible || document.hidden) {
+      if (lite || !visible || document.hidden) {
         running = false;
         return;
       }
@@ -488,7 +490,7 @@
     }
 
     function start() {
-      if (running || !visible || document.hidden) return;
+      if (running || lite || !visible || document.hidden) return;
       running = true;
       last = performance.now();
       window.requestAnimationFrame(frame);
@@ -503,8 +505,11 @@
       start();
     }).observe(hero);
     document.addEventListener('visibilitychange', start);
+    document.addEventListener('fxlite', function () {
+      lite = true;
+    });
     window.addEventListener('resize', function () {
-      if (sprites) sprites.resize();
+      if (sprites && !lite) sprites.resize();
     });
     start();
   }

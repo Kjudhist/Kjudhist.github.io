@@ -1436,3 +1436,24 @@ a[href].art-links__link:hover .art-links__arrow {
     animation: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Lite mode: the garden holds still (see main.js)
+   -------------------------------------------------------------------------- */
+
+.fx-lite .art-hero [data-depth] {
+  transform: none;
+}
+
+.fx-lite .art-hero__sprites {
+  display: none;
+}
+
+.fx-lite .art-hero__stars,
+.fx-lite .art-hero__cloud,
+.fx-lite .art-hero__mist,
+.fx-lite .art-hero__reflection i,
+.fx-lite .willow__sway,
+.fx-lite .art-links__leaves i {
+  animation-play-state: paused;
+}
