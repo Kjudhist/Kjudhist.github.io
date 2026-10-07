@@ -1,14 +1,13 @@
 /* ==========================================================================
    The atelier.
-   Arrival bloom, the night garden (parallax, wind in the willow, fireflies
-   and drifting leaves), the emaki, and the viewer.
+   Arrival bloom, the night garden (a swaying willow and a few fireflies),
+   the emaki, and the viewer.
    ========================================================================== */
 
 (function () {
   'use strict';
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -160,65 +159,7 @@
   }
 
   /* ------------------------------------------------------------------------
-     Wind in the willow: strands swing away from a passing cursor
-     ------------------------------------------------------------------------ */
-
-  function createWind(svg) {
-    const strands = Array.from(svg.querySelectorAll('.willow__strand')).map(function (g) {
-      return {
-        g: g,
-        x: Number(g.dataset.x),
-        y: Number(g.dataset.y),
-        dx: Number(g.dataset.dx),
-        len: Number(g.dataset.len),
-        a: 0,
-        v: 0
-      };
-    });
-    let active = false;
-
-    function push(clientX, clientY, vx) {
-      const ctm = svg.getScreenCTM();
-      if (!ctm || !vx) return;
-      const p = new DOMPoint(clientX, clientY).matrixTransform(ctm.inverse());
-      const unitsPerPx = 1 / ctm.a;
-      const reach = 64;
-      strands.forEach(function (s) {
-        if (p.y < s.y || p.y > s.y + s.len) return;
-        const along = (p.y - s.y) / s.len;
-        const sx = s.x + s.dx * Math.pow(along, 1.3);
-        const dist = Math.abs(p.x - sx);
-        if (dist > reach) return;
-        // rotating a hanging strand by a negative angle moves its tip right
-        s.v -= vx * unitsPerPx * 0.012 * (1 - dist / reach) * (0.4 + along);
-        active = true;
-      });
-    }
-
-    function step() {
-      if (!active) return;
-      let energy = 0;
-      strands.forEach(function (s) {
-        s.v += -0.02 * s.a - 0.07 * s.v;
-        s.a = clamp(s.a + s.v, -9, 9);
-        energy += Math.abs(s.a) + Math.abs(s.v);
-        s.g.setAttribute('transform', 'rotate(' + s.a.toFixed(3) + ' ' + s.x + ' ' + s.y + ')');
-      });
-      if (energy < 0.02) {
-        active = false;
-        strands.forEach(function (s) {
-          s.a = 0;
-          s.v = 0;
-          s.g.removeAttribute('transform');
-        });
-      }
-    }
-
-    return { push: push, step: step };
-  }
-
-  /* ------------------------------------------------------------------------
-     Fireflies, and willow leaves drifting down
+     Fireflies
      ------------------------------------------------------------------------ */
 
   function makeGlow() {
@@ -235,18 +176,12 @@
     return c;
   }
 
-  // willow green, silvered by the moon
-  const LEAF_COLOURS = ['rgb(168, 180, 152)', 'rgb(150, 166, 142)', 'rgb(186, 194, 166)', 'rgb(136, 152, 136)'];
-
   function createSprites(canvas) {
     const ctx = canvas.getContext('2d');
-    const small = window.innerWidth < 640;
-    const flyCount = small ? 12 : 22;
-    const fallCount = small ? 6 : 10;
+    const count = window.innerWidth < 640 ? 8 : 14;
     const glow = makeGlow();
     const rand = Math.random;
     const flies = [];
-    const falls = [];
     let w = 0;
     let h = 0;
 
@@ -269,55 +204,18 @@
         speed: 10 + rand() * 18,
         phase: rand() * 10,
         blink: 0.5 + rand() * 1.1,
-        size: 16 + rand() * 18,
-        orbit: 24 + rand() * 64,
-        angle: rand() * Math.PI * 2
-      };
-    }
-
-    function newFall(fromTop) {
-      return {
-        x: rand() * (w + 120) - 60,
-        y: fromTop ? -20 - rand() * h * 0.25 : rand() * h,
-        phase: rand() * 10,
-        rot: rand() * Math.PI * 2,
-        alpha: 0.45 + rand() * 0.3,
-        size: 6 + rand() * 5,
-        vy: 18 + rand() * 18,
-        sway: 18 + rand() * 14,
-        swayRate: 0.7 + rand() * 0.8,
-        drift: 10 + rand() * 12,
-        spin: (rand() - 0.5) * 2.6,
-        colour: LEAF_COLOURS[Math.floor(rand() * LEAF_COLOURS.length)]
+        size: 16 + rand() * 18
       };
     }
 
     resize();
-    for (let i = 0; i < flyCount; i++) flies.push(newFly());
-    for (let i = 0; i < fallCount; i++) falls.push(newFall(false));
+    for (let i = 0; i < count; i++) flies.push(newFly());
 
-    function step(dt, time, pointer) {
-      const still = pointer.inside && performance.now() - pointer.lastMove > 450;
-      const fast = Math.hypot(pointer.vx, pointer.vy) > 6;
-
+    function step(dt) {
       flies.forEach(function (f) {
         f.heading += (rand() - 0.5) * 2.2 * dt;
-        let tx = Math.cos(f.heading) * f.speed;
-        let ty = Math.sin(f.heading) * f.speed * 0.6;
-        if (pointer.inside) {
-          const dx = pointer.x - f.x;
-          const dy = pointer.y - f.y;
-          const d = Math.hypot(dx, dy) || 1;
-          if (still && d < 360) {
-            // hold still and they come to rest around you
-            f.angle += dt * 0.5;
-            tx = (pointer.x + Math.cos(f.angle) * f.orbit - f.x) * 0.6;
-            ty = (pointer.y + Math.sin(f.angle) * f.orbit * 0.6 - f.y) * 0.6;
-          } else if (fast && d < 150) {
-            tx -= (dx / d) * 120;
-            ty -= (dy / d) * 120;
-          }
-        }
+        const tx = Math.cos(f.heading) * f.speed;
+        const ty = Math.sin(f.heading) * f.speed * 0.6;
         const ease = Math.min(1, dt * 1.6);
         f.vx += (tx - f.vx) * ease;
         f.vy += (ty - f.vy) * ease;
@@ -328,41 +226,10 @@
         if (f.y < h * 0.2) f.vy += 40 * dt;
         if (f.y > h * 0.96) f.vy -= 40 * dt;
       });
-
-      falls.forEach(function (p, i) {
-        p.y += p.vy * dt;
-        p.x += (Math.sin(time * p.swayRate + p.phase) * p.sway + p.drift) * dt;
-        p.rot += p.spin * dt;
-        if (fast && pointer.inside) {
-          const d = Math.hypot(p.x - pointer.x, p.y - pointer.y);
-          if (d < 120) {
-            p.x += pointer.vx * 0.5 * (1 - d / 120);
-            p.y += pointer.vy * 0.3 * (1 - d / 120);
-          }
-        }
-        if (p.y > h + 30 || p.x < -80 || p.x > w + 80) falls[i] = newFall(true);
-      });
-    }
-
-    function drawFall(p, time) {
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.globalAlpha = p.alpha;
-      // a slender leaf turning over as it falls
-      ctx.scale(0.4 + 0.6 * Math.abs(Math.sin(time * p.swayRate + p.phase)), 1);
-      ctx.fillStyle = p.colour;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, p.size * 0.22, p.size, 0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
     }
 
     function draw(time) {
       ctx.clearRect(0, 0, w, h);
-      falls.forEach(function (p) {
-        drawFall(p, time);
-      });
       ctx.globalCompositeOperation = 'lighter';
       flies.forEach(function (f) {
         const pulse = 0.5 + 0.5 * Math.sin(time * f.blink * 2 + f.phase);
@@ -415,45 +282,16 @@
 
     leafWillow(hero.querySelector('[data-willow]'));
     initRipples(hero);
-    // lite mode (main.js) keeps the garden still: no parallax, wind or fireflies
+    // lite mode (main.js) keeps the garden still: no fireflies
     let lite = Boolean(window.site && window.site.isLite());
     if (reduced || lite) return;
 
-    hero.querySelectorAll('[data-depth]').forEach(function (el) {
-      el.style.setProperty('--d', el.getAttribute('data-depth'));
-    });
-
     const canvas = hero.querySelector('[data-sprites]');
     const sprites = canvas && canvas.getContext ? createSprites(canvas) : null;
-    const willow = hero.querySelector('[data-willow]');
-    const wind = willow ? createWind(willow) : null;
-    const pointer = { x: 0, y: 0, nx: 0, ny: 0, vx: 0, vy: 0, inside: false, lastMove: 0 };
-    let mx = 0;
-    let my = 0;
-    let lastSy = -1;
+    if (!sprites) return;
     let visible = true;
     let running = false;
     let last = 0;
-
-    function onMove(event) {
-      const r = hero.getBoundingClientRect();
-      const x = event.clientX - r.left;
-      const y = event.clientY - r.top;
-      const now = performance.now();
-      if (pointer.inside) {
-        const dt = Math.max(8, now - pointer.lastMove);
-        pointer.vx = ((x - pointer.x) / dt) * 16;
-        pointer.vy = ((y - pointer.y) / dt) * 16;
-      }
-      pointer.x = x;
-      pointer.y = y;
-      pointer.nx = (x / r.width) * 2 - 1;
-      pointer.ny = clamp((y / r.height) * 2 - 1, -1, 1);
-      pointer.inside = y >= 0 && y <= r.height && x >= 0 && x <= r.width;
-      pointer.lastMove = now;
-      if (wind && pointer.inside) wind.push(event.clientX, event.clientY, pointer.vx);
-      start();
-    }
 
     function frame(now) {
       if (lite || !visible || document.hidden) {
@@ -462,30 +300,8 @@
       }
       const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
       last = now;
-
-      if (finePointer) {
-        const nmx = mx + (pointer.nx - mx) * 0.05;
-        const nmy = my + (pointer.ny - my) * 0.05;
-        if (Math.abs(nmx - mx) > 0.0005 || Math.abs(nmy - my) > 0.0005) {
-          mx = nmx;
-          my = nmy;
-          hero.style.setProperty('--mx', mx.toFixed(4));
-          hero.style.setProperty('--my', my.toFixed(4));
-        }
-      }
-      const sy = Math.min(window.scrollY, hero.offsetHeight);
-      if (sy !== lastSy) {
-        lastSy = sy;
-        hero.style.setProperty('--sy', sy.toFixed(1));
-      }
-
-      if (wind) wind.step();
-      if (sprites) {
-        sprites.step(dt, now / 1000, pointer);
-        sprites.draw(now / 1000);
-      }
-      pointer.vx *= 0.9;
-      pointer.vy *= 0.9;
+      sprites.step(dt);
+      sprites.draw(now / 1000);
       window.requestAnimationFrame(frame);
     }
 
@@ -496,10 +312,6 @@
       window.requestAnimationFrame(frame);
     }
 
-    window.addEventListener('pointermove', onMove, { passive: true });
-    hero.addEventListener('pointerleave', function () {
-      pointer.inside = false;
-    });
     new IntersectionObserver(function (entries) {
       visible = entries[0].isIntersecting;
       start();
@@ -509,7 +321,7 @@
       lite = true;
     });
     window.addEventListener('resize', function () {
-      if (sprites && !lite) sprites.resize();
+      if (!lite) sprites.resize();
     });
     start();
   }

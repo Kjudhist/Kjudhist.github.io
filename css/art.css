@@ -45,13 +45,9 @@
 
 /* --------------------------------------------------------------------------
    Hero: the night garden
-   Layers carrying data-depth drift with the cursor and with scroll.
    -------------------------------------------------------------------------- */
 
 .art-hero {
-  --mx: 0;
-  --my: 0;
-  --sy: 0;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -62,14 +58,6 @@
   padding-bottom: calc(21svh + 3.5rem);
   overflow: hidden;
   background: var(--indigo-900);
-}
-
-.art-hero [data-depth] {
-  transform: translate3d(
-    calc(var(--mx) * var(--d, 0) * -34px),
-    calc(var(--my) * var(--d, 0) * -18px + var(--sy) * var(--d, 0) * 1px),
-    0
-  );
 }
 
 .art-hero__sky {
@@ -96,8 +84,7 @@
     radial-gradient(1px 1px at 76% 7%, #fff 50%, transparent 100%),
     radial-gradient(1.1px 1.1px at 88% 29%, #fff 50%, transparent 100%),
     radial-gradient(1px 1px at 94% 11%, #fff 50%, transparent 100%);
-  opacity: 0.7;
-  animation: twinkle 6s ease-in-out infinite alternate;
+  opacity: 0.6;
 }
 
 .art-hero__stars--b {
@@ -110,17 +97,7 @@
     radial-gradient(1px 1px at 71% 46%, #fff 50%, transparent 100%),
     radial-gradient(1.2px 1.2px at 82% 17%, #fff 50%, transparent 100%),
     radial-gradient(1px 1px at 97% 36%, #fff 50%, transparent 100%);
-  animation-duration: 8s;
-  animation-delay: -4s;
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 0.25;
-  }
-  to {
-    opacity: 0.85;
-  }
+  opacity: 0.45;
 }
 
 .art-hero__moon {
@@ -152,33 +129,18 @@
   background: radial-gradient(50% 50% at 50% 50%, rgba(170, 186, 214, 0.34), rgba(170, 186, 214, 0) 70%);
   filter: blur(6px);
   opacity: 0.8;
-  animation: cloud-drift 95s linear infinite;
-  animation-delay: -38s;
+  transform: translate3d(14vw, 0, 0);
 }
 
 .art-hero__cloud--2 {
   top: 25%;
   width: 24vw;
   opacity: 0.5;
-  animation-duration: 125s;
-  animation-delay: -70s;
+  transform: translate3d(48vw, 0, 0);
 }
 
 .art-hero__cloud--3 {
-  top: 9%;
-  width: 42vw;
-  opacity: 0.35;
-  animation-duration: 160s;
-  animation-delay: -20s;
-}
-
-@keyframes cloud-drift {
-  from {
-    transform: translate3d(-45vw, 0, 0);
-  }
-  to {
-    transform: translate3d(110vw, 0, 0);
-  }
+  display: none;
 }
 
 .art-hero__land {
@@ -212,18 +174,7 @@
   bottom: -12%;
   height: 70%;
   background: linear-gradient(180deg, transparent, rgba(126, 150, 196, 0.2) 55%, rgba(126, 150, 196, 0.08) 80%, transparent);
-  animation: mist-breathe 14s var(--ease) infinite alternate;
-}
-
-@keyframes mist-breathe {
-  from {
-    opacity: 0.55;
-    transform: translate3d(-2%, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(2%, 0, 0);
-  }
+  opacity: 0.8;
 }
 
 /* the pond, holding the moon */
@@ -353,7 +304,7 @@
   }
 }
 
-/* fireflies, petals, leaves or snow, drawn by art.js */
+/* fireflies, drawn by art.js */
 .art-hero__sprites {
   position: absolute;
   inset: 0;
@@ -1315,45 +1266,6 @@ a[href].art-links__link:hover .art-links__arrow {
   color: var(--fg-strong);
 }
 
-/* willow leaves drifting through */
-.art-links__leaves i {
-  position: absolute;
-  top: -4rem;
-  left: var(--x);
-  width: 5px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(186, 194, 166, 0.85), rgba(136, 152, 136, 0.6));
-  opacity: 0.55;
-  animation: leaf-fall var(--t) linear infinite;
-  animation-delay: var(--delay);
-}
-
-.art-links__leaves i:nth-child(1) { --x: 8%; --t: 19s; --delay: -2s; }
-.art-links__leaves i:nth-child(2) { --x: 22%; --t: 24s; --delay: -14s; }
-.art-links__leaves i:nth-child(3) { --x: 47%; --t: 21s; --delay: -7s; }
-.art-links__leaves i:nth-child(4) { --x: 64%; --t: 27s; --delay: -19s; }
-.art-links__leaves i:nth-child(5) { --x: 81%; --t: 22s; --delay: -10s; }
-.art-links__leaves i:nth-child(6) { --x: 93%; --t: 26s; --delay: -4s; }
-
-@keyframes leaf-fall {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(20deg);
-  }
-  25% {
-    transform: translate3d(4vw, 22vh, 0) rotate(-35deg);
-  }
-  50% {
-    transform: translate3d(-2vw, 46vh, 0) rotate(40deg);
-  }
-  75% {
-    transform: translate3d(5vw, 70vh, 0) rotate(-25deg);
-  }
-  100% {
-    transform: translate3d(1vw, 96vh, 0) rotate(30deg);
-  }
-}
-
 .art .credit {
   margin: var(--section-space) var(--gutter) 0;
   padding-inline: 0;
@@ -1369,27 +1281,11 @@ a[href].art-links__link:hover .art-links__arrow {
     display: none;
   }
 
-  .art-hero [data-depth] {
-    transform: none;
-  }
-
-  .art-hero__stars,
-  .art-hero__cloud,
-  .art-hero__mist,
   .art-hero__reflection i,
   .willow__sway,
   .art-hero__scroll::after,
   .emaki__hint .arrow {
     animation: none;
-  }
-
-  .art-hero__cloud--1 {
-    transform: translate3d(14vw, 0, 0);
-  }
-
-  .art-hero__cloud--2,
-  .art-hero__cloud--3 {
-    display: none;
   }
 
   .js .art-hero__line {
@@ -1424,10 +1320,6 @@ a[href].art-links__link:hover .art-links__arrow {
     transition: none;
   }
 
-
-  .art-links__leaves {
-    display: none;
-  }
 
   .viewer[open],
   .viewer[open]::backdrop,
