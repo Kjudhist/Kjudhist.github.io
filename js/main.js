@@ -61,108 +61,6 @@
     });
   }
 
-  /* ------------------------------------------------------------------------
-     Lite mode: a device that can't keep up gets a calmer page.
-     The paper grain, frosted header and ambient loops go; doors, scroll and
-     viewer stay. ?fx=lite or ?fx=full forces it for the rest of the visit.
-     ------------------------------------------------------------------------ */
-
-  const FX_KEY = 'kjg-fx';
-
-  function readFx() {
-    try {
-      return window.sessionStorage.getItem(FX_KEY);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function saveFx(value) {
-    try {
-      window.sessionStorage.setItem(FX_KEY, value);
-    } catch (e) {
-      // private mode: decide again on the next page
-    }
-  }
-
-  function isLite() {
-    return root.classList.contains('fx-lite');
-  }
-
-  function goLite(reason) {
-    if (isLite()) return;
-    root.classList.add('fx-lite');
-    root.setAttribute('data-fx', reason);
-    saveFx('lite');
-    document.dispatchEvent(new CustomEvent('fxlite'));
-  }
-
-  // Hints the browser gives away for free.
-  function lowPowerHint() {
-    const nav = window.navigator;
-    if (nav.connection && nav.connection.saveData) return 'save-data';
-    if (nav.deviceMemory && nav.deviceMemory <= 2) return 'low-memory';
-    if (nav.hardwareConcurrency && nav.hardwareConcurrency <= 2) return 'few-cores';
-    return '';
-  }
-
-  // Watch up to 1.5s of frames once the page has settled. A median under
-  // ~40fps, or lots of long frames, means the effects cost more than they're
-  // worth. Phones in battery saver cap at 30fps and land here too, which is fine.
-  function probeFrames() {
-    const intervals = [];
-    let first = 0;
-    let prev = 0;
-    function tick(now) {
-      if (document.hidden) {
-        document.addEventListener('visibilitychange', probeFrames, { once: true });
-        return;
-      }
-      if (prev) intervals.push(now - prev);
-      else first = now;
-      prev = now;
-      if (intervals.length < 90 && now - first < 1500) {
-        window.requestAnimationFrame(tick);
-        return;
-      }
-      // barely a handful of frames in 1.5s says it all
-      if (intervals.length < 20) {
-        goLite('slow-frames');
-        return;
-      }
-      const sorted = intervals.slice().sort(function (a, b) {
-        return a - b;
-      });
-      const median = sorted[Math.floor(sorted.length / 2)];
-      const long = intervals.filter(function (ms) {
-        return ms > 50;
-      }).length;
-      if (median > 25 || long > intervals.length * 0.2) goLite('slow-frames');
-    }
-    window.requestAnimationFrame(tick);
-  }
-
-  function initFx() {
-    const forced = new URLSearchParams(window.location.search).get('fx');
-    if (forced === 'lite' || forced === 'full') saveFx(forced);
-    const saved = readFx();
-    if (saved === 'lite') {
-      goLite(forced ? 'forced' : 'remembered');
-      return;
-    }
-    if (saved === 'full' || prefersReducedMotion()) return;
-    const hint = lowPowerHint();
-    if (hint) {
-      goLite(hint);
-      return;
-    }
-    const settle = function () {
-      window.setTimeout(probeFrames, 1200);
-    };
-    if (document.readyState === 'complete') settle();
-    else window.addEventListener('load', settle, { once: true });
-  }
-
   function isPlainLeftClick(event) {
     return event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
   }
@@ -269,7 +167,6 @@
   }
 
   function init() {
-    initFx();
     fixLocalLinks();
     initPageTransitions();
     initReveal();
@@ -281,7 +178,6 @@
 
   window.site = {
     prefersReducedMotion: prefersReducedMotion,
-    isLite: isLite,
     wait: wait,
     leaveTo: leaveTo,
     fixLocalLinks: fixLocalLinks,

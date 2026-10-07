@@ -910,18 +910,3 @@ html.is-leaving .veil {
     transition-duration: 0.01s;
   }
 }
-
-/* --------------------------------------------------------------------------
-   Lite mode (main.js adds .fx-lite on devices that can't keep up):
-   no blended grain, no frosted header
-   -------------------------------------------------------------------------- */
-
-.fx-lite body::after {
-  display: none;
-}
-
-.fx-lite .topbar--sticky.is-scrolled {
-  background-color: var(--bg);
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}

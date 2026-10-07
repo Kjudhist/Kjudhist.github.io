@@ -282,9 +282,7 @@
 
     leafWillow(hero.querySelector('[data-willow]'));
     initRipples(hero);
-    // lite mode (main.js) keeps the garden still: no fireflies
-    let lite = Boolean(window.site && window.site.isLite());
-    if (reduced || lite) return;
+    if (reduced) return;
 
     const canvas = hero.querySelector('[data-sprites]');
     const sprites = canvas && canvas.getContext ? createSprites(canvas) : null;
@@ -294,7 +292,7 @@
     let last = 0;
 
     function frame(now) {
-      if (lite || !visible || document.hidden) {
+      if (!visible || document.hidden) {
         running = false;
         return;
       }
@@ -306,7 +304,7 @@
     }
 
     function start() {
-      if (running || lite || !visible || document.hidden) return;
+      if (running || !visible || document.hidden) return;
       running = true;
       last = performance.now();
       window.requestAnimationFrame(frame);
@@ -317,11 +315,8 @@
       start();
     }).observe(hero);
     document.addEventListener('visibilitychange', start);
-    document.addEventListener('fxlite', function () {
-      lite = true;
-    });
     window.addEventListener('resize', function () {
-      if (!lite) sprites.resize();
+      sprites.resize();
     });
     start();
   }
