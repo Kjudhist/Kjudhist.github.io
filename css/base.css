@@ -801,6 +801,15 @@ html[lang="ja"] .section-head__title {
   font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.5rem);
 }
 
+/* on phones the number sits above, so a long title gets the full width */
+@media (max-width: 639.98px) {
+  .section-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
 /* --------------------------------------------------------------------------
    Footer credit
    -------------------------------------------------------------------------- */

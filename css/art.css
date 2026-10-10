@@ -1247,6 +1247,24 @@ html[lang="ja"] .art-links__name {
   color: var(--muted);
 }
 
+/* on phones the note drops under the name and every arrow lines up on the right */
+@media (max-width: 639.98px) {
+  .art-links__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+  }
+
+  .art-links__note {
+    grid-row: 2;
+  }
+
+  .art-links__arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
 a[href].art-links__link {
   cursor: pointer;
 }
