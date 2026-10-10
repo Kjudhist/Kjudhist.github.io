@@ -1,6 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on two doors: the left one goes to my QA work, the right one to The Willow Atelier, where I keep my art.
+My personal site. It opens on one screen split in two: a door on cream that goes to my QA work, and a shoji on navy that goes to The Willow Atelier, where I keep my art.
+
+The look is *ma* (間): two colours, thin lines, a lot of room, and only small, cheap motion.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -16,20 +18,20 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the doors (and the 404, which shares the dark room)
+│   ├── gate.css          the split gate and its doors (and the 404)
 │   ├── qa.css
 │   └── art.css
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
 │   ├── main.js           shared bits: page fades, scroll reveals, menu, local links
 │   ├── gate.js           door behaviour (hover, tap twice on phones, walk through)
-│   └── art.js            the atelier: ink bloom, night garden, emaki, viewer
+│   └── art.js            the full-size viewer for artworks
 ├── assets/
-│   ├── art/              artworks for the scroll (empty for now)
+│   ├── art/              artworks, photos and covers (empty for now)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)
 │   ├── icons/            favicon.svg, favicon.ico, apple-touch-icon, manifest icons
 │   ├── og/               share images, 1200×630
-│   └── src/              HTML sources for the share images, icons and CV
+│   └── src/              HTML sources for the icons and CV
 ├── .nojekyll             tells GitHub Pages to serve files as-is
 └── README.md
 ```
@@ -62,7 +64,7 @@ The HTML points at those keys:
 
 ```html
 <h2 data-i18n="qa.about.title">About me</h2>
-<img alt="..." data-i18n-attr="alt:art.alt.1">
+<span aria-label="..." data-i18n-attr="aria-label:art.track.play"></span>
 <meta name="description" content="..." data-i18n-attr="content:meta.qa.desc">
 ```
 
@@ -80,16 +82,18 @@ Which language a visitor sees, in order:
 
 The Indonesian and Japanese strings are first drafts and need a read from a native speaker. The QA pitch and the atelier tagline are final in all three.
 
-## The atelier page
+## The pages
 
-The art side is built as a night garden you walk through:
+- **Gate:** cream on the left, navy on the right. Hover (or tap once on a phone) and the door opens a little: a tick waits behind the QA door, the moon behind the shoji. Click (or tap again) and that half takes the whole screen before the next page fades in.
+- **QA:** a report you can scan. Every section head has a small box that gets ticked as it comes into view, and the hero has a tiny "test run" of the facts.
+- **The Willow Atelier:** a moon and a willow, then three rooms:
+  1. **Drawing & Painting**, a wall of pieces
+  2. **Photography**, a strip of frames you scroll sideways
+  3. **Music**, a record (it turns while you're in the section) and a track list
 
-- **Arrival:** the page opens through spreading ink.
-- **Hero:** a moon with thin clouds, misty hills and a pond (click the water). The willow sways gently and a few fireflies wander. Kept deliberately calm so it runs smoothly on modest devices.
-- **Works:** an emaki (handscroll). On screens 900px and wider it pins in place and scrolling down unrolls it sideways while an ink river paints itself. On phones it's a swipeable strip. Clicking a piece opens it full size.
-- **About:** a sheet of washi with torn edges, where an ensō paints itself around the tagline.
+  Then a cream sheet for the story, and the links.
 
-With reduced motion turned on, all of that becomes a still scene: no bloom, nothing pinned, the ink and ensō already drawn.
+With reduced motion turned on, nothing travels: doors still open, but instantly, and the willow, record and water stand still.
 
 ## Replacing placeholders
 
@@ -99,17 +103,21 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Artworks | the scroll has six empty slots ("Art 1" to "Art 6") in `art/index.html`. Put the image in `assets/art/`, then swap a slot's `<div class="emaki__slot">` for `<button class="emaki__open" type="button" data-view><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"><span class="emaki__view" data-i18n="art.view">View</span></button>`. Clicking it then opens the full-size viewer. `--h` in `css/art.css` sets how tall each piece sits on the paper |
+| Drawings and paintings | six empty slots ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `frame--tall` makes a portrait frame |
+| Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
+| A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
 | CV | the download buttons are greyed out ("Still in progress"). Replace `assets/cv/kevin-jg-cv.pdf`, then turn both `<span class="btn is-pending">` back into links (see the comments in `qa/index.html`) |
 | LinkedIn | `qa/index.html`: uncomment the LinkedIn block in the contact list |
-| Share images | `assets/og/og-gate.jpg` and `og-art.jpg`. Sources are in `assets/src/` (see below) |
+| Share images | `assets/og/og-gate.jpg` and `og-art.jpg` (see below) |
 
 ### Regenerating the share images, icons and CV
 
-The files in `assets/src/` are plain pages built from the site's own CSS:
+- Share images: serve the site locally, open the gate (or the atelier) in Chrome with the window at 1200×630 (DevTools device toolbar), and use "Capture screenshot". For the atelier, hide the header first.
 
-- `og-gate.html` and `og-art.html`: serve the site locally, open the page in Chrome with the window at 1200×630 (DevTools device toolbar), and use "Capture screenshot".
+The files in `assets/src/` are plain pages:
+
 - `icons.html`: draws `assets/icons/favicon.svg` at 16, 32, 48, 180, 192 and 512 px and prints each PNG as a data URL.
 - `cv.html`: the placeholder CV. Print to PDF at A4 with backgrounds on.
 
@@ -136,7 +144,8 @@ Key elements carry `data-testid` attributes:
 - Switcher: `lang-switcher`, `lang-option-en`, `lang-option-id`, `lang-option-ja`
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
-- Atelier: `art-tile-1` to `art-tile-6`, `viewer-close`, `link-instagram`, `link-shop`
+- Gate cues: `door-qa-cue`, `door-art-cue`
+- Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 
 The door logic and the language logic are small named functions exposed on `window.gate` and `window.i18n`, so they can be called directly from a test.

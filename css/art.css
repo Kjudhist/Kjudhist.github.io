@@ -1,370 +1,170 @@
 /* ==========================================================================
-   The Willow Atelier
-   A night garden, a handscroll of works, a sheet of washi, and the links.
+   The Willow Atelier: a navy night, a moon, a willow.
+   Three rooms after the hero: drawing & painting (a hanging wall),
+   photography (a strip of frames read sideways) and music (a record and
+   its tracks). Then a cream sheet with the story, and the way to find us.
    ========================================================================== */
 
-.art {
-  --moon-x: 22%;
-  /* dark ink flecks for the scroll paper */
-  --paper-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5 .18' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .28 0 0 0 0 .18 .9 0 0 0 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
-}
-
-/* let the hero run up behind the header */
-.art .topbar {
-  margin-bottom: -4.5rem;
-}
-
 /* --------------------------------------------------------------------------
-   Arrival: ink spreading open
-   -------------------------------------------------------------------------- */
-
-.bloom {
-  display: none;
-}
-
-.js .bloom {
-  display: block;
-  position: fixed;
-  inset: 0;
-  z-index: 160;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  animation: bloom-failsafe 0.01s 4.5s forwards;
-}
-
-.js .bloom.is-done {
-  display: none;
-}
-
-@keyframes bloom-failsafe {
-  to {
-    visibility: hidden;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Hero: the night garden
+   Hero
    -------------------------------------------------------------------------- */
 
 .art-hero {
   position: relative;
   isolation: isolate;
-  display: grid;
-  align-items: end;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: 8rem 0 calc(21vh + 3.5rem);
-  padding-bottom: calc(21svh + 3.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100svh - 4.5rem);
+  padding-bottom: clamp(2rem, 5vh, 3rem);
   overflow: hidden;
-  background: var(--indigo-900);
 }
 
-.art-hero__sky {
+.art-hero__night {
   position: absolute;
-  inset: 0 0 21% 0;
-  z-index: -6;
-  background:
-    radial-gradient(46% 34% at var(--moon-x) 24%, rgba(184, 198, 224, 0.16), transparent 70%),
-    radial-gradient(90% 30% at 50% 100%, rgba(142, 165, 205, 0.24), transparent 70%),
-    linear-gradient(180deg, #060a14 0%, #0b1326 26%, #15223f 52%, #273f6a 80%, #46618f 100%);
-}
-
-.art-hero__stars {
-  position: absolute;
-  inset: 0 0 48% 0;
-  background-image:
-    radial-gradient(1.2px 1.2px at 8% 14%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 17% 33%, #fff 50%, transparent 100%),
-    radial-gradient(1.4px 1.4px at 29% 8%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 41% 26%, #fff 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 52% 12%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 58% 41%, #fff 50%, transparent 100%),
-    radial-gradient(1.3px 1.3px at 67% 19%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 76% 7%, #fff 50%, transparent 100%),
-    radial-gradient(1.1px 1.1px at 88% 29%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 94% 11%, #fff 50%, transparent 100%);
-  opacity: 0.6;
-}
-
-.art-hero__stars--b {
-  background-image:
-    radial-gradient(1px 1px at 4% 38%, #fff 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 12% 6%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 35% 44%, #fff 50%, transparent 100%),
-    radial-gradient(1.3px 1.3px at 46% 4%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 63% 31%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 71% 46%, #fff 50%, transparent 100%),
-    radial-gradient(1.2px 1.2px at 82% 17%, #fff 50%, transparent 100%),
-    radial-gradient(1px 1px at 97% 36%, #fff 50%, transparent 100%);
-  opacity: 0.45;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .art-hero__moon {
   position: absolute;
-  left: var(--moon-x);
-  top: 17%;
-  width: clamp(4rem, 7vw, 6.5rem);
+  left: 62%;
+  top: 14%;
+  width: clamp(5rem, 9vw, 8.5rem);
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 63% 36%, rgba(60, 50, 30, 0.05), transparent 11%),
-    radial-gradient(circle at 36% 63%, rgba(60, 50, 30, 0.045), transparent 15%),
-    radial-gradient(circle at 70% 68%, rgba(60, 50, 30, 0.035), transparent 8%),
-    radial-gradient(circle at 40% 38%, #fbf8f0 0%, #ebe4d3 62%, #d6cdb8 100%);
+    radial-gradient(circle at 64% 38%, rgba(60, 50, 30, 0.05), transparent 12%),
+    radial-gradient(circle at 36% 64%, rgba(60, 50, 30, 0.04), transparent 16%),
+    radial-gradient(circle at 40% 38%, #fbf8f0 0%, #ebe3d0 64%, #d5cab1 100%);
   box-shadow:
-    0 0 30px 6px rgba(240, 234, 218, 0.22),
-    0 0 120px 40px rgba(142, 165, 205, 0.2),
-    0 0 260px 90px rgba(100, 130, 190, 0.12);
+    0 0 32px 6px rgba(240, 232, 214, 0.16),
+    0 0 140px 50px rgba(143, 164, 201, 0.12);
 }
 
-/* thin clouds crossing the moon */
-.art-hero__cloud {
+.art-hero__horizon {
   position: absolute;
-  top: 18%;
-  left: 0;
-  width: 34vw;
-  height: max(1.6rem, 3vw);
-  border-radius: 50%;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(170, 186, 214, 0.34), rgba(170, 186, 214, 0) 70%);
-  filter: blur(6px);
-  opacity: 0.8;
-  transform: translate3d(14vw, 0, 0);
-}
-
-.art-hero__cloud--2 {
-  top: 25%;
-  width: 24vw;
-  opacity: 0.5;
-  transform: translate3d(48vw, 0, 0);
-}
-
-.art-hero__cloud--3 {
-  display: none;
-}
-
-.art-hero__land {
-  position: absolute;
-  left: -4%;
-  right: -4%;
-  bottom: 20.5%;
-  z-index: -5;
-  height: 24%;
-}
-
-.art-hero__hills {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.art-hero__hill--far {
-  fill: #1e2f53;
-  opacity: 0.85;
-}
-
-.art-hero__hill--near {
-  fill: #121c35;
-}
-
-.art-hero__mist {
-  position: absolute;
-  left: 0;
+  left: 46%;
   right: 0;
-  bottom: -12%;
-  height: 70%;
-  background: linear-gradient(180deg, transparent, rgba(126, 150, 196, 0.2) 55%, rgba(126, 150, 196, 0.08) 80%, transparent);
-  opacity: 0.8;
-}
-
-/* the pond, holding the moon */
-.art-hero__pond {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -4;
-  height: 21%;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(180deg, transparent 0 7px, rgba(184, 198, 224, 0.03) 7px 8px),
-    linear-gradient(180deg, rgba(64, 90, 136, 0.6) 0%, rgba(20, 31, 56, 0.95) 22%, #0c1427 100%);
-}
-
-.art-hero__pond::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 64%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(184, 198, 224, 0.5) 25%, rgba(184, 198, 224, 0.15) 70%, transparent);
+  background: linear-gradient(90deg, transparent, var(--line-strong) 30%, var(--line-strong) 80%, transparent);
 }
 
+/* the moon's light, broken on the water */
 .art-hero__reflection {
   position: absolute;
-  top: 6%;
-  left: calc(var(--moon-x) + clamp(2rem, 3.5vw, 3.25rem));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  transform: translateX(-50%);
+  left: 62%;
+  top: calc(64% + 1rem);
+  width: clamp(5rem, 9vw, 8.5rem);
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
 }
 
 .art-hero__reflection i {
   display: block;
-  width: var(--w, 4rem);
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(236, 231, 218, var(--o, 0.6));
-  filter: blur(0.4px);
-  animation: shimmer 3.4s var(--ease) infinite alternate;
-  animation-delay: calc(var(--n, 0) * -0.45s);
+  height: 1px;
+  background: rgba(240, 232, 214, 0.5);
+  animation: shimmer 4s var(--ease) infinite alternate;
 }
 
-.art-hero__reflection i:nth-child(1) { --w: 5.5rem; --o: 0.7; --n: 1; }
-.art-hero__reflection i:nth-child(2) { --w: 4.6rem; --o: 0.6; --n: 2; }
-.art-hero__reflection i:nth-child(3) { --w: 5rem; --o: 0.5; --n: 3; }
-.art-hero__reflection i:nth-child(4) { --w: 3.6rem; --o: 0.45; --n: 4; }
-.art-hero__reflection i:nth-child(5) { --w: 3rem; --o: 0.36; --n: 5; }
-.art-hero__reflection i:nth-child(6) { --w: 2.4rem; --o: 0.28; --n: 6; }
-.art-hero__reflection i:nth-child(7) { --w: 1.6rem; --o: 0.2; --n: 7; }
-.art-hero__reflection i:nth-child(8) { --w: 1rem; --o: 0.14; --n: 8; }
+.art-hero__reflection i:nth-child(1) { width: 80%; }
+.art-hero__reflection i:nth-child(2) { width: 62%; animation-delay: -1.2s; opacity: 0.8; }
+.art-hero__reflection i:nth-child(3) { width: 46%; animation-delay: -2.1s; opacity: 0.6; }
+.art-hero__reflection i:nth-child(4) { width: 30%; animation-delay: -0.6s; opacity: 0.45; }
+.art-hero__reflection i:nth-child(5) { width: 16%; animation-delay: -2.8s; opacity: 0.3; }
 
 @keyframes shimmer {
   from {
-    transform: translateX(-5px) scaleX(0.78);
-    opacity: 0.55;
+    transform: scaleX(0.85);
   }
   to {
-    transform: translateX(5px) scaleX(1.08);
-    opacity: 1;
-  }
-}
-
-.ripple {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 1px solid rgba(220, 228, 240, 0.65);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: ripple 2.8s var(--ease-out) forwards;
-}
-
-@keyframes ripple {
-  to {
-    width: 18rem;
-    height: 3.6rem;
-    opacity: 0;
+    transform: scaleX(1.1);
   }
 }
 
 .art-hero__willow {
   position: absolute;
-  inset: 0 -4% 0 -2%;
-  z-index: -3;
+  top: 0;
+  right: 0;
+  width: min(58vw, 46rem);
+  color: var(--cream-200);
 }
 
 .willow {
-  display: block;
   width: 100%;
-  height: 100%;
-  color: #050913;
+  height: auto;
+  overflow: visible;
 }
 
-.willow__back {
-  color: #1e2f54;
+.willow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1;
+}
+
+.willow__branch {
+  stroke-width: 2.4 !important;
+  opacity: 0.7;
+}
+
+.willow path:not(.willow__branch) {
+  stroke-width: 0.9;
 }
 
 .willow__sway {
-  transform-box: fill-box;
   transform-origin: 50% 0;
-  animation: sway 12s var(--ease) infinite alternate;
+  transform-box: fill-box;
+  animation: sway 9s var(--ease) infinite alternate;
 }
 
 .willow__sway--b {
-  animation-duration: 15s;
-  animation-delay: -4s;
-}
-
-.willow__sway--c {
-  animation-duration: 10s;
-  animation-delay: -7s;
+  animation-duration: 12s;
+  animation-delay: -5s;
 }
 
 @keyframes sway {
   from {
-    transform: rotate(-1deg);
+    transform: rotate(0.8deg);
   }
   to {
-    transform: rotate(1.2deg);
+    transform: rotate(-1.2deg);
   }
-}
-
-/* fireflies, drawn by art.js */
-.art-hero__sprites {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.art-hero__fade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  height: 16%;
-  background: linear-gradient(180deg, transparent, var(--indigo-900));
-  pointer-events: none;
 }
 
 .art-hero__text {
   position: relative;
-  z-index: 1;
+  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
 }
 
 .art-hero__mark {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
-  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+  gap: 1rem;
+  margin-bottom: 1rem;
   font-family: var(--font-display-ja);
-  font-size: 1.35rem;
-  line-height: 1;
-  color: var(--gold-300);
-  animation: rise 2s var(--ease-out) 0.6s backwards;
+  font-size: 1.3rem;
+  color: var(--gold);
 }
 
-/* a short gold rule after the kanji */
 .art-hero__mark::after {
   content: "";
   width: 3rem;
   height: 1px;
-  background: var(--gold-300);
+  background: currentColor;
   opacity: 0.6;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-  }
 }
 
 .art-hero__title {
   font-weight: 400;
-  font-size: clamp(3rem, 1.2rem + 7vw, 8rem);
-  line-height: 0.95;
-  letter-spacing: 0.035em;
-  color: var(--washi-50);
-  text-shadow: 0 2px 30px rgba(10, 16, 32, 0.5);
+  font-size: clamp(3.2rem, 1.8rem + 6vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  color: var(--fg-strong);
 }
 
 .art-hero__line {
@@ -372,825 +172,489 @@
 }
 
 .art-hero__line + .art-hero__line {
-  padding-left: clamp(2rem, 12vw, 11rem);
+  padding-left: 0.9em;
   font-style: italic;
-}
-
-/* brushed on from left to right */
-.js .art-hero__line {
-  -webkit-mask-image: linear-gradient(100deg, #000 42%, transparent 58%);
-  mask-image: linear-gradient(100deg, #000 42%, transparent 58%);
-  -webkit-mask-size: 260% 100%;
-  mask-size: 260% 100%;
-  -webkit-mask-position: 100% 0;
-  mask-position: 100% 0;
-  animation: ink-wipe 2.4s var(--ease-out) 1s both;
-}
-
-.js .art-hero__line + .art-hero__line {
-  animation-delay: 1.4s;
-}
-
-@keyframes ink-wipe {
-  from {
-    filter: blur(6px);
-  }
-  to {
-    -webkit-mask-position: 0 0;
-    mask-position: 0 0;
-    filter: blur(0);
-  }
 }
 
 .art-hero__tagline {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: 1.4rem;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(1.3rem, 1rem + 1.2vw, 2rem);
-  line-height: 1.4;
-  letter-spacing: 0.02em;
-  color: var(--indigo-100);
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+  color: var(--muted);
+}
+
+html[lang="ja"] .art-hero__tagline,
+html[lang="id"] .art-hero__tagline {
+  font-style: normal;
 }
 
 html[lang="ja"] .art-hero__tagline {
   font-family: var(--font-display-ja);
-  font-style: normal;
-  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.5rem);
-  letter-spacing: 0.14em;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  letter-spacing: 0.12em;
 }
 
-/* once art.js has split the line into characters, the plain copy is for screen readers only */
-.art-hero__tagline.is-split .art-hero__tagline-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
+/* the three rooms, as an index */
+.art-index {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line-strong);
 }
 
-.art-hero__tagline-chars .w {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.art-hero__tagline-chars .ch {
-  display: inline-block;
-  opacity: 0;
-  filter: blur(4px);
-  transform: translate3d(0, 0.45em, 0);
-  animation: ch-in 1.3s var(--ease-out) forwards;
-  animation-delay: calc(var(--base, 0s) + var(--i) * var(--step, 45ms));
-}
-
-@keyframes ch-in {
-  to {
-    opacity: 1;
-    filter: blur(0);
-    transform: none;
-  }
-}
-
-.art-hero__scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: clamp(3rem, 8vh, 5rem);
-}
-
-.art-hero__scroll::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(var(--washi-300), transparent);
-  transform-origin: top;
-  animation: fall 3.6s var(--ease) infinite;
-}
-
-@keyframes fall {
-  0% {
-    transform: scaleY(0);
-    opacity: 0.8;
-  }
-  60% {
-    transform: scaleY(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scaleY(1);
-    opacity: 0;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Kanji numerals for section heads on this side
-   -------------------------------------------------------------------------- */
-
-/* --------------------------------------------------------------------------
-   Works: an emaki
-   Phones and reduced motion: a native sideways scroll with snap points.
-   Wide screens: pinned, and scrolling down unrolls it (art.js adds .is-pinned).
-   -------------------------------------------------------------------------- */
-
-.emaki {
-  --paper-h: min(62vh, 580px);
-  position: relative;
-  padding: clamp(4rem, 10vh, 7rem) 0 clamp(3rem, 8vh, 5rem);
-}
-
-.emaki__viewport {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-block: 1.75rem;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(201, 180, 138, 0.4) transparent;
-  -webkit-overflow-scrolling: touch;
-}
-
-.emaki__scroll {
+.art-index__item {
   display: flex;
-  align-items: center;
-  width: max-content;
-  padding: 0 var(--gutter);
-}
-
-/* the wooden rollers at either end */
-.emaki__roller {
-  position: relative;
-  z-index: 2;
-  flex: none;
-  width: 22px;
-  height: calc(var(--paper-h) + 34px);
-  border-radius: 11px;
-  background: linear-gradient(90deg, #241a14 0%, #6b513c 32%, #93724f 50%, #4a372a 76%, #1d1611 100%);
-  box-shadow: 0 14px 26px -10px rgba(0, 0, 0, 0.75);
-}
-
-.emaki__roller::before,
-.emaki__roller::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 14px;
-  height: 12px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, #7d6a43, #e2cf9f 50%, #7d6a43);
-  transform: translateX(-50%);
-}
-
-.emaki__roller::before {
-  top: -9px;
-}
-
-.emaki__roller::after {
-  bottom: -9px;
-}
-
-.emaki__roller--start {
-  margin-right: -8px;
-}
-
-.emaki__roller--end {
-  margin-left: -8px;
-}
-
-.emaki__paper {
-  --fg: var(--sumi-800);
-  --fg-strong: var(--sumi-900);
-  --muted: var(--sumi-600);
-  --line-strong: rgba(40, 40, 44, 0.28);
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: var(--paper-h);
-  padding: 0 clamp(3rem, 6vw, 6rem);
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 1.1rem 0;
   color: var(--fg);
-  background:
-    /* soft creases from being rolled */
-    repeating-linear-gradient(90deg, transparent 0 560px, rgba(80, 60, 30, 0.06) 560px 562px, rgba(255, 255, 255, 0.22) 562px 566px, transparent 566px 640px),
-    var(--paper-ink),
-    linear-gradient(180deg, #f2ebdb 0%, #ece3cf 100%);
-  background-size: auto, 220px 220px, auto;
-  box-shadow:
-    0 30px 60px -30px rgba(0, 0, 0, 0.85),
-    0 10px 22px -10px rgba(0, 0, 0, 0.6);
+  transition: color 0.4s var(--ease);
 }
 
-/* indigo silk mounting along both edges, with a hishi lattice in gold */
-.emaki__paper::before,
-.emaki__paper::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 12px;
-  background:
-    repeating-linear-gradient(45deg, transparent 0 5px, rgba(201, 180, 138, 0.32) 5px 6px),
-    repeating-linear-gradient(-45deg, transparent 0 5px, rgba(201, 180, 138, 0.32) 5px 6px),
-    #1b2a4d;
+.art-index__item + .art-index__item {
+  padding-left: clamp(1rem, 3vw, 2rem);
+  border-left: 1px solid var(--line);
 }
 
-.emaki__paper::before {
-  top: -12px;
+.art-index__num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
 }
 
-.emaki__paper::after {
-  bottom: -12px;
-}
-
-/* an ink river that paints itself as the scroll opens */
-.emaki__ink {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.emaki__ink-line {
-  fill: none;
-  stroke: var(--indigo-700);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  opacity: 0.7;
-}
-
-.emaki__ink-wash {
-  fill: none;
-  stroke: var(--indigo-500);
-  stroke-width: 34;
-  stroke-linecap: round;
-  opacity: 0.07;
-}
-
-.emaki__title {
-  position: relative;
-  flex: none;
-  display: flex;
-  align-items: center;
-  gap: clamp(1.5rem, 3vw, 3rem);
-  margin-right: clamp(4rem, 8vw, 8rem);
-}
-
-.emaki__heading {
-  max-width: 17rem;
-}
-
-.emaki .section-head__num {
-  color: var(--indigo-500);
-}
-
-.emaki__h2 {
-  margin: 0.6rem 0 1rem;
+.art-index__name {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.4rem, 5vh, 3.4rem);
-  line-height: 1.05;
-  letter-spacing: 0.05em;
+  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.4rem);
+  line-height: 1.25;
+}
+
+html[lang="ja"] .art-index__name {
+  font-family: var(--font-display-ja);
+  font-size: 1rem;
+}
+
+.art-index__item:hover {
   color: var(--fg-strong);
 }
 
-html[lang="ja"] .emaki__h2 {
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.8rem, 4vh, 2.4rem);
+@media (max-width: 639.98px) {
+  .art-hero__moon,
+  .art-hero__reflection {
+    left: 58%;
+  }
+
+  .art-hero__willow {
+    width: 92vw;
+  }
+
+  .art-hero__horizon,
+  .art-hero__reflection {
+    display: none;
+  }
+
+  .art-index {
+    grid-template-columns: 1fr;
+  }
+
+  .art-index__item + .art-index__item {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .art-index__item {
+    padding: 0.8rem 0;
+  }
 }
 
-.emaki__intro {
+/* --------------------------------------------------------------------------
+   The three rooms share a head
+   -------------------------------------------------------------------------- */
+
+.discipline__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 0.5rem clamp(1.25rem, 3vw, 2.5rem);
+  padding-top: 1.75rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line-strong);
+}
+
+.discipline__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem);
+  line-height: 0.9;
+  color: var(--gold);
+}
+
+.discipline__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.4rem);
+  line-height: 1.05;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .discipline__title {
+  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+}
+
+.discipline__text {
+  margin-top: 0.7rem;
+  max-width: 34rem;
+}
+
+/* empty places waiting for real work */
+.slot {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  border: 1px dashed var(--line-strong);
+  background: var(--bg-raised);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+html[lang="ja"] .slot {
+  font-family: var(--font-display-ja);
+  font-style: normal;
   font-size: 0.95rem;
 }
 
-.emaki__hint {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  margin-top: 2rem;
+/* --------------------------------------------------------------------------
+   01 Drawing & painting: a hanging wall
+   -------------------------------------------------------------------------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  align-items: end;
+  gap: clamp(1.75rem, 3vw, 2.75rem) clamp(1rem, 2.5vw, 2rem);
+}
+
+.work__no {
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--indigo-600);
-  transition: opacity 0.8s var(--ease);
+  color: var(--muted);
 }
 
-html[lang="ja"] .emaki__hint {
-  letter-spacing: 0.1em;
-}
-
-.emaki__hint .arrow {
-  animation: nudge 2.4s var(--ease) infinite;
-}
-
-@keyframes nudge {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(0.6rem);
-  }
-}
-
-.emaki__hint-scroll {
-  display: none;
-}
-
-.emaki.is-pinned .emaki__hint-scroll {
-  display: inline;
-}
-
-.emaki.is-pinned .emaki__hint-swipe {
-  display: none;
-}
-
-.emaki.is-started .emaki__hint {
-  opacity: 0;
-}
-
-.emaki__work {
-  position: relative;
-  flex: none;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.1rem;
-  margin-right: clamp(3.5rem, 7vw, 7rem);
-  scroll-snap-align: center;
-}
-
-.emaki__work--1 { --h: 0.76; }
-.emaki__work--2 { --h: 0.5; align-self: flex-end; margin-bottom: calc(var(--paper-h) * 0.1); }
-.emaki__work--3 { --h: 0.54; align-self: flex-start; margin-top: calc(var(--paper-h) * 0.1); }
-.emaki__work--4 { --h: 0.6; }
-.emaki__work--5 { --h: 0.8; }
-.emaki__work--6 { --h: 0.66; align-self: flex-end; margin-bottom: calc(var(--paper-h) * 0.08); }
-
-.emaki__open {
-  position: relative;
+/* real pieces, once they're in */
+.work__open {
   display: block;
+  width: 100%;
   padding: 0;
   border: 0;
   background: none;
   cursor: zoom-in;
 }
 
-.emaki__open img {
+.work__open img {
+  width: 100%;
+  transition: opacity 0.5s var(--ease);
+}
+
+.work__open:hover img {
+  opacity: 0.88;
+}
+
+/* --------------------------------------------------------------------------
+   02 Photography: frames on a strip, read sideways
+   -------------------------------------------------------------------------- */
+
+.discipline--photo .discipline__head {
+  grid-template-columns: auto 1fr auto;
+}
+
+.strip__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  align-self: end;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.strip__hint .arrow {
+  animation: nudge 2.4s var(--ease) infinite;
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateX(0.35rem);
+  }
+}
+
+.strip {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  padding-bottom: 1.25rem;
+}
+
+.strip:focus-visible {
+  outline-offset: -2px;
+}
+
+.strip__track {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  width: max-content;
+  padding-inline: max(var(--gutter), (100vw - 74rem) / 2);
+}
+
+.frame {
+  scroll-snap-align: start;
+  width: clamp(15rem, 34vw, 28rem);
+}
+
+.frame .slot {
+  aspect-ratio: 3 / 2;
+}
+
+.frame--tall {
+  width: clamp(10rem, 22vw, 18.5rem);
+}
+
+.frame--tall .slot {
+  aspect-ratio: 2 / 3;
+}
+
+.frame__no {
   display: block;
-  width: auto;
-  max-width: none;
-  height: calc(var(--paper-h) * var(--h));
-  box-shadow:
-    0 0 0 1px rgba(60, 45, 25, 0.12),
-    0 10px 24px -14px rgba(40, 30, 15, 0.55);
-  transition: filter 1s var(--ease), transform 1.4s var(--ease);
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
 }
 
-.emaki__open:focus-visible {
-  outline: 2px solid var(--indigo-600);
-  outline-offset: 6px;
+@media (max-width: 639.98px) {
+  .discipline--photo .discipline__head {
+    grid-template-columns: auto 1fr;
+  }
+
+  .strip__hint {
+    grid-column: 2;
+  }
+
+  .frame {
+    width: 78vw;
+  }
+
+  .frame--tall {
+    width: 52vw;
+  }
 }
 
-.emaki__view {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+/* --------------------------------------------------------------------------
+   03 Music: a record and its tracks
+   -------------------------------------------------------------------------- */
+
+.discipline--music {
+  padding-bottom: var(--section-space);
+}
+
+.music {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .music {
+    grid-template-columns: minmax(16rem, 0.8fr) 1.2fr;
+  }
+}
+
+.record {
+  width: min(64vw, 22rem);
+  margin-inline: auto;
+}
+
+.record__disc {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 4.75rem;
-  height: 4.75rem;
-  margin: -2.375rem 0 0 -2.375rem;
+  aspect-ratio: 1;
   border-radius: 50%;
-  background: rgba(243, 239, 230, 0.9);
-  box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5);
-  font-size: 0.64rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--indigo-800);
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
+  background:
+    radial-gradient(circle, transparent 0 31%, rgba(255, 255, 255, 0.05) 31.5%, transparent 32.5%),
+    repeating-radial-gradient(circle, #0c1324 0 2px, #111a2e 2.5px 4px),
+    #0c1324;
+  box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  animation: spin 9s linear infinite;
+  animation-play-state: paused;
 }
 
-.emaki__open:hover img,
-.emaki__open:focus-visible img {
-  filter: brightness(1.04) contrast(1.03);
-  transform: scale(1.015);
+/* light catching the grooves */
+.record__disc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 20deg, transparent 0 8%, rgba(233, 226, 212, 0.08) 12%, transparent 18% 58%, rgba(233, 226, 212, 0.06) 62%, transparent 68%);
 }
 
-.emaki__open:hover .emaki__view,
-.emaki__open:focus-visible .emaki__view {
-  opacity: 1;
+.record__label {
+  position: relative;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--navy-950) 0 6%, var(--gold) 6.5% 100%);
+}
+
+.discipline--music:is(:hover, :focus-within) .record__disc {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tracks {
+  border-top: 1px solid var(--line-strong);
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.track__no {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+
+.track__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 1.25rem;
+}
+
+.track__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+html[lang="ja"] .track__title {
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.track__meta {
+  font-size: 0.82rem;
+}
+
+.track__play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--fg-strong);
+  cursor: not-allowed;
+  opacity: 0.55;
+  transition: opacity 0.3s var(--ease);
+}
+
+.track__play svg {
+  width: 0.85rem;
+  fill: currentColor;
+}
+
+.track__play:hover,
+.track__play:focus-visible {
+  opacity: 0.85;
+}
+
+.track__play .tip {
+  left: auto;
+  right: 0;
+  transform: translate(0, 0.3rem);
+}
+
+.track__play:is(:hover, :focus-visible) .tip {
   transform: none;
 }
 
-/* an empty place on the scroll, waiting for a piece */
-.emaki__slot {
-  display: grid;
-  place-items: center;
-  height: calc(var(--paper-h) * var(--h));
-  border: 1px dashed rgba(34, 54, 94, 0.35);
-  background: #f4eee1;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.3rem;
-  letter-spacing: 0.04em;
-  color: var(--indigo-500);
-}
-
-html[lang="ja"] .emaki__slot {
-  font-family: var(--font-display-ja);
-  font-style: normal;
-  font-size: 1.05rem;
-}
-
-/* captions written down the paper, the way a scroll would label them */
-.emaki__caption {
-  writing-mode: vertical-rl;
-  display: flex;
-  gap: 0.35rem;
-  max-height: calc(var(--paper-h) * var(--h));
-  color: var(--fg);
-}
-
-/* numbers sit upright inside the vertical caption, two digits to one square */
-.emaki__no {
-  margin-left: 0.35rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.05rem;
-  color: var(--indigo-600);
-  text-combine-upright: all;
-}
-
-.emaki__ctitle {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--fg-strong);
-}
-
-html[lang="ja"] .emaki__ctitle {
-  font-family: var(--font-display-ja);
-  font-size: 0.95rem;
-}
-
-.emaki__cmeta {
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-}
-
-.emaki__progress {
-  width: min(18rem, 50vw);
-  height: 1px;
-  margin: 0.75rem auto 0;
-  background: var(--line-strong);
-}
-
-.emaki__progress span {
-  display: block;
-  height: 100%;
-  background: var(--gold-300);
-  transform: scaleX(var(--p, 0));
-  transform-origin: left;
-}
-
-.emaki.is-pinned {
-  height: var(--emaki-h, auto);
-  padding: 0;
-}
-
-.emaki.is-pinned .emaki__pin {
-  position: sticky;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
-  height: 100svh;
-  overflow: hidden;
-}
-
-.emaki.is-pinned .emaki__viewport {
-  overflow: visible;
-}
-
-.emaki.is-pinned .emaki__scroll {
-  transform: translate3d(var(--emaki-x, 0px), 0, 0);
-  will-change: transform;
-}
-
-/* on portrait screens the willow keeps to the right, clear of the moon and title */
-@media (orientation: portrait) and (max-width: 1023.98px) {
-  .art {
-    --moon-x: 9%;
-  }
-
-  .art-hero__willow {
-    inset: 0 -12% 32% 30%;
-  }
-}
-
-@media (max-width: 639.98px) {
-  .emaki {
-    --paper-h: min(56svh, 440px);
-  }
-
-  .emaki__heading {
-    max-width: 13rem;
-  }
-}
-
 /* --------------------------------------------------------------------------
-   Viewer: one piece at a time
-   -------------------------------------------------------------------------- */
-
-.viewer {
-  width: 100vw;
-  max-width: none;
-  height: 100vh;
-  height: 100dvh;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  overflow: hidden;
-  background: transparent;
-  color: var(--washi-100);
-}
-
-.viewer::backdrop {
-  background: rgba(5, 8, 16, 0.92);
-}
-
-.viewer[open] {
-  animation: viewer-in 0.9s var(--ease-out);
-}
-
-.viewer[open]::backdrop {
-  animation: fade-in 0.8s var(--ease);
-}
-
-.viewer.is-closing {
-  animation: viewer-out 0.45s var(--ease) forwards;
-}
-
-.viewer.is-closing::backdrop {
-  animation: fade-out 0.45s var(--ease) forwards;
-}
-
-@keyframes viewer-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-}
-
-@keyframes viewer-out {
-  to {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@keyframes fade-out {
-  to {
-    opacity: 0;
-  }
-}
-
-.viewer__inner {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  padding: clamp(1.5rem, 5vw, 4rem);
-}
-
-.viewer__figure {
-  display: flex;
-  align-items: flex-start;
-  gap: clamp(1rem, 3vw, 2.5rem);
-}
-
-.viewer__img {
-  width: auto;
-  height: auto;
-  max-width: min(76vw, 1100px);
-  max-height: calc(100dvh - 8rem);
-  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
-}
-
-.viewer__caption {
-  writing-mode: vertical-rl;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.viewer__no {
-  margin-left: 0.5rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.25rem;
-  color: var(--gold-300);
-  text-combine-upright: all;
-}
-
-.viewer__title {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  color: var(--washi-50);
-}
-
-.viewer__meta {
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-}
-
-.viewer__close {
-  position: absolute;
-  top: clamp(1rem, 3vw, 1.75rem);
-  right: clamp(1rem, 3vw, 1.75rem);
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(243, 239, 230, 0.4);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  transition: border-color 0.6s var(--ease), transform 0.8s var(--ease);
-}
-
-.viewer__close span,
-.viewer__close span::before {
-  position: absolute;
-  width: 18px;
-  height: 1px;
-  background: var(--washi-100);
-}
-
-.viewer__close span {
-  left: 50%;
-  top: 50%;
-  margin-left: -9px;
-  transform: rotate(45deg);
-}
-
-.viewer__close span::before {
-  content: "";
-  left: 0;
-  top: 0;
-  transform: rotate(-90deg);
-}
-
-.viewer__close:hover {
-  border-color: var(--washi-100);
-  transform: rotate(90deg);
-}
-
-@media (max-width: 639.98px) {
-  .viewer__figure {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .viewer__img {
-    max-width: 100%;
-    max-height: 68dvh;
-  }
-
-  .viewer__caption {
-    writing-mode: horizontal-tb;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.4rem 0.9rem;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Story: a sheet of washi in the dark
+   About: a cream sheet in the night
    -------------------------------------------------------------------------- */
 
 .story {
-  --bg: var(--washi-100);
-  --fg: var(--sumi-800);
-  --fg-strong: var(--sumi-900);
-  --muted: var(--sumi-600);
-  --line: rgba(40, 40, 44, 0.14);
-  --line-strong: rgba(40, 40, 44, 0.28);
-  --accent: var(--indigo-700);
-  --focus: var(--indigo-600);
-  position: relative;
-  margin-top: clamp(4rem, 10vw, 8rem);
-  padding: clamp(6rem, 12vw, 10rem) 0;
-  background: var(--washi-100);
+  padding: var(--section-space) 0;
+  background: var(--bg);
   color: var(--fg);
-}
-
-.deckle {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 28px;
-  fill: var(--washi-100);
-  pointer-events: none;
-}
-
-.deckle--top {
-  top: -27px;
-}
-
-.deckle--bottom {
-  bottom: -27px;
 }
 
 .story__inner {
   display: grid;
-  gap: 3.5rem;
+  gap: 3rem clamp(3rem, 8vw, 7rem);
+  align-items: start;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 860px) {
   .story__inner {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: clamp(3rem, 8vw, 8rem);
-    align-items: center;
+    grid-template-columns: auto minmax(0, 1fr);
   }
-}
-
-/* ensō, the poem inside it, and a seal: all stacked in one cell */
-.story__art {
-  display: grid;
-  place-items: center;
-  justify-self: center;
-  width: clamp(16rem, 32vw, 25rem);
-  aspect-ratio: 1;
-}
-
-.story__art > * {
-  grid-area: 1 / 1;
-}
-
-.story__enso {
-  width: 100%;
-  height: 100%;
-}
-
-.story__enso-stroke {
-  fill: none;
-  stroke: var(--indigo-800);
-  stroke-width: 12;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 2.8s var(--ease) 0.3s;
-}
-
-.story__enso.is-visible .story__enso-stroke,
-html:not(.js) .story__enso-stroke {
-  stroke-dashoffset: 0;
 }
 
 .story__poem {
   writing-mode: vertical-rl;
+  justify-self: center;
   font-family: var(--font-display-ja);
-  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
-  line-height: 2.3;
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
+  line-height: 2;
   letter-spacing: 0.3em;
-  color: var(--sumi-900);
-  transition-delay: 1.2s;
+  color: var(--fg-strong);
+}
+
+.story__body {
+  max-width: 40rem;
 }
 
 .story__lead {
-  max-width: 34rem;
   font-family: var(--font-display);
-  font-size: clamp(1.45rem, 1.1rem + 1.2vw, 2.05rem);
-  line-height: 1.5;
+  font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.9rem);
+  line-height: 1.45;
 }
 
 html[lang="ja"] .story__lead {
   font-family: var(--font-display-ja);
-  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
-  line-height: 2;
+  font-size: 1.2rem;
 }
 
 .story__text {
-  max-width: var(--measure);
-  margin-top: 1.5rem;
+  margin-top: 1.4rem;
 }
 
 /* --------------------------------------------------------------------------
-   Links: plain and large, with a hairline that draws in on hover
+   Links
    -------------------------------------------------------------------------- */
 
 .art-links {
-  position: relative;
-  overflow: hidden;
+  padding-bottom: var(--section-space);
 }
 
 .art-links__list {
@@ -1207,34 +671,20 @@ html[lang="ja"] .story__lead {
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.5rem 2rem;
-  padding: clamp(1.5rem, 3vw, 2.25rem) 0;
-}
-
-.art-links__link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 1px;
-  background: var(--gold-300);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 1.2s var(--ease);
+  padding: clamp(1.4rem, 3vw, 2rem) 0;
 }
 
 .art-links__name {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.75rem);
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem);
   line-height: 1.1;
-  letter-spacing: 0.03em;
   color: var(--fg-strong);
-  transition: letter-spacing 1.2s var(--ease), color 0.8s var(--ease);
+  transition: color 0.5s var(--ease);
 }
 
 html[lang="ja"] .art-links__name {
   font-family: var(--font-display-ja);
-  font-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.4rem);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
 }
 
 .art-links__note {
@@ -1245,6 +695,15 @@ html[lang="ja"] .art-links__name {
   margin-left: auto;
   align-self: center;
   color: var(--muted);
+}
+
+a[href].art-links__link:hover .art-links__name {
+  color: var(--gold);
+}
+
+a[href].art-links__link:hover .art-links__arrow {
+  transform: translateX(0.4rem);
+  color: var(--fg-strong);
 }
 
 /* on phones the note drops under the name and every arrow lines up on the right */
@@ -1265,84 +724,125 @@ html[lang="ja"] .art-links__name {
   }
 }
 
-a[href].art-links__link {
-  cursor: pointer;
-}
-
-a[href].art-links__link:hover::after,
-a[href].art-links__link:focus-visible::after {
-  transform: scaleX(1);
-}
-
-a[href].art-links__link:hover .art-links__name {
-  letter-spacing: 0.06em;
-  color: var(--indigo-200);
-}
-
-a[href].art-links__link:hover .art-links__arrow {
-  transform: translateX(0.4rem);
-  color: var(--fg-strong);
-}
-
 .art .credit {
-  margin: var(--section-space) var(--gutter) 0;
+  width: min(100% - 2 * var(--gutter), 74rem);
+  margin-inline: auto;
   padding-inline: 0;
   border-top: 1px solid var(--line);
 }
 
 /* --------------------------------------------------------------------------
-   Reduced motion: a still night, nothing pinned, everything drawn
+   Viewer
+   -------------------------------------------------------------------------- */
+
+.viewer {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--fg);
+}
+
+.viewer::backdrop {
+  background: rgba(11, 17, 32, 0.94);
+}
+
+.viewer[open] {
+  animation: fade 0.5s var(--ease);
+}
+
+.viewer.is-closing {
+  animation: fade 0.35s var(--ease) reverse forwards;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.viewer__inner {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 4.5rem var(--gutter) 2rem;
+}
+
+.viewer__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.viewer__img {
+  max-width: min(100%, 72rem);
+  max-height: 78dvh;
+  width: auto;
+}
+
+.viewer__caption {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.viewer__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--fg-strong);
+}
+
+.viewer__meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.viewer__close {
+  position: fixed;
+  top: 1rem;
+  right: var(--gutter);
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.viewer__close span::before,
+.viewer__close span::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.3rem;
+  height: 1px;
+  background: var(--fg-strong);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.viewer__close span::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .js .bloom {
-    display: none;
-  }
-
-  .art-hero__reflection i,
   .willow__sway,
-  .art-hero__scroll::after,
-  .emaki__hint .arrow {
+  .art-hero__reflection i,
+  .strip__hint .arrow,
+  .record__disc {
     animation: none;
   }
-
-  .js .art-hero__line {
-    -webkit-mask-image: none;
-    mask-image: none;
-    animation: page-in 0.8s linear both;
-  }
-
-  .art-hero__mark {
-    animation: page-in 0.8s linear backwards;
-  }
-
-  .art-hero__tagline-chars .ch {
-    opacity: 1;
-    filter: none;
-    transform: none;
-    animation: none;
-  }
-
-  .emaki__open img,
-  .emaki__view {
-    transition-duration: 0.2s;
-  }
-
-  .emaki__open:hover img,
-  .emaki__open:focus-visible img {
-    transform: none;
-  }
-
-  .story__enso-stroke {
-    stroke-dashoffset: 0;
-    transition: none;
-  }
-
 
   .viewer[open],
-  .viewer[open]::backdrop,
-  .viewer.is-closing,
-  .viewer.is-closing::backdrop {
+  .viewer.is-closing {
     animation: none;
   }
 }

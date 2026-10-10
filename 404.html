@@ -14,7 +14,7 @@
   <meta name="description" content="This page doesn’t exist. Head back to the gate." data-i18n-attr="content:meta.404.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0f1626">
+  <meta name="theme-color" content="#101a2e">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kevin JG">
@@ -38,8 +38,8 @@
   <script src="js/i18n.js"></script>
   <script src="js/main.js" defer></script>
 </head>
-<body class="gate">
-  <header class="topbar topbar--gate">
+<body class="lost-page">
+  <header class="topbar">
     <div class="topbar__end">
       <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
         <button class="lang__opt" type="button" lang="en" title="English" aria-label="English" aria-pressed="true" data-lang-option="en" data-testid="lang-option-en">EN</button>
@@ -51,19 +51,7 @@
 
   <main class="lost" id="main" data-testid="section-not-found">
     <div class="lost__inner">
-      <svg class="lost__enso" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="enso-edge" x="-10%" y="-10%" width="120%" height="120%">
-            <feTurbulence type="fractalNoise" baseFrequency=".08" numOctaves="3" seed="6"/>
-            <feDisplacementMap in="SourceGraphic" scale="4"/>
-          </filter>
-        </defs>
-        <g fill="none" stroke="currentColor" stroke-linecap="round" filter="url(#enso-edge)">
-          <path d="M146.3 44.8A72 72 0 1 1 37.6 136" stroke-width="14"/>
-          <path d="M37.6 136A72 72 0 0 1 93.7 28.3" stroke-width="10"/>
-          <path d="M93.7 28.3A72 72 0 0 1 124.6 32.3" stroke-width="4.5" opacity=".75"/>
-        </g>
-      </svg>
+      <span class="lost__frame" aria-hidden="true"></span>
       <p class="lost__code">404</p>
       <h1 class="lost__title" data-i18n="nf.title">Nothing behind this door.</h1>
       <p class="lost__text" data-i18n="nf.text">The page you’re looking for isn’t here. The link may be old or mistyped.</p>

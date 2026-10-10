@@ -1,359 +1,245 @@
 /* ==========================================================================
-   Gate: two doors in a dark room.
-   Left is a hinged wooden door (QA), right is a shoji (The Willow Atelier).
-
-   Each door runs off two numbers so hover, focus, touch and click share
-   one set of rules:
-     --peek  0 | 1   opened a little
-     --full  0 | 1   opened all the way
+   Gate: one screen, split in two.
+   Cream on the left (QA), navy on the right (the atelier). Each half holds a
+   door drawn in thin lines. Hover or focus opens it a little; a click lets
+   that half take the whole screen, then the next page fades in.
+   Also styles the 404 page, which borrows the gate's quiet.
    ========================================================================== */
 
-.gate {
-  --door-gap: clamp(3rem, 9vw, 9rem);
-  --door-ratio: 0.45;
-  --door-h: min(58svh, 580px, calc((100vw - 2 * var(--gutter) - var(--door-gap)) / 2 / var(--door-ratio)));
-  --jamb: max(7px, calc(var(--door-h) * 0.022));
-  --lintel: calc(var(--jamb) * 1.6);
-
-  /* vertical grain, dark streaks only */
-  --wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='900'%3E%3Cfilter id='w' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6 .01' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .75 0 0 0 -.28'/%3E%3C/filter%3E%3Cfilter id='b' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.07 .004' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0 0 0 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");
-  /* paper fibres for the shoji, light flecks only */
-  --paper-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='p' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45 .2' numOctaves='3' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 .55 0 0 0 -.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
-
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  min-height: 100svh;
-  background:
-    radial-gradient(70% 45% at 50% 108%, rgba(52, 80, 140, 0.3), transparent 70%),
-    radial-gradient(85% 70% at 50% 32%, #172038 0%, #0f1626 58%, #0a0f1b 100%);
-  background-color: var(--indigo-900);
-}
-
-@supports not (height: 1svh) {
-  .gate {
-    --door-h: min(58vh, 580px, calc((100vw - 2 * var(--gutter) - var(--door-gap)) / 2 / var(--door-ratio)));
-  }
-}
-
-.topbar--gate {
-  justify-content: flex-end;
+body.gate {
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
 }
 
 .gate__main {
-  display: grid;
-  place-items: center;
-  padding: clamp(0.5rem, 3vh, 2.5rem) var(--gutter) clamp(1rem, 4vh, 3rem);
-}
-
-.gate__stage {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--door-gap);
+  height: 100%;
 }
 
 /* --------------------------------------------------------------------------
-   Door: shared shell
+   Corners: name, languages, a line of direction, the credit
    -------------------------------------------------------------------------- */
 
+.gate__top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem var(--gutter);
+  pointer-events: none;
+}
+
+.gate__top > * {
+  pointer-events: auto;
+}
+
+.gate__name {
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--fg-strong);
+}
+
+.gate__intro,
+.gate__credit {
+  position: fixed;
+  bottom: 0;
+  z-index: 20;
+  padding: 1.4rem var(--gutter);
+  pointer-events: none;
+}
+
+.gate__intro {
+  left: 0;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+html[lang="ja"] .gate__intro {
+  letter-spacing: 0.16em;
+}
+
+.gate__credit {
+  right: 0;
+  text-align: right;
+  color: #98a2b7;
+}
+
+/* the languages sit on the navy half on wide screens */
+@media (min-width: 760px) {
+  .gate__top .lang {
+    --fg: var(--cream-200);
+    --fg-strong: var(--cream-50);
+    --muted: #98a2b7;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The two halves
+   -------------------------------------------------------------------------- */
+
+.gate__stage {
+  display: flex;
+  height: 100%;
+}
+
 .door {
-  --peek: 0;
-  --full: 0;
+  --door-w: clamp(7.5rem, 10.5vw, 10.5rem);
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 5vh, 3rem);
+  padding: 5rem var(--gutter);
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  transition: flex-grow 1s var(--ease);
+}
+
+.door:focus-visible {
+  outline-offset: -0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Door, drawn
+   -------------------------------------------------------------------------- */
+
+.door__unit {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(1.25rem, 3vh, 2rem);
-  color: var(--washi-200);
-  -webkit-tap-highlight-color: transparent;
-  animation: door-rise 1.8s var(--ease-out) backwards;
-  transition: opacity 1s var(--ease);
-}
-
-.door--slide {
-  animation-delay: 0.15s;
-}
-
-@keyframes door-rise {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-  }
-}
-
-@media (hover: hover) {
-  .door:hover {
-    --peek: 1;
-  }
-}
-
-.door:focus-visible,
-.door.is-peek {
-  --peek: 1;
-}
-
-.door.is-open {
-  --peek: 1;
-  --full: 1;
-}
-
-.door:focus-visible {
-  outline: none;
-}
-
-.door:focus-visible .door__frame {
-  outline: 2px solid var(--indigo-200);
-  outline-offset: 10px;
-}
-
-.door__unit {
-  position: relative;
-  display: block;
-  isolation: isolate;
-  transition: transform 1.4s var(--ease), opacity 1s var(--ease);
-}
-
-/* the shadow it stands in */
-.door__unit::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  left: -10%;
-  right: -10%;
-  bottom: -14px;
-  height: 22px;
-  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent);
-}
-
-/* light thrown onto the wall and floor */
-.door__spill {
-  position: absolute;
-  z-index: -1;
-  inset: -10% -55% -28%;
-  background:
-    radial-gradient(42% 38% at 50% 46%, rgba(110, 150, 230, 0.24), transparent 72%),
-    radial-gradient(30% 5% at 50% 81%, rgba(150, 185, 245, 0.4), transparent 72%);
-  opacity: calc(var(--peek) * 0.7 + var(--full) * 0.3);
-  transition: opacity 1.6s var(--ease);
-  pointer-events: none;
 }
 
 .door__frame {
   position: relative;
-  display: block;
-  height: var(--door-h);
-  aspect-ratio: var(--door-ratio);
-  padding: var(--lintel) var(--jamb) calc(var(--jamb) * 0.6);
-  background:
-    var(--wood-grain),
-    linear-gradient(90deg, #2a211b 0%, #382b22 18%, #33271f 50%, #3a2d24 82%, #2a211b 100%);
-  background-size: 240px 900px, auto;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-    0 2px 4px rgba(0, 0, 0, 0.35),
-    0 18px 30px -12px rgba(0, 0, 0, 0.55),
-    0 40px 80px -30px rgba(0, 0, 0, 0.7);
-}
-
-.door__opening {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 100%;
+  width: var(--door-w);
+  aspect-ratio: 1 / 2.05;
+  border: 1.5px solid var(--fg-strong);
   overflow: hidden;
-  perspective: 1500px;
-  perspective-origin: 50% 46%;
-  background: #0b111e;
+  perspective: 900px;
+  perspective-origin: 0 50%;
 }
 
-/* the frame's depth, cast onto whatever sits in the opening */
-.door__opening::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.55),
-    inset 0 12px 16px -10px rgba(0, 0, 0, 0.65),
-    inset 10px 0 14px -12px rgba(0, 0, 0, 0.55),
-    inset -10px 0 14px -12px rgba(0, 0, 0, 0.55);
-}
-
-/* the world on the other side */
-.door__world {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(62% 46% at 50% 60%, rgba(214, 228, 255, 0.95), rgba(134, 170, 240, 0.72) 34%, rgba(52, 84, 150, 0.45) 66%, rgba(16, 26, 50, 0) 100%),
-    linear-gradient(180deg, #1b2c52 0%, #27447a 52%, #36598f 78%, #1a2a4c 100%);
-  opacity: calc(0.22 + var(--peek) * 0.55 + var(--full) * 0.23);
-  transition: opacity 1.5s var(--ease);
-}
-
-.door--slide .door__world {
-  background:
-    radial-gradient(60% 44% at 50% 58%, rgba(196, 210, 246, 0.9), rgba(118, 146, 214, 0.68) 36%, rgba(48, 70, 132, 0.45) 66%, rgba(14, 22, 44, 0) 100%),
-    linear-gradient(180deg, #16223f 0%, #223764 52%, #2f4a80 78%, #172443 100%);
-}
-
-/* --------------------------------------------------------------------------
-   QA door: hinged on the left, swings in
-   -------------------------------------------------------------------------- */
-
-/* a line of light under the door, even when it's shut */
-.door--swing .door__opening::before {
-  content: "";
-  position: absolute;
-  z-index: 5;
-  left: 8%;
-  right: 8%;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(160, 192, 250, 0.85), transparent);
-  filter: blur(0.6px);
-  opacity: calc(0.75 - var(--full) * 0.75);
-  transition: opacity 1.2s var(--ease);
-}
-
-/* a gold hairline on the lintel */
-.door--swing .door__frame::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--lintel) * 0.42);
-  left: 16%;
-  right: 16%;
+.door__floor {
+  width: calc(var(--door-w) * 2);
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
-  opacity: 0.75;
+  background: linear-gradient(90deg, transparent, var(--line-strong) 25%, var(--line-strong) 75%, transparent);
+}
+
+.door__behind {
+  position: absolute;
+  inset: 5px;
+  display: grid;
+  place-items: center;
+}
+
+/* QA: a lit room, and a tick waiting to be drawn */
+.door--qa .door__behind {
+  place-items: center end;
+  padding-right: 9%;
+  background: radial-gradient(circle at 50% 42%, #fffdf8 0%, var(--cream-50) 45%, var(--cream-200) 100%);
+}
+
+.door__tick {
+  width: 46%;
+  fill: none;
+  stroke: var(--navy-700);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.door__tick path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s var(--ease) 0.25s;
 }
 
 .door__leaf {
   position: absolute;
-  inset: 0;
+  inset: 5px;
+  border: 1px solid var(--fg-strong);
+  background: var(--bg);
   transform-origin: 0 50%;
-  transform: rotateY(calc(var(--peek) * 18deg + var(--full) * 66deg));
-  transition: transform 1.7s var(--ease-door), opacity 0.5s var(--ease);
-  background:
-    var(--wood-grain),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025), rgba(0, 0, 0, 0.16)),
-    linear-gradient(180deg, #3b2e25 0%, #34291f 50%, #2d231c 100%);
-  background-size: 240px 900px, auto, auto;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-    inset 1px 0 0 rgba(255, 255, 255, 0.05);
-}
-
-/* darkens as it turns away from the room */
-.door__leaf::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.6));
-  opacity: calc(var(--peek) * 0.35 + var(--full) * 0.5);
-  transition: opacity 1.7s var(--ease-door);
+  transition: transform 1.1s var(--ease);
 }
 
 .door__panel {
   position: absolute;
-  left: 17%;
-  right: 17%;
+  left: 16%;
+  right: 16%;
+  border: 1px solid var(--line-strong);
 }
 
-/* fine vertical slats over indigo cloth */
 .door__panel--upper {
-  top: 8%;
-  height: 50%;
-  background: linear-gradient(180deg, #141d36, #1a2747);
-  box-shadow:
-    0 0 0 2px #2a2019,
-    0 0 0 3px rgba(255, 255, 255, 0.04),
-    inset 0 3px 8px rgba(0, 0, 0, 0.7);
+  top: 9%;
+  height: 40%;
+  /* a few slats, the only texture on this side */
+  background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), var(--line) calc(20% - 1px) 20%);
 }
 
-.door__panel--upper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(70% 60% at 50% 50%, rgba(134, 170, 240, 0.45), transparent 75%);
-  opacity: calc(var(--peek) * 0.8);
-  transition: opacity 1.5s var(--ease);
-}
-
-.door__panel--upper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, transparent calc(66% - 1px), #3e3027 calc(66% - 1px), #3e3027 calc(66% + 1px), transparent calc(66% + 1px)),
-    repeating-linear-gradient(90deg, transparent 0 7px, #3e3027 7px 9px);
-}
-
-/* a quiet recessed panel below */
 .door__panel--lower {
-  top: 64%;
-  height: 27%;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 5px rgba(255, 255, 255, 0.025),
-    inset 0 0 0 6px rgba(0, 0, 0, 0.28),
-    0 1px 0 rgba(255, 255, 255, 0.04);
+  top: 56%;
+  height: 34%;
 }
 
-.door__pull {
+.door__handle {
   position: absolute;
-  right: 8%;
-  top: 45%;
-  width: 3px;
-  height: 15%;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #ddc99b 0%, #a38a58 45%, #6e5a35 100%);
-  box-shadow:
-    -1px 0 0 rgba(0, 0, 0, 0.35),
-    2px 3px 6px rgba(0, 0, 0, 0.55);
+  right: 9%;
+  top: 47%;
+  width: 1.5px;
+  height: 11%;
+  background: var(--gold);
 }
 
-/* --------------------------------------------------------------------------
-   Art door: shoji, two panels sliding apart
-   -------------------------------------------------------------------------- */
+/* Art: the night behind the paper, and the moon in it */
+.door--art .door__behind {
+  background: var(--navy-950);
+}
+
+.door__moon {
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #fbf8f0 0%, #e8e0cc 70%, #d4c9b0 100%);
+  box-shadow: 0 0 24px 4px rgba(240, 232, 214, 0.18), 0 0 70px 20px rgba(143, 164, 201, 0.14);
+  transform: translateY(-12%) scale(0.92);
+  transition: transform 1.2s var(--ease);
+}
 
 .shoji {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 51%;
-  border-style: solid;
-  border-color: #3a2d24;
-  border-width: 5px 5px 12px;
+  top: 5px;
+  bottom: 5px;
+  width: calc(50% - 5px);
+  border: 1px solid var(--line-strong);
   background:
-    /* kumiko: six rows, three columns */
-    repeating-linear-gradient(180deg, transparent 0 calc(16.666% - 1.5px), #46372b calc(16.666% - 1.5px) 16.666%),
-    repeating-linear-gradient(90deg, transparent 0 calc(33.333% - 1.5px), #46372b calc(33.333% - 1.5px) 33.333%),
-    var(--paper-fibre),
-    linear-gradient(180deg, rgba(206, 210, 218, 0.3), rgba(190, 196, 208, 0.25));
-  background-size: auto, auto, 160px 160px, auto;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
-    inset 0 0 24px rgba(10, 16, 30, 0.25);
-  transition: transform 1.7s var(--ease-door), opacity 0.5s var(--ease);
+    repeating-linear-gradient(0deg, transparent 0 calc(16.66% - 1px), rgba(233, 226, 212, 0.32) calc(16.66% - 1px) 16.66%),
+    repeating-linear-gradient(90deg, transparent 0 calc(33.33% - 1px), rgba(233, 226, 212, 0.32) calc(33.33% - 1px) 33.33%),
+    rgba(24, 36, 62, 0.88);
+  transition: transform 1.1s var(--ease);
 }
 
 .shoji--left {
-  left: 0;
-  z-index: 2;
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
-    inset 0 0 24px rgba(10, 16, 30, 0.25),
-    4px 0 8px -2px rgba(0, 0, 0, 0.35);
-  transform: translateX(calc(var(--peek) * -12% + var(--full) * -92%));
+  left: 5px;
 }
 
 .shoji--right {
-  right: 0;
-  z-index: 1;
-  transform: translateX(calc(var(--peek) * 12% + var(--full) * 92%));
+  right: 5px;
 }
 
 /* --------------------------------------------------------------------------
@@ -364,278 +250,297 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
-  max-width: calc(var(--door-h) * var(--door-ratio) + 7rem);
+  gap: 0.55rem;
   text-align: center;
-  transition: opacity 0.9s var(--ease);
+  transition: opacity 0.6s var(--ease);
+}
+
+.door__num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
 }
 
 .door__label {
-  position: relative;
-  padding-bottom: 0.6rem;
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.2rem, 0.95rem + 0.9vw, 1.65rem);
-  line-height: 1.3;
-  letter-spacing: 0.16em;
-  color: var(--washi-50);
-  text-wrap: balance;
-  transition: color 0.9s var(--ease);
+  font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  color: var(--fg-strong);
 }
 
-.door__label::after {
-  content: "";
-  position: absolute;
-  left: 15%;
-  right: 15%;
-  bottom: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
-  transform: scaleX(calc(0.35 + var(--peek) * 0.65));
-  transition: transform 1.2s var(--ease);
-}
-
-/* QA is the main door; the atelier label sits back a little. */
-.door--slide .door__label {
-  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
-  color: var(--washi-300);
-}
-
-.door--slide .door__label::after {
-  background: linear-gradient(90deg, transparent, var(--washi-400), transparent);
-}
-
-.door--slide:is(:hover, :focus-visible, .is-peek) .door__label {
-  color: var(--washi-50);
-}
-
-html[lang="ja"] .door__label {
+html[lang="ja"] .door__label:not(.latin) {
   font-family: var(--font-display-ja);
-  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.35rem);
-  letter-spacing: 0.14em;
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
 }
 
-html[lang="ja"] .door__label.latin {
+.door__sub {
+  font-size: 0.7rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.door--art .door__sub {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.5rem);
-  letter-spacing: 0.16em;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 
+html[lang="ja"] .door__sub {
+  letter-spacing: 0.12em;
+}
+
+html[lang="ja"] .door--art .door__sub {
+  font-family: var(--font-display-ja);
+  font-style: normal;
+  font-size: 0.95rem;
+}
+
+/* only touch screens need telling */
 .door__cue {
   display: none;
+  margin-top: 0.4rem;
   font-size: 0.66rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--indigo-200);
+  color: var(--accent);
 }
 
-html[lang="ja"] .door__cue {
-  letter-spacing: 0.1em;
-}
-
-@media (hover: none) and (pointer: coarse) {
+@media (hover: none) {
   .door__cue {
     display: block;
-    animation: cue-breathe 3.2s var(--ease) infinite alternate;
-  }
-}
-
-.touch-used .door__cue {
-  display: block;
-}
-
-@keyframes cue-breathe {
-  from {
-    opacity: 0.6;
-  }
-  to {
-    opacity: 1;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Focus on one door, then walk through it
+   Peek (hover, focus, first tap), then open
    -------------------------------------------------------------------------- */
 
 @media (hover: hover) {
-  .gate__stage:has(.door:hover) .door:not(:hover) .door__unit {
-    opacity: 0.55;
+  .door:hover {
+    flex-grow: 1.18;
+  }
+
+  .gate__stage:hover .door:not(:hover) .door__caption {
+    opacity: 0.45;
   }
 }
 
-.gate__stage:has(.door.is-peek) .door:not(.is-peek) .door__unit {
-  opacity: 0.55;
+.door.is-peek {
+  flex-grow: 1.18;
 }
 
-.gate__stage.has-open .door:not(.is-open) {
-  opacity: 0.12;
+.door--qa:is(:hover, :focus-visible, .is-peek) .door__leaf {
+  transform: rotateY(-58deg);
+}
+
+.door--qa:is(:hover, :focus-visible, .is-peek) .door__tick path {
+  stroke-dashoffset: 0;
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .shoji--left {
+  transform: translateX(-38%);
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .shoji--right {
+  transform: translateX(38%);
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .door__moon {
+  transform: none;
+}
+
+/* the chosen half takes the screen */
+.gate__stage.has-open .door {
+  flex-grow: 0.001;
+}
+
+.gate__stage.has-open .door.is-open {
+  flex-grow: 1;
+}
+
+.gate__stage.has-open .door:not(.is-open) > * {
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+
+.door--qa.is-open .door__leaf {
+  transform: rotateY(-84deg);
+}
+
+.door--art.is-open .shoji--left {
+  transform: translateX(-96%);
+}
+
+.door--art.is-open .shoji--right {
+  transform: translateX(96%);
 }
 
 .door.is-entering .door__unit {
   transform: scale(1.06);
+  opacity: 0;
+  transition: transform 0.5s var(--ease), opacity 0.4s var(--ease);
 }
 
 .door.is-entering .door__caption {
   opacity: 0;
 }
 
-.credit--gate {
-  padding-top: 1rem;
-}
-
 /* --------------------------------------------------------------------------
-   Phones: stack the doors, caption beside each, mirrored
+   Narrow screens: top and bottom, door beside its caption
    -------------------------------------------------------------------------- */
 
-@media (max-width: 639.98px) {
-  .gate {
-    --door-ratio: 0.5;
-    --door-h: clamp(170px, 32svh, 300px);
-  }
-
+@media (max-width: 759.98px) {
   .gate__stage {
     flex-direction: column;
-    align-items: stretch;
-    gap: clamp(1.5rem, 4svh, 2.5rem);
-    width: 100%;
-    max-width: 26rem;
   }
 
   .door {
+    --door-w: min(27vw, 7rem);
     flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
+    gap: 1.75rem;
+    padding: 4.25rem var(--gutter) 2.5rem;
   }
 
-  .door--slide {
+  .door--art {
     flex-direction: row-reverse;
+    padding: 2.5rem var(--gutter) 4.25rem;
   }
 
   .door__caption {
-    flex: 1;
-    min-width: 0;
     align-items: flex-start;
     text-align: left;
-    max-width: none;
   }
 
-  .door--slide .door__caption {
+  .door--art .door__caption {
     align-items: flex-end;
     text-align: right;
   }
 
-  .door__label::after {
+  .door__label {
+    font-size: clamp(1.45rem, 6.5vw, 2rem);
+  }
+
+  .door__sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .door--art .door__sub {
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+  }
+
+  .door__floor {
+    width: calc(var(--door-w) * 1.6);
+  }
+
+  .gate__intro {
+    display: none;
+  }
+
+  .gate__credit {
     left: 0;
-    right: 0;
-    transform-origin: left;
-    background: linear-gradient(90deg, var(--gold-300), transparent);
-  }
-
-  .door--slide .door__label::after {
-    transform-origin: right;
-    background: linear-gradient(90deg, transparent, var(--washi-400));
-  }
-}
-
-@media (max-width: 639.98px) and (max-height: 600px) {
-  .gate {
-    --door-h: clamp(150px, 30svh, 260px);
+    text-align: center;
+    padding-bottom: 1.1rem;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Reduced motion: no swinging or sliding, the light just comes up
+   Reduced motion: doors still open, nothing travels
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .door {
-    animation: none;
-  }
-
+  .door,
   .door__leaf,
-  .shoji--left,
-  .shoji--right {
-    transform: none;
-    transition: opacity 0.4s linear;
+  .shoji,
+  .door__moon,
+  .door__tick path {
+    transition-duration: 0.01s;
+    transition-delay: 0s;
   }
 
-  .door.is-open .door__leaf,
-  .door.is-open .shoji {
-    opacity: 0;
-  }
-
-  .door__world,
-  .door__spill,
-  .door__unit,
-  .door__caption,
-  .door__label::after {
-    transition-duration: 0.4s;
+  .door:hover,
+  .door.is-peek {
+    flex-grow: 1;
   }
 
   .door.is-entering .door__unit {
     transform: none;
   }
-
-  .door__cue {
-    animation: none;
-  }
 }
 
 /* ==========================================================================
-   404 shares the gate's room
+   404
    ========================================================================== */
 
+body.lost-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
 .lost {
+  flex: 1;
   display: grid;
   place-items: center;
-  padding: clamp(2rem, 8vh, 6rem) var(--gutter);
+  padding: 2rem var(--gutter);
   text-align: center;
 }
 
 .lost__inner {
-  display: grid;
-  justify-items: center;
-  gap: 1.5rem;
-  max-width: 34rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 30rem;
 }
 
-.lost__enso {
-  width: clamp(9rem, 26vw, 13rem);
-  height: auto;
-  margin-bottom: 0.5rem;
-  color: var(--indigo-200);
-  opacity: 0.9;
+/* an empty frame: the door that isn't there */
+.lost__frame {
+  width: 4.5rem;
+  aspect-ratio: 1 / 2.05;
+  margin-bottom: 0.75rem;
+  border: 1.5px dashed var(--line-strong);
 }
 
 .lost__code {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1rem;
-  letter-spacing: 0.3em;
-  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
 }
 
 .lost__title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(1.9rem, 1.4rem + 2.4vw, 3rem);
-  line-height: 1.2;
-  letter-spacing: 0.04em;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  line-height: 1.15;
   color: var(--fg-strong);
-  text-wrap: balance;
-}
-
-html[lang="ja"] .lost__title {
-  font-size: clamp(1.4rem, 1.1rem + 1.6vw, 2.1rem);
 }
 
 .lost__text {
-  max-width: 28rem;
   color: var(--muted);
-  text-wrap: pretty;
 }
 
 .lost__back {
   margin-top: 1rem;
+}
+
+.lost__back .back-link__arrow {
+  width: 1.6rem;
+  height: 0.6rem;
+}
+
+.lost-page .topbar {
+  justify-content: flex-end;
 }

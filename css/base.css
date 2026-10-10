@@ -1,88 +1,82 @@
 /* ==========================================================================
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
+
+   The look is "ma" (間): two colours, thin lines, a lot of room.
    ========================================================================== */
 
 :root {
-  /* indigo (藍), from night to mist */
-  --indigo-950: #0a0f1b;
-  --indigo-900: #0f1626;
-  --indigo-850: #141d32;
-  --indigo-800: #1a2640;
-  --indigo-700: #22365e;
-  --indigo-600: #2c4677;
-  --indigo-500: #3d5d96;
-  --indigo-400: #5f7fb6;
-  --indigo-300: #8ea5cd;
-  --indigo-200: #b8c6e0;
-  --indigo-100: #dde4f0;
-  --glow: #86aaf0;
+  /* navy, from night to mist */
+  --navy-950: #0b1120;
+  --navy-900: #101a2e;
+  --navy-850: #14203a;
+  --navy-800: #1a2946;
+  --navy-700: #233862;
+  --navy-500: #3e5d94;
+  --navy-300: #8fa4c9;
+  --navy-200: #bac7de;
 
-  /* washi paper */
-  --washi-50: #f8f5ef;
-  --washi-100: #f3efe6;
-  --washi-200: #ebe5d8;
-  --washi-300: #dcd4c3;
-  --washi-400: #c7bea9;
+  /* cream paper */
+  --cream-50: #fbf8f2;
+  --cream-100: #f4efe5;
+  --cream-200: #e9e2d4;
+  --cream-300: #d9cfbc;
 
-  /* sumi ink */
-  --sumi-900: #1c1c1f;
-  --sumi-800: #28282c;
-  --sumi-700: #3a3a3f;
-  --sumi-600: #57565a;
+  /* ink with a little navy in it */
+  --ink-900: #161c2b;
+  --ink-700: #2c3345;
+  --ink-500: #5b6274;
 
-  /* the one metal */
-  --gold-500: #a38a58;
-  --gold-300: #c9b48a;
+  /* the one metal, used sparingly */
+  --gold: #b09763;
 
-  /* wood for the door frames */
-  --wood-900: #17120f;
-  --wood-800: #241c17;
-  --wood-700: #33281f;
-  --wood-600: #463629;
-  --wood-400: #6e5643;
-
-  /* light theme (QA) by default */
-  --bg: var(--washi-100);
-  --bg-raised: var(--washi-50);
-  --fg: var(--sumi-800);
-  --fg-strong: var(--sumi-900);
-  --muted: var(--sumi-600);
-  --line: rgba(40, 40, 44, 0.14);
-  --line-strong: rgba(40, 40, 44, 0.28);
-  --accent: var(--indigo-700);
-  --focus: var(--indigo-600);
-  --veil-light: var(--washi-100);
-  --veil-dark: var(--indigo-900);
+  /* light theme (gate left, QA) by default */
+  --bg: var(--cream-100);
+  --bg-raised: var(--cream-50);
+  --fg: var(--ink-700);
+  --fg-strong: var(--ink-900);
+  --muted: var(--ink-500);
+  --line: rgba(22, 28, 43, 0.12);
+  --line-strong: rgba(22, 28, 43, 0.26);
+  --accent: var(--navy-700);
+  --focus: var(--navy-500);
+  --veil-light: var(--cream-100);
+  --veil-dark: var(--navy-900);
 
   --font-display: "Cormorant Garamond", "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-display-ja: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-body: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-door: cubic-bezier(0.76, 0, 0.24, 1);
 
-  --gutter: clamp(1.25rem, 5vw, 4rem);
-  --measure: 34rem;
-  --section-space: clamp(6rem, 14vw, 12rem);
-
-  /* Paper grain: fine tooth plus slow mottling. Grey noise so it works on light and dark. */
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='g' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 .55'/%3E%3C/filter%3E%3Cfilter id='m' x='0' y='0' width='1' height='1'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 0 0 0 .5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='.6'/%3E%3C/svg%3E");
-  --grain-opacity: 0.12;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+  --section-space: clamp(6rem, 13vw, 11rem);
 }
 
 .theme-dark {
-  --bg: var(--indigo-900);
-  --bg-raised: var(--indigo-850);
-  --fg: var(--washi-200);
-  --fg-strong: var(--washi-50);
-  --muted: #a3abbb;
-  --line: rgba(220, 215, 200, 0.14);
-  --line-strong: rgba(220, 215, 200, 0.28);
-  --accent: var(--indigo-300);
-  --focus: var(--indigo-200);
-  --grain-opacity: 0.16;
+  --bg: var(--navy-900);
+  --bg-raised: var(--navy-850);
+  --fg: var(--cream-200);
+  --fg-strong: var(--cream-50);
+  --muted: #98a2b7;
+  --line: rgba(233, 226, 212, 0.13);
+  --line-strong: rgba(233, 226, 212, 0.28);
+  --accent: var(--navy-300);
+  --focus: var(--navy-200);
+}
+
+.theme-light {
+  --bg: var(--cream-100);
+  --bg-raised: var(--cream-50);
+  --fg: var(--ink-700);
+  --fg-strong: var(--ink-900);
+  --muted: var(--ink-500);
+  --line: rgba(22, 28, 43, 0.12);
+  --line-strong: rgba(22, 28, 43, 0.26);
+  --accent: var(--navy-700);
+  --focus: var(--navy-500);
 }
 
 /* --------------------------------------------------------------------------
@@ -95,8 +89,6 @@
   box-sizing: border-box;
 }
 
-/* html takes the viewport's overflow, so body is free to clip for real.
-   Keeps the doors' light spill from widening the page on phones. */
 html {
   overflow-x: clip;
   background: var(--bg);
@@ -108,9 +100,9 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
   min-height: 100vh;
   min-height: 100svh;
+  background: var(--bg);
   font-family: var(--font-body);
   font-weight: 300;
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
@@ -161,36 +153,14 @@ button {
   color: inherit;
 }
 
-strong {
-  font-weight: 400;
-  color: var(--fg-strong);
-}
-
 ::selection {
-  background: var(--indigo-200);
-  color: var(--indigo-950);
+  background: var(--navy-200);
+  color: var(--navy-950);
 }
 
 :focus-visible {
-  outline: 2px solid var(--focus);
+  outline: 1.5px solid var(--focus);
   outline-offset: 4px;
-  border-radius: 1px;
-}
-
-/* --------------------------------------------------------------------------
-   Paper grain over everything
-   -------------------------------------------------------------------------- */
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-  background-image: var(--grain);
-  background-size: 280px 280px;
-  opacity: var(--grain-opacity);
-  mix-blend-mode: overlay;
 }
 
 /* --------------------------------------------------------------------------
@@ -237,27 +207,21 @@ html[lang="ja"] .latin,
 }
 
 .wrap {
-  width: min(100% - 2 * var(--gutter), 76rem);
+  width: min(100% - 2 * var(--gutter), 74rem);
   margin-inline: auto;
-}
-
-.display {
-  font-family: var(--font-display);
-  font-weight: 400;
-  color: var(--fg-strong);
 }
 
 .eyebrow {
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 400;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 html[lang="ja"] .eyebrow {
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
 }
 
 /* Anything still waiting for real content. */
@@ -270,13 +234,6 @@ html[lang="ja"] .eyebrow {
 
 html[lang="ja"] .ph {
   font-style: normal;
-}
-
-.hairline {
-  display: block;
-  height: 1px;
-  border: 0;
-  background: var(--line);
 }
 
 .skip-link {
@@ -307,14 +264,14 @@ html[lang="ja"] .ph {
   display: flex;
   align-items: center;
   gap: 1rem 1.5rem;
-  padding: 0.875rem var(--gutter);
   min-height: 4.5rem;
+  padding: 0.75rem var(--gutter);
 }
 
 .topbar--sticky {
   position: sticky;
   top: 0;
-  transition: background-color 0.8s var(--ease), box-shadow 0.8s var(--ease);
+  transition: background-color 0.6s var(--ease), box-shadow 0.6s var(--ease);
 }
 
 .topbar--sticky.is-scrolled {
@@ -326,7 +283,6 @@ html[lang="ja"] .ph {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
 }
 
 .back-link {
@@ -334,20 +290,20 @@ html[lang="ja"] .ph {
   align-items: center;
   gap: 0.7rem;
   min-height: 44px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--muted);
-  transition: color 0.6s var(--ease);
   white-space: nowrap;
+  transition: color 0.5s var(--ease);
 }
 
 .back-link__arrow {
-  width: 1.75rem;
+  width: 1.6rem;
   height: 0.6rem;
   flex: none;
-  transition: transform 0.8s var(--ease);
+  transition: transform 0.6s var(--ease);
 }
 
 .back-link:hover {
@@ -355,16 +311,20 @@ html[lang="ja"] .ph {
 }
 
 .back-link:hover .back-link__arrow {
-  transform: translateX(-0.35rem);
+  transform: translateX(-0.3rem);
 }
 
 .back-link__short {
   display: none;
 }
 
+html[lang="ja"] .back-link {
+  letter-spacing: 0.14em;
+}
+
 @media (max-width: 719.98px) {
   .topbar {
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .back-link {
@@ -373,7 +333,7 @@ html[lang="ja"] .ph {
   }
 
   .back-link__arrow {
-    width: 1.25rem;
+    width: 1.2rem;
   }
 
   .back-link__full {
@@ -383,20 +343,6 @@ html[lang="ja"] .ph {
   .back-link__short {
     display: inline;
   }
-
-  .lang__opt {
-    min-width: 2.25rem;
-    padding: 0 0.45rem;
-  }
-
-  .lang__opt::after {
-    left: 0.45rem;
-    right: 0.45rem;
-  }
-}
-
-html[lang="ja"] .back-link {
-  letter-spacing: 0.14em;
 }
 
 /* --------------------------------------------------------------------------
@@ -411,20 +357,20 @@ html[lang="ja"] .back-link {
 .nav__list {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.2vw, 2.25rem);
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .nav__link {
   position: relative;
   display: inline-block;
   padding: 0.6rem 0;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
   white-space: nowrap;
-  transition: color 0.6s var(--ease);
+  transition: color 0.5s var(--ease);
 }
 
 .nav__link::after {
@@ -432,12 +378,12 @@ html[lang="ja"] .back-link {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0.35rem;
+  bottom: 0.3rem;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.8s var(--ease);
+  transition: transform 0.6s var(--ease);
 }
 
 .nav__link:hover,
@@ -472,7 +418,7 @@ html[lang="ja"] .nav__link {
   width: 1.25rem;
   height: 1px;
   background: var(--fg);
-  transition: transform 0.6s var(--ease);
+  transition: transform 0.5s var(--ease), top 0.5s var(--ease), width 0.5s var(--ease);
 }
 
 .nav__toggle-lines {
@@ -483,13 +429,9 @@ html[lang="ja"] .nav__link {
 .nav__toggle-lines::before {
   content: "";
   top: 0.4rem;
-  width: 0.8rem;
   left: auto;
   right: 0;
-}
-
-.nav__toggle-lines::before {
-  transition: transform 0.6s var(--ease), top 0.6s var(--ease), width 0.6s var(--ease);
+  width: 0.8rem;
 }
 
 .nav__toggle[aria-expanded="true"] .nav__toggle-lines {
@@ -517,42 +459,41 @@ html[lang="ja"] .nav__link {
     left: 0;
     right: 0;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 0;
-    padding: 0.5rem var(--gutter) 2rem;
+    padding: 0.25rem var(--gutter) 2rem;
     background: var(--bg);
-    box-shadow: 0 1px 0 var(--line), 0 24px 40px -24px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 var(--line);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-0.5rem);
-    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease), visibility 0s 0.6s;
+    transition: opacity 0.4s var(--ease), transform 0.5s var(--ease), visibility 0s 0.5s;
   }
 
   .nav.is-open .nav__list {
     opacity: 1;
     visibility: visible;
     transform: none;
-    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease), visibility 0s;
+    transition: opacity 0.4s var(--ease), transform 0.5s var(--ease), visibility 0s;
   }
 
   .nav__list li {
-    width: 100%;
     border-bottom: 1px solid var(--line);
   }
 
   .nav__link {
     display: block;
-    padding: 1rem 0;
+    padding: 0.95rem 0;
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.06em;
+    font-size: 1.45rem;
+    letter-spacing: 0.04em;
     text-transform: none;
     color: var(--fg);
   }
 
   html[lang="ja"] .nav__link {
     font-family: var(--font-display-ja);
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
 
   .nav__link::after {
@@ -575,6 +516,10 @@ html[lang="ja"] .nav__link {
     opacity: 1;
     visibility: visible;
     transform: none;
+  }
+
+  html:not(.js) .nav__list li {
+    border: 0;
   }
 }
 
@@ -599,44 +544,34 @@ html[lang="ja"] .nav__link {
 
 .lang__opt {
   position: relative;
-  min-width: 2.75rem;
+  min-width: 2.6rem;
   min-height: 44px;
-  padding: 0 0.6rem;
+  padding: 0 0.55rem;
   border: 0;
   background: none;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.14em;
   color: var(--muted);
   cursor: pointer;
-  transition: color 0.6s var(--ease);
+  transition: color 0.5s var(--ease);
 }
 
 .lang__opt[lang="ja"] {
   letter-spacing: 0.06em;
 }
 
-.lang__opt + .lang__opt::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 1px;
-  height: 0.8rem;
-  background: var(--line-strong);
-  transform: translateY(-50%);
-}
-
 .lang__opt::after {
   content: "";
   position: absolute;
-  left: 0.6rem;
-  right: 0.6rem;
-  bottom: 0.6rem;
-  height: 1px;
-  background: var(--gold-500);
-  transform: scaleX(0);
-  transition: transform 0.8s var(--ease);
+  left: 50%;
+  bottom: 0.55rem;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.5s var(--ease);
 }
 
 .lang__opt:hover {
@@ -648,7 +583,14 @@ html[lang="ja"] .nav__link {
 }
 
 .lang__opt[aria-pressed="true"]::after {
-  transform: scaleX(1);
+  transform: translateX(-50%) scale(1);
+}
+
+@media (max-width: 719.98px) {
+  .lang__opt {
+    min-width: 2.2rem;
+    padding: 0 0.4rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -660,17 +602,17 @@ html[lang="ja"] .nav__link {
   align-items: center;
   justify-content: center;
   gap: 0.9rem;
-  min-height: 3.25rem;
-  padding: 0.85rem 1.9rem;
+  min-height: 3.1rem;
+  padding: 0.8rem 1.6rem;
   border: 1px solid var(--fg-strong);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
   color: var(--fg-strong);
   background: transparent;
-  transition: background-color 0.7s var(--ease), color 0.7s var(--ease), border-color 0.7s var(--ease);
+  transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
 }
 
 .btn:hover {
@@ -685,13 +627,13 @@ html[lang="ja"] .btn {
 /* a button that isn't ready yet: greyed out, with a note on hover or focus */
 .btn.is-pending {
   position: relative;
-  opacity: 0.45;
+  opacity: 0.42;
   cursor: not-allowed;
 }
 
 .btn.is-pending:hover {
   background: transparent;
-  color: inherit;
+  color: var(--fg-strong);
 }
 
 .btn.is-pending:hover .arrow {
@@ -706,31 +648,31 @@ html[lang="ja"] .btn {
 .tip {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 0.75rem);
-  padding: 0.45rem 0.8rem;
+  bottom: calc(100% + 0.7rem);
+  padding: 0.4rem 0.75rem;
   white-space: nowrap;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   letter-spacing: 0.12em;
   text-transform: none;
   color: var(--bg);
   background: var(--fg-strong);
   opacity: 0;
   transform: translate(-50%, 0.3rem);
-  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+  transition: opacity 0.3s var(--ease), transform 0.4s var(--ease);
   pointer-events: none;
 }
 
-.btn.is-pending:hover .tip,
-.btn.is-pending:focus-visible .tip {
+:is(.btn.is-pending, .is-pending):hover .tip,
+:is(.btn.is-pending, .is-pending):focus-visible .tip {
   opacity: 1;
   transform: translate(-50%, 0);
 }
 
 .arrow {
-  width: 2rem;
+  width: 1.9rem;
   height: 0.6rem;
   flex: none;
-  transition: transform 0.8s var(--ease);
+  transition: transform 0.6s var(--ease);
 }
 
 .link-arrow {
@@ -738,11 +680,11 @@ html[lang="ja"] .btn {
   align-items: center;
   gap: 0.9rem;
   min-height: 44px;
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   font-weight: 400;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--fg);
+  color: var(--fg-strong);
 }
 
 html[lang="ja"] .link-arrow {
@@ -751,11 +693,11 @@ html[lang="ja"] .link-arrow {
 
 .link-arrow:hover .arrow,
 .btn:hover .arrow {
-  transform: translateX(0.4rem);
+  transform: translateX(0.35rem);
 }
 
 /* --------------------------------------------------------------------------
-   Section heads
+   Sections and their heads
    -------------------------------------------------------------------------- */
 
 .section {
@@ -765,49 +707,39 @@ html[lang="ja"] .link-arrow {
 
 .section-head {
   display: flex;
-  align-items: baseline;
-  gap: 1.1rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
 .section-head__num {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   color: var(--accent);
-  letter-spacing: 0.04em;
 }
 
 .section-head__num::after {
   content: "";
-  display: inline-block;
-  width: 2.5rem;
+  width: 2.25rem;
   height: 1px;
-  margin-left: 1rem;
-  vertical-align: middle;
   background: var(--line-strong);
 }
 
 .section-head__title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.4rem);
-  line-height: 1.1;
-  letter-spacing: 0.05em;
+  font-size: clamp(2.2rem, 1.6rem + 2.4vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
   color: var(--fg-strong);
 }
 
 html[lang="ja"] .section-head__title {
-  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.5rem);
-}
-
-/* on phones the number sits above, so a long title gets the full width */
-@media (max-width: 639.98px) {
-  .section-head {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
+  font-size: clamp(1.6rem, 1.25rem + 1.6vw, 2.4rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -816,7 +748,7 @@ html[lang="ja"] .section-head__title {
 
 .credit {
   padding: 2.5rem var(--gutter) 2.25rem;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 300;
   letter-spacing: 0.14em;
   text-align: center;
@@ -845,7 +777,7 @@ html[lang="ja"] .credit {
 }
 
 .js body {
-  animation: page-in 1.1s var(--ease) both;
+  animation: page-in 0.9s var(--ease) both;
 }
 
 /* While a non-English page is being translated, hold the paint.
@@ -868,7 +800,7 @@ html.i18n-pending body {
   pointer-events: none;
   background: var(--veil-dark);
   opacity: 0;
-  transition: opacity 0.8s var(--ease);
+  transition: opacity 0.7s var(--ease);
 }
 
 .veil[data-tone="light"] {
@@ -882,8 +814,8 @@ html.is-leaving .veil {
 
 .js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 1.75rem, 0);
-  transition: opacity 1.3s var(--ease-out), transform 1.5s var(--ease-out);
+  transform: translate3d(0, 1.25rem, 0);
+  transition: opacity 1.1s var(--ease-out), transform 1.2s var(--ease-out);
   transition-delay: var(--delay, 0s);
 }
 
@@ -898,17 +830,17 @@ html.is-leaving .veil {
   }
 
   .js body {
-    animation-duration: 0.4s;
+    animation-duration: 0.3s;
   }
 
   .js [data-reveal] {
     transform: none;
-    transition: opacity 0.6s linear;
+    transition: opacity 0.5s linear;
     transition-delay: 0s;
   }
 
   .veil {
-    transition-duration: 0.3s;
+    transition-duration: 0.25s;
   }
 
   .back-link__arrow,
