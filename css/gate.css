@@ -106,7 +106,7 @@ html[lang="ja"] .gate__intro {
   background: var(--bg);
   color: var(--fg);
   -webkit-tap-highlight-color: transparent;
-  transition: flex-grow 1s var(--ease);
+  transition: flex-grow 1s var(--ease), padding 1s var(--ease);
 }
 
 .door:focus-visible {
@@ -360,11 +360,22 @@ html[lang="ja"] .door--art .door__sub {
 
 /* the chosen half takes the screen */
 .gate__stage.has-open .door {
-  flex-grow: 0.001;
+  flex-grow: 0;
 }
 
 .gate__stage.has-open .door.is-open {
   flex-grow: 1;
+}
+
+/* the corners step aside too: their colours belong to the split */
+body:has(.gate__stage.has-open) :is(.gate__top, .gate__intro, .gate__credit) {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+/* its padding goes too, or a strip of it would stay on screen */
+.gate__stage.has-open .door:not(.is-open) {
+  padding: 0;
 }
 
 .gate__stage.has-open .door:not(.is-open) > * {
