@@ -1,315 +1,221 @@
 /* ==========================================================================
-   Gate: one screen, two vats.
-   Left, undyed cotton with an indigo door (QA). Right, deep indigo with a
-   paper shoji (the atelier). Hover or focus opens a door a little; a click
-   lets that half soak the whole screen, then the next page rises in.
+   Gate: a station platform.
+   A station name sign for "Kevin JG", its bottom band pointing two ways:
+   left along the QA Line (navy), right along the Willow Line (green).
+   Under each direction, a platform screen door. Hover or focus opens it a
+   little; a click opens it and a train passes into the next page.
    Also styles the 404 page.
    ========================================================================== */
 
 body.gate {
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* platform tiles */
+  background:
+    linear-gradient(var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    linear-gradient(90deg, var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    var(--concrete);
+}
+
+.gate__top {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.85rem var(--gutter);
 }
 
 .gate__main {
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-/* kanoko shibori: the small resist spots on indigo cloth */
-.door--art,
-.lost-page {
-  background-image:
-    radial-gradient(circle, rgba(242, 246, 249, 0.09) 0 1.6px, transparent 2.2px),
-    radial-gradient(circle, rgba(242, 246, 249, 0.05) 0 1.6px, transparent 2.2px);
-  background-size: 22px 22px, 22px 22px;
-  background-position: 0 0, 11px 11px;
+.station {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vh, 3rem) var(--gutter) clamp(1.5rem, 4vh, 3rem);
 }
 
 /* --------------------------------------------------------------------------
-   Corners: name, languages, a line of direction, the credit
+   The sign
    -------------------------------------------------------------------------- */
 
-.gate__top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  display: flex;
+.sign {
+  width: min(100%, 60rem);
+  filter: drop-shadow(0 18px 22px rgba(15, 31, 58, 0.16)) drop-shadow(0 2px 3px rgba(15, 31, 58, 0.18));
+}
+
+.sign__plate {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.75rem var(--gutter);
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease);
+  gap: 0.25rem clamp(1rem, 3vw, 2rem);
+  padding: clamp(1.25rem, 3.5vw, 2.5rem) clamp(1.25rem, 4vw, 3rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--plate);
 }
 
-.gate__top > * {
-  pointer-events: auto;
+.sign__badge {
+  font-size: clamp(1.15rem, 0.9rem + 1.2vw, 1.9rem);
+  --c: var(--ink);
 }
 
-.gate__name {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  line-height: 1.15;
+.sign__title {
+  font-size: clamp(2.6rem, 1.4rem + 5.4vw, 6rem);
   font-weight: 700;
-  font-stretch: 112%;
-  color: var(--fg-strong);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
 }
 
-.gate__intro,
-.gate__credit {
-  position: fixed;
-  bottom: 0;
-  z-index: 20;
-  padding: 1.25rem var(--gutter);
-  pointer-events: none;
-  transition: opacity 0.35s var(--ease);
+.sign__full {
+  margin-top: 0.4rem;
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.2rem);
+  font-weight: 700;
+  color: var(--steel);
 }
 
-.gate__intro {
-  left: 0;
-  background: var(--ai-50);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.gate__credit {
-  right: 0;
-  text-align: right;
-  color: #a3b8cf;
-  /* the credit always sits on the indigo half; give it that ground explicitly */
-  background: var(--ai-800);
-}
-
-/* on wide screens the languages sit on the indigo half */
-@media (min-width: 760px) {
-  .gate__top .lang {
-    --fg-strong: var(--ai-50);
-    --muted: #a3b8cf;
-    --bg: var(--ai-800);
-    background: var(--ai-800);
-  }
+.sign__here {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 2px solid var(--line);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--steel);
 }
 
 /* --------------------------------------------------------------------------
-   The two halves
+   The two directions: the sign's bottom band, and a platform door under each
    -------------------------------------------------------------------------- */
 
 .gate__stage {
-  display: flex;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .door {
-  --door-w: clamp(7.5rem, 11vw, 11rem);
+  --line-c: var(--navy);
   position: relative;
-  flex: 1 1 0;
-  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(1.75rem, 4.5vh, 2.75rem);
-  padding: 5rem var(--gutter);
-  overflow: hidden;
-  background-color: var(--bg);
-  color: var(--fg);
+  align-items: stretch;
+  color: #fff;
   -webkit-tap-highlight-color: transparent;
-  transition: flex-grow 0.9s var(--ease), padding 0.9s var(--ease);
+  transition: opacity 0.4s var(--ease);
 }
 
-.door:focus-visible {
-  outline-offset: -0.75rem;
+.door--art {
+  --line-c: var(--willow);
 }
 
-/* --------------------------------------------------------------------------
-   The doors
-   -------------------------------------------------------------------------- */
+.door__band {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 5rem;
+  padding: 0.9rem clamp(1rem, 3vw, 2rem);
+  background: var(--line-c);
+  transition: filter 0.3s var(--ease);
+}
 
-.door__unit {
-  position: relative;
+.door--qa .door__band {
+  border-radius: 0 0 0 var(--radius);
+}
+
+.door--art .door__band {
+  justify-content: flex-end;
+  border-radius: 0 0 var(--radius) 0;
+  text-align: right;
+}
+
+.door__band .badge {
+  font-size: 0.95rem;
+  border-color: #fff;
+  background: #fff;
+}
+
+.door__arrow {
+  width: 2rem;
+  flex: none;
+  transition: transform 0.4s var(--ease-out);
+}
+
+.door__text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transition: transform 0.5s var(--ease), opacity 0.4s var(--ease);
-}
-
-.door__frame {
-  position: relative;
-  width: var(--door-w);
-  aspect-ratio: 1 / 2;
-  overflow: hidden;
-  perspective: 900px;
-  perspective-origin: 0 50%;
-}
-
-/* the floor the door stands on: a thick bar, poster-flat */
-.door__floor {
-  width: calc(var(--door-w) * 1.9);
-  height: 6px;
-  background: var(--fg-strong);
-}
-
-.door__behind {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center end;
-}
-
-/* QA: the indigo leaf opens onto light, and a tick */
-.door--qa .door__frame {
-  background: var(--ai-900);
-}
-
-.door--qa .door__behind {
-  inset: 6px;
-  padding-right: 10%;
-  background: radial-gradient(120% 80% at 70% 40%, #ffffff 0%, var(--ai-50) 55%, var(--ai-100) 100%);
-}
-
-.door__tick {
-  width: 44%;
-  fill: none;
-  stroke: var(--ai-700);
-  stroke-width: 3.2;
-  stroke-linecap: square;
-}
-
-.door__tick path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.8s var(--ease-out) 0.2s;
-}
-
-.door__leaf {
-  position: absolute;
-  inset: 0;
-  background: var(--ai-700);
-  transform-origin: 0 50%;
-  transition: transform 1s var(--ease);
-}
-
-.door__panel {
-  position: absolute;
-  left: 18%;
-  right: 18%;
-  border: 2px solid var(--ai-500);
-}
-
-.door__panel--upper {
-  top: 9%;
-  height: 38%;
-}
-
-.door__panel--lower {
-  top: 53%;
-  height: 37%;
-}
-
-.door__handle {
-  position: absolute;
-  right: 8%;
-  top: 46%;
-  width: 4px;
-  height: 10%;
-  background: var(--shu);
-}
-
-/* Art: pale paper panels; behind them, a kumo shibori circle on deep indigo */
-.door--art .door__frame {
-  background: var(--ai-50);
-}
-
-.door--art .door__behind {
-  inset: 6px;
-  place-items: center;
-  background: var(--ai-900);
-}
-
-.door__shibori {
-  width: 78%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at 48% 52%, transparent 0 5px, rgba(224, 233, 241, 0.75) 5.5px 7px, transparent 7.5px 11px),
-    repeating-radial-gradient(circle at 54% 46%, transparent 0 8px, rgba(143, 174, 203, 0.55) 8.5px 9.5px, transparent 10px 15px),
-    var(--ai-600);
-  -webkit-mask: radial-gradient(circle, #000 55%, transparent 71%);
-  mask: radial-gradient(circle, #000 55%, transparent 71%);
-  transform: scale(0.86) rotate(-12deg);
-  transition: transform 1.2s var(--ease-out);
-}
-
-.shoji {
-  position: absolute;
-  top: 6px;
-  bottom: 6px;
-  width: calc(50% - 6px);
-  background:
-    repeating-linear-gradient(0deg, transparent 0 calc(16.66% - 2px), var(--ai-700) calc(16.66% - 2px) 16.66%),
-    repeating-linear-gradient(90deg, transparent 0 calc(33.33% - 2px), var(--ai-700) calc(33.33% - 2px) 33.33%),
-    var(--ai-100);
-  transition: transform 1s var(--ease);
-}
-
-.shoji--left {
-  left: 6px;
-}
-
-.shoji--right {
-  right: 6px;
-}
-
-/* --------------------------------------------------------------------------
-   Captions
-   -------------------------------------------------------------------------- */
-
-.door__caption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  max-width: 26rem;
-  text-align: center;
-  transition: opacity 0.5s var(--ease);
+  min-width: 0;
 }
 
 .door__label {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 125%;
-  font-size: clamp(1.9rem, 1.1rem + 2.2vw, 3.2rem);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  color: var(--fg-strong);
+  font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.15;
 }
 
-html[lang="ja"] .door__label:not(.latin) {
-  font-family: var(--font-ja);
-  font-weight: 900;
-  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
-  line-height: 1.2;
+.door__line {
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-.door__sub {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  color: var(--muted);
+/* platform screen door: two leaves meeting in the middle, a stripe of line colour */
+.pdoor {
+  position: relative;
+  display: block;
+  width: min(78%, 17rem);
+  height: clamp(6.5rem, 15vh, 9.5rem);
+  margin: clamp(2rem, 6vh, 3.5rem) auto 0;
+  border-radius: 4px 4px 0 0;
+  /* what's behind the doors: the train's own colour */
+  background: linear-gradient(180deg, var(--line-c), color-mix(in srgb, var(--line-c) 70%, #000));
+  box-shadow: inset 0 0 0 4px #9aa3ad;
+  overflow: hidden;
 }
 
-/* only touch screens need telling */
+.pdoor__leaf {
+  position: absolute;
+  top: 4px;
+  bottom: 0;
+  width: calc(50% - 4px);
+  background:
+    linear-gradient(var(--line-c), var(--line-c)) 0 32% / 100% 0.5rem no-repeat,
+    linear-gradient(180deg, #f6f7f8, #dfe3e7);
+  box-shadow: inset 0 0 0 1px rgba(21, 24, 29, 0.18);
+  transition: transform 0.75s var(--ease);
+}
+
+.pdoor__leaf::after {
+  content: "";
+  position: absolute;
+  top: 12%;
+  left: 22%;
+  right: 22%;
+  height: 14%;
+  border-radius: 3px;
+  background: rgba(21, 24, 29, 0.14);
+}
+
+.pdoor__leaf--l {
+  left: 4px;
+}
+
+.pdoor__leaf--r {
+  right: 4px;
+}
+
 .door__cue {
   display: none;
-  margin-top: 0.25rem;
-  padding: 0.35rem 0.7rem;
-  background: var(--fg-strong);
-  color: var(--bg);
-  font-size: 0.82rem;
-  font-weight: 600;
+  align-self: center;
+  margin-top: 0.9rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
 @media (hover: none) {
@@ -322,136 +228,95 @@ html[lang="ja"] .door__label:not(.latin) {
    Peek (hover, focus, first tap), then open
    -------------------------------------------------------------------------- */
 
-@media (hover: hover) {
-  .door:hover {
-    flex-grow: 1.2;
-  }
-
-  .gate__stage:hover .door:not(:hover) .door__caption {
-    opacity: 0.4;
-  }
+.door:is(:hover, :focus-visible, .is-peek) .door__band {
+  filter: brightness(1.12);
 }
 
-.door.is-peek {
-  flex-grow: 1.2;
+.door--qa:is(:hover, :focus-visible, .is-peek) .door__arrow {
+  transform: translateX(-0.4rem);
 }
 
-.door--qa:is(:hover, :focus-visible, .is-peek) .door__leaf {
-  transform: rotateY(-62deg);
+.door--art:is(:hover, :focus-visible, .is-peek) .door__arrow {
+  transform: translateX(0.4rem);
 }
 
-.door--qa:is(:hover, :focus-visible, .is-peek) .door__tick path {
-  stroke-dashoffset: 0;
+.door:is(:hover, :focus-visible, .is-peek) .pdoor__leaf--l {
+  transform: translateX(-38%);
 }
 
-.door--art:is(:hover, :focus-visible, .is-peek) .shoji--left {
-  transform: translateX(-62%);
+.door:is(:hover, :focus-visible, .is-peek) .pdoor__leaf--r {
+  transform: translateX(38%);
 }
 
-.door--art:is(:hover, :focus-visible, .is-peek) .shoji--right {
-  transform: translateX(62%);
+.door:focus-visible {
+  outline-offset: 6px;
 }
 
-.door--art:is(:hover, :focus-visible, .is-peek) .door__shibori {
-  transform: none;
-}
-
-/* the chosen half soaks the whole screen */
-.gate__stage.has-open .door {
-  flex-grow: 0;
-}
-
-.gate__stage.has-open .door.is-open {
-  flex-grow: 1;
-}
-
-/* its padding goes too, or a strip of it would stay on screen */
-.gate__stage.has-open .door:not(.is-open) {
-  padding: 0;
-}
-
-.gate__stage.has-open .door:not(.is-open) > * {
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
-}
-
-/* the corners step aside: their colours belong to the split */
-body:has(.gate__stage.has-open) :is(.gate__top, .gate__intro, .gate__credit) {
-  opacity: 0;
-}
-
-.door--qa.is-open .door__leaf {
-  transform: rotateY(-86deg);
-}
-
-.door--art.is-open .shoji--left {
+.door.is-open .pdoor__leaf--l {
   transform: translateX(-100%);
 }
 
-.door--art.is-open .shoji--right {
+.door.is-open .pdoor__leaf--r {
   transform: translateX(100%);
 }
 
-.door.is-entering .door__unit {
-  transform: scale(1.08);
-  opacity: 0;
-}
-
-.door.is-entering .door__caption {
-  opacity: 0;
+.gate__stage.has-open .door:not(.is-open) {
+  opacity: 0.35;
 }
 
 /* --------------------------------------------------------------------------
-   Narrow screens: top and bottom, door beside its caption
+   The track below the platform
    -------------------------------------------------------------------------- */
 
-@media (max-width: 759.98px) {
-  .gate__stage {
-    flex-direction: column;
+.track {
+  background-color: var(--night-3);
+  /* the sleepers under the rails */
+  background-image: repeating-linear-gradient(90deg, transparent 0 3.2rem, rgba(255, 255, 255, 0.05) 3.2rem 4.4rem);
+}
+
+.track .credit {
+  color: #b0c4e2;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 639.98px) {
+  .sign__plate {
+    grid-template-columns: 1fr;
+    justify-items: start;
   }
 
-  .door {
-    --door-w: min(26vw, 6.75rem);
-    flex-direction: row;
-    gap: 1.5rem;
-    padding: 4.25rem var(--gutter) 2rem;
+  .door__band {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 0;
+    padding: 0.75rem;
   }
 
-  .door--art {
-    flex-direction: row-reverse;
-    padding: 2rem var(--gutter) 4rem;
+  .door--art .door__band {
+    flex-wrap: wrap-reverse;
   }
 
-  .door__caption {
-    align-items: flex-start;
-    text-align: left;
+  .door__band .badge {
+    font-size: 0.8rem;
   }
 
-  .door--art .door__caption {
-    align-items: flex-end;
-    text-align: right;
+  .door__arrow {
+    width: 1.5rem;
+  }
+
+  .door__text {
+    flex-basis: 100%;
   }
 
   .door__label {
-    font-size: clamp(1.6rem, 7.5vw, 2.2rem);
+    font-size: 1.05rem;
   }
 
-  .door__sub {
-    font-size: 0.85rem;
-  }
-
-  .door__floor {
-    width: calc(var(--door-w) * 1.5);
-  }
-
-  .gate__intro {
-    display: none;
-  }
-
-  .gate__credit {
-    left: 0;
-    padding-bottom: 1rem;
-    text-align: center;
+  .pdoor {
+    width: 86%;
   }
 }
 
@@ -460,28 +325,15 @@ body:has(.gate__stage.has-open) :is(.gate__top, .gate__intro, .gate__credit) {
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .door,
-  .door__unit,
-  .door__leaf,
-  .shoji,
-  .door__shibori,
-  .door__tick path {
+  .pdoor__leaf,
+  .door__arrow,
+  .door {
     transition-duration: 0.01s;
-    transition-delay: 0s;
-  }
-
-  .door:hover,
-  .door.is-peek {
-    flex-grow: 1;
-  }
-
-  .door.is-entering .door__unit {
-    transform: none;
   }
 }
 
 /* ==========================================================================
-   404: the door that isn't there
+   404: a stop that isn't on any line
    ========================================================================== */
 
 body.lost-page {
@@ -494,70 +346,54 @@ body.lost-page {
 .lost {
   flex: 1;
   display: grid;
-  align-items: center;
+  place-items: center;
   padding: 2rem var(--gutter);
 }
 
 .lost__inner {
-  display: grid;
-  grid-template-columns: auto minmax(0, 34rem);
-  align-items: end;
-  justify-content: center;
-  column-gap: clamp(2rem, 6vw, 5rem);
-  width: min(100%, 60rem);
-  margin-inline: auto;
+  width: min(100%, 44rem);
 }
 
-.lost__inner > * {
-  grid-column: 2;
+.lost__sign {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--plate);
+  color: var(--ink);
 }
 
-.lost__inner > .lost__frame {
-  grid-column: 1;
-  grid-row: 1 / span 5;
-  align-self: stretch;
+.lost__sign .badge {
+  font-size: 1.3rem;
+  --c: var(--signal);
 }
 
-.lost__frame {
-  width: clamp(5rem, 11vw, 8rem);
-  min-height: 12rem;
-  aspect-ratio: 1 / 2;
-  border: 3px dashed var(--line-strong);
-}
-
-.lost__code {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-stretch: 125%;
-  font-size: clamp(4rem, 3rem + 6vw, 8rem);
-  line-height: 0.85;
-  color: var(--ai-300);
+.lost__sign .badge span {
+  font-size: 0.78em;
 }
 
 .lost__title {
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 115%;
-  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
-  line-height: 1.05;
-  color: var(--fg-strong);
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--ink);
 }
 
-html[lang="ja"] .lost__title {
-  font-family: var(--font-ja);
-  font-weight: 900;
-  line-height: 1.3;
+.lost__band {
+  padding: 0.9rem clamp(1.25rem, 3vw, 2rem);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--signal);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .lost__text {
-  margin-top: 1rem;
+  margin-top: 1.75rem;
   color: var(--muted);
 }
 
 .lost__back {
-  justify-self: start;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .lost__back .back-link__arrow {
@@ -567,23 +403,4 @@ html[lang="ja"] .lost__title {
 
 .lost-page .topbar {
   justify-content: flex-end;
-}
-
-@media (max-width: 639.98px) {
-  .lost__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .lost__inner > *,
-  .lost__inner > .lost__frame {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .lost__frame {
-    min-height: 0;
-    width: 4rem;
-    aspect-ratio: 1 / 2;
-    margin-bottom: 1.5rem;
-  }
 }

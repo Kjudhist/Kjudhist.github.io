@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on one screen split in two: an indigo door on pale cotton that goes to my QA work, and a paper shoji on deep indigo that goes to The Willow Atelier, where I keep my art.
+My personal site. It opens on a station platform: a station name sign for "Kevin JG" points left along the QA Line to my QA work, and right along the Willow Line to The Willow Atelier, where I keep my art.
 
-The look is *aizome* (藍染), Japanese indigo dyeing: the palette is the ladder of blues cloth goes through in the vat, from undyed cotton to kon, set in wide, heavy type like a 1960s Japanese poster. Square corners everywhere, one vermilion note for marks, and light CSS-only motion. The design system is written down in `DESIGN.md`.
+The look is *eki* (駅), the Japanese railway station: white sign plates with a line-coloured band, numbered stops, platform doors, yellow tactile paving and dot-matrix departure boards. Each side of the site is a line with its own colour (QA Line navy, Willow Line green). Type is BIZ UDPGothic, a Japanese public-signage face, with DotGothic16 on the boards. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** undyed cotton on the left, deep indigo (with tiny kanoko shibori spots) on the right. Hover, focus or tap once and a door opens a little: light and a tick wait behind the QA door, a shibori circle behind the shoji. Click or tap again and that half soaks the whole screen before the next page rises in.
-- **QA:** the name is dipped halfway into the vat, and the dye rises into it as the page opens. Experience is a stack of dyed bands: the current role is the deepest blue, older roles paler ("the longer in the vat, the deeper the blue"). The page ends in the vat with contact, the CV and the way across to the atelier.
-- **The Willow Atelier:** the hero is a length of kumo (spider) shibori cloth whose rings open on arrival. Then three rooms:
-  1. **Drawing & Painting**, a hanging wall of six pieces in mixed sizes
-  2. **Photography**, a strip of frames you scroll sideways
-  3. **Music**, a record (it turns while you're in the section) and a track list
+- **Gate:** a station name sign on a tiled platform. Its bottom band points two ways, each half a link with a platform screen door under it. Hover, focus or tap once and that door slides open a little; click or tap again and it opens, then a train passes (the page change wipes across in the line's colour).
+- **QA (QA Line):** the hero is the line's first station sign, with a "Next" band to the first stop. Every section is a numbered stop (QA 01 to QA 04) on one continuous navy route line. Experience is a departure board, roles in dot-matrix with their names flipping into place; the current role blinks. Contact is a ticket with the CV as its stub. The page ends at the platform's edge with a transfer to the Willow Line.
+- **The Willow Atelier (Willow Line):** a night platform. The station sign and a line map with three stops lead to:
+  1. **Drawing & Painting**, framed posters on the platform wall
+  2. **Photography**, the view from a train window, scrolled sideways
+  3. **Music**, a board of departure melodies
 
-  Then a strip of undyed cotton for the story, and the links.
+  Then a large sign for the story, and the station's exits (yellow signs) to Instagram and the shop.
 
-Colour fields (the experience bands, the artworks) rise into place like dye climbing cloth when they scroll into view. With reduced motion turned on, nothing travels: doors still open, but instantly, and the shibori, record and hints stand still.
+With reduced motion turned on, nothing travels or flips: doors still open, but instantly.
 
 ## Replacing placeholders
 
@@ -103,8 +103,8 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Drawings and paintings | six empty slots ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
-| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `frame--tall` makes a portrait frame |
+| Drawings and paintings | six empty poster frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `poster--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six windows ("Photo 1" to "Photo 6") under Photography. Same swap as above; `pane--tall` makes a portrait window |
 | Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
 | A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
@@ -145,6 +145,7 @@ Key elements carry `data-testid` attributes:
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
 - Gate cues: `door-qa-cue`, `door-art-cue`
+- Gate sign: `station-sign`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 

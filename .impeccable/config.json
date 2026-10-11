@@ -20,6 +20,33 @@
         ],
         "createdAt": "2026-10-11T08:14:19.941Z",
         "reason": "Agent: full-bleed colour bands (hero vat, experience dips, contact, page end) inset their content with .wrap gutters (margin, not padding); text never touches an edge"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "qa/index.html"
+        ],
+        "createdAt": "2026-10-11T08:33:59.598Z",
+        "reason": "Agent: the blinking LED marks the role that is current on the departure board; it is real state, and boards blink it"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-11T08:38:56.118Z",
+        "reason": "Agent: the station sign plate is padded with clamp(1.25rem..2.5rem) on every side (48px at desktop in screenshots); detector reads it as flush"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "404.html"
+        ],
+        "createdAt": "2026-10-11T08:38:56.392Z",
+        "reason": "Agent: the 404 sign is padded with clamp(1.25rem..2rem) on every side (32px at desktop in screenshots); detector reads it as flush"
       }
     ]
   }

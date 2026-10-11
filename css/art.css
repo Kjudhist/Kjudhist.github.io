@@ -1,277 +1,266 @@
 /* ==========================================================================
-   The Willow Atelier: a length of shibori-dyed indigo.
-   The hero is the cloth itself, kumo (spider) shibori rings resisting the
-   dye. Then three rooms (drawing & painting, photography, music), a strip
-   of undyed cotton for the story, and the way to find us.
+   The Willow Atelier: the Willow Line, a night platform.
+   Navy ground, green line colour. The hero is the line's station sign and
+   its map; drawings and paintings hang as framed posters on the platform
+   wall; photographs pass as the view from a train window; music is a board
+   of departure melodies; the station's exits lead out to the links.
    ========================================================================== */
 
+.art {
+  background:
+    linear-gradient(rgba(244, 246, 249, 0.035) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    linear-gradient(90deg, rgba(244, 246, 249, 0.035) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    var(--night);
+}
+
+.line-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--fg-strong);
+}
+
+.line-chip__swatch {
+  width: 2.2rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--willow-2);
+}
+
 /* --------------------------------------------------------------------------
-   Hero
+   Hero: the station sign, then the line's map
    -------------------------------------------------------------------------- */
 
 .art-hero {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: min(calc(100vh - 4.25rem), 54rem);
-  min-height: min(calc(100dvh - 4.25rem), 54rem);
-  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
-  overflow: hidden;
+  padding: clamp(2.5rem, 9vh, 6rem) 0 0;
 }
 
-/* the cloth: a hanging length of indigo, its resist rings left pale */
-.cloth {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: min(60%, 54rem);
-  background:
-    linear-gradient(90deg, var(--ai-800) 0, transparent 18%),
-    var(--ai-600);
-  overflow: hidden;
+.art-sign {
+  filter: drop-shadow(0 22px 28px rgba(3, 9, 20, 0.5));
 }
 
-.kumo {
-  position: absolute;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse at 50% 50%, var(--ai-50) 0 3%, transparent 9%),
-    repeating-radial-gradient(ellipse 100% 92% at 50% 50%, rgba(242, 246, 249, 0.82) 0 1.6px, transparent 2.4px 10px);
-  /* binding threads break the rings into segments, and the edge bleeds into the dye */
-  -webkit-mask:
-    repeating-conic-gradient(from 8deg, #000 0 11deg, rgba(0, 0, 0, 0.25) 11deg 14deg),
-    radial-gradient(circle, #000 40%, transparent 70%);
-  -webkit-mask-composite: source-in;
-  mask:
-    repeating-conic-gradient(from 8deg, #000 0 11deg, rgba(0, 0, 0, 0.25) 11deg 14deg),
-    radial-gradient(circle, #000 40%, transparent 70%);
-  mask-composite: intersect;
-  animation: kumo-open 2.2s var(--ease-out) both;
-  animation-delay: var(--d, 0s);
-}
-
-.kumo--a {
-  width: clamp(16rem, 30vw, 30rem);
-  left: 18%;
-  top: 6%;
-  --d: 0.15s;
-}
-
-.kumo--b {
-  width: clamp(9rem, 15vw, 15rem);
-  right: -3%;
-  top: -4%;
-  --d: 0.35s;
-}
-
-.kumo--c {
-  width: clamp(12rem, 22vw, 22rem);
-  right: 6%;
-  bottom: 4%;
-  --d: 0.5s;
-}
-
-.kumo--d {
-  width: clamp(7rem, 11vw, 11rem);
-  left: 6%;
-  bottom: 12%;
-  --d: 0.7s;
-}
-
-/* the cloth is unbound: the rings open out of the dye */
-@keyframes kumo-open {
-  from {
-    opacity: 0;
-    transform: scale(0.55) rotate(-25deg);
-  }
-}
-
-.art-hero__text {
-  position: relative;
-  padding-bottom: clamp(2rem, 6vh, 3.5rem);
-}
-
-.art-hero__mark {
-  margin-bottom: 0.75rem;
-  font-family: var(--font-ja);
-  font-weight: 900;
-  font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem);
-  line-height: 1;
-  color: var(--shu-bright);
-}
-
-.art-hero__title {
-  font-weight: 800;
-  font-stretch: 125%;
-  font-size: clamp(2.8rem, 1rem + 6vw, 6.25rem);
-  line-height: 0.9;
-  letter-spacing: -0.025em;
-  color: var(--fg-strong);
-}
-
-.art-hero__line {
-  display: block;
-}
-
-.art-hero__tagline {
-  max-width: 24rem;
-  margin-top: 1.25rem;
-  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem);
-  font-weight: 500;
-  color: var(--fg);
-}
-
-/* the three rooms, as a row of doors */
-.art-index {
+.art-sign__plate {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 3px solid var(--fg-strong);
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem clamp(1.25rem, 3vw, 2.25rem);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--plate);
+  color: var(--ink);
 }
 
-.art-index__item {
+.art-sign__badge {
+  font-size: clamp(1.2rem, 0.9rem + 1.2vw, 1.9rem);
+}
+
+.art-sign__kanji {
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--willow);
+}
+
+.art-sign__title {
+  margin-top: 0.35rem;
+  font-size: clamp(2.4rem, 1.2rem + 4.8vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.art-sign__tagline {
+  margin-top: 0.75rem;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem);
+  font-weight: 700;
+  color: var(--steel);
+}
+
+.art-sign__next {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  padding: 1.1rem 1rem 1.1rem 0;
-  font-family: var(--font-display);
+  padding: 1rem clamp(1.5rem, 4vw, 3rem);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--willow);
+  color: #fff;
   font-weight: 700;
-  font-stretch: 112%;
-  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.45rem);
-  line-height: 1.15;
+}
+
+.art-sign__next-label {
+  font-size: 0.9rem;
+}
+
+.art-sign__next .badge {
+  font-size: 0.85rem;
+  border-color: #fff;
+}
+
+.art-sign__next-name {
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.45rem);
+}
+
+.art-sign__next .arrow {
+  margin-left: auto;
+  width: 2.4rem;
+}
+
+.art-sign__next:hover .arrow {
+  transform: translateX(0.4rem);
+}
+
+@media (max-width: 639.98px) {
+  .art-sign__plate {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* the line map: a thick green line, a station on it for each kind of work */
+.map {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+}
+
+.map__stops {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.map__stops::before {
+  content: "";
+  position: absolute;
+  top: calc(1.625rem - 4px);
+  left: 0;
+  right: 0;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--willow);
+}
+
+.map__stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-right: 1rem;
   color: var(--fg-strong);
 }
 
-html[lang="ja"] .art-index__item {
-  font-family: var(--font-ja);
+.map__stop .badge {
+  font-size: 1.25rem;
+  transition: transform 0.3s var(--ease-out);
 }
 
-.art-index__item + .art-index__item {
-  padding-left: 1rem;
-  border-left: 1px solid var(--line-strong);
+.map__name {
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.25;
 }
 
-.art-index__item .arrow {
-  color: var(--shu);
+.map__stop:hover .badge {
+  transform: translateY(-3px);
 }
 
-.art-index__item:hover .arrow {
-  transform: translateX(0.35rem);
-}
-
-@media (max-width: 759.98px) {
-  .art-hero {
-    min-height: auto;
-    padding-top: min(78vw, 22rem);
-  }
-
-  .cloth {
-    left: 0;
-    width: auto;
-    bottom: auto;
-    height: min(78vw, 22rem);
-    background: var(--ai-600);
-  }
-
-  .kumo--a {
-    left: 4%;
-  }
-
-  .art-hero__text {
-    padding-top: 2rem;
-  }
-
-  .art-index {
+@media (max-width: 639.98px) {
+  .map__stops {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
-  .art-index__item + .art-index__item {
-    padding-left: 0;
-    border-left: 0;
-    border-top: 1px solid var(--line-strong);
+  .map__stops::before {
+    top: 0;
+    bottom: 0;
+    left: calc(1.3rem - 4px);
+    right: auto;
+    width: 8px;
+    height: auto;
+  }
+
+  .map__stop {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .map__stop .badge {
+    font-size: 1rem;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Rooms share a head
+   Rooms
    -------------------------------------------------------------------------- */
 
-.room__head {
-  margin-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.room__head .section-title {
-  margin-bottom: 0.75rem;
-}
-
-.room__head--row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-}
-
 .room__text {
+  margin-top: 0.5rem;
   max-width: 34rem;
 }
 
-/* empty places waiting for real work: a patch of kanoko-spotted cloth */
+.stop--terminal .badge {
+  background: var(--willow);
+  color: #fff;
+}
+
+/* empty places waiting for real work */
 .slot {
   display: grid;
   place-items: center;
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(circle, rgba(242, 246, 249, 0.08) 0 1.5px, transparent 2px) 0 0 / 16px 16px,
-    var(--ai-700);
-  font-weight: 600;
-  font-size: 1rem;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 60%),
+    var(--night-2);
+  font-weight: 700;
   color: var(--muted);
 }
 
 /* --------------------------------------------------------------------------
-   Drawing & painting: a hanging wall
+   Drawing & painting: framed posters on the platform wall
    -------------------------------------------------------------------------- */
 
-.wall {
+.posters {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.8vw, 1.5rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
   align-items: start;
 }
 
-.work .slot {
-  aspect-ratio: var(--ratio);
+/* an aluminium poster frame with a white mat */
+.poster {
+  padding: 0.55rem;
+  border-radius: 3px;
+  background: linear-gradient(145deg, #e2e6ea, #9aa3ad 55%, #c9cfd5);
+  box-shadow: 0 16px 24px -16px rgba(3, 9, 20, 0.8);
 }
 
-.work--1 { grid-column: 1 / span 3; grid-row: span 2; --ratio: 4 / 5; }
-.work--2 { grid-column: 4 / span 3; --ratio: 3 / 2; }
-.work--3 { grid-column: 4 / span 2; --ratio: 1 / 1; }
-.work--4 { grid-column: 6 / span 1; --ratio: 1 / 2; }
-.work--5 { grid-column: 1 / span 2; --ratio: 3 / 4; }
-.work--6 { grid-column: 3 / span 4; --ratio: 16 / 9; }
+.poster .slot {
+  aspect-ratio: 1 / 1.414;
+  border: 0.45rem solid #f4f6f8;
+}
 
-@media (max-width: 759.98px) {
-  .wall {
+.poster--wide {
+  grid-column: span 2;
+}
+
+.poster--wide .slot {
+  aspect-ratio: 1.414 / 1;
+}
+
+@media (max-width: 899.98px) {
+  .posters {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .work--1,
-  .work--6 {
-    grid-column: 1 / -1;
-    grid-row: auto;
+@media (max-width: 479.98px) {
+  .posters {
+    grid-template-columns: 1fr;
   }
 
-  .work--2,
-  .work--3,
-  .work--4,
-  .work--5 {
+  .poster--wide {
     grid-column: auto;
   }
 }
@@ -290,35 +279,80 @@ html[lang="ja"] .art-index__item {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.3s var(--ease);
 }
 
 .work__open:hover img {
-  opacity: 0.88;
+  opacity: 0.9;
 }
 
 /* --------------------------------------------------------------------------
-   Photography: frames on a strip, read sideways
+   Photography: the view from the train window
    -------------------------------------------------------------------------- */
 
-.room--photo {
-  margin-top: var(--section-space);
-  padding-bottom: var(--section-space);
-  background: var(--ai-900);
+.carriage {
+  position: relative;
+  padding: clamp(1rem, 2.5vw, 1.75rem) 0;
+  background: linear-gradient(180deg, #d6dbe0, #b9c0c8);
+  box-shadow: inset 0 6px 0 var(--willow), inset 0 -6px 0 var(--willow);
+}
+
+.strip {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(var(--gutter), (100vw - 76rem) / 2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--steel) transparent;
+  padding-block: 0.25rem 0.75rem;
+}
+
+.strip:focus-visible {
+  outline-offset: -4px;
+}
+
+.strip__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  width: max-content;
+  padding-inline: max(var(--gutter), (100vw - 76rem) / 2);
+}
+
+/* each photograph sits in a window, rounded like a carriage's */
+.pane {
+  scroll-snap-align: start;
+  width: clamp(16rem, 34vw, 28rem);
+  padding: 0.45rem;
+  border-radius: var(--radius-window);
+  background: #1b222b;
+}
+
+.pane .slot {
+  aspect-ratio: 3 / 2;
+  border-radius: calc(var(--radius-window) - 0.45rem);
+}
+
+.pane--tall {
+  width: clamp(11rem, 21vw, 18rem);
+}
+
+.pane--tall .slot {
+  aspect-ratio: 2 / 3;
 }
 
 .strip__hint {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.7rem;
+  width: min(100% - 2 * var(--gutter), 76rem);
+  margin: 0.4rem auto 0;
   font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--muted);
-  white-space: nowrap;
+  font-weight: 700;
+  color: var(--ink);
 }
 
 .strip__hint .arrow {
-  color: var(--shu);
   animation: nudge 2.4s var(--ease) infinite;
 }
 
@@ -328,133 +362,48 @@ html[lang="ja"] .art-index__item {
   }
 }
 
-.strip {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: max(var(--gutter), (100vw - 78rem) / 2);
-  scrollbar-width: thin;
-  scrollbar-color: var(--ai-500) transparent;
-  padding-bottom: 1rem;
-}
-
-.strip:focus-visible {
-  outline-offset: -3px;
-}
-
-.strip__track {
-  display: flex;
-  align-items: flex-end;
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
-  width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 78rem) / 2);
-}
-
-.frame {
-  scroll-snap-align: start;
-  width: clamp(16rem, 36vw, 30rem);
-}
-
-.frame .slot {
-  aspect-ratio: 3 / 2;
-}
-
-.frame--tall {
-  width: clamp(11rem, 22vw, 19rem);
-}
-
-.frame--tall .slot {
-  aspect-ratio: 2 / 3;
-}
-
 @media (max-width: 639.98px) {
-  .frame {
+  .pane {
     width: 80vw;
   }
 
-  .frame--tall {
+  .pane--tall {
     width: 54vw;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Music: a record and its tracks
+   Music: departure melodies, on an LED board
    -------------------------------------------------------------------------- */
 
-.room--music {
-  padding-bottom: var(--section-space);
-}
-
-.music {
-  display: grid;
-  gap: clamp(2.5rem, 5vw, 5rem);
-  align-items: center;
-}
-
-@media (min-width: 900px) {
-  .music {
-    grid-template-columns: minmax(16rem, 0.85fr) 1.15fr;
-  }
-}
-
-.record {
-  width: min(66vw, 24rem);
-  margin-inline: auto;
-}
-
-.record__disc {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle, var(--ai-900) 0 2px, #0e2140 2.5px 4px);
-  box-shadow: 0 30px 50px -30px rgba(5, 12, 24, 0.8);
-  animation: spin 7s linear infinite;
-  animation-play-state: paused;
-}
-
-/* the label is a small piece of the same shibori cloth */
-.record__label {
-  position: relative;
-  width: 34%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, var(--ai-900) 0 5%, transparent 5.5%),
-    repeating-radial-gradient(circle, rgba(242, 246, 249, 0.85) 0 1px, transparent 1.6px 5px),
-    var(--ai-500);
-}
-
-.room--music:is(:hover, :focus-within) .record__disc {
-  animation-play-state: running;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.melodies {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--night-3);
+  box-shadow: 0 0 0 6px #2b323c, 0 20px 30px -18px rgba(3, 9, 20, 0.7);
 }
 
 .tracks {
-  counter-reset: track;
-  border-top: 3px solid var(--fg-strong);
+  padding: 0.5rem clamp(1rem, 3vw, 1.75rem);
 }
 
 .track {
-  counter-increment: track;
   display: grid;
   grid-template-columns: 2.25rem 1fr auto;
   align-items: center;
   gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--line);
+  padding: 0.95rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.track::before {
-  content: counter(track);
-  font-weight: 700;
-  color: var(--accent);
+.track:last-child {
+  border-bottom: 0;
+}
+
+.track__no {
+  font-family: var(--font-led);
+  font-size: 1.15rem;
+  color: var(--led);
 }
 
 .track__body {
@@ -465,34 +414,32 @@ html[lang="ja"] .art-index__item {
 }
 
 .track__title {
+  font-family: var(--font-led);
   font-size: 1.15rem;
-  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #e9eef5;
 }
 
 .track__meta {
   font-size: 0.9rem;
+  color: #b8c5d6;
 }
 
 .track__play {
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  background: var(--ai-700);
-  color: var(--fg-strong);
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: var(--radius);
+  background: var(--night-2);
+  color: #e9eef5;
   cursor: not-allowed;
-  opacity: 0.65;
 }
 
 .track__play svg {
-  width: 0.9rem;
+  width: 0.85rem;
   fill: currentColor;
-}
-
-.track__play:hover,
-.track__play:focus-visible {
-  opacity: 1;
 }
 
 .track__play .tip {
@@ -506,132 +453,126 @@ html[lang="ja"] .art-index__item {
 }
 
 /* --------------------------------------------------------------------------
-   About: undyed cotton, laid into the night
+   About: a large white sign on the platform
    -------------------------------------------------------------------------- */
 
-.story {
-  padding: var(--section-space) 0;
-  background: var(--bg);
-  color: var(--fg);
-}
-
-.story__inner {
+.story__plate {
   display: grid;
-  gap: 3rem clamp(3rem, 8vw, 7rem);
+  gap: 2rem clamp(2rem, 6vw, 5rem);
   align-items: start;
+  padding: clamp(1.75rem, 5vw, 3.5rem);
+  border-radius: var(--radius);
+  background: var(--plate);
+  color: var(--fg);
+  box-shadow: 0 22px 28px -20px rgba(3, 9, 20, 0.6);
 }
 
-@media (min-width: 860px) {
-  .story__inner {
+@media (min-width: 820px) {
+  .story__plate {
     grid-template-columns: auto minmax(0, 1fr);
   }
 }
 
+/* vertical signage, as Japanese stations hang it */
 .story__poem {
   writing-mode: vertical-rl;
   justify-self: center;
-  font-family: var(--font-ja);
-  font-weight: 900;
-  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
-  line-height: 1.7;
-  letter-spacing: 0.2em;
-  color: var(--ai-700);
+  padding: 1.25rem 0.9rem;
+  border-radius: var(--radius);
+  background: var(--willow);
+  color: #fff;
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.18em;
 }
 
 .story__body {
-  max-width: 42rem;
+  max-width: 40rem;
 }
 
 .story__lead {
-  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
-  font-weight: 500;
-  line-height: 1.4;
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .story__text {
-  margin-top: 1.25rem;
+  margin-top: 1.1rem;
 }
 
 /* --------------------------------------------------------------------------
-   Links
+   Find us: the station's exits, on yellow signs
    -------------------------------------------------------------------------- */
 
 .art-links {
   padding-bottom: var(--section-space);
 }
 
-.art-links__list {
-  border-top: 3px solid var(--fg-strong);
+.exits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1rem;
 }
 
-.art-links__list li {
-  border-bottom: 1px solid var(--line-strong);
+.exit {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  gap: 0.2rem 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--signal);
+  color: var(--ink);
 }
 
-.art-links__link {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 2rem;
-  padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
+.exit__tag {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  min-width: 3.4rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--signal);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
 }
 
-.art-links__name {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-stretch: 125%;
-  font-size: clamp(2rem, 1.2rem + 3vw, 3.8rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--fg-strong);
-  transition: color 0.4s var(--ease);
+.exit__name {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.1;
 }
 
-html[lang="ja"] .art-links__name {
-  font-family: var(--font-ja);
-  font-weight: 900;
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
-}
-
-.art-links__note {
+.exit__note {
+  grid-column: 2;
   font-size: 0.9rem;
+  font-style: italic;
+  color: #3d3200;
 }
 
-.art-links__arrow {
-  margin-left: auto;
-  align-self: center;
-  width: 2.5rem;
-  color: var(--shu);
+html[lang="ja"] .exit__note {
+  font-style: normal;
 }
 
-a[href].art-links__link:hover .art-links__name {
-  color: var(--ai-200);
+.exit__arrow {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  width: 2.4rem;
 }
 
-a[href].art-links__link:hover .art-links__arrow {
+a[href].exit:hover .exit__arrow {
   transform: translateX(0.4rem);
 }
 
-@media (max-width: 639.98px) {
-  .art-links__link {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.35rem 1rem;
-  }
-
-  .art-links__note {
-    grid-row: 2;
-  }
-
-  .art-links__arrow {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-  }
-}
-
-.art .credit {
+.art-credit {
   padding-inline: 0;
-  border-top: 1px solid var(--line);
+  background: var(--night-3);
+  color: #b0c4e2;
 }
 
 /* --------------------------------------------------------------------------
@@ -651,11 +592,11 @@ a[href].art-links__link:hover .art-links__arrow {
 }
 
 .viewer::backdrop {
-  background: rgba(11, 26, 49, 0.95);
+  background: rgba(10, 21, 40, 0.95);
 }
 
 .viewer[open] {
-  animation: fade 0.4s var(--ease);
+  animation: fade 0.35s var(--ease);
 }
 
 .viewer.is-closing {
@@ -711,7 +652,8 @@ a[href].art-links__link:hover .art-links__arrow {
   width: 44px;
   height: 44px;
   border: 0;
-  background: var(--fg-strong);
+  border-radius: var(--radius);
+  background: var(--signal);
   cursor: pointer;
 }
 
@@ -722,8 +664,8 @@ a[href].art-links__link:hover .art-links__arrow {
   left: 50%;
   top: 50%;
   width: 1.2rem;
-  height: 2px;
-  background: var(--ai-900);
+  height: 2.5px;
+  background: var(--ink);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
@@ -736,11 +678,13 @@ a[href].art-links__link:hover .art-links__arrow {
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .kumo,
   .strip__hint .arrow,
-  .record__disc,
   .viewer[open],
   .viewer.is-closing {
     animation: none;
+  }
+
+  .map__stop .badge {
+    transition: none;
   }
 }

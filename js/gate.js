@@ -1,15 +1,15 @@
 /* ==========================================================================
    Gate doors.
    Hover and keyboard focus peek through CSS alone. This file handles touch
-   (first tap peeks, second tap enters), the full open on click, where the
-   chosen half takes the screen, and the walk through into the next page.
+   (first tap peeks, second tap enters), the full open on click, and the
+   train that carries you into the next page.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  const OPEN_MS = 950; // the half soaks the screen while the door swings
-  const ENTER_MS = 400;
+  const OPEN_MS = 700; // the platform doors slide open before the train passes
+  const ENTER_MS = 120;
   const REDUCED_OPEN_MS = 250;
 
   const stage = document.querySelector('[data-gate]');
