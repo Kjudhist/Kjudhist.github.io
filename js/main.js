@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shared behaviour: local links, page transitions, scroll reveals,
-   sticky header, mobile menu, current-section highlight.
+   sticky header, mobile menu, current-section highlight, the clock.
    ========================================================================== */
 
 (function () {
@@ -101,6 +101,21 @@
     });
   }
 
+  // A live clock for Jakarta, for anything marked [data-clock].
+  function initClock() {
+    const clocks = document.querySelectorAll('[data-clock]');
+    if (!clocks.length || !window.Intl) return;
+    const format = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false });
+    function tick() {
+      const text = format.format(new Date());
+      clocks.forEach(function (el) {
+        el.textContent = text;
+      });
+    }
+    tick();
+    window.setInterval(tick, 15000);
+  }
+
   function initHeader() {
     const header = document.querySelector('.topbar--sticky');
     if (!header) return;
@@ -173,6 +188,7 @@
     initHeader();
     initMenu();
     initSectionSpy();
+    initClock();
     window.addEventListener('pageshow', resetAfterBack);
   }
 

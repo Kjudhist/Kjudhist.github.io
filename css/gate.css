@@ -1,8 +1,9 @@
 /* ==========================================================================
-   Gate: two shop entrances, each hung with a noren.
-   Each door is a card with its curtain at the top, a name, one line, and
-   an Enter button; the whole card is the link. Hovering or focusing parts
-   the curtain a little; clicking parts it fully and goes in. Also 404.
+   Gate: my name, the local time, and two doors.
+   Each door is a full panel and the whole panel is the link: a number and
+   its Japanese name at the top, the title large at the bottom, and an
+   Enter pill that says what clicking does. QA is a light panel, the
+   atelier a dark one; on hover either fills with royal. Also the 404.
    ========================================================================== */
 
 body.gate {
@@ -10,45 +11,53 @@ body.gate {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--paper);
 }
 
-.gate__top {
+.g-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: clamp(1.25rem, 3vw, 2.25rem) var(--gutter) 0;
+  gap: 1rem 2rem;
+  padding: 1.25rem var(--gutter);
 }
 
-.gate__name {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.6rem);
-  font-weight: 900;
-  line-height: 1;
+.g-name {
+  font-size: 0.98rem;
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
 
-.gate__full {
-  margin-top: 0.5rem;
-  font-weight: 500;
-  color: var(--grey);
-}
-
-.gate__main {
+.g-meta {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: clamp(1rem, 2.5vh, 1.75rem);
-  padding: clamp(1.5rem, 4vh, 3rem) var(--gutter);
+  gap: 1.5rem;
 }
 
-.gate__intro {
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
-  font-weight: 600;
+.g-clock {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.g-clock .mono {
+  color: var(--ink);
+}
+
+.g-main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  padding: clamp(1rem, 4vh, 3rem) var(--gutter) 0;
+}
+
+.g-intro {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 
@@ -56,230 +65,178 @@ body.gate {
    The doors
    -------------------------------------------------------------------------- */
 
-.doors {
+.g-doors {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 27rem));
-  justify-content: center;
-  gap: clamp(1rem, 3vw, 2.5rem);
-  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  min-height: clamp(22rem, 58vh, 40rem);
 }
 
 .door {
-  --cloth: var(--royal);
-  --cloth-ink: var(--white);
-  --door-inside: #dfe5f5;
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-radius: 6px;
-  overflow: hidden;
-  background: var(--white);
+  justify-content: space-between;
+  gap: 3rem;
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  border-radius: var(--radius-box);
+  background: var(--sheet);
   color: var(--ink);
-  box-shadow: 0 1px 0 rgba(11, 16, 48, 0.08), 0 18px 40px -24px rgba(15, 31, 122, 0.45);
-  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), opacity 0.4s var(--ease);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: color 0.35s var(--ease), opacity 0.4s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
 
 .door--art {
-  --cloth: var(--white);
-  --cloth-ink: var(--royal);
-  --door-inside: var(--royal-2);
+  background: var(--night);
+  color: #f3f4f7;
+  box-shadow: none;
+}
+
+/* royal rises from the bottom on hover */
+.door::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--royal);
-  color: var(--white);
-}
-
-.door:focus-visible {
-  outline: 3px solid var(--royal);
-  outline-offset: 4px;
-}
-
-/* the doorway: a dark lintel, and the curtain hanging from it in two panels */
-.noren {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  height: clamp(10rem, 30vh, 17rem);
-  padding: 0 1.25rem;
-  border-top: 10px solid var(--ink);
-  background: var(--door-inside);
-}
-
-.door--art .noren {
-  border-top-color: var(--royal-3);
-}
-
-.noren__panel {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  padding-top: clamp(1rem, 3vh, 1.75rem);
-  background: var(--cloth);
-  color: var(--cloth-ink);
-  transform-origin: top center;
+  transform: scaleY(0);
+  transform-origin: bottom;
   transition: transform 0.55s var(--ease-out);
 }
 
-/* the cloth's hem */
-.noren__panel::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 6px;
-  background: rgba(0, 0, 0, 0.12);
+.door:hover,
+.door:focus-visible {
+  color: #fff;
 }
 
-.noren__text {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 1.2rem + 3vh, 3.4rem);
-  font-weight: 900;
-  line-height: 1.05;
-  writing-mode: vertical-rl;
-  letter-spacing: 0.08em;
+.door:hover::before,
+.door:focus-visible::before,
+.door.is-open::before {
+  transform: scaleY(1);
 }
 
-.door__body {
+.door.is-open {
+  color: #fff;
+}
+
+.door:focus-visible {
+  outline-offset: 4px;
+}
+
+.door__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.door__no {
+  color: inherit;
+  opacity: 0.6;
+}
+
+.door__jp {
+  font-family: var(--font-jp);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.door__foot {
   display: grid;
   justify-items: start;
-  gap: 0.5rem;
-  padding: clamp(1.25rem, 3vh, 1.9rem) clamp(1.25rem, 2.5vw, 1.9rem) clamp(1.4rem, 3vh, 2rem);
+  gap: 0.6rem;
 }
 
-.door__label {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 1.5vw, 2.4rem);
-  font-weight: 900;
-  line-height: 1.1;
+.door__title {
+  font-size: clamp(2.2rem, 1.2rem + 3.6vw, 5rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+html[lang="ja"] .door__title {
+  letter-spacing: 0;
+  line-height: 1.2;
 }
 
 .door__sub {
-  font-weight: 500;
-  color: var(--grey);
+  font-size: 0.95rem;
+  opacity: 0.72;
 }
 
-.door--art .door__sub {
-  color: var(--pale);
-}
-
-/* the button that says what the card does */
-.door__btn {
+/* the pill that says what clicking does */
+.door__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  margin-top: 0.9rem;
-  min-height: 3rem;
-  padding: 0.6rem 1.35rem;
+  gap: 0.7rem;
+  margin-top: 1.1rem;
+  min-height: 2.9rem;
+  padding: 0.6rem 1.3rem;
   border-radius: var(--radius);
   background: var(--royal);
-  color: var(--white);
-  font-weight: 700;
-  transition: background-color 0.3s var(--ease);
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
-.door--art .door__btn {
-  background: var(--white);
+.door--art .door__cta {
+  background: #f3f4f7;
+  color: var(--ink);
+}
+
+.door:hover .door__cta,
+.door:focus-visible .door__cta,
+.door.is-open .door__cta {
+  background: #fff;
   color: var(--royal);
 }
 
-/* hover and focus: the card lifts, the curtain parts, the arrow moves */
-.door:hover,
-.door:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 1px 0 rgba(11, 16, 48, 0.08), 0 28px 50px -24px rgba(15, 31, 122, 0.55);
+.door:hover .door__cta .arrow,
+.door:focus-visible .door__cta .arrow {
+  transform: translateX(0.3rem);
 }
 
-.door:hover .noren__panel:first-child,
-.door:focus-visible .noren__panel:first-child {
-  transform: rotate(4deg) translateX(-4%);
-}
-
-.door:hover .noren__panel:last-child,
-.door:focus-visible .noren__panel:last-child {
-  transform: rotate(-4deg) translateX(4%);
-}
-
-.door:hover .door__btn .arrow,
-.door:focus-visible .door__btn .arrow {
-  transform: translateX(0.35rem);
-}
-
-.door--qa:hover .door__btn {
-  background: var(--royal-2);
-}
-
-.door--art:hover .door__btn {
-  background: var(--pale);
-}
-
-/* going in: the curtain swings right open */
-.door.is-open .noren__panel:first-child {
-  transform: rotate(16deg) translateX(-30%);
-}
-
-.door.is-open .noren__panel:last-child {
-  transform: rotate(-16deg) translateX(30%);
-}
-
-.doors.has-open .door:not(.is-open) {
-  opacity: 0.35;
+.g-doors.has-open .door:not(.is-open) {
+  opacity: 0.4;
 }
 
 /* --------------------------------------------------------------------------
-   Footer
-   -------------------------------------------------------------------------- */
-
-.gate .credit {
-  border-top: 0;
-}
-
-/* --------------------------------------------------------------------------
-   Small screens: the doors stack, curtains shorter
+   Small screens
    -------------------------------------------------------------------------- */
 
 @media (max-width: 719.98px) {
-  .gate__top {
-    flex-direction: column-reverse;
-    align-items: stretch;
-    gap: 1rem;
+  .g-top {
+    flex-wrap: wrap;
   }
 
-  .gate__top .lang {
-    align-self: flex-end;
+  .g-meta {
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .gate__main {
-    align-items: stretch;
-    justify-content: flex-start;
-  }
-
-  .doors {
+  .g-doors {
     grid-template-columns: 1fr;
+    min-height: 0;
   }
 
-  .noren {
-    height: 7.5rem;
-  }
-
-  .noren__panel {
-    padding-top: 0.75rem;
-  }
-
-  .noren__text {
-    font-size: 1.9rem;
+  .door {
+    min-height: 15rem;
+    gap: 2rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door,
-  .noren__panel {
+  .door::before {
     transition-duration: 0.01s;
   }
 }
 
 /* ==========================================================================
-   404: the shop is closed
+   404
    ========================================================================== */
 
 body.lost-page {
@@ -298,68 +255,33 @@ body.lost-page {
 }
 
 .lost__inner {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(2rem, 6vw, 5rem);
-  width: min(100%, 64rem);
+  width: min(100%, 84rem);
   margin-inline: auto;
 }
 
-/* a curtain reading 本日休業, "closed today" */
-.lost__noren {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  width: clamp(9rem, 18vw, 13rem);
-  border-top: 10px solid var(--royal-3);
-}
-
-.lost__noren span {
-  display: grid;
-  justify-content: start;
-  align-content: center;
-  height: clamp(13rem, 26vw, 19rem);
-  padding-top: 1rem;
-  background: var(--white);
-  color: var(--royal);
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 1.2rem + 1.8vw, 2.8rem);
-  font-weight: 900;
-  line-height: 1.05;
-  writing-mode: vertical-rl;
-  letter-spacing: 0.1em;
-}
-
 .lost__number {
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 2rem + 6vw, 7rem);
-  font-weight: 900;
-  line-height: 1;
-  color: var(--pale);
+  font-size: 0.95rem;
+  color: var(--accent-text);
 }
 
 .lost__title {
+  max-width: 16ch;
   margin-top: 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem);
-  font-weight: 900;
-  line-height: 1.15;
-  color: var(--white);
+  font-size: clamp(2.4rem, 1.2rem + 4.6vw, 5.5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg-strong);
 }
 
 html[lang="ja"] .lost__title {
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.5rem);
-  line-height: 1.4;
+  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
+  line-height: 1.25;
+  letter-spacing: 0;
 }
 
 .lost__text {
-  max-width: 34rem;
-  margin: 1rem 0 1.75rem;
-}
-
-@media (max-width: 719.98px) {
-  .lost__inner {
-    grid-template-columns: 1fr;
-  }
+  max-width: 36rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 1.1rem;
 }

@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-art.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The Willow Atelier in white beside a noren curtain reading 柳の工房, on royal blue.">
+  <meta property="og:image:alt" content="The Willow Atelier: drawing and painting, photography, music.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
 
@@ -73,22 +73,18 @@
 
   <main id="main">
 
-    <!-- Hero: the name in white beside the atelier's noren -->
+    <!-- Hero: the name, and an index of the three kinds of work -->
     <section class="art-hero" id="top" data-testid="section-hero">
       <div class="wrap">
-        <div class="art-hero__top">
-          <div>
-            <h1 class="art-hero__title" translate="no">The Willow Atelier</h1>
-            <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
-          </div>
-          <div class="art-hero__noren" aria-hidden="true"><span lang="ja">柳の</span><span lang="ja">工房</span></div>
-        </div>
+        <p class="art-hero__jp" lang="ja" aria-hidden="true">柳のアトリエ</p>
+        <h1 class="art-hero__title" translate="no">The Willow Atelier</h1>
+        <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
 
         <nav class="index" aria-label="What the atelier makes" data-i18n-attr="aria-label:art.index.label" data-testid="art-index">
           <ol class="index__list">
-            <li><a class="index__link" href="#painting" data-testid="index-painting"><span class="index__jp" lang="ja" aria-hidden="true">絵画</span><span class="index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span></a></li>
-            <li><a class="index__link" href="#photography" data-testid="index-photography"><span class="index__jp" lang="ja" aria-hidden="true">写真</span><span class="index__name" data-i18n="art.photo.title">Photography</span></a></li>
-            <li><a class="index__link" href="#music" data-testid="index-music"><span class="index__jp" lang="ja" aria-hidden="true">音楽</span><span class="index__name" data-i18n="art.music.title">Music</span></a></li>
+            <li><a class="index__link" href="#painting" data-testid="index-painting"><span class="index__no mono" aria-hidden="true">01</span><span class="index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+            <li><a class="index__link" href="#photography" data-testid="index-photography"><span class="index__no mono" aria-hidden="true">02</span><span class="index__name" data-i18n="art.photo.title">Photography</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+            <li><a class="index__link" href="#music" data-testid="index-music"><span class="index__no mono" aria-hidden="true">03</span><span class="index__name" data-i18n="art.music.title">Music</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
           </ol>
         </nav>
       </div>
@@ -98,11 +94,11 @@
     <section class="section room" id="painting" aria-labelledby="painting-title" data-testid="section-painting">
       <div class="wrap">
         <header class="sec-head" data-reveal>
-          <span class="tab" lang="ja" aria-hidden="true"><span>絵</span><span>画</span></span>
           <div>
             <h2 class="section-title" id="painting-title" data-i18n="art.painting.title">Drawing &amp; Painting</h2>
             <p class="room__text ph" data-i18n="art.painting.text">[A line about the drawings and paintings.]</p>
           </div>
+          <p class="sec-head__jp" lang="ja" aria-hidden="true">絵画</p>
         </header>
 
         <!-- Placeholders. To show a real piece, swap a frame's <div class="slot"> for:
@@ -125,11 +121,11 @@
     <section class="section room room--photo" id="photography" aria-labelledby="photo-title" data-testid="section-photography">
       <div class="wrap">
         <header class="sec-head" data-reveal>
-          <span class="tab" lang="ja" aria-hidden="true"><span>写</span><span>真</span></span>
           <div>
             <h2 class="section-title" id="photo-title" data-i18n="art.photo.title">Photography</h2>
             <p class="room__text ph" data-i18n="art.photo.text">[A line about the photographs.]</p>
           </div>
+          <p class="sec-head__jp" lang="ja" aria-hidden="true">写真</p>
         </header>
       </div>
 
@@ -153,11 +149,11 @@
     <section class="section room" id="music" aria-labelledby="music-title" data-testid="section-music">
       <div class="wrap">
         <header class="sec-head" data-reveal>
-          <span class="tab" lang="ja" aria-hidden="true"><span>音</span><span>楽</span></span>
           <div>
             <h2 class="section-title" id="music-title" data-i18n="art.music.title">Music</h2>
             <p class="room__text ph" data-i18n="art.music.text">[A line about the music.]</p>
           </div>
+          <p class="sec-head__jp" lang="ja" aria-hidden="true">音楽</p>
         </header>
 
         <!-- Placeholders. When a track is out, make its title a link
@@ -191,8 +187,8 @@
     <section class="section story" id="about" aria-labelledby="atelier-title" data-testid="section-about">
       <div class="wrap">
         <header class="sec-head" data-reveal>
-          <span class="tab" lang="ja" aria-hidden="true"><span>由</span><span>来</span></span>
           <h2 class="section-title" id="atelier-title" data-i18n="art.about.title">How the Atelier Bloomed</h2>
+          <p class="sec-head__jp" lang="ja" aria-hidden="true">由来</p>
         </header>
 
         <div class="story__grid" data-reveal>
@@ -210,8 +206,8 @@
     <section class="section art-links" id="links" aria-labelledby="links-title" data-testid="section-links">
       <div class="wrap">
         <header class="sec-head" data-reveal>
-          <span class="tab" lang="ja" aria-hidden="true"><span>所</span><span>在</span></span>
           <h2 class="section-title" id="links-title" data-i18n="art.links.title">Find the atelier</h2>
+          <p class="sec-head__jp" lang="ja" aria-hidden="true">所在</p>
         </header>
 
         <!-- Placeholders: add href="..." to each link once the account and shop are live,

@@ -1,46 +1,49 @@
-# Design system: noren (暖簾)
+# Design system: folio
 
-The split curtain hung over a Japanese shop entrance. Recorded from the built site (css/base.css, gate.css, qa.css, art.css).
+A quiet, exact portfolio. Recorded from the built site (css/base.css, gate.css, qa.css, art.css).
 
 ## Idea
 
-A noren says "we're open, come in". The gate is two shop entrances, and each door is plainly a door.
+Restraint does the work: one accent, a strict grid, hairline rules, generous space, and type that is set carefully rather than loudly.
 
-- Gate: two cards side by side (stacked on phones). Each has its noren at the top, a name, one line, and an **Enter** button; the whole card is the link. One click or tap goes in.
-- QA: the white side. The name beside a royal noren reading 品質保証, a royal band with the pitch, ruled tables and lists, and the address set large on a royal field.
-- The Willow Atelier: royal throughout, with a white noren reading 柳の工房.
-- Every section opens with a short noren tab carrying its name in Japanese (自己紹介, 経歴, 技能, 連絡; 絵画, 写真, 音楽, 由来, 所在). These are decoration and hidden from screen readers.
-- 404: a noren reading 本日休業, "closed today".
+- Gate: my name and Jakarta's local time at the top, "Choose a door." large, then two full panels. Each whole panel is the link; a number and its Japanese name sit at the top, the title large at the bottom, and an **Enter** pill says what clicking does. QA is light, the atelier dark; hovering fills either with royal.
+- Sections share one layout on both pages: a hairline across the top, the section's name (and its Japanese name, small) in a sticky left column, the content in the right nine columns.
+- QA is light; contact sets the address large on a dark panel; the page ends on a dark band leading to the atelier.
+- The atelier is near-black, with its three kinds of work as full-width index rows.
 
 ## Colour
 
+One accent. Royal blue marks what you can act on and the one line that matters.
+
 | Token | Value | Role |
 |---|---|---|
-| `--royal` | `#2445d6` | the cloth: QA noren, buttons, the atelier ground |
-| `--royal-2` | `#1b35b0` | hover on royal, the doorway behind the atelier noren, empty frames |
-| `--royal-3` | `#0f1f7a` | lintel on royal, viewer backdrop |
-| `--white` | `#ffffff` | cards, the atelier noren |
-| `--paper` | `#eef1f8` | gate ground (the street wall) |
-| `--ink` | `#0b1030` | headings on white, the lintel |
-| `--ink-2` | `#2b3152` | body on white |
-| `--grey` | `#5a6080` | secondary text on white |
-| `--pale` | `#c9d2ff` | secondary text on royal |
+| `--royal` | `#2445d6` | buttons, hover fills, the pitch, the current role's dot |
+| `--royal-2` | `#1b36b3` | hover on royal |
+| `--royal-soft` | `#8ea2ff` | royal as text on near-black |
+| `--paper` | `#f5f6f8` | light ground |
+| `--sheet` | `#ffffff` | raised panels on light |
+| `--ink` | `#0b0d14` | text on light; the dark ground |
+| `--ink-2` | `#3a3f4c` | body on light |
+| `--grey` | `#6a7080` | secondary on light |
+| `--night-2` | `#151925` | raised panels and empty frames on dark |
+
+Dark text: `#f3f4f7` strong, `#c9cdd8` body, `#8d93a3` muted.
 
 ## Type
 
-- Zen Old Mincho 600/900 for display: names, section titles, the characters on the cloth.
-- Zen Kaku Gothic New 400/500/700 for everything else.
-- Characters on noren are set vertically (`writing-mode: vertical-rl`).
-- No small uppercase labels above headings; the noren tab does that job.
+- Schibsted Grotesk 400 to 700 for text and display. Display is weight 500, tracked tight (to -0.055em), line-height under 1.
+- IBM Plex Mono for numbers, dates, the clock and small field labels.
+- Noto Sans JP for Japanese, including each section's Japanese name.
+- No uppercase eyebrows. Small labels are mono, sentence case.
 
 ## Shape
 
-- `--radius: 4px` on buttons and the switcher; gate cards 6px.
-- A noren is a dark lintel (10px) over two panels with a 4px slit.
-- Rules: 2px over tables and lists, 1px between rows.
+- Pills (`999px`) for buttons, the switcher and skill tags; 6px for panels and frames.
+- Hairlines: 1px at 10% for rows, 22% for section tops.
+- No shadows except the pressed language option.
 
 ## Motion
 
-- Gate: hover or focus lifts the card and parts the curtain a little; a click parts it fully, then the next page's colour rises from the bottom (`.veil`).
-- Text settles with a short fade and rise.
-- Reduced motion turns movement off; the page still changes.
+- Gate: royal rises inside a panel on hover; a click fills it and the next page's ground slides up with a royal line leading (`.veil`).
+- Index rows indent slightly on hover; arrows nudge.
+- Text settles with a short fade and rise. Reduced motion turns movement off.

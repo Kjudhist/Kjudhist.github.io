@@ -9,8 +9,8 @@
         "files": [
           "qa/index.html"
         ],
-        "createdAt": "2026-10-11T12:11:57.053Z",
-        "reason": "Agent: the royal bands inset their content with .wrap margins and vertical padding; text never touches an edge (see screenshots)"
+        "createdAt": "2026-10-11T12:44:25.491Z",
+        "reason": "Agent: the dark end band insets its link with .wrap margins and 3-6rem vertical padding"
       },
       {
         "rule": "cramped-padding",
@@ -18,8 +18,8 @@
         "files": [
           "art/index.html"
         ],
-        "createdAt": "2026-10-11T12:11:57.264Z",
-        "reason": "Agent: slots are empty placeholders with one centred label; index links and link rows pad their own content below the rules"
+        "createdAt": "2026-10-11T12:44:25.702Z",
+        "reason": "Agent: slots are empty placeholders whose only child is a centred label"
       }
     ]
   }

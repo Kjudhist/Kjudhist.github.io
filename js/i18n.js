@@ -45,6 +45,7 @@
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
+      'gate.local': 'Local time',
 
       'qa.nav.label': 'Sections',
       'qa.nav.about': 'About',
@@ -208,6 +209,7 @@
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
+      'gate.local': 'Waktu setempat',
 
       'qa.nav.label': 'Bagian',
       'qa.nav.about': 'Tentang',
@@ -371,6 +373,7 @@
       'gate.qa': 'QAエンジニア',
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
+      'gate.local': '現地時刻',
 
       'qa.nav.label': 'セクション',
       'qa.nav.about': '私について',

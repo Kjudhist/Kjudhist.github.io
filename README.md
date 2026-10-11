@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on two shop entrances, each hung with a noren curtain: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
+My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *noren* (暖簾), the split curtain over a Japanese shop entrance: royal blue cloth with white characters, Zen Old Mincho for display and Zen Kaku Gothic New for text. The design system is written down in `DESIGN.md`.
+The look is *folio*: a quiet, exact portfolio. Light for QA, near-black for the atelier, royal blue as the one accent, a 12-column grid and hairline rules. Type is Schibsted Grotesk with IBM Plex Mono for numbers and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,14 +84,14 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** two cards, each a doorway with its noren, a name, one line and an **Enter** button. The whole card is the link: hover parts the curtain a little, and one click or tap goes in.
-- **QA (the white side):** the name beside a royal noren reading 品質保証, and a royal band with the pitch. Each section opens with a short noren tab carrying its Japanese name. Experience is a ruled table with the current role in royal; skills lead with testing, set large; contact is the address set large on a royal field with the CV beside it. The page ends on a royal field that leads to the atelier.
-- **The Willow Atelier (the royal side):** the name in white beside a white noren reading 柳の工房, then an index of:
+- **Gate:** my name and Jakarta's local time, then two full panels. Each whole panel is the link, with an **Enter** pill; hover fills it with royal, and one click or tap goes in.
+- **QA (light):** the name large, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
+- **The Willow Atelier (dark):** the name large, the tagline, and an index of:
   1. **Drawing & Painting**, a grid of frames
   2. **Photography**, a row of frames scrolled sideways
   3. **Music**, a ruled list of tracks
 
-  Then the story with the poem set vertically, and two large rows for Instagram and the shop.
+  Then the story with the poem set vertically, and two rows for Instagram and the shop.
 
 With reduced motion turned on, nothing moves; the doors still work.
 
