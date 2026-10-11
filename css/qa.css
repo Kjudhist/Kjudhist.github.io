@@ -152,11 +152,9 @@
   color: var(--fg-strong);
 }
 
-/* the line that matters, written in the margin in pen */
+/* the line that matters, written in pen */
 .about__text--key {
   margin-top: 0.75rem;
-  padding-left: 1.25rem;
-  border-left: 3px solid var(--royal);
   font-family: var(--font-hand);
   font-size: clamp(1.15rem, 1rem + 0.5vw, 1.4rem);
   font-weight: 600;
