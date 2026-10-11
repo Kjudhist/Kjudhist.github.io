@@ -8,7 +8,7 @@
 (function () {
   'use strict';
 
-  const OPEN_MS = 1000; // the half fills the screen while the door swings
+  const OPEN_MS = 950; // the half soaks the screen while the door swings
   const ENTER_MS = 400;
   const REDUCED_OPEN_MS = 250;
 

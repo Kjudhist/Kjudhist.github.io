@@ -1,8 +1,8 @@
 /* ==========================================================================
-   The Willow Atelier: a navy night, a moon, a willow.
-   Three rooms after the hero: drawing & painting (a hanging wall),
-   photography (a strip of frames read sideways) and music (a record and
-   its tracks). Then a cream sheet with the story, and the way to find us.
+   The Willow Atelier: a length of shibori-dyed indigo.
+   The hero is the cloth itself, kumo (spider) shibori rings resisting the
+   dye. Then three rooms (drawing & painting, photography, music), a strip
+   of undyed cotton for the story, and the way to find us.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -15,155 +15,102 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: calc(100vh - 4.5rem);
-  min-height: calc(100svh - 4.5rem);
-  padding-bottom: clamp(2rem, 5vh, 3rem);
+  min-height: min(calc(100vh - 4.25rem), 54rem);
+  min-height: min(calc(100dvh - 4.25rem), 54rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
   overflow: hidden;
 }
 
-.art-hero__night {
+/* the cloth: a hanging length of indigo, its resist rings left pale */
+.cloth {
   position: absolute;
-  inset: 0;
   z-index: -1;
-  pointer-events: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(60%, 54rem);
+  background:
+    linear-gradient(90deg, var(--ai-800) 0, transparent 18%),
+    var(--ai-600);
+  overflow: hidden;
 }
 
-.art-hero__moon {
+.kumo {
   position: absolute;
-  left: 62%;
-  top: 14%;
-  width: clamp(5rem, 9vw, 8.5rem);
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 64% 38%, rgba(60, 50, 30, 0.05), transparent 12%),
-    radial-gradient(circle at 36% 64%, rgba(60, 50, 30, 0.04), transparent 16%),
-    radial-gradient(circle at 40% 38%, #fbf8f0 0%, #ebe3d0 64%, #d5cab1 100%);
-  box-shadow:
-    0 0 32px 6px rgba(240, 232, 214, 0.16),
-    0 0 140px 50px rgba(143, 164, 201, 0.12);
+    radial-gradient(ellipse at 50% 50%, var(--ai-50) 0 3%, transparent 9%),
+    repeating-radial-gradient(ellipse 100% 92% at 50% 50%, rgba(242, 246, 249, 0.82) 0 1.6px, transparent 2.4px 10px);
+  /* binding threads break the rings into segments, and the edge bleeds into the dye */
+  -webkit-mask:
+    repeating-conic-gradient(from 8deg, #000 0 11deg, rgba(0, 0, 0, 0.25) 11deg 14deg),
+    radial-gradient(circle, #000 40%, transparent 70%);
+  -webkit-mask-composite: source-in;
+  mask:
+    repeating-conic-gradient(from 8deg, #000 0 11deg, rgba(0, 0, 0, 0.25) 11deg 14deg),
+    radial-gradient(circle, #000 40%, transparent 70%);
+  mask-composite: intersect;
+  animation: kumo-open 2.2s var(--ease-out) both;
+  animation-delay: var(--d, 0s);
 }
 
-.art-hero__horizon {
-  position: absolute;
-  left: 46%;
-  right: 0;
-  top: 64%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--line-strong) 30%, var(--line-strong) 80%, transparent);
+.kumo--a {
+  width: clamp(16rem, 30vw, 30rem);
+  left: 18%;
+  top: 6%;
+  --d: 0.15s;
 }
 
-/* the moon's light, broken on the water */
-.art-hero__reflection {
-  position: absolute;
-  left: 62%;
-  top: calc(64% + 1rem);
-  width: clamp(5rem, 9vw, 8.5rem);
-  display: grid;
-  justify-items: center;
-  gap: 0.7rem;
+.kumo--b {
+  width: clamp(9rem, 15vw, 15rem);
+  right: -3%;
+  top: -4%;
+  --d: 0.35s;
 }
 
-.art-hero__reflection i {
-  display: block;
-  height: 1px;
-  background: rgba(240, 232, 214, 0.5);
-  animation: shimmer 4s var(--ease) infinite alternate;
+.kumo--c {
+  width: clamp(12rem, 22vw, 22rem);
+  right: 6%;
+  bottom: 4%;
+  --d: 0.5s;
 }
 
-.art-hero__reflection i:nth-child(1) { width: 80%; }
-.art-hero__reflection i:nth-child(2) { width: 62%; animation-delay: -1.2s; opacity: 0.8; }
-.art-hero__reflection i:nth-child(3) { width: 46%; animation-delay: -2.1s; opacity: 0.6; }
-.art-hero__reflection i:nth-child(4) { width: 30%; animation-delay: -0.6s; opacity: 0.45; }
-.art-hero__reflection i:nth-child(5) { width: 16%; animation-delay: -2.8s; opacity: 0.3; }
+.kumo--d {
+  width: clamp(7rem, 11vw, 11rem);
+  left: 6%;
+  bottom: 12%;
+  --d: 0.7s;
+}
 
-@keyframes shimmer {
+/* the cloth is unbound: the rings open out of the dye */
+@keyframes kumo-open {
   from {
-    transform: scaleX(0.85);
-  }
-  to {
-    transform: scaleX(1.1);
-  }
-}
-
-.art-hero__willow {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(58vw, 46rem);
-  color: var(--cream-200);
-}
-
-.willow {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.willow path {
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-width: 1;
-}
-
-.willow__branch {
-  stroke-width: 2.4 !important;
-  opacity: 0.7;
-}
-
-.willow path:not(.willow__branch) {
-  stroke-width: 0.9;
-}
-
-.willow__sway {
-  transform-origin: 50% 0;
-  transform-box: fill-box;
-  animation: sway 9s var(--ease) infinite alternate;
-}
-
-.willow__sway--b {
-  animation-duration: 12s;
-  animation-delay: -5s;
-}
-
-@keyframes sway {
-  from {
-    transform: rotate(0.8deg);
-  }
-  to {
-    transform: rotate(-1.2deg);
+    opacity: 0;
+    transform: scale(0.55) rotate(-25deg);
   }
 }
 
 .art-hero__text {
   position: relative;
-  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+  padding-bottom: clamp(2rem, 6vh, 3.5rem);
 }
 
 .art-hero__mark {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  font-family: var(--font-display-ja);
-  font-size: 1.3rem;
-  color: var(--gold);
-}
-
-.art-hero__mark::after {
-  content: "";
-  width: 3rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-ja);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem);
+  line-height: 1;
+  color: var(--shu);
 }
 
 .art-hero__title {
-  font-weight: 400;
-  font-size: clamp(3.2rem, 1.8rem + 6vw, 7rem);
-  line-height: 0.98;
-  letter-spacing: 0.01em;
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: clamp(2.8rem, 1rem + 6vw, 6.25rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
   color: var(--fg-strong);
 }
 
@@ -171,85 +118,72 @@
   display: block;
 }
 
-.art-hero__line + .art-hero__line {
-  padding-left: 0.9em;
-  font-style: italic;
-}
-
 .art-hero__tagline {
-  margin-top: 1.4rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
-  color: var(--muted);
+  max-width: 24rem;
+  margin-top: 1.25rem;
+  font-size: clamp(1.05rem, 0.95rem + 0.4vw, 1.3rem);
+  font-weight: 500;
+  color: var(--fg);
 }
 
-html[lang="ja"] .art-hero__tagline,
-html[lang="id"] .art-hero__tagline {
-  font-style: normal;
-}
-
-html[lang="ja"] .art-hero__tagline {
-  font-family: var(--font-display-ja);
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
-  letter-spacing: 0.12em;
-}
-
-/* the three rooms, as an index */
+/* the three rooms, as a row of doors */
 .art-index {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line-strong);
+  border-top: 3px solid var(--fg-strong);
 }
 
 .art-index__item {
   display: flex;
-  align-items: baseline;
-  gap: 0.9rem;
-  padding: 1.1rem 0;
-  color: var(--fg);
-  transition: color 0.4s var(--ease);
-}
-
-.art-index__item + .art-index__item {
-  padding-left: clamp(1rem, 3vw, 2rem);
-  border-left: 1px solid var(--line);
-}
-
-.art-index__num {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--gold);
-}
-
-.art-index__name {
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1rem 1.1rem 0;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.4rem);
-  line-height: 1.25;
-}
-
-html[lang="ja"] .art-index__name {
-  font-family: var(--font-display-ja);
-  font-size: 1rem;
-}
-
-.art-index__item:hover {
+  font-weight: 700;
+  font-stretch: 112%;
+  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.45rem);
+  line-height: 1.15;
   color: var(--fg-strong);
 }
 
-@media (max-width: 639.98px) {
-  .art-hero__moon,
-  .art-hero__reflection {
-    left: 58%;
+html[lang="ja"] .art-index__item {
+  font-family: var(--font-ja);
+}
+
+.art-index__item + .art-index__item {
+  padding-left: 1rem;
+  border-left: 1px solid var(--line-strong);
+}
+
+.art-index__item .arrow {
+  color: var(--shu);
+}
+
+.art-index__item:hover .arrow {
+  transform: translateX(0.35rem);
+}
+
+@media (max-width: 759.98px) {
+  .art-hero {
+    min-height: auto;
+    padding-top: min(78vw, 22rem);
   }
 
-  .art-hero__willow {
-    width: 92vw;
+  .cloth {
+    left: 0;
+    width: auto;
+    bottom: auto;
+    height: min(78vw, 22rem);
+    background: var(--ai-600);
   }
 
-  .art-hero__horizon,
-  .art-hero__reflection {
-    display: none;
+  .kumo--a {
+    left: 4%;
+  }
+
+  .art-hero__text {
+    padding-top: 2rem;
   }
 
   .art-index {
@@ -259,87 +193,87 @@ html[lang="ja"] .art-index__name {
   .art-index__item + .art-index__item {
     padding-left: 0;
     border-left: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .art-index__item {
-    padding: 0.8rem 0;
+    border-top: 1px solid var(--line-strong);
   }
 }
 
 /* --------------------------------------------------------------------------
-   The three rooms share a head
+   Rooms share a head
    -------------------------------------------------------------------------- */
 
-.discipline__head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: start;
-  gap: 0.5rem clamp(1.25rem, 3vw, 2.5rem);
-  padding-top: 1.75rem;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-  border-top: 1px solid var(--line-strong);
+.room__head {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
-.discipline__num {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem);
-  line-height: 0.9;
-  color: var(--gold);
+.room__head .section-title {
+  margin-bottom: 0.75rem;
 }
 
-.discipline__title {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.4rem);
-  line-height: 1.05;
-  color: var(--fg-strong);
+.room__head--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
 }
 
-html[lang="ja"] .discipline__title {
-  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
-}
-
-.discipline__text {
-  margin-top: 0.7rem;
+.room__text {
   max-width: 34rem;
 }
 
-/* empty places waiting for real work */
+/* empty places waiting for real work: a patch of kanoko-spotted cloth */
 .slot {
   display: grid;
   place-items: center;
   width: 100%;
-  border: 1px dashed var(--line-strong);
-  background: var(--bg-raised);
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 1.15rem;
+  height: 100%;
+  background:
+    radial-gradient(circle, rgba(242, 246, 249, 0.08) 0 1.5px, transparent 2px) 0 0 / 16px 16px,
+    var(--ai-700);
+  font-weight: 600;
+  font-size: 1rem;
   color: var(--muted);
-}
-
-html[lang="ja"] .slot {
-  font-family: var(--font-display-ja);
-  font-style: normal;
-  font-size: 0.95rem;
 }
 
 /* --------------------------------------------------------------------------
-   01 Drawing & painting: a hanging wall
+   Drawing & painting: a hanging wall
    -------------------------------------------------------------------------- */
 
-.gallery {
+.wall {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-  align-items: end;
-  gap: clamp(1.75rem, 3vw, 2.75rem) clamp(1rem, 2.5vw, 2rem);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.8vw, 1.5rem);
+  align-items: start;
 }
 
-.work__no {
-  margin-top: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--muted);
+.work .slot {
+  aspect-ratio: var(--ratio);
+}
+
+.work--1 { grid-column: 1 / span 3; grid-row: span 2; --ratio: 4 / 5; }
+.work--2 { grid-column: 4 / span 3; --ratio: 3 / 2; }
+.work--3 { grid-column: 4 / span 2; --ratio: 1 / 1; }
+.work--4 { grid-column: 6 / span 1; --ratio: 1 / 2; }
+.work--5 { grid-column: 1 / span 2; --ratio: 3 / 4; }
+.work--6 { grid-column: 3 / span 4; --ratio: 16 / 9; }
+
+@media (max-width: 759.98px) {
+  .wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .work--1,
+  .work--6 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .work--2,
+  .work--3,
+  .work--4,
+  .work--5 {
+    grid-column: auto;
+  }
 }
 
 /* real pieces, once they're in */
@@ -354,7 +288,9 @@ html[lang="ja"] .slot {
 
 .work__open img {
   width: 100%;
-  transition: opacity 0.5s var(--ease);
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.4s var(--ease);
 }
 
 .work__open:hover img {
@@ -362,27 +298,27 @@ html[lang="ja"] .slot {
 }
 
 /* --------------------------------------------------------------------------
-   02 Photography: frames on a strip, read sideways
+   Photography: frames on a strip, read sideways
    -------------------------------------------------------------------------- */
 
-.discipline--photo .discipline__head {
-  grid-template-columns: auto 1fr auto;
+.room--photo {
+  margin-top: var(--section-space);
+  padding-bottom: var(--section-space);
+  background: var(--ai-900);
 }
 
 .strip__hint {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  align-self: end;
-  font-size: 0.66rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
 }
 
 .strip__hint .arrow {
+  color: var(--shu);
   animation: nudge 2.4s var(--ease) infinite;
 }
 
@@ -395,27 +331,27 @@ html[lang="ja"] .slot {
 .strip {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gutter);
+  scroll-padding-inline: max(var(--gutter), (100vw - 78rem) / 2);
   scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  padding-bottom: 1.25rem;
+  scrollbar-color: var(--ai-500) transparent;
+  padding-bottom: 1rem;
 }
 
 .strip:focus-visible {
-  outline-offset: -2px;
+  outline-offset: -3px;
 }
 
 .strip__track {
   display: flex;
   align-items: flex-end;
-  gap: clamp(0.75rem, 2vw, 1.5rem);
+  gap: clamp(0.75rem, 1.6vw, 1.25rem);
   width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 74rem) / 2);
+  padding-inline: max(var(--gutter), (100vw - 78rem) / 2);
 }
 
 .frame {
   scroll-snap-align: start;
-  width: clamp(15rem, 34vw, 28rem);
+  width: clamp(16rem, 36vw, 30rem);
 }
 
 .frame .slot {
@@ -423,61 +359,45 @@ html[lang="ja"] .slot {
 }
 
 .frame--tall {
-  width: clamp(10rem, 22vw, 18.5rem);
+  width: clamp(11rem, 22vw, 19rem);
 }
 
 .frame--tall .slot {
   aspect-ratio: 2 / 3;
 }
 
-.frame__no {
-  display: block;
-  margin-top: 0.6rem;
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: var(--muted);
-}
-
 @media (max-width: 639.98px) {
-  .discipline--photo .discipline__head {
-    grid-template-columns: auto 1fr;
-  }
-
-  .strip__hint {
-    grid-column: 2;
-  }
-
   .frame {
-    width: 78vw;
+    width: 80vw;
   }
 
   .frame--tall {
-    width: 52vw;
+    width: 54vw;
   }
 }
 
 /* --------------------------------------------------------------------------
-   03 Music: a record and its tracks
+   Music: a record and its tracks
    -------------------------------------------------------------------------- */
 
-.discipline--music {
+.room--music {
   padding-bottom: var(--section-space);
 }
 
 .music {
   display: grid;
-  gap: clamp(2.5rem, 5vw, 4rem);
+  gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
 }
 
-@media (min-width: 860px) {
+@media (min-width: 900px) {
   .music {
-    grid-template-columns: minmax(16rem, 0.8fr) 1.2fr;
+    grid-template-columns: minmax(16rem, 0.85fr) 1.15fr;
   }
 }
 
 .record {
-  width: min(64vw, 22rem);
+  width: min(66vw, 24rem);
   margin-inline: auto;
 }
 
@@ -488,32 +408,25 @@ html[lang="ja"] .slot {
   aspect-ratio: 1;
   border-radius: 50%;
   background:
-    radial-gradient(circle, transparent 0 31%, rgba(255, 255, 255, 0.05) 31.5%, transparent 32.5%),
-    repeating-radial-gradient(circle, #0c1324 0 2px, #111a2e 2.5px 4px),
-    #0c1324;
-  box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-  animation: spin 9s linear infinite;
+    repeating-radial-gradient(circle, var(--ai-900) 0 2px, #0e2140 2.5px 4px);
+  box-shadow: 0 30px 50px -30px rgba(5, 12, 24, 0.8);
+  animation: spin 7s linear infinite;
   animation-play-state: paused;
 }
 
-/* light catching the grooves */
-.record__disc::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: conic-gradient(from 20deg, transparent 0 8%, rgba(233, 226, 212, 0.08) 12%, transparent 18% 58%, rgba(233, 226, 212, 0.06) 62%, transparent 68%);
-}
-
+/* the label is a small piece of the same shibori cloth */
 .record__label {
   position: relative;
-  width: 30%;
+  width: 34%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--navy-950) 0 6%, var(--gold) 6.5% 100%);
+  background:
+    radial-gradient(circle, var(--ai-900) 0 5%, transparent 5.5%),
+    repeating-radial-gradient(circle, rgba(242, 246, 249, 0.85) 0 1px, transparent 1.6px 5px),
+    var(--ai-500);
 }
 
-.discipline--music:is(:hover, :focus-within) .record__disc {
+.room--music:is(:hover, :focus-within) .record__disc {
   animation-play-state: running;
 }
 
@@ -524,68 +437,62 @@ html[lang="ja"] .slot {
 }
 
 .tracks {
-  border-top: 1px solid var(--line-strong);
+  counter-reset: track;
+  border-top: 3px solid var(--fg-strong);
 }
 
 .track {
+  counter-increment: track;
   display: grid;
-  grid-template-columns: 2.5rem 1fr auto;
+  grid-template-columns: 2.25rem 1fr auto;
   align-items: center;
   gap: 1rem;
-  padding: 1.1rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid var(--line);
 }
 
-.track__no {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--gold);
+.track::before {
+  content: counter(track);
+  font-weight: 700;
+  color: var(--shu);
 }
 
 .track__body {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.2rem 1.25rem;
+  gap: 0.15rem 1.25rem;
 }
 
 .track__title {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  line-height: 1.3;
-}
-
-html[lang="ja"] .track__title {
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
 }
 
 .track__meta {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
 }
 
 .track__play {
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.6rem;
-  height: 2.6rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--ai-700);
   color: var(--fg-strong);
   cursor: not-allowed;
-  opacity: 0.55;
-  transition: opacity 0.3s var(--ease);
+  opacity: 0.65;
 }
 
 .track__play svg {
-  width: 0.85rem;
+  width: 0.9rem;
   fill: currentColor;
 }
 
 .track__play:hover,
 .track__play:focus-visible {
-  opacity: 0.85;
+  opacity: 1;
 }
 
 .track__play .tip {
@@ -599,7 +506,7 @@ html[lang="ja"] .track__title {
 }
 
 /* --------------------------------------------------------------------------
-   About: a cream sheet in the night
+   About: undyed cotton, laid into the night
    -------------------------------------------------------------------------- */
 
 .story {
@@ -623,30 +530,26 @@ html[lang="ja"] .track__title {
 .story__poem {
   writing-mode: vertical-rl;
   justify-self: center;
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
-  line-height: 2;
-  letter-spacing: 0.3em;
-  color: var(--fg-strong);
+  font-family: var(--font-ja);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem);
+  line-height: 1.7;
+  letter-spacing: 0.2em;
+  color: var(--ai-700);
 }
 
 .story__body {
-  max-width: 40rem;
+  max-width: 42rem;
 }
 
 .story__lead {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.9rem);
-  line-height: 1.45;
-}
-
-html[lang="ja"] .story__lead {
-  font-family: var(--font-display-ja);
-  font-size: 1.2rem;
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .story__text {
-  margin-top: 1.4rem;
+  margin-top: 1.25rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -658,55 +561,57 @@ html[lang="ja"] .story__lead {
 }
 
 .art-links__list {
-  border-top: 1px solid var(--line-strong);
+  border-top: 3px solid var(--fg-strong);
 }
 
 .art-links__list li {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-strong);
 }
 
 .art-links__link {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0.5rem 2rem;
-  padding: clamp(1.4rem, 3vw, 2rem) 0;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem) 0;
 }
 
 .art-links__name {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem);
-  line-height: 1.1;
+  font-weight: 800;
+  font-stretch: 125%;
+  font-size: clamp(2rem, 1.2rem + 3vw, 3.8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--fg-strong);
-  transition: color 0.5s var(--ease);
+  transition: color 0.4s var(--ease);
 }
 
 html[lang="ja"] .art-links__name {
-  font-family: var(--font-display-ja);
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+  font-family: var(--font-ja);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
 }
 
 .art-links__note {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .art-links__arrow {
   margin-left: auto;
   align-self: center;
-  color: var(--muted);
+  width: 2.5rem;
+  color: var(--shu);
 }
 
 a[href].art-links__link:hover .art-links__name {
-  color: var(--gold);
+  color: var(--ai-200);
 }
 
 a[href].art-links__link:hover .art-links__arrow {
   transform: translateX(0.4rem);
-  color: var(--fg-strong);
 }
 
-/* on phones the note drops under the name and every arrow lines up on the right */
 @media (max-width: 639.98px) {
   .art-links__link {
     display: grid;
@@ -725,8 +630,6 @@ a[href].art-links__link:hover .art-links__arrow {
 }
 
 .art .credit {
-  width: min(100% - 2 * var(--gutter), 74rem);
-  margin-inline: auto;
   padding-inline: 0;
   border-top: 1px solid var(--line);
 }
@@ -748,15 +651,15 @@ a[href].art-links__link:hover .art-links__arrow {
 }
 
 .viewer::backdrop {
-  background: rgba(11, 17, 32, 0.94);
+  background: rgba(11, 26, 49, 0.95);
 }
 
 .viewer[open] {
-  animation: fade 0.5s var(--ease);
+  animation: fade 0.4s var(--ease);
 }
 
 .viewer.is-closing {
-  animation: fade 0.35s var(--ease) reverse forwards;
+  animation: fade 0.3s var(--ease) reverse forwards;
 }
 
 @keyframes fade {
@@ -792,13 +695,12 @@ a[href].art-links__link:hover .art-links__arrow {
 }
 
 .viewer__title {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
+  font-weight: 700;
   color: var(--fg-strong);
 }
 
 .viewer__meta {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
 }
 
@@ -809,7 +711,7 @@ a[href].art-links__link:hover .art-links__arrow {
   width: 44px;
   height: 44px;
   border: 0;
-  background: none;
+  background: var(--fg-strong);
   cursor: pointer;
 }
 
@@ -819,9 +721,9 @@ a[href].art-links__link:hover .art-links__arrow {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 1.3rem;
-  height: 1px;
-  background: var(--fg-strong);
+  width: 1.2rem;
+  height: 2px;
+  background: var(--ai-900);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
@@ -834,13 +736,9 @@ a[href].art-links__link:hover .art-links__arrow {
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .willow__sway,
-  .art-hero__reflection i,
+  .kumo,
   .strip__hint .arrow,
-  .record__disc {
-    animation: none;
-  }
-
+  .record__disc,
   .viewer[open],
   .viewer.is-closing {
     animation: none;

@@ -81,7 +81,7 @@
   }
 
   function initReveal() {
-    const items = document.querySelectorAll('[data-reveal]');
+    const items = document.querySelectorAll('[data-reveal], [data-dye]');
     if (!items.length) return;
     if (!('IntersectionObserver' in window)) {
       items.forEach(function (el) {

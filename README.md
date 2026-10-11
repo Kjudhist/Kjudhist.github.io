@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on one screen split in two: a door on cream that goes to my QA work, and a shoji on navy that goes to The Willow Atelier, where I keep my art.
+My personal site. It opens on one screen split in two: an indigo door on pale cotton that goes to my QA work, and a paper shoji on deep indigo that goes to The Willow Atelier, where I keep my art.
 
-The look is *ma* (間): two colours, thin lines, a lot of room, and only small, cheap motion.
+The look is *aizome* (藍染), Japanese indigo dyeing: the palette is the ladder of blues cloth goes through in the vat, from undyed cotton to kon, set in wide, heavy type like a 1960s Japanese poster. Square corners everywhere, one vermilion note for marks, and light CSS-only motion. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** cream on the left, navy on the right. Hover (or tap once on a phone) and the door opens a little: a tick waits behind the QA door, the moon behind the shoji. Click (or tap again) and that half takes the whole screen before the next page fades in.
-- **QA:** a report you can scan. Every section head has a small box that gets ticked as it comes into view, and the hero has a tiny "test run" of the facts.
-- **The Willow Atelier:** a moon and a willow, then three rooms:
-  1. **Drawing & Painting**, a wall of pieces
+- **Gate:** undyed cotton on the left, deep indigo (with tiny kanoko shibori spots) on the right. Hover, focus or tap once and a door opens a little: light and a tick wait behind the QA door, a shibori circle behind the shoji. Click or tap again and that half soaks the whole screen before the next page rises in.
+- **QA:** the name is dipped halfway into the vat, and the dye rises into it as the page opens. Experience is a stack of dyed bands: the current role is the deepest blue, older roles paler ("the longer in the vat, the deeper the blue"). The page ends in the vat with contact, the CV and the way across to the atelier.
+- **The Willow Atelier:** the hero is a length of kumo (spider) shibori cloth whose rings open on arrival. Then three rooms:
+  1. **Drawing & Painting**, a hanging wall of six pieces in mixed sizes
   2. **Photography**, a strip of frames you scroll sideways
   3. **Music**, a record (it turns while you're in the section) and a track list
 
-  Then a cream sheet for the story, and the links.
+  Then a strip of undyed cotton for the story, and the links.
 
-With reduced motion turned on, nothing travels: doors still open, but instantly, and the willow, record and water stand still.
+Colour fields (the experience bands, the artworks) rise into place like dye climbing cloth when they scroll into view. With reduced motion turned on, nothing travels: doors still open, but instantly, and the shibori, record and hints stand still.
 
 ## Replacing placeholders
 

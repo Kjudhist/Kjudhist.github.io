@@ -6,7 +6,7 @@
   <title data-i18n="meta.art.title">The Willow Atelier</title>
   <meta name="description" content="Where the lost come to rest. Drawing and painting, photography and music from The Willow Atelier." data-i18n-attr="content:meta.art.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#101a2e">
+  <meta name="theme-color" content="#12294a">
   <link rel="canonical" href="https://kjudhist.github.io/art/">
 
   <meta property="og:type" content="website">
@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-art.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A pale moon and willow strands on a navy night, with the words The Willow Atelier.">
+  <meta property="og:image:alt" content="Shibori-dyed indigo cloth beside the words The Willow Atelier.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
 
@@ -46,7 +46,7 @@
 
   <header class="topbar topbar--sticky">
     <a class="back-link" href="../" data-transition="dark" data-testid="back-to-gate">
-      <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+      <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       <span class="back-link__full" data-i18n="common.back">Back to the gate</span>
       <span class="back-link__short" data-i18n="common.backShort">Gate</span>
     </a>
@@ -73,15 +73,13 @@
 
   <main id="main">
 
-    <!-- Hero: a moon, a willow, the still water below -->
+    <!-- Hero: a length of kumo-shibori cloth, and the atelier's name across it -->
     <section class="art-hero" id="top" data-testid="section-hero">
-      <div class="art-hero__night" aria-hidden="true">
-        <span class="art-hero__moon"></span>
-        <span class="art-hero__horizon"></span>
-        <span class="art-hero__reflection"><i></i><i></i><i></i><i></i><i></i></span>
-        <div class="art-hero__willow">
-          <svg class="willow" viewBox="0 0 640 640" preserveAspectRatio="xMaxYMin meet" aria-hidden="true" focusable="false"><path class="willow__branch" d="M640 -6C470 10 330 64 150 46"/><g class="willow__sway willow__sway--a"><path d="M623 -4C627 103 600 211 571 303" opacity="0.38"/><path d="M573 2C577 141 563 281 551 400" opacity="0.39"/><path d="M507 13C511 206 486 398 459 563" opacity="0.51"/><path d="M463 21C467 109 448 197 429 273" opacity="0.68"/><path d="M403 32C407 108 393 185 381 250" opacity="0.43"/><path d="M351 40C355 136 324 232 292 314" opacity="0.63"/><path d="M291 47C295 134 260 222 222 297" opacity="0.4"/><path d="M249 49C253 166 223 283 191 383" opacity="0.58"/><path d="M180 48C184 137 153 227 119 303" opacity="0.73"/></g><g class="willow__sway willow__sway--b"><path d="M591 -0C595 132 582 265 570 379" opacity="0.55"/><path d="M538 8C542 191 527 375 514 532" opacity="0.44"/><path d="M474 19C478 100 446 181 411 250" opacity="0.47"/><path d="M436 26C440 164 413 301 385 419" opacity="0.5"/><path d="M373 37C377 149 358 260 339 356" opacity="0.58"/><path d="M328 43C332 163 308 283 283 386" opacity="0.7"/><path d="M270 48C274 176 258 304 244 414" opacity="0.55"/><path d="M204 49C208 129 179 210 149 278" opacity="0.59"/></g></svg>
-        </div>
+      <div class="cloth" aria-hidden="true">
+        <span class="kumo kumo--a"></span>
+        <span class="kumo kumo--b"></span>
+        <span class="kumo kumo--c"></span>
+        <span class="kumo kumo--d"></span>
       </div>
 
       <div class="art-hero__text wrap">
@@ -95,107 +93,94 @@
 
       <nav class="art-index wrap" aria-label="What the atelier makes" data-i18n-attr="aria-label:art.index.label" data-testid="art-index">
         <a class="art-index__item" href="#painting" data-testid="index-painting">
-          <span class="art-index__num" aria-hidden="true">01</span>
           <span class="art-index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span>
+          <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </a>
         <a class="art-index__item" href="#photography" data-testid="index-photography">
-          <span class="art-index__num" aria-hidden="true">02</span>
           <span class="art-index__name" data-i18n="art.photo.title">Photography</span>
+          <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </a>
         <a class="art-index__item" href="#music" data-testid="index-music">
-          <span class="art-index__num" aria-hidden="true">03</span>
           <span class="art-index__name" data-i18n="art.music.title">Music</span>
+          <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </a>
       </nav>
     </section>
 
-    <!-- 01 Drawing & painting -->
-    <section class="section discipline" id="painting" aria-labelledby="painting-title" data-testid="section-painting">
+    <!-- Drawing & painting: a hanging wall, one large piece and its neighbours -->
+    <section class="section room room--painting" id="painting" aria-labelledby="painting-title" data-testid="section-painting">
       <div class="wrap">
-        <header class="discipline__head" data-reveal>
-          <span class="discipline__num" aria-hidden="true">01</span>
-          <div>
-            <h2 class="discipline__title" id="painting-title" data-i18n="art.painting.title">Drawing &amp; Painting</h2>
-            <p class="discipline__text ph" data-i18n="art.painting.text">[A line about the drawings and paintings.]</p>
-          </div>
+        <header class="room__head" data-reveal>
+          <h2 class="section-title" id="painting-title" data-i18n="art.painting.title">Drawing &amp; Painting</h2>
+          <p class="room__text ph" data-i18n="art.painting.text">[A line about the drawings and paintings.]</p>
         </header>
 
-        <!-- Placeholders. To show a real piece, swap a slot for:
+        <!-- Placeholders. To show a real piece, swap a slot's <div class="slot"> for:
              <button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year">
                <img src="../assets/art/painting-1.jpg" alt="What the piece shows" width="1200" height="1500" loading="lazy">
              </button> -->
-        <div class="gallery">
-          <figure class="work" data-reveal data-testid="painting-1"><div class="slot" style="aspect-ratio: 4 / 5"><span><span data-i18n="art.slot">Art</span> 1</span></div><figcaption class="work__no" aria-hidden="true">01</figcaption></figure>
-          <figure class="work" data-reveal data-testid="painting-2"><div class="slot" style="aspect-ratio: 1 / 1"><span><span data-i18n="art.slot">Art</span> 2</span></div><figcaption class="work__no" aria-hidden="true">02</figcaption></figure>
-          <figure class="work" data-reveal data-testid="painting-3"><div class="slot" style="aspect-ratio: 3 / 4"><span><span data-i18n="art.slot">Art</span> 3</span></div><figcaption class="work__no" aria-hidden="true">03</figcaption></figure>
-          <figure class="work" data-reveal data-testid="painting-4"><div class="slot" style="aspect-ratio: 4 / 3"><span><span data-i18n="art.slot">Art</span> 4</span></div><figcaption class="work__no" aria-hidden="true">04</figcaption></figure>
-          <figure class="work" data-reveal data-testid="painting-5"><div class="slot" style="aspect-ratio: 4 / 5"><span><span data-i18n="art.slot">Art</span> 5</span></div><figcaption class="work__no" aria-hidden="true">05</figcaption></figure>
-          <figure class="work" data-reveal data-testid="painting-6"><div class="slot" style="aspect-ratio: 1 / 1"><span><span data-i18n="art.slot">Art</span> 6</span></div><figcaption class="work__no" aria-hidden="true">06</figcaption></figure>
+        <div class="wall">
+          <figure class="work work--1" data-dye data-testid="painting-1"><div class="slot"><span><span data-i18n="art.slot">Art</span> 1</span></div></figure>
+          <figure class="work work--2" data-dye style="--delay: .08s" data-testid="painting-2"><div class="slot"><span><span data-i18n="art.slot">Art</span> 2</span></div></figure>
+          <figure class="work work--3" data-dye style="--delay: .16s" data-testid="painting-3"><div class="slot"><span><span data-i18n="art.slot">Art</span> 3</span></div></figure>
+          <figure class="work work--4" data-dye data-testid="painting-4"><div class="slot"><span><span data-i18n="art.slot">Art</span> 4</span></div></figure>
+          <figure class="work work--5" data-dye style="--delay: .08s" data-testid="painting-5"><div class="slot"><span><span data-i18n="art.slot">Art</span> 5</span></div></figure>
+          <figure class="work work--6" data-dye style="--delay: .16s" data-testid="painting-6"><div class="slot"><span><span data-i18n="art.slot">Art</span> 6</span></div></figure>
         </div>
       </div>
     </section>
 
-    <!-- 02 Photography: a strip of frames, read sideways -->
-    <section class="section discipline discipline--photo" id="photography" aria-labelledby="photo-title" data-testid="section-photography">
-      <div class="wrap">
-        <header class="discipline__head" data-reveal>
-          <span class="discipline__num" aria-hidden="true">02</span>
-          <div>
-            <h2 class="discipline__title" id="photo-title" data-i18n="art.photo.title">Photography</h2>
-            <p class="discipline__text ph" data-i18n="art.photo.text">[A line about the photographs.]</p>
-          </div>
-          <p class="strip__hint" aria-hidden="true"><span data-i18n="art.photo.hint">Scroll sideways</span><svg class="arrow" viewBox="0 0 32 10" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg></p>
-        </header>
+    <!-- Photography: frames on a strip, read sideways -->
+    <section class="section room room--photo" id="photography" aria-labelledby="photo-title" data-testid="section-photography">
+      <div class="wrap room__head room__head--row" data-reveal>
+        <div>
+          <h2 class="section-title" id="photo-title" data-i18n="art.photo.title">Photography</h2>
+          <p class="room__text ph" data-i18n="art.photo.text">[A line about the photographs.]</p>
+        </div>
+        <p class="strip__hint" aria-hidden="true"><span data-i18n="art.photo.hint">Scroll sideways</span><svg class="arrow" viewBox="0 0 32 10" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
       </div>
 
-      <div class="strip" tabindex="0" role="region" aria-label="Photographs, scroll sideways" data-i18n-attr="aria-label:art.photo.label" data-reveal>
+      <div class="strip" tabindex="0" role="region" aria-label="Photographs, scroll sideways" data-i18n-attr="aria-label:art.photo.label">
         <ul class="strip__track">
-          <li class="frame" data-testid="photo-1"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 1</span></div><span class="frame__no" aria-hidden="true">01</span></li>
-          <li class="frame frame--tall" data-testid="photo-2"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 2</span></div><span class="frame__no" aria-hidden="true">02</span></li>
-          <li class="frame" data-testid="photo-3"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 3</span></div><span class="frame__no" aria-hidden="true">03</span></li>
-          <li class="frame" data-testid="photo-4"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 4</span></div><span class="frame__no" aria-hidden="true">04</span></li>
-          <li class="frame frame--tall" data-testid="photo-5"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 5</span></div><span class="frame__no" aria-hidden="true">05</span></li>
-          <li class="frame" data-testid="photo-6"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 6</span></div><span class="frame__no" aria-hidden="true">06</span></li>
+          <li class="frame" data-testid="photo-1"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 1</span></div></li>
+          <li class="frame frame--tall" data-testid="photo-2"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 2</span></div></li>
+          <li class="frame" data-testid="photo-3"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 3</span></div></li>
+          <li class="frame" data-testid="photo-4"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 4</span></div></li>
+          <li class="frame frame--tall" data-testid="photo-5"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 5</span></div></li>
+          <li class="frame" data-testid="photo-6"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 6</span></div></li>
         </ul>
       </div>
     </section>
 
-    <!-- 03 Music: a record and its tracks -->
-    <section class="section discipline discipline--music" id="music" aria-labelledby="music-title" data-testid="section-music">
-      <div class="wrap">
-        <header class="discipline__head" data-reveal>
-          <span class="discipline__num" aria-hidden="true">03</span>
-          <div>
-            <h2 class="discipline__title" id="music-title" data-i18n="art.music.title">Music</h2>
-            <p class="discipline__text ph" data-i18n="art.music.text">[A line about the music.]</p>
-          </div>
-        </header>
+    <!-- Music: a record and its tracks -->
+    <section class="section room room--music" id="music" aria-labelledby="music-title" data-testid="section-music">
+      <div class="wrap music">
+        <div class="record" aria-hidden="true" data-reveal>
+          <span class="record__disc"><span class="record__label"></span></span>
+        </div>
 
-        <div class="music">
-          <div class="record" aria-hidden="true" data-reveal>
-            <span class="record__disc"><span class="record__label"></span></span>
-          </div>
+        <div class="music__body">
+          <header class="room__head" data-reveal>
+            <h2 class="section-title" id="music-title" data-i18n="art.music.title">Music</h2>
+            <p class="room__text ph" data-i18n="art.music.text">[A line about the music.]</p>
+          </header>
 
           <!-- Placeholders. When a track is out, make its title a link
                (to Spotify, SoundCloud, YouTube...) and drop the "Coming soon" tip. -->
           <ol class="tracks" aria-label="Tracks" data-i18n-attr="aria-label:art.music.tracks" data-reveal>
             <li class="track" data-testid="track-1">
-              <span class="track__no" aria-hidden="true">01</span>
               <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
               <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
             </li>
             <li class="track" data-testid="track-2">
-              <span class="track__no" aria-hidden="true">02</span>
               <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
               <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
             </li>
             <li class="track" data-testid="track-3">
-              <span class="track__no" aria-hidden="true">03</span>
               <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
               <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
             </li>
             <li class="track" data-testid="track-4">
-              <span class="track__no" aria-hidden="true">04</span>
               <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
               <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
             </li>
@@ -204,16 +189,13 @@
       </div>
     </section>
 
-    <!-- About: a sheet of cream paper laid into the night -->
+    <!-- About: a length of undyed cotton laid into the night -->
     <section class="story theme-light" id="about" aria-labelledby="atelier-title" data-testid="section-about">
       <div class="wrap story__inner">
         <p class="story__poem" lang="ja" data-reveal>迷えるものが、<br>やすらぐ場所。</p>
 
         <div class="story__body">
-          <header class="section-head" data-reveal>
-            <span class="section-head__num" aria-hidden="true">04</span>
-            <h2 class="section-head__title" id="atelier-title" data-i18n="art.about.title">How the Atelier Bloomed</h2>
-          </header>
+          <h2 class="section-title" id="atelier-title" data-reveal data-i18n="art.about.title">How the Atelier Bloomed</h2>
           <p class="story__lead ph" data-reveal data-i18n="art.about.p1">[How The Willow Atelier started.]</p>
           <p class="story__text ph" data-reveal data-i18n="art.about.p2">[What you make: mediums, themes, the feeling you’re after.]</p>
           <p class="story__text ph" data-reveal data-i18n="art.about.p3">[Who it’s for.]</p>
@@ -224,10 +206,7 @@
     <!-- Links -->
     <section class="section art-links" id="links" aria-labelledby="links-title" data-testid="section-links">
       <div class="wrap">
-        <header class="section-head" data-reveal>
-          <span class="section-head__num" aria-hidden="true">05</span>
-          <h2 class="section-head__title" id="links-title" data-i18n="art.links.title">Find the atelier</h2>
-        </header>
+        <h2 class="section-title" id="links-title" data-reveal data-i18n="art.links.title">Find the atelier</h2>
 
         <!-- Placeholders: add href="..." to each link once the account and shop are live,
              then delete its "[Link coming soon]" line. -->
@@ -236,14 +215,14 @@
             <a class="art-links__link" data-testid="link-instagram">
               <span class="art-links__name" data-i18n="art.links.instagram">Instagram</span>
               <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
-              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             </a>
           </li>
           <li>
             <a class="art-links__link" data-testid="link-shop">
               <span class="art-links__name" data-i18n="art.links.shop">Shop</span>
               <span class="art-links__note ph" data-i18n="art.links.soon">[Link coming soon]</span>
-              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
+              <svg class="arrow art-links__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
             </a>
           </li>
         </ul>
@@ -251,7 +230,7 @@
     </section>
   </main>
 
-  <footer class="credit" data-testid="site-footer">
+  <footer class="credit wrap" data-testid="site-footer">
     <p><span>© 2026 The Willow Atelier</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
 
