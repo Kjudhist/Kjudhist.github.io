@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-art.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The Willow Atelier written in white on a royal blue sketchbook page.">
+  <meta property="og:image:alt" content="The Willow Atelier in wide white type on a royal blue field, beside a white circle.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@400;700;900&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
 
@@ -73,39 +73,43 @@
 
   <main id="main">
 
-    <!-- Hero: the sketchbook's first page, and divider tabs for its three parts -->
+    <!-- Hero: the name wide in white, and the circle with 柳 in it -->
     <section class="art-hero" id="top" data-testid="section-hero">
-      <p class="art-hero__kanji" lang="ja" aria-hidden="true">柳</p>
       <div class="wrap">
-        <h1 class="art-hero__title hand" translate="no"><span data-reveal="write">The Willow Atelier</span></h1>
-        <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
+        <div class="art-hero__top">
+          <div>
+            <h1 class="art-hero__title" translate="no">The Willow Atelier</h1>
+            <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
+          </div>
+          <div class="art-hero__disc" aria-hidden="true"><span lang="ja">柳</span></div>
+        </div>
 
-        <nav class="tabs" aria-label="What the atelier makes" data-i18n-attr="aria-label:art.index.label" data-testid="art-index">
-          <ol class="tabs__list">
-            <li><a class="tabs__tab" href="#painting" data-testid="index-painting"><span class="pageno" aria-hidden="true">p. 1</span><span class="tabs__name" data-i18n="art.painting.title">Drawing &amp; Painting</span></a></li>
-            <li><a class="tabs__tab" href="#photography" data-testid="index-photography"><span class="pageno" aria-hidden="true">p. 2</span><span class="tabs__name" data-i18n="art.photo.title">Photography</span></a></li>
-            <li><a class="tabs__tab" href="#music" data-testid="index-music"><span class="pageno" aria-hidden="true">p. 3</span><span class="tabs__name" data-i18n="art.music.title">Music</span></a></li>
+        <nav class="index" aria-label="What the atelier makes" data-i18n-attr="aria-label:art.index.label" data-testid="art-index">
+          <ol class="index__list">
+            <li><a class="index__link" href="#painting" data-testid="index-painting"><span class="index__jp" lang="ja" aria-hidden="true">絵画</span><span class="index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span></a></li>
+            <li><a class="index__link" href="#photography" data-testid="index-photography"><span class="index__jp" lang="ja" aria-hidden="true">写真</span><span class="index__name" data-i18n="art.photo.title">Photography</span></a></li>
+            <li><a class="index__link" href="#music" data-testid="index-music"><span class="index__jp" lang="ja" aria-hidden="true">音楽</span><span class="index__name" data-i18n="art.music.title">Music</span></a></li>
           </ol>
         </nav>
       </div>
     </section>
 
-    <!-- p. 1 Drawing & painting: sheets taped to the page -->
+    <!-- Drawing & painting -->
     <section class="section room" id="painting" aria-labelledby="painting-title" data-testid="section-painting">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <div>
             <h2 class="section-title" id="painting-title" data-i18n="art.painting.title">Drawing &amp; Painting</h2>
             <p class="room__text ph" data-i18n="art.painting.text">[A line about the drawings and paintings.]</p>
           </div>
-          <span class="pageno" aria-hidden="true">p. 1</span>
+          <span class="tate" lang="ja" aria-hidden="true">絵画</span>
         </header>
 
-        <!-- Placeholders. To show a real piece, swap a sheet's <div class="slot"> for:
+        <!-- Placeholders. To show a real piece, swap a frame's <div class="slot"> for:
              <button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year">
                <img src="../assets/art/painting-1.jpg" alt="What the piece shows" width="1200" height="1700" loading="lazy">
              </button>
-             piece--wide makes a landscape sheet. -->
+             piece--wide makes a landscape frame. -->
         <div class="wall">
           <figure class="piece" data-reveal data-testid="painting-1"><div class="slot"><span><span data-i18n="art.slot">Art</span> 1</span></div></figure>
           <figure class="piece" data-reveal style="--delay: .06s" data-testid="painting-2"><div class="slot"><span><span data-i18n="art.slot">Art</span> 2</span></div></figure>
@@ -117,15 +121,15 @@
       </div>
     </section>
 
-    <!-- p. 2 Photography: prints with photo corners, scrolled sideways -->
+    <!-- Photography, scrolled sideways -->
     <section class="section room room--photo" id="photography" aria-labelledby="photo-title" data-testid="section-photography">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <div>
             <h2 class="section-title" id="photo-title" data-i18n="art.photo.title">Photography</h2>
             <p class="room__text ph" data-i18n="art.photo.text">[A line about the photographs.]</p>
           </div>
-          <span class="pageno" aria-hidden="true">p. 2</span>
+          <span class="tate" lang="ja" aria-hidden="true">写真</span>
         </header>
       </div>
 
@@ -141,41 +145,41 @@
             <li class="print" data-testid="photo-6"><div class="slot"><span><span data-i18n="art.slot.photo">Photo</span> 6</span></div></li>
           </ul>
         </div>
-        <p class="strip__hint hand" aria-hidden="true"><span data-i18n="art.photo.hint">Scroll sideways</span><svg class="arrow" viewBox="0 0 32 10" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg></p>
+        <p class="strip__hint" aria-hidden="true"><span data-i18n="art.photo.hint">Scroll sideways</span><svg class="arrow" viewBox="0 0 32 10" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg></p>
       </div>
     </section>
 
-    <!-- p. 3 Music: a sheet of manuscript paper -->
+    <!-- Music -->
     <section class="section room" id="music" aria-labelledby="music-title" data-testid="section-music">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <div>
             <h2 class="section-title" id="music-title" data-i18n="art.music.title">Music</h2>
             <p class="room__text ph" data-i18n="art.music.text">[A line about the music.]</p>
           </div>
-          <span class="pageno" aria-hidden="true">p. 3</span>
+          <span class="tate" lang="ja" aria-hidden="true">音楽</span>
         </header>
 
         <!-- Placeholders. When a track is out, make its title a link
              (to Spotify, SoundCloud, YouTube...) and drop the "Coming soon" tip. -->
         <ol class="score tracks" aria-label="Tracks" data-i18n-attr="aria-label:art.music.tracks" data-reveal>
           <li class="track" data-testid="track-1">
-            <span class="track__no hand" aria-hidden="true">1</span>
+            <span class="track__no" aria-hidden="true">1</span>
             <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
             <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
           </li>
           <li class="track" data-testid="track-2">
-            <span class="track__no hand" aria-hidden="true">2</span>
+            <span class="track__no" aria-hidden="true">2</span>
             <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
             <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
           </li>
           <li class="track" data-testid="track-3">
-            <span class="track__no hand" aria-hidden="true">3</span>
+            <span class="track__no" aria-hidden="true">3</span>
             <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
             <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
           </li>
           <li class="track" data-testid="track-4">
-            <span class="track__no hand" aria-hidden="true">4</span>
+            <span class="track__no" aria-hidden="true">4</span>
             <span class="track__body"><span class="track__title ph" data-i18n="art.track.title">[Track title]</span><span class="track__meta ph" data-i18n="art.track.meta">[Genre, year]</span></span>
             <span class="track__play is-pending" role="button" aria-disabled="true" tabindex="0" aria-label="Play" data-i18n-attr="aria-label:art.track.play"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5 3.5v9l7-4.5z"/></svg><span class="tip" data-i18n="art.track.soon">Coming soon</span></span>
           </li>
@@ -183,16 +187,16 @@
       </div>
     </section>
 
-    <!-- p. 4 About: manuscript paper (原稿用紙), the poem written in its squares -->
+    <!-- About: the poem set vertically beside the story -->
     <section class="section story" id="about" aria-labelledby="atelier-title" data-testid="section-about">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="atelier-title" data-i18n="art.about.title">How the Atelier Bloomed</h2>
-          <span class="pageno" aria-hidden="true">p. 4</span>
+          <span class="tate" lang="ja" aria-hidden="true">由来</span>
         </header>
 
-        <div class="story__sheet theme-light" data-reveal>
-          <p class="genko" lang="ja"><span class="sr-only">迷えるものが、やすらぐ場所。</span><span class="genko__cells" aria-hidden="true"><span>迷</span><span>え</span><span>る</span><span>も</span><span>の</span><span>が</span><span>、</span><span>や</span><span>す</span><span>ら</span><span>ぐ</span><span>場</span><span>所</span><span>。</span></span></p>
+        <div class="story__grid" data-reveal>
+          <p class="poem tate" lang="ja">迷えるものが、<br>やすらぐ場所。</p>
           <div class="story__body">
             <p class="story__lead ph" data-i18n="art.about.p1">[How The Willow Atelier started.]</p>
             <p class="story__text ph" data-i18n="art.about.p2">[What you make: mediums, themes, the feeling you’re after.]</p>
@@ -202,26 +206,26 @@
       </div>
     </section>
 
-    <!-- p. 5 Find us: two cards pinned at the back of the book -->
+    <!-- Find us -->
     <section class="section art-links" id="links" aria-labelledby="links-title" data-testid="section-links">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="links-title" data-i18n="art.links.title">Find the atelier</h2>
-          <span class="pageno" aria-hidden="true">p. 5</span>
+          <span class="tate" lang="ja" aria-hidden="true">所在</span>
         </header>
 
         <!-- Placeholders: add href="..." to each link once the account and shop are live,
              then delete its "[Link coming soon]" line. -->
         <ul class="cards" data-reveal>
           <li>
-            <a class="card tape" data-testid="link-instagram">
+            <a class="card" data-testid="link-instagram">
               <span class="card__name" data-i18n="art.links.instagram">Instagram</span>
               <span class="card__note" data-i18n="art.links.soon">[Link coming soon]</span>
               <svg class="arrow card__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
             </a>
           </li>
           <li>
-            <a class="card tape" data-testid="link-shop">
+            <a class="card" data-testid="link-shop">
               <span class="card__name" data-i18n="art.links.shop">Shop</span>
               <span class="card__note" data-i18n="art.links.soon">[Link coming soon]</span>
               <svg class="arrow card__arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
@@ -232,8 +236,8 @@
     </section>
   </main>
 
-  <footer class="ruler art-ruler" data-testid="site-footer">
-    <p class="credit"><span>© 2026 The Willow Atelier</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
+  <footer class="credit art-credit" data-testid="site-footer">
+    <p><span>© 2026 The Willow Atelier</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
 
   <!-- Full view of a single piece -->

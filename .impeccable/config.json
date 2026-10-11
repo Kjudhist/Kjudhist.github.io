@@ -9,20 +9,8 @@
         "files": [
           "index.html"
         ],
-        "createdAt": "2026-10-11T12:00:00.000Z",
-        "reason": "Agent: the flagged text sits on the white cover labels (royal on #fff, 6.8:1); the detector samples the sketchbook cover's gradient behind the label instead"
-      },
-      {
-        "rule": "repeating-stripes-gradient",
-        "value": "*",
-        "files": [
-          "index.html",
-          "qa/index.html",
-          "art/index.html",
-          "404.html"
-        ],
-        "createdAt": "2026-10-11T12:00:00.000Z",
-        "reason": "Agent: the repeats draw real stationery (ruler ticks, staff lines on manuscript paper, index-card rules, the sketchbook spiral), not surface decoration"
+        "createdAt": "2026-10-11T12:11:56.852Z",
+        "reason": "Agent: the pale credit colour applies only under 720px, where the footer sits on the royal field (5.3:1); the detector pairs it with the white field"
       },
       {
         "rule": "cramped-padding",
@@ -30,8 +18,8 @@
         "files": [
           "qa/index.html"
         ],
-        "createdAt": "2026-10-11T11:25:29.653Z",
-        "reason": "Agent: log rows, the column bar and the postcard pad their own content (1-2.25rem, visible in screenshots); the end band insets with .wrap margins"
+        "createdAt": "2026-10-11T12:11:57.053Z",
+        "reason": "Agent: the royal bands inset their content with .wrap margins and vertical padding; text never touches an edge (see screenshots)"
       },
       {
         "rule": "cramped-padding",
@@ -39,8 +27,8 @@
         "files": [
           "art/index.html"
         ],
-        "createdAt": "2026-10-11T11:25:29.864Z",
-        "reason": "Agent: slots are empty placeholders whose only child is a centred label; score rows sit inside the sheet's own padding"
+        "createdAt": "2026-10-11T12:11:57.264Z",
+        "reason": "Agent: slots are empty placeholders with one centred label; index links and link rows pad their own content below the rules"
       }
     ]
   }

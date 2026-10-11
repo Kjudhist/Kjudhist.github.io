@@ -26,14 +26,10 @@
       'common.lang': 'Language',
       'common.menu': 'Menu',
       'common.made': 'Made with help from Claude',
-      'common.contents': 'Contents',
-      'book.qa': 'Test notes',
-      'book.art': 'Sketchbook',
-      'gate.name': 'Name',
       'qa.board.period': 'Period',
       'qa.board.role': 'Role',
       'qa.board.type': 'Type',
-      'qa.toArt.label': 'The other notebook',
+      'qa.toArt.label': 'The other door',
 
       'meta.gate.title': 'Kevin JG · QA Engineer and The Willow Atelier',
       'meta.gate.desc': 'Two doors. One leads to my work as a QA engineer in payments and online banking. The other leads to The Willow Atelier, where I make art.',
@@ -44,8 +40,8 @@
       'meta.404.title': 'Page not found · Kevin JG',
       'meta.404.desc': 'This page doesn’t exist. Head back to the gate.',
 
-      'gate.intro': 'Open one.',
-      'gate.doors': 'Notebooks',
+      'gate.intro': 'Choose a door.',
+      'gate.doors': 'Doors',
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
       'gate.tap': 'Tap to open',
@@ -182,7 +178,7 @@
       'art.links.shop': 'Shop',
       'art.links.soon': '[Link coming soon]',
 
-      'nf.title': 'This page has been erased.',
+      'nf.title': 'Nothing behind this door.',
       'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.'
     },
 
@@ -194,14 +190,10 @@
       'common.lang': 'Bahasa',
       'common.menu': 'Menu',
       'common.made': 'Dibuat dengan bantuan Claude',
-      'common.contents': 'Daftar isi',
-      'book.qa': 'Catatan uji',
-      'book.art': 'Buku sketsa',
-      'gate.name': 'Nama',
       'qa.board.period': 'Periode',
       'qa.board.role': 'Peran',
       'qa.board.type': 'Jenis',
-      'qa.toArt.label': 'Buku yang satu lagi',
+      'qa.toArt.label': 'Pintu yang satu lagi',
 
       'meta.gate.title': 'Kevin JG · QA Engineer dan The Willow Atelier',
       'meta.gate.desc': 'Dua pintu. Satu menuju pekerjaan saya sebagai QA engineer di bidang pembayaran dan online banking. Satu lagi menuju The Willow Atelier, tempat saya berkarya seni.',
@@ -212,8 +204,8 @@
       'meta.404.title': 'Halaman tidak ditemukan · Kevin JG',
       'meta.404.desc': 'Halaman ini tidak ada. Silakan kembali ke gerbang.',
 
-      'gate.intro': 'Buka salah satu.',
-      'gate.doors': 'Buku catatan',
+      'gate.intro': 'Pilih salah satu pintu.',
+      'gate.doors': 'Pintu',
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
       'gate.tap': 'Ketuk untuk membuka',
@@ -350,7 +342,7 @@
       'art.links.shop': 'Toko',
       'art.links.soon': '[Tautan segera hadir]',
 
-      'nf.title': 'Halaman ini sudah dihapus.',
+      'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
       'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.'
     },
 
@@ -362,14 +354,10 @@
       'common.lang': '言語',
       'common.menu': 'メニュー',
       'common.made': 'Claudeの協力で制作',
-      'common.contents': '目次',
-      'book.qa': 'テストノート',
-      'book.art': 'スケッチブック',
-      'gate.name': 'なまえ',
       'qa.board.period': '期間',
       'qa.board.role': '役職',
       'qa.board.type': '種別',
-      'qa.toArt.label': 'もう一冊のノート',
+      'qa.toArt.label': 'もうひとつの扉',
 
       'meta.gate.title': 'Kevin JG · QAエンジニアと The Willow Atelier',
       'meta.gate.desc': '二つの扉。ひとつは決済とオンラインバンキングのQAエンジニアとしての仕事へ。もうひとつは、アートをつくる The Willow Atelier へ。',
@@ -380,8 +368,8 @@
       'meta.404.title': 'ページが見つかりません · Kevin JG',
       'meta.404.desc': 'このページは存在しません。門へお戻りください。',
 
-      'gate.intro': 'どちらか一冊を開いてください。',
-      'gate.doors': 'ノート',
+      'gate.intro': '扉をひとつ選んでください。',
+      'gate.doors': '扉',
       'gate.qa': 'QAエンジニア',
       'gate.art': 'The Willow Atelier',
       'gate.tap': 'タップして開く',
@@ -518,7 +506,7 @@
       'art.links.shop': 'ショップ',
       'art.links.soon': '[リンク準備中]',
 
-      'nf.title': 'このページは、消しゴムで消されました。',
+      'nf.title': 'この扉の向こうには、何もありません。',
       'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。'
     }
   };

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-dark">
 <head>
   <meta charset="utf-8">
   <!-- GitHub Pages serves this file at whatever address was missed (say /foo/bar),
@@ -14,7 +14,7 @@
   <meta name="description" content="This page doesn’t exist. Head back to the gate." data-i18n-attr="content:meta.404.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f4f6fa">
+  <meta name="theme-color" content="#2340d8">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kevin JG">
@@ -31,14 +31,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@400;700;900&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js" defer></script>
 </head>
-<body class="lost-page graph">
+<body class="lost-page">
   <header class="topbar">
     <div class="topbar__end">
       <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
@@ -51,23 +51,22 @@
 
   <main class="lost" id="main" data-testid="section-not-found">
     <div class="lost__inner">
-      <div class="lost__mark" aria-hidden="true">
-        <p class="lost__number">404</p>
-        <div class="lost__crumbs"></div>
-      </div>
-      <div>
-        <h1 class="lost__title" data-i18n="nf.title">This page has been erased.</h1>
-        <p class="lost__text" data-i18n="nf.text">The page you’re looking for isn’t here. The link may be old or mistyped.</p>
-        <a class="btn" href="./" data-transition="dark" data-testid="back-to-gate">
-          <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-          <span data-i18n="common.back">Back to the gate</span>
-        </a>
+      <p class="lost__number" aria-hidden="true">404</p>
+      <div class="lost__row">
+        <h1 class="lost__title" data-i18n="nf.title">Nothing behind this door.</h1>
+        <div>
+          <p class="lost__text" data-i18n="nf.text">The page you’re looking for isn’t here. The link may be old or mistyped.</p>
+          <a class="btn" href="./" data-transition="light" data-testid="back-to-gate">
+            <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span data-i18n="common.back">Back to the gate</span>
+          </a>
+        </div>
       </div>
     </div>
   </main>
 
-  <footer class="ruler" data-testid="site-footer">
-    <p class="credit"><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
+  <footer class="credit" data-testid="site-footer">
+    <p><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
 </body>
 </html>

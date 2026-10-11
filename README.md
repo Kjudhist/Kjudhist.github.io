@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on a desk: two notebooks on a cutting mat under a name sticker reading "Kevin JG". The white notebook holds my QA work; the royal blue sketchbook is The Willow Atelier, where I keep my art.
+My personal site. It opens on one screen split in two: a white field that goes to my QA work, and a royal blue field that goes to The Willow Atelier, where I keep my art, with one circle split across the seam.
 
-The look is *bungu* (文具), Japanese stationery, written in royal blue fountain-pen ink: graph paper, masking tape, sticky notes, a red inspection stamp, a postcard, staff paper and manuscript squares. The QA side is white paper with blue ink; the atelier is the royal blue itself with white paper taped to it. Printed text is Zen Kaku Gothic New; anything handwritten is Klee One. The design system is written down in `DESIGN.md`.
+The look is a Japanese modernist poster: royal blue and white in flat fields, one circle, heavy wide Latin type (Archivo) and Japanese set vertically beside it (Noto Sans JP). The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** a name sticker and two notebooks on a cutting mat, with a ruler along the bottom. Each notebook is a link. Hover, focus or tap once and its cover lifts (the QA notebook sideways, the sketchbook up on its spiral); click or tap again and the cover swings open, then ink spreads over the screen into the next page.
-- **QA (the white notebook):** the first page has my name, the pitch in pen with a red 検査済 (inspected) stamp, and a contents sheet linking to the four pages. About has a sticky note of facts; Experience is a test log with the current role circled in red pen, then index cards; Skills are label stickers; Contact is a postcard with the CV taped beside it. The last page hands you the sketchbook.
-- **The Willow Atelier (the sketchbook):** royal blue throughout. The title is handwritten across the first page, with three divider tabs for:
-  1. **Drawing & Painting**, sheets taped to the page
-  2. **Photography**, prints held by photo corners, scrolled sideways
-  3. **Music**, a sheet of staff paper, one track per staff
+- **Gate:** "Kevin JG" on the white field, with the two fields as doors. Hover, focus or tap once and a field widens; click or tap again and it takes the whole page, then the next page's colour rises from the bottom.
+- **QA (the white side):** the name set wide and heavy, 品質保証 down the edge, and a royal band with the pitch. Each section opens on a heavy rule with its Japanese name set vertically. Experience is a ruled table with the current role in royal; skills lead with testing, set large; contact is the address set large on a royal field with the CV beside it. The page ends on a royal field that leads to the atelier.
+- **The Willow Atelier (the royal side):** the name in white beside a white circle with 柳, then an index of:
+  1. **Drawing & Painting**, a grid of frames
+  2. **Photography**, a row of frames scrolled sideways
+  3. **Music**, a ruled list of tracks
 
-  Then the story on manuscript paper (原稿用紙), the poem written into its squares, and two cards for Instagram and the shop.
+  Then the story with the poem set vertically, and two large rows for Instagram and the shop.
 
-With reduced motion turned on, nothing swings or writes itself in: covers still open, but instantly.
+With reduced motion turned on, nothing slides: fields still open, but instantly.
 
 ## Replacing placeholders
 
@@ -103,8 +103,8 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Drawings and paintings | six empty taped sheets ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `piece--wide` makes a landscape sheet. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
-| Photos | six prints ("Photo 1" to "Photo 6") under Photography. Same swap as above; `print--tall` makes a portrait print |
+| Drawings and paintings | six empty frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `piece--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `print--tall` makes a portrait frame |
 | Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
 | A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
@@ -145,7 +145,7 @@ Key elements carry `data-testid` attributes:
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
 - Gate cues: `door-qa-cue`, `door-art-cue`
-- Gate name sticker: `station-sign`
+- Gate name: `station-sign`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 

@@ -6,7 +6,7 @@
   <title data-i18n="meta.qa.title">Kevin Judhistira Girsang · QA Engineer</title>
   <meta name="description" content="Product-focused QA engineer at Inteleq (Indivara Group) in Jakarta, testing payment and online banking products." data-i18n-attr="content:meta.qa.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#f4f6fa">
+  <meta name="theme-color" content="#ffffff">
   <link rel="canonical" href="https://kjudhist.github.io/qa/">
 
   <meta property="og:type" content="profile">
@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-gate.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Two notebooks on a blue cutting mat: a white one labelled QA Engineer and a royal blue sketchbook labelled The Willow Atelier.">
+  <meta property="og:image:alt" content="A poster split into a white field and a royal blue field, one circle across the seam: QA Engineer on the left, The Willow Atelier on the right.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,14 +33,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@400;700;900&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/qa.css">
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
 </head>
-<body class="qa graph">
+<body class="qa">
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
@@ -71,16 +71,18 @@
 
   <main id="main">
 
-    <!-- Hero: the notebook's first page, with its contents -->
+    <!-- Hero: the name, wide and heavy, and a royal band under it -->
     <section class="hero" id="top" data-testid="section-hero">
-      <div class="wrap hero__grid">
-        <div class="hero__main">
-          <h1 class="hero__name" translate="no">Kevin Judhistira Girsang</h1>
-          <div class="hero__pitchline">
-            <p class="hero__pitch hand" data-reveal="write" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>
-            <span class="stamp" aria-hidden="true">検査済</span>
+      <div class="wrap hero__top">
+        <h1 class="hero__name" translate="no">Kevin Judhistira Girsang</h1>
+        <p class="hero__tate tate" lang="ja" aria-hidden="true">品質保証</p>
+      </div>
+      <div class="hero__band theme-dark">
+        <div class="wrap hero__bandin">
+          <div class="hero__copy">
+            <p class="hero__pitch" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>
+            <p class="hero__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</p>
           </div>
-          <p class="hero__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</p>
           <div class="hero__actions">
             <!-- CV not ready yet. When it is, turn this back into
                  <a class="btn" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf"> and drop the tip. -->
@@ -95,25 +97,16 @@
             </a>
           </div>
         </div>
-
-        <nav class="contents tape" aria-labelledby="contents-title">
-          <h2 class="contents__title hand" id="contents-title" data-i18n="common.contents">Contents</h2>
-          <ol class="contents__list">
-            <li><a class="contents__link" href="#about"><span data-i18n="qa.about.title">About me</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 1</span></a></li>
-            <li><a class="contents__link" href="#experience"><span data-i18n="qa.exp.title">Experience</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 2</span></a></li>
-            <li><a class="contents__link" href="#skills"><span data-i18n="qa.skills.title">Skills &amp; tools</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 3</span></a></li>
-            <li><a class="contents__link" href="#contact"><span data-i18n="qa.contact.title">Contact</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 4</span></a></li>
-          </ol>
-        </nav>
+        <span class="hero__disc" aria-hidden="true"></span>
       </div>
     </section>
 
-    <!-- p. 1 About -->
+    <!-- About -->
     <section class="section about" id="about" aria-labelledby="about-title" data-testid="section-about">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="about-title" data-i18n="qa.about.title">About me</h2>
-          <span class="pageno" aria-hidden="true">p. 1</span>
+          <span class="tate" lang="ja" aria-hidden="true">自己紹介</span>
         </header>
 
         <div class="about__grid">
@@ -123,7 +116,7 @@
             <p class="about__text about__text--key" data-reveal data-i18n="qa.about.p3">When I test, I keep the client’s side in mind: what they’ll actually get at the end, not just whether a case passes or fails.</p>
           </div>
 
-          <dl class="facts tape" aria-label="At a glance" data-i18n-attr="aria-label:qa.facts.label" data-reveal>
+          <dl class="facts" aria-label="At a glance" data-i18n-attr="aria-label:qa.facts.label" data-reveal>
             <div class="facts__item">
               <dt data-i18n="qa.facts.based">Based in</dt>
               <dd data-i18n="qa.facts.basedValue">Bekasi, Indonesia</dd>
@@ -145,12 +138,12 @@
       </div>
     </section>
 
-    <!-- p. 2 Experience: a test log, newest first -->
+    <!-- Experience: a table of roles, newest first -->
     <section class="section exp" id="experience" aria-labelledby="exp-title" data-testid="section-experience">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="exp-title" data-i18n="qa.exp.title">Experience</h2>
-          <span class="pageno" aria-hidden="true">p. 2</span>
+          <span class="tate" lang="ja" aria-hidden="true">経歴</span>
         </header>
 
         <div class="log" data-reveal>
@@ -212,12 +205,12 @@
       </div>
     </section>
 
-    <!-- p. 3 Skills & tools: label stickers -->
+    <!-- Skills & tools -->
     <section class="section skills" id="skills" aria-labelledby="skills-title" data-testid="section-skills">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="skills-title" data-i18n="qa.skills.title">Skills &amp; tools</h2>
-          <span class="pageno" aria-hidden="true">p. 3</span>
+          <span class="tate" lang="ja" aria-hidden="true">技能</span>
         </header>
 
         <div class="skillset">
@@ -274,38 +267,33 @@
     <!-- Case studies: hidden until there's something to show. The markup is in git history
          (commit "Add the QA page"); put it back here along with the "Work" link in the nav. -->
 
-    <!-- p. 4 Contact: a postcard, with the CV clipped to it -->
+    <!-- Contact: the address set large on royal, the CV beside it -->
     <section class="section contact" id="contact" aria-labelledby="contact-title" data-testid="section-contact">
       <div class="wrap">
-        <header class="page-head" data-reveal>
+        <header class="sec-head" data-reveal>
           <h2 class="section-title" id="contact-title" data-i18n="qa.contact.title">Contact</h2>
-          <span class="pageno" aria-hidden="true">p. 4</span>
+          <span class="tate" lang="ja" aria-hidden="true">連絡先</span>
         </header>
 
-        <div class="mail" data-reveal>
-          <div class="postcard">
-            <div class="postcard__top" aria-hidden="true">
-              <span class="postcard__stamp"></span>
-              <span class="postcard__print" lang="ja">郵便はがき</span>
-              <span class="postcard__zip"><i></i><i></i><i></i><b></b><i></i><i></i><i></i><i></i></span>
-            </div>
-            <p class="postcard__text" data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
-            <a class="postcard__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
-            <ul class="postcard__list">
-              <li class="postcard__item">
-                <span class="postcard__label" data-i18n="qa.contact.github">GitHub</span>
-                <a class="postcard__link" href="https://github.com/Kjudhist" rel="me" data-testid="contact-github">github.com/Kjudhist</a>
+        <div class="mail theme-dark" data-reveal>
+          <div class="addr">
+            <p class="addr__text" data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
+            <a class="addr__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
+            <ul class="addr__list">
+              <li class="addr__item">
+                <span class="addr__label" data-i18n="qa.contact.github">GitHub</span>
+                <a class="addr__link" href="https://github.com/Kjudhist" rel="me" data-testid="contact-github">github.com/Kjudhist</a>
               </li>
               <!-- LinkedIn, hidden for now. Uncomment and add the URL when ready.
-              <li class="postcard__item">
-                <span class="postcard__label">LinkedIn</span>
-                <a class="postcard__link" href="https://www.linkedin.com/in/your-handle" rel="me" data-testid="contact-linkedin">linkedin.com/in/your-handle</a>
+              <li class="addr__item">
+                <span class="addr__label">LinkedIn</span>
+                <a class="addr__link" href="https://www.linkedin.com/in/your-handle" rel="me" data-testid="contact-linkedin">linkedin.com/in/your-handle</a>
               </li>
               -->
             </ul>
           </div>
 
-          <div class="cvcard tape" id="cv" role="region" aria-labelledby="cv-title" data-testid="section-cv">
+          <div class="cvcard theme-light" id="cv" role="region" aria-labelledby="cv-title" data-testid="section-cv">
             <h3 class="cvcard__title" id="cv-title" data-i18n="qa.cv.title">CV</h3>
             <p class="cvcard__text" data-i18n="qa.cv.text">Everything above, on one page.</p>
             <!-- Same as the hero button: becomes a real download link once the CV is ready. -->
@@ -320,18 +308,18 @@
     </section>
   </main>
 
-  <!-- The last page: the other notebook is right there -->
+  <!-- The end: the other door, as a royal field -->
   <div class="qa-end theme-dark">
     <aside class="wrap">
       <a class="next-book" href="../art/" data-transition="dark" data-testid="link-to-art">
-        <span class="next-book__label" data-i18n="qa.toArt.label">The other notebook</span>
-        <span class="next-book__name hand" data-i18n="qa.toArt">Outside of work, I make art</span>
+        <span class="next-book__label" data-i18n="qa.toArt.label">The other door</span>
+        <span class="next-book__name" data-i18n="qa.toArt">Outside of work, I make art</span>
         <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
     </aside>
   </div>
-  <footer class="ruler" data-testid="site-footer">
-    <p class="credit"><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
+  <footer class="credit" data-testid="site-footer">
+    <p><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
   </footer>
 </body>
 </html>

@@ -50,7 +50,7 @@
     return veil;
   }
 
-  // Ink spreads over the page in the next page's colour, then go. tone: "light" | "dark".
+  // The next page's colour rises over this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -89,23 +89,15 @@
       });
       return;
     }
-    // Handwriting starts fully clipped, which can hide it from the observer:
-    // watch its parent instead.
-    const byTarget = new Map();
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        (byTarget.get(entry.target) || []).forEach(function (el) {
-          el.classList.add('is-visible');
-        });
+        entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
     items.forEach(function (el) {
-      const target = el.getAttribute('data-reveal') === 'write' ? el.parentElement : el;
-      if (!byTarget.has(target)) byTarget.set(target, []);
-      byTarget.get(target).push(el);
-      observer.observe(target);
+      observer.observe(el);
     });
   }
 

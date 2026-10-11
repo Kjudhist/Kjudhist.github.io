@@ -2,13 +2,13 @@
    Gate doors.
    Hover and keyboard focus peek through CSS alone. This file handles touch
    (first tap peeks, second tap enters), the full open on click, and the
-   ink that carries you into the next page.
+   colour that carries you into the next page.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  const OPEN_MS = 700; // the cover swings open before the ink spreads
+  const OPEN_MS = 700; // the field takes the page before the next colour rises
   const ENTER_MS = 120;
   const REDUCED_OPEN_MS = 250;
 

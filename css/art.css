@@ -1,23 +1,17 @@
 /* ==========================================================================
-   The Willow Atelier: the royal blue sketchbook.
-   The page is the ink itself. The title is written across it in white,
-   the three parts are divider tabs, and the work is paper taped on:
-   sheets for drawings and paintings, prints with photo corners, a sheet
-   of staff paper for music, manuscript squares for the story, and two
-   cards at the back for where to find the atelier.
+   The Willow Atelier: the royal side of the poster.
+   A royal field throughout. The name runs wide in white beside a white
+   circle with 柳 cut into it; an index of the three kinds of work sits on
+   a rule below. Works hang in a plain grid of frames; photographs scroll
+   sideways; tracks are a ruled list; the poem is set vertically.
    ========================================================================== */
 
 body.art {
-  background-color: var(--royal);
-  /* the board's grain: two faint washes of deeper ink */
-  background-image:
-    radial-gradient(ellipse 60% 40% at 85% 8%, rgba(10, 22, 72, 0.32), transparent 70%),
-    radial-gradient(ellipse 50% 50% at 5% 60%, rgba(10, 22, 72, 0.2), transparent 70%);
-  background-repeat: no-repeat;
+  background: var(--royal);
 }
 
 /* --------------------------------------------------------------------------
-   Hero: the title, written large in white
+   Hero
    -------------------------------------------------------------------------- */
 
 .art-hero {
@@ -26,122 +20,119 @@ body.art {
   padding: clamp(3rem, 9vw, 8rem) 0 0;
 }
 
-.art-hero__kanji {
-  position: absolute;
-  top: -0.12em;
-  right: -0.08em;
-  font-family: var(--font-hand);
-  font-size: clamp(20rem, 12rem + 34vw, 50rem);
-  font-weight: 600;
-  line-height: 1;
-  color: transparent;
-  -webkit-text-stroke: 2px rgba(205, 217, 255, 0.28);
-  pointer-events: none;
-  user-select: none;
-}
-
-.art-hero .wrap {
-  position: relative;
-}
-
-.art-hero__title {
-  max-width: 11ch;
-  font-size: clamp(3.4rem, 1.4rem + 8.6vw, 10rem);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  color: #fff;
-}
-
-.art-hero__title span {
-  display: inline-block;
-  padding-bottom: 0.08em;
-}
-
-.art-hero__tagline {
-  margin-top: clamp(1.25rem, 2.5vw, 2rem);
-  max-width: 28rem;
-  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-  font-weight: 500;
-  color: var(--sky);
-}
-
-/* divider tabs: three white tabs standing up from the bottom of the page */
-.tabs {
-  margin-top: clamp(3rem, 8vw, 6.5rem);
-}
-
-.tabs__list {
+.art-hero__top {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.4rem, 1vw, 0.75rem);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
 }
 
-.tabs__tab {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  min-height: 100%;
-  padding: 1.1rem clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.4rem);
-  border-radius: 12px 12px 0 0;
-  background: var(--sheet);
-  color: var(--ink);
-  transform: translateY(0.6rem);
-  transition: transform 0.45s var(--ease-out), background-color 0.3s var(--ease);
-}
-
-.tabs__tab:hover {
-  transform: translateY(0);
-}
-
-.tabs__list li:nth-child(2) .tabs__tab {
-  background: #e3eaff;
-}
-
-.tabs__list li:nth-child(3) .tabs__tab {
-  background: var(--sky);
-}
-
-.tabs__tab .pageno {
+.art-hero__disc {
+  display: grid;
+  place-items: center;
+  width: clamp(12rem, 30vw, 30rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--white);
   color: var(--royal);
 }
 
-.tabs__name {
-  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+.art-hero__disc span {
+  font-family: var(--font-jp);
+  font-size: clamp(6rem, 2rem + 11vw, 17rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1;
+}
+
+.art-hero__title {
+  max-width: 9ch;
+  font-size: clamp(3.2rem, 0.8rem + 7.4vw, 9rem);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+  color: var(--white);
+}
+
+.art-hero__tagline {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 26rem;
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.4rem);
+  font-weight: 600;
+  color: var(--white);
+}
+
+/* the index: three columns on a heavy rule */
+.index {
+  margin-top: clamp(4rem, 10vw, 8rem);
+}
+
+.index__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 6px solid var(--white);
+}
+
+.index__list li + li {
+  border-left: 1px solid var(--line);
+}
+
+.index__link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.1rem 1.25rem 2.5rem;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.index__list li:first-child .index__link {
+  padding-left: 0;
+}
+
+.index__name {
+  font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.7rem);
+  font-weight: 800;
+  font-stretch: 112%;
+  line-height: 1.15;
+  color: var(--white);
+}
+
+.index__jp {
+  order: 2;
+  font-family: var(--font-jp);
+  font-weight: 700;
+  color: var(--pale);
+}
+
+.index__link:hover {
+  background: var(--royal-2);
 }
 
 /* --------------------------------------------------------------------------
    Sections
    -------------------------------------------------------------------------- */
 
-.art .page-head {
-  align-items: flex-end;
-  border-bottom-color: rgba(255, 255, 255, 0.6);
-}
-
 .room__text {
-  margin-top: 0.65rem;
+  margin-top: 0.9rem;
   font-size: 1.1rem;
 }
 
 .art .ph {
-  color: var(--sky);
+  color: var(--pale);
 }
 
-/* an empty sheet, waiting for a piece */
+/* an empty frame, waiting for a piece */
 .slot {
   display: grid;
   place-items: center;
   width: 100%;
   height: 100%;
-  background: #fbfcff;
-  box-shadow: inset 0 0 0 1px rgba(35, 72, 200, 0.1);
-  font-family: var(--font-hand);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--pencil);
+  background: var(--royal-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-weight: 700;
+  color: var(--pale);
 }
 
 .work__open {
@@ -161,71 +152,35 @@ body.art {
 }
 
 /* --------------------------------------------------------------------------
-   p. 1 Drawing & painting: sheets taped up
+   Drawing & painting: a plain grid of frames
    -------------------------------------------------------------------------- */
 
 .wall {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(2.5rem, 5vw, 4.5rem) clamp(1.25rem, 3vw, 2.75rem);
-  padding-top: 1rem;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .piece {
-  position: relative;
-  aspect-ratio: 5 / 7;
-  padding: clamp(0.6rem, 1.2vw, 0.9rem);
-  background: var(--sheet);
-  box-shadow: 0 22px 34px -22px var(--shadow);
-  transform: rotate(var(--tilt, 0deg));
-  transition: transform 0.5s var(--ease-out);
+  aspect-ratio: 4 / 5;
 }
 
 .piece--wide {
   grid-column: span 2;
-  aspect-ratio: 7 / 5;
-  align-self: center;
-}
-
-.piece::before {
-  content: "";
-  position: absolute;
-  top: -0.85rem;
-  left: 50%;
-  z-index: 2;
-  width: clamp(4rem, 34%, 7rem);
-  height: 1.6rem;
-  background: rgba(205, 217, 255, 0.78);
-  box-shadow: 0 1px 2px rgba(10, 22, 72, 0.15);
-  transform: translateX(-50%) rotate(var(--tape-tilt, -3deg));
-}
-
-.piece:nth-child(1) { --tilt: -1.8deg; }
-.piece:nth-child(2) { --tilt: 1.2deg; --tape-tilt: 4deg; }
-.piece:nth-child(3) { --tilt: -0.6deg; }
-.piece:nth-child(4) { --tilt: 0.9deg; --tape-tilt: 2deg; }
-.piece:nth-child(5) { --tilt: -1.2deg; }
-.piece:nth-child(6) { --tilt: 2deg; --tape-tilt: -5deg; }
-
-.piece:hover {
-  transform: rotate(0deg) translateY(-0.3rem);
+  aspect-ratio: auto;
 }
 
 /* --------------------------------------------------------------------------
-   p. 2 Photography: prints with photo corners, scrolled sideways
+   Photography: a row that scrolls sideways
    -------------------------------------------------------------------------- */
-
-.album {
-  margin-top: 0.5rem;
-}
 
 .strip {
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
   scrollbar-width: thin;
-  scrollbar-color: var(--sky) transparent;
-  padding: 1.75rem 0 2rem;
+  scrollbar-color: var(--pale) transparent;
+  padding-bottom: 1.5rem;
 }
 
 .strip:focus-visible {
@@ -234,67 +189,32 @@ body.art {
 
 .strip__track {
   display: flex;
-  align-items: center;
-  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: flex-end;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
   width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 74rem) / 2);
+  padding-inline: max(var(--gutter), (100vw - 80rem) / 2);
 }
 
 .print {
-  position: relative;
   flex: none;
-  width: clamp(16rem, 34vw, 26rem);
+  width: clamp(16rem, 36vw, 30rem);
   aspect-ratio: 3 / 2;
-  padding: 0.6rem;
-  background: var(--sheet);
-  box-shadow: 0 20px 30px -20px var(--shadow);
-  scroll-snap-align: center;
+  scroll-snap-align: start;
 }
 
 .print--tall {
-  width: clamp(12rem, 22vw, 17rem);
+  width: clamp(11rem, 22vw, 18rem);
   aspect-ratio: 2 / 3;
-}
-
-.print:nth-child(odd) {
-  transform: rotate(-1deg);
-}
-
-.print:nth-child(even) {
-  transform: rotate(1.2deg);
-}
-
-/* photo corners: little dark triangles holding each print to the page */
-.print::before,
-.print::after {
-  content: "";
-  position: absolute;
-  z-index: 2;
-  width: 2.1rem;
-  height: 2.1rem;
-  background: var(--royal-4);
-}
-
-.print::before {
-  top: -0.4rem;
-  left: -0.4rem;
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-.print::after {
-  right: -0.4rem;
-  bottom: -0.4rem;
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 
 .strip__hint {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  width: min(100% - 2 * var(--gutter), 74rem);
-  margin: 0 auto;
-  font-size: 1.05rem;
-  color: var(--sky);
+  width: min(100% - 2 * var(--gutter), 80rem);
+  margin: 0.5rem auto 0;
+  font-weight: 600;
+  color: var(--pale);
 }
 
 .strip__hint .arrow {
@@ -308,71 +228,52 @@ body.art {
 }
 
 /* --------------------------------------------------------------------------
-   p. 3 Music: staff paper (五線譜), one track per staff
+   Music: a ruled list
    -------------------------------------------------------------------------- */
 
-.score {
-  --staff: rgba(19, 26, 56, 0.2);
-  padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 3vw, 2.5rem);
-  background: var(--sheet);
-  color: var(--ink);
-  box-shadow: 0 26px 40px -28px var(--shadow);
+.tracks {
+  border-top: 2px solid var(--white);
 }
 
 .track {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  grid-template-columns: clamp(3rem, 7vw, 6rem) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1rem clamp(1rem, 2.5vw, 2rem);
-  min-height: 6.5rem;
-  padding: 1rem 0;
-  /* five lines of a staff behind each track */
-  background: repeating-linear-gradient(transparent 0 calc(0.85rem - 1px), var(--staff) calc(0.85rem - 1px) 0.85rem) 0 50% / 100% 4.25rem no-repeat;
-}
-
-.track + .track {
-  border-top: 1px dashed var(--line);
+  gap: 1rem clamp(1rem, 3vw, 2.5rem);
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
 }
 
 .track__no {
-  display: grid;
-  place-items: center;
-  width: 2.6rem;
-  aspect-ratio: 1;
-  border: 2px solid var(--royal);
-  border-radius: 50%;
-  background: var(--sheet);
-  font-size: 1.25rem;
-  color: var(--royal);
+  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--white);
 }
 
 .track__body {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.15rem 1rem;
-  width: fit-content;
-  padding: 0.2rem 0.75rem;
-  background: var(--sheet);
+  gap: 0.15rem 1.25rem;
 }
 
 .track__title {
-  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
-}
-
-.score .ph {
-  color: var(--pencil);
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  font-weight: 700;
 }
 
 .track__play {
   position: relative;
   display: grid;
   place-items: center;
-  width: 3rem;
-  height: 3rem;
+  width: 3.2rem;
+  height: 3.2rem;
   border-radius: 50%;
-  background: var(--royal);
-  color: #fff;
+  background: var(--white);
+  color: var(--royal);
 }
 
 .track__play svg {
@@ -383,153 +284,109 @@ body.art {
 
 .track__play.is-pending {
   cursor: not-allowed;
-  background: var(--sheet);
-  color: var(--pencil);
-  box-shadow: inset 0 0 0 1.5px var(--line-strong);
+  background: transparent;
+  color: var(--pale);
+  box-shadow: inset 0 0 0 1.5px var(--line);
 }
 
-.score .tip {
+.tracks .tip {
   left: auto;
   right: 0;
-  transform: translate(0, 0.3rem) rotate(-2deg);
+  transform: translate(0, 0.3rem);
 }
 
-.score .is-pending:hover .tip,
-.score .is-pending:focus-visible .tip {
-  transform: translate(0, 0) rotate(-2deg);
+.tracks .is-pending:hover .tip,
+.tracks .is-pending:focus-visible .tip {
+  transform: none;
 }
 
 /* --------------------------------------------------------------------------
-   p. 4 About: manuscript paper
+   About: the poem set vertically, the story beside it
    -------------------------------------------------------------------------- */
 
-.story__sheet {
+.story__grid {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
-  padding: clamp(1.5rem, 4vw, 3.5rem);
-  background: var(--sheet);
-  color: var(--fg);
-  box-shadow: 0 26px 40px -28px var(--shadow);
+  gap: clamp(2.5rem, 7vw, 7rem);
 }
 
-/* 原稿用紙: squares in royal blue, read top to bottom, right to left */
-.genko {
-  --cell: clamp(2.3rem, 1.9rem + 1.2vw, 3rem);
-  padding: 0.5rem;
-  border: 2px solid var(--royal);
-}
-
-.genko__cells {
-  display: grid;
-  grid-template-rows: repeat(7, var(--cell));
-  grid-auto-flow: column;
-  grid-auto-columns: var(--cell);
-  direction: rtl;
-  width: calc(var(--cell) * 4);
-  background:
-    linear-gradient(90deg, rgba(35, 72, 200, 0.55) 1px, transparent 1px) 0 0 / var(--cell) var(--cell),
-    linear-gradient(rgba(35, 72, 200, 0.55) 1px, transparent 1px) 0 0 / var(--cell) var(--cell);
-  box-shadow: inset -1px -1px 0 rgba(35, 72, 200, 0.55);
-}
-
-.genko__cells span {
-  display: grid;
-  place-items: center;
-  font-family: var(--font-hand);
-  font-size: calc(var(--cell) * 0.6);
-  font-weight: 600;
-  line-height: 1;
-  color: var(--ink);
-}
-
-/* in vertical writing the comma and full stop sit in the top right of their square */
-.genko__cells span:nth-child(7),
-.genko__cells span:nth-child(14) {
-  place-items: start end;
-  padding: 0.1em 0.2em 0 0;
+.poem {
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.6rem);
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  color: var(--white);
 }
 
 .story__body {
   display: grid;
   gap: 1.1rem;
   max-width: 40rem;
+  padding-top: 0.5rem;
 }
 
 .story__lead {
-  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.5rem);
-}
-
-.story__sheet .ph {
-  color: var(--pencil);
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.6rem);
 }
 
 /* --------------------------------------------------------------------------
-   p. 5 Find us: two cards
+   Find us: two large rows
    -------------------------------------------------------------------------- */
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.75rem, 4vw, 3.5rem);
-  padding-top: 1rem;
+  border-top: 2px solid var(--white);
 }
 
 .card {
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.35rem 1rem;
-  padding: 2.2rem clamp(1.25rem, 3vw, 2.25rem) 1.9rem;
-  background: var(--sheet);
-  color: var(--ink);
-  box-shadow: 0 22px 34px -24px var(--shadow);
-  transform: rotate(-1deg);
-  transition: transform 0.45s var(--ease-out);
-}
-
-.cards li:nth-child(2) .card {
-  transform: rotate(1.3deg);
-  --tape-tilt: 3deg;
+  gap: 0.25rem 1.5rem;
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--white);
 }
 
 .card__name {
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.4rem);
-  font-weight: 900;
-  line-height: 1.15;
+  font-size: clamp(2rem, 1rem + 4vw, 5rem);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+html[lang="ja"] .card__name {
+  font-stretch: 100%;
+  letter-spacing: 0;
 }
 
 .card__note {
   grid-row: 2;
-  font-family: var(--font-hand);
   font-weight: 600;
-  color: var(--pencil);
+  color: var(--pale);
 }
 
 .card__arrow {
   grid-column: 2;
   grid-row: 1 / span 2;
-  width: 2.6rem;
+  width: clamp(2.6rem, 5vw, 4.5rem);
   height: auto;
   aspect-ratio: 32 / 10;
-  color: var(--royal);
 }
 
-.card[href]:hover {
-  transform: rotate(0deg) translateY(-0.3rem);
+.card[href]:hover .card__arrow {
+  transform: translateX(0.5rem);
 }
 
 .card:not([href]) .card__arrow {
-  color: var(--line-strong);
+  color: var(--line);
 }
 
 /* --------------------------------------------------------------------------
    Footer
    -------------------------------------------------------------------------- */
 
-.art-ruler {
+.art-credit {
   margin-top: var(--section-space);
 }
 
@@ -546,11 +403,11 @@ body.art {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #e8eeff;
+  color: #e6eaff;
 }
 
 .viewer::backdrop {
-  background: rgba(10, 22, 72, 0.95);
+  background: rgba(15, 31, 122, 0.96);
 }
 
 .viewer[open] {
@@ -585,8 +442,6 @@ body.art {
   max-width: min(100%, 72rem);
   max-height: 78dvh;
   width: auto;
-  padding: 0.6rem;
-  background: var(--sheet);
 }
 
 .viewer__caption {
@@ -597,12 +452,12 @@ body.art {
 
 .viewer__title {
   font-weight: 700;
-  color: #fff;
+  color: var(--white);
 }
 
 .viewer__meta {
   font-size: 0.9rem;
-  color: var(--sky);
+  color: var(--pale);
 }
 
 .viewer__close {
@@ -613,7 +468,7 @@ body.art {
   height: 44px;
   border: 0;
   border-radius: 50%;
-  background: var(--sheet);
+  background: var(--white);
   cursor: pointer;
 }
 
@@ -642,50 +497,51 @@ body.art {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .story__sheet {
-    grid-template-columns: 1fr;
-  }
-
-  .genko {
-    justify-self: start;
+  .piece--wide {
+    aspect-ratio: 8 / 5;
   }
 }
 
 @media (max-width: 639.98px) {
-  .tabs__list {
+  .art-hero__top {
     grid-template-columns: 1fr;
-    gap: 0;
   }
 
-  .tabs__tab {
-    flex-direction: row;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 0.9rem 1.1rem 1rem;
-    border-radius: 12px 12px 0 0;
-    transform: none;
+  .art-hero__disc {
+    order: -1;
+    justify-self: end;
+    width: 8.5rem;
   }
 
-  .tabs__list li + li {
-    margin-top: -0.5rem;
+  .art-hero__disc span {
+    font-size: 5rem;
   }
 
-  .tabs__tab:hover {
-    transform: none;
-  }
-
-  .cards {
+  .index__list {
     grid-template-columns: 1fr;
+  }
+
+  .index__list li + li {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .index__link,
+  .index__list li:first-child .index__link {
+    padding: 1rem 0;
+  }
+
+  .story__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .poem {
+    justify-self: end;
   }
 
   .track {
     grid-template-columns: 2.6rem minmax(0, 1fr) auto;
     gap: 0.75rem;
-  }
-
-  .track__no {
-    width: 2.3rem;
-    font-size: 1.1rem;
   }
 }
 
@@ -694,11 +550,5 @@ body.art {
   .viewer[open],
   .viewer.is-closing {
     animation: none;
-  }
-
-  .piece,
-  .card,
-  .tabs__tab {
-    transition: none;
   }
 }

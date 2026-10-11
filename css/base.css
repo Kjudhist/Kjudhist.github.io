@@ -2,93 +2,70 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is bungu (文具): Japanese stationery. Pages are graph-paper
-   notebooks written in royal blue fountain-pen ink; the atelier is the
-   royal blue itself, a sketchbook with white paper taped to it. Printed
-   text is Zen Kaku Gothic New; anything handwritten is Klee One, a pencil
-   hand from Japanese schoolbooks.
+   The world is a Japanese modernist poster, 1960s Tokyo by way of Swiss
+   grids: two colours, royal blue and white, set in flat fields; one
+   circle; heavy wide type; thin rules; Japanese set vertically beside it.
+   Archivo (with its width axis) for Latin, Noto Sans JP for Japanese.
    ========================================================================== */
 
-/* Japanese faces draw quotes and the middle dot full-width; take those few
-   characters from the system's Latin sans instead. */
-@font-face {
-  font-family: "Latin Punct";
-  src: local("Segoe UI"), local("Helvetica Neue"), local("Helvetica"), local("Arial"), local("Roboto");
-  unicode-range: U+2018-2019, U+201C-201D, U+00B7;
-}
-
 :root {
-  /* paper */
-  --paper: #f4f6fa;
-  --sheet: #ffffff;
-  --grid: rgba(35, 72, 200, 0.075);
-  --grid-strong: rgba(35, 72, 200, 0.13);
+  --royal: #2340d8;      /* the field */
+  --royal-2: #1a32b4;    /* pressed, hover on royal */
+  --royal-3: #0f1f7a;    /* deep: slots, viewer */
+  --white: #ffffff;
+  --paper: #f3f4f8;      /* off-white for quiet panels */
+  --ink: #0b1030;        /* text on white */
+  --ink-2: #2b3152;
+  --grey: #5a6080;
+  --pale: #c9d2ff;       /* secondary text on royal */
 
-  /* ink */
-  --royal: #2348c8;      /* royal blue fountain-pen ink */
-  --royal-2: #1a379f;
-  --royal-3: #10236e;    /* ink pooled deep */
-  --royal-4: #0a1648;
-  --sky: #cdd9ff;        /* pale blue: text and lines on royal */
-  --ink: #131a38;        /* blue-black ink */
-  --ink-2: #2d3657;
-  --pencil: #58617f;
-  --red: #c8352a;        /* red pen: stamps and corrections only */
-  --mat: #121a3c;        /* the cutting mat on the desk */
-
-  --radius: 4px;         /* paper corners */
-  --radius-pill: 999px;  /* labels and stickers */
-
-  /* light pages (QA, 404) */
-  --bg: var(--paper);
-  --bg-raised: var(--sheet);
+  /* white pages (QA, gate left) */
+  --bg: var(--white);
+  --bg-raised: var(--paper);
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
-  --muted: var(--pencil);
-  --line: rgba(19, 26, 56, 0.13);
-  --line-strong: rgba(19, 26, 56, 0.3);
+  --muted: var(--grey);
+  --line: rgba(11, 16, 48, 0.14);
+  --line-strong: var(--ink);
   --accent: var(--royal);
-  --accent-fg: #fff;
+  --accent-fg: var(--white);
   --focus: var(--royal);
-  --shadow: rgba(16, 35, 110, 0.18);
 
-  --font-sans: "Latin Punct", "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
-  --font-hand: "Latin Punct", "Klee One", "Zen Kaku Gothic New", cursive;
+  --font: "Archivo", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --font-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --gutter: clamp(1.25rem, 4.5vw, 4rem);
-  --section-space: clamp(5rem, 11vw, 9rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --section-space: clamp(5rem, 11vw, 10rem);
 }
 
-/* the royal blue pages */
+/* royal pages */
 .theme-dark {
   --bg: var(--royal);
   --bg-raised: var(--royal-2);
-  --fg: #e8eeff;
-  --fg-strong: #ffffff;
-  --muted: var(--sky);
-  --line: rgba(255, 255, 255, 0.2);
-  --line-strong: rgba(255, 255, 255, 0.42);
-  --accent: #ffffff;
+  --fg: #e6eaff;
+  --fg-strong: var(--white);
+  --muted: var(--pale);
+  --line: rgba(255, 255, 255, 0.24);
+  --line-strong: var(--white);
+  --accent: var(--white);
   --accent-fg: var(--royal);
-  --focus: #ffffff;
-  --shadow: rgba(6, 14, 50, 0.45);
+  --focus: var(--white);
 }
 
 .theme-light {
-  --bg: var(--paper);
-  --bg-raised: var(--sheet);
+  --bg: var(--white);
+  --bg-raised: var(--paper);
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
-  --muted: var(--pencil);
-  --line: rgba(19, 26, 56, 0.13);
-  --line-strong: rgba(19, 26, 56, 0.3);
+  --muted: var(--grey);
+  --line: rgba(11, 16, 48, 0.14);
+  --line-strong: var(--ink);
   --accent: var(--royal);
-  --accent-fg: #fff;
+  --accent-fg: var(--white);
   --focus: var(--royal);
-  --shadow: rgba(16, 35, 110, 0.18);
 }
 
 /* --------------------------------------------------------------------------
@@ -116,11 +93,10 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--bg);
-  font-family: var(--font-sans);
+  font-family: var(--font);
   font-weight: 400;
   font-size: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
-  line-height: 1.75;
-  letter-spacing: 0.01em;
+  line-height: 1.7;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -168,25 +144,24 @@ button {
 
 ::selection {
   background: var(--royal);
-  color: #fff;
+  color: var(--white);
 }
 
 .theme-dark ::selection {
-  background: #fff;
+  background: var(--white);
   color: var(--royal);
 }
 
 :focus-visible {
-  outline: 2.5px solid var(--focus);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  font-weight: 700;
+  font-weight: 800;
   text-wrap: balance;
 }
 
@@ -196,11 +171,11 @@ h4 {
 
 html[lang="ja"] body {
   line-height: 1.9;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
 }
 
 html[lang="ja"] :is(h1, h2, h3, h4) {
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   word-break: keep-all;
   word-break: auto-phrase;
   overflow-wrap: anywhere;
@@ -223,34 +198,28 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .wrap {
-  width: min(100% - 2 * var(--gutter), 74rem);
+  width: min(100% - 2 * var(--gutter), 80rem);
   margin-inline: auto;
 }
 
-/* graph paper (方眼): a faint blue grid, a stronger line every five squares */
-.graph {
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid-strong) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px),
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 6rem 6rem, 6rem 6rem, 1.2rem 1.2rem, 1.2rem 1.2rem;
-  background-position: -1px -1px;
+/* wide display type */
+.wide {
+  font-stretch: 125%;
 }
 
-/* handwriting */
-.hand {
-  font-family: var(--font-hand);
-  font-weight: 600;
-  letter-spacing: 0;
+/* Japanese set vertically, the way a poster runs it down the edge */
+.tate {
+  font-family: var(--font-jp);
+  font-weight: 900;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-/* Anything still waiting for real content: written in pencil. */
+/* Anything still waiting for real content. */
 .ph {
   color: var(--muted);
-  font-family: var(--font-hand);
-  font-weight: 400;
 }
 
 .skip-link {
@@ -259,9 +228,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   left: var(--gutter);
   z-index: 200;
   padding: 0.65rem 1.1rem;
-  border-radius: var(--radius);
   background: var(--royal);
-  color: #fff;
+  color: var(--white);
   font-weight: 700;
   transform: translateY(-160%);
   transition: transform 0.4s var(--ease);
@@ -269,30 +237,6 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 
 .skip-link:focus {
   transform: none;
-}
-
-/* a strip of masking tape: put it on anything with position: relative */
-.tape::before {
-  content: "";
-  position: absolute;
-  top: -0.85rem;
-  left: 50%;
-  z-index: 2;
-  width: clamp(4.5rem, 30%, 7.5rem);
-  height: 1.7rem;
-  background: rgba(205, 217, 255, 0.72);
-  box-shadow: 0 1px 2px rgba(10, 22, 72, 0.12);
-  transform: translateX(-50%) rotate(var(--tape-tilt, -3deg));
-}
-
-/* the page number in a notebook's corner */
-.pageno {
-  font-family: var(--font-hand);
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--muted);
-  letter-spacing: 0.02em;
-  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
@@ -317,7 +261,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 
 .topbar--sticky.is-scrolled {
   background-color: var(--bg);
-  box-shadow: 0 1px 0 var(--line), 0 8px 18px -14px var(--shadow);
+  box-shadow: 0 1px 0 var(--line);
 }
 
 .topbar__end {
@@ -331,7 +275,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   align-items: center;
   gap: 0.6rem;
   min-height: 44px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--fg-strong);
   white-space: nowrap;
@@ -367,7 +311,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Section nav: the current section gets a stroke of highlighter
+   Section nav: the current section is underlined in a solid bar
    -------------------------------------------------------------------------- */
 
 .nav {
@@ -378,16 +322,15 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .nav__list {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2vw, 1.9rem);
+  gap: clamp(1rem, 2vw, 2rem);
 }
 
 .nav__link {
   position: relative;
   display: inline-flex;
-  align-items: center;
-  padding: 0.55rem 0.1rem;
-  font-size: 0.92rem;
-  font-weight: 700;
+  padding: 0.55rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--muted);
   white-space: nowrap;
   transition: color 0.3s var(--ease);
@@ -396,15 +339,12 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .nav__link::after {
   content: "";
   position: absolute;
-  left: -0.25rem;
-  right: -0.25rem;
-  bottom: 0.55rem;
-  height: 0.55em;
-  z-index: -1;
-  border-radius: 2px 6px 3px 5px;
+  left: 0;
+  right: 0;
+  bottom: 0.25rem;
+  height: 3px;
   background: var(--accent);
-  opacity: 0.22;
-  transform: scaleX(0) skewX(-12deg);
+  transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.45s var(--ease-out);
 }
@@ -415,11 +355,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .nav__link[aria-current="true"]::after {
-  transform: scaleX(1) skewX(-12deg);
-}
-
-.theme-dark .nav__link::after {
-  opacity: 0.3;
+  transform: scaleX(1);
 }
 
 .nav__toggle {
@@ -429,7 +365,6 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   height: 44px;
   padding: 0;
   border: 0;
-  border-radius: var(--radius);
   background: none;
   cursor: pointer;
 }
@@ -438,9 +373,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .nav__toggle-lines::before {
   position: absolute;
   left: 50%;
-  width: 1.3rem;
+  width: 1.4rem;
   height: 2px;
-  border-radius: 2px;
   background: var(--fg-strong);
   transition: transform 0.4s var(--ease-out), top 0.4s var(--ease-out);
 }
@@ -475,7 +409,6 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
     display: block;
   }
 
-  /* on small screens the sections drop down as a list, one per rule */
   .nav__list {
     position: absolute;
     top: 100%;
@@ -484,16 +417,16 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    padding: 0.5rem var(--gutter) 1.25rem;
+    padding: 0.25rem var(--gutter) 1.25rem;
     background: var(--bg);
-    box-shadow: 0 1px 0 var(--line), 0 18px 30px -24px var(--shadow);
+    box-shadow: 0 1px 0 var(--line), 0 2px 0 var(--line);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition: clip-path 0.45s var(--ease-out), visibility 0s 0.45s;
   }
 
   .nav.is-open .nav__list {
-    clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 -2px 0);
     visibility: visible;
     transition: clip-path 0.45s var(--ease-out), visibility 0s;
   }
@@ -504,16 +437,17 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 
   .nav__link {
     display: flex;
-    padding: 0.85rem 0;
-    font-size: 1.15rem;
+    padding: 0.9rem 0;
+    font-size: 1.3rem;
+    font-weight: 800;
+    font-stretch: 112%;
     color: var(--fg-strong);
   }
 
   .nav__link::after {
-    left: -0.25rem;
     right: auto;
-    width: 6rem;
-    bottom: 0.95rem;
+    width: 2.5rem;
+    bottom: 0.5rem;
   }
 
   html:not(.js) .nav__toggle {
@@ -548,46 +482,47 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Language switcher: three index tabs, the chosen one pulled forward
+   Language switcher: three squares in a row, the chosen one filled
    -------------------------------------------------------------------------- */
 
 .lang {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  border: 1.5px solid var(--fg-strong);
 }
 
 .lang__opt {
-  min-width: 2.6rem;
+  min-width: 2.7rem;
   min-height: 38px;
-  padding: 0 0.65rem;
-  border: 1.5px solid var(--line-strong);
-  border-radius: var(--radius-pill);
+  padding: 0 0.6rem;
+  border: 0;
   background: transparent;
-  font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-family: var(--font);
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--fg);
+  color: var(--fg-strong);
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.lang__opt + .lang__opt {
+  border-left: 1.5px solid var(--fg-strong);
 }
 
 .lang__opt:hover {
-  color: var(--fg-strong);
-  border-color: var(--fg-strong);
+  background: var(--line);
 }
 
 .lang__opt[aria-pressed="true"] {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: var(--accent-fg);
+  background: var(--fg-strong);
+  color: var(--bg);
 }
 
 @media (max-width: 719.98px) {
   .lang__opt {
-    min-width: 2.3rem;
-    padding: 0 0.5rem;
+    min-width: 2.4rem;
+    padding: 0 0.45rem;
   }
 }
 
@@ -600,18 +535,17 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
-  min-height: 3.1rem;
+  gap: 0.9rem;
+  min-height: 3.2rem;
   padding: 0.75rem 1.5rem;
   border: 0;
-  border-radius: var(--radius-pill);
   background: var(--accent);
   color: var(--accent-fg);
-  font-family: var(--font-sans);
+  font-family: var(--font);
   font-size: 0.98rem;
   font-weight: 700;
   white-space: nowrap;
-  transition: background-color 0.3s var(--ease), transform 0.15s var(--ease);
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.15s var(--ease);
 }
 
 .btn:hover {
@@ -619,67 +553,51 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .theme-dark .btn:hover {
-  background: var(--sky);
+  background: var(--pale);
 }
 
 .btn:active {
   transform: translateY(1px);
 }
 
-.btn--ghost {
-  background: transparent;
-  color: var(--fg-strong);
-  box-shadow: inset 0 0 0 1.5px var(--fg-strong);
-}
-
-.btn--ghost:hover {
-  background: var(--fg-strong);
-  color: var(--bg);
-}
-
-/* a button that isn't ready yet: drawn in pencil, with a note on hover or focus */
+/* not ready yet: an outline, with a note on hover or focus */
 .btn.is-pending {
   cursor: not-allowed;
   background: transparent;
   color: var(--muted);
-  box-shadow: none;
-  outline: 1.5px dashed var(--line-strong);
-  outline-offset: -1.5px;
-}
-
-.btn.is-pending:focus-visible {
-  outline: 2.5px solid var(--focus);
-  outline-offset: 3px;
+  box-shadow: inset 0 0 0 1.5px var(--line);
 }
 
 .btn.is-pending:hover .arrow {
   transform: none;
 }
 
-/* a sticky note (付箋) */
 .tip {
   position: absolute;
   left: 50%;
   bottom: calc(100% + 0.6rem);
   padding: 0.4rem 0.75rem;
-  border-radius: 2px;
   white-space: nowrap;
-  font-family: var(--font-hand);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--ink);
-  background: var(--sky);
-  box-shadow: 0 4px 10px -4px var(--shadow);
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--white);
+  background: var(--ink);
   opacity: 0;
-  transform: translate(-50%, 0.3rem) rotate(-2deg);
+  transform: translate(-50%, 0.3rem);
   transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-out);
   pointer-events: none;
+}
+
+.theme-dark .tip {
+  color: var(--royal);
+  background: var(--white);
 }
 
 .is-pending:hover .tip,
 .is-pending:focus-visible .tip {
   opacity: 1;
-  transform: translate(-50%, 0) rotate(-2deg);
+  transform: translate(-50%, 0);
 }
 
 .arrow {
@@ -694,7 +612,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Sections: each starts on a fresh page, its number in the corner
+   Sections: a heavy rule, the title, and its name in Japanese down the side
    -------------------------------------------------------------------------- */
 
 .section {
@@ -702,52 +620,50 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   scroll-margin-top: 4.5rem;
 }
 
-.page-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  padding-bottom: 1rem;
-  margin-bottom: clamp(2rem, 4vw, 3.25rem);
-  border-bottom: 2px solid var(--fg-strong);
+.sec-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1.5rem;
+  padding-top: 1.1rem;
+  margin-bottom: clamp(2.25rem, 5vw, 4rem);
+  border-top: 6px solid var(--fg-strong);
+}
+
+.sec-head .tate {
+  font-size: clamp(1.1rem, 0.9rem + 0.8vw, 1.6rem);
+  color: var(--accent);
 }
 
 .section-title {
-  font-size: clamp(2.1rem, 1.4rem + 2.8vw, 4rem);
-  font-weight: 900;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.4rem, 1.2rem + 5vw, 6rem);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   color: var(--fg-strong);
 }
 
 html[lang="ja"] .section-title {
-  font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem);
-  line-height: 1.25;
-  letter-spacing: 0.02em;
+  font-size: clamp(2rem, 1.2rem + 3.4vw, 4.4rem);
+  line-height: 1.15;
+  letter-spacing: 0;
 }
 
 /* --------------------------------------------------------------------------
-   The ruler along the bottom of the page, and the credit on it
+   Footer credit
    -------------------------------------------------------------------------- */
 
-.ruler {
-  --tick: var(--ink);
-  position: relative;
-  padding: 2.4rem var(--gutter) 1.4rem;
-  background-color: var(--sky);
-  background-image:
-    linear-gradient(90deg, var(--tick) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, var(--tick) 1px, transparent 1px),
-    linear-gradient(90deg, var(--tick) 1px, transparent 1px);
-  background-size: 5rem 1.15rem, 2.5rem 0.8rem, 0.5rem 0.5rem;
-  background-repeat: repeat-x;
-  background-position: var(--gutter) 0;
-  color: var(--ink);
-}
-
 .credit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 1.5rem var(--gutter) 1.75rem;
   font-size: 0.85rem;
   font-weight: 500;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
 }
 
 .credit__dot {
@@ -781,30 +697,29 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* leaving a page: a drop of ink spreads until it fills the screen */
+/* leaving a page: a field of the next page's colour rises from the bottom */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
   background: var(--royal);
-  clip-path: circle(0% at 50% 55%);
-  transition: clip-path 0.75s var(--ease);
+  transform: translateY(100%);
+  transition: transform 0.7s var(--ease);
 }
 
 .veil[data-tone="light"] {
-  background: var(--paper);
+  background: var(--white);
 }
 
 html.is-leaving .veil {
-  clip-path: circle(150% at 50% 55%);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
-/* text settles onto the page */
 .js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 0.9rem, 0);
+  transform: translate3d(0, 1.2rem, 0);
   transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
   transition-delay: var(--delay, 0s);
 }
@@ -812,19 +727,6 @@ html.is-leaving .veil {
 .js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
-}
-
-/* handwriting: the pen moves left to right */
-.js [data-reveal="write"] {
-  opacity: 1;
-  transform: none;
-  clip-path: inset(-0.3em 100% -0.4em -0.3em);
-  transition: clip-path 1.3s cubic-bezier(0.55, 0.1, 0.35, 1);
-  transition-delay: var(--delay, 0.15s);
-}
-
-.js [data-reveal="write"].is-visible {
-  clip-path: inset(-0.3em -0.3em -0.4em -0.3em);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -836,31 +738,19 @@ html.is-leaving .veil {
     animation-duration: 0.2s;
   }
 
-  .js [data-reveal],
-  .js [data-reveal="write"] {
-    clip-path: none;
+  .js [data-reveal] {
     transform: none;
     transition: opacity 0.3s linear;
     transition-delay: 0s;
   }
 
-  .js [data-reveal="write"] {
-    opacity: 0;
-  }
-
-  .js [data-reveal="write"].is-visible {
-    opacity: 1;
-    clip-path: none;
-  }
-
   .veil {
-    clip-path: none;
+    transform: none;
     opacity: 0;
     transition: opacity 0.25s linear;
   }
 
   html.is-leaving .veil {
-    clip-path: none;
     opacity: 1;
   }
 
