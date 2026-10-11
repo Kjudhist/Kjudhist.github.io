@@ -47,6 +47,15 @@
         ],
         "createdAt": "2026-10-11T08:38:56.392Z",
         "reason": "Agent: the 404 sign is padded with clamp(1.25rem..2rem) on every side (32px at desktop in screenshots); detector reads it as flush"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "css/qa.css"
+        ],
+        "createdAt": "2026-10-11T08:41:13.652Z",
+        "reason": "Agent: .ticket__stub::before is the ticket's perforation (a row of concrete-coloured holes along the tear line), not a coloured accent border"
       }
     ]
   }
