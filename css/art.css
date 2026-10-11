@@ -1,9 +1,8 @@
 /* ==========================================================================
-   The Willow Atelier: the dark side.
-   The name large on near-black, the tagline, and an index of the three
-   kinds of work as full-width rows. Sections sit on the same grid as the
-   QA page. Works hang in plain frames, photographs scroll sideways, tracks
-   are a ruled list, and the poem is set vertically beside the story.
+   The Willow Atelier: a navy night, a moon, a willow.
+   Three rooms after the hero: drawing & painting (a hanging wall),
+   photography (a strip of frames read sideways) and music (a record and
+   its tracks). Then a cream sheet with the story, and the way to find us.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -11,199 +10,376 @@
    -------------------------------------------------------------------------- */
 
 .art-hero {
-  padding: clamp(3rem, 9vw, 8rem) 0 0;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: calc(100vh - 4.5rem);
+  min-height: calc(100svh - 4.5rem);
+  padding-bottom: clamp(2rem, 5vh, 3rem);
+  overflow: hidden;
 }
 
-.art-hero__jp {
-  font-family: var(--font-jp);
-  font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--accent-text);
+.art-hero__night {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.art-hero__moon {
+  position: absolute;
+  left: 62%;
+  top: 14%;
+  width: clamp(5rem, 9vw, 8.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 64% 38%, rgba(60, 50, 30, 0.05), transparent 12%),
+    radial-gradient(circle at 36% 64%, rgba(60, 50, 30, 0.04), transparent 16%),
+    radial-gradient(circle at 40% 38%, #fbf8f0 0%, #ebe3d0 64%, #d5cab1 100%);
+  box-shadow:
+    0 0 32px 6px rgba(240, 232, 214, 0.16),
+    0 0 140px 50px rgba(143, 164, 201, 0.12);
+}
+
+.art-hero__horizon {
+  position: absolute;
+  left: 46%;
+  right: 0;
+  top: 64%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong) 30%, var(--line-strong) 80%, transparent);
+}
+
+/* the moon's light, broken on the water */
+.art-hero__reflection {
+  position: absolute;
+  left: 62%;
+  top: calc(64% + 1rem);
+  width: clamp(5rem, 9vw, 8.5rem);
+  display: grid;
+  justify-items: center;
+  gap: 0.7rem;
+}
+
+.art-hero__reflection i {
+  display: block;
+  height: 1px;
+  background: rgba(240, 232, 214, 0.5);
+  animation: shimmer 4s var(--ease) infinite alternate;
+}
+
+.art-hero__reflection i:nth-child(1) { width: 80%; }
+.art-hero__reflection i:nth-child(2) { width: 62%; animation-delay: -1.2s; opacity: 0.8; }
+.art-hero__reflection i:nth-child(3) { width: 46%; animation-delay: -2.1s; opacity: 0.6; }
+.art-hero__reflection i:nth-child(4) { width: 30%; animation-delay: -0.6s; opacity: 0.45; }
+.art-hero__reflection i:nth-child(5) { width: 16%; animation-delay: -2.8s; opacity: 0.3; }
+
+@keyframes shimmer {
+  from {
+    transform: scaleX(0.85);
+  }
+  to {
+    transform: scaleX(1.1);
+  }
+}
+
+.art-hero__willow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(58vw, 46rem);
+  color: var(--cream-200);
+}
+
+.willow {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.willow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 1;
+}
+
+.willow__branch {
+  stroke-width: 2.4 !important;
+  opacity: 0.7;
+}
+
+.willow path:not(.willow__branch) {
+  stroke-width: 0.9;
+}
+
+.willow__sway {
+  transform-origin: 50% 0;
+  transform-box: fill-box;
+  animation: sway 9s var(--ease) infinite alternate;
+}
+
+.willow__sway--b {
+  animation-duration: 12s;
+  animation-delay: -5s;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(0.8deg);
+  }
+  to {
+    transform: rotate(-1.2deg);
+  }
+}
+
+.art-hero__text {
+  position: relative;
+  padding-bottom: clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.art-hero__mark {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-family: var(--font-display-ja);
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.art-hero__mark::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 .art-hero__title {
-  max-width: 10ch;
-  margin-top: 1.25rem;
-  font-size: clamp(3rem, 1rem + 7.6vw, 8.6rem);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.055em;
+  font-weight: 400;
+  font-size: clamp(3.2rem, 1.8rem + 6vw, 7rem);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
   color: var(--fg-strong);
+}
+
+.art-hero__line {
+  display: block;
+}
+
+.art-hero__line + .art-hero__line {
+  padding-left: 0.9em;
+  font-style: italic;
 }
 
 .art-hero__tagline {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
-  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
-  letter-spacing: -0.015em;
-  color: var(--fg);
+  margin-top: 1.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.6rem);
+  color: var(--muted);
 }
 
-/* the index: three rows, each a link */
-.index {
-  margin-top: clamp(3.5rem, 8vw, 6rem);
+html[lang="ja"] .art-hero__tagline,
+html[lang="id"] .art-hero__tagline {
+  font-style: normal;
 }
 
-.index__list {
+html[lang="ja"] .art-hero__tagline {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem);
+  letter-spacing: 0.12em;
+}
+
+/* the three rooms, as an index */
+.art-index {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--line-strong);
 }
 
-.index__link {
-  display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--line);
+.art-index__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 1.1rem 0;
+  color: var(--fg);
+  transition: color 0.4s var(--ease);
+}
+
+.art-index__item + .art-index__item {
+  padding-left: clamp(1rem, 3vw, 2rem);
+  border-left: 1px solid var(--line);
+}
+
+.art-index__num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--gold);
+}
+
+.art-index__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.9rem + 0.6vw, 1.4rem);
+  line-height: 1.25;
+}
+
+html[lang="ja"] .art-index__name {
+  font-family: var(--font-display-ja);
+  font-size: 1rem;
+}
+
+.art-index__item:hover {
   color: var(--fg-strong);
-  transition: color 0.3s var(--ease), padding 0.45s var(--ease-out);
 }
 
-.index__no {
-  color: var(--muted);
-}
+@media (max-width: 639.98px) {
+  .art-hero__moon,
+  .art-hero__reflection {
+    left: 58%;
+  }
 
-.index__name {
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.6rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-}
+  .art-hero__willow {
+    width: 92vw;
+  }
 
-html[lang="ja"] .index__name {
-  letter-spacing: 0;
-}
+  .art-hero__horizon,
+  .art-hero__reflection {
+    display: none;
+  }
 
-.index__link .arrow {
-  width: 2rem;
-  color: var(--muted);
-}
+  .art-index {
+    grid-template-columns: 1fr;
+  }
 
-.index__link:hover {
-  color: var(--accent-text);
-  padding-left: 0.75rem;
-}
+  .art-index__item + .art-index__item {
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
 
-.index__link:hover .arrow {
-  color: var(--accent-text);
-  transform: translateX(0.3rem);
+  .art-index__item {
+    padding: 0.8rem 0;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   Sections
+   The three rooms share a head
    -------------------------------------------------------------------------- */
 
-.room__text {
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
+.discipline__head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: 0.5rem clamp(1.25rem, 3vw, 2.5rem);
+  padding-top: 1.75rem;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--line-strong);
 }
 
-/* an empty frame, waiting for a piece */
+.discipline__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 2rem + 2.4vw, 4.4rem);
+  line-height: 0.9;
+  color: var(--gold);
+}
+
+.discipline__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3.4rem);
+  line-height: 1.05;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .discipline__title {
+  font-size: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+}
+
+.discipline__text {
+  margin-top: 0.7rem;
+  max-width: 34rem;
+}
+
+/* empty places waiting for real work */
 .slot {
   display: grid;
   place-items: center;
   width: 100%;
-  height: 100%;
-  border-radius: var(--radius-box);
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+  border: 1px dashed var(--line-strong);
+  background: var(--bg-raised);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
   color: var(--muted);
 }
 
+html[lang="ja"] .slot {
+  font-family: var(--font-display-ja);
+  font-style: normal;
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   01 Drawing & painting: a hanging wall
+   -------------------------------------------------------------------------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+  align-items: end;
+  gap: clamp(1.75rem, 3vw, 2.75rem) clamp(1rem, 2.5vw, 2rem);
+}
+
+.work__no {
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+/* real pieces, once they're in */
 .work__open {
   display: block;
   width: 100%;
-  height: 100%;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-box);
-  overflow: hidden;
   background: none;
   cursor: zoom-in;
 }
 
 .work__open img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-out);
+  transition: opacity 0.5s var(--ease);
 }
 
 .work__open:hover img {
-  transform: scale(1.03);
+  opacity: 0.88;
 }
 
 /* --------------------------------------------------------------------------
-   Drawing & painting
+   02 Photography: frames on a strip, read sideways
    -------------------------------------------------------------------------- */
 
-.wall {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.piece {
-  aspect-ratio: 4 / 5;
-}
-
-.piece--wide {
-  grid-column: span 2;
-  aspect-ratio: auto;
-}
-
-/* --------------------------------------------------------------------------
-   Photography: a row that scrolls sideways, starting on the content column
-   -------------------------------------------------------------------------- */
-
-.room--photo .album {
-  grid-column: 1 / -1;
-}
-
-.strip {
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  padding-bottom: 1.25rem;
-}
-
-.strip:focus-visible {
-  outline-offset: -4px;
-}
-
-.strip__track {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
-  width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 84rem) / 2);
-}
-
-.print {
-  flex: none;
-  width: clamp(16rem, 34vw, 28rem);
-  aspect-ratio: 3 / 2;
-  scroll-snap-align: start;
-}
-
-.print--tall {
-  width: clamp(11rem, 20vw, 17rem);
-  aspect-ratio: 2 / 3;
+.discipline--photo .discipline__head {
+  grid-template-columns: auto 1fr auto;
 }
 
 .strip__hint {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin: 0.25rem auto 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+  gap: 0.7rem;
+  align-self: end;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--muted);
+  white-space: nowrap;
 }
 
 .strip__hint .arrow {
@@ -216,9 +392,136 @@ html[lang="ja"] .index__name {
   }
 }
 
+.strip {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+  padding-bottom: 1.25rem;
+}
+
+.strip:focus-visible {
+  outline-offset: -2px;
+}
+
+.strip__track {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  width: max-content;
+  padding-inline: max(var(--gutter), (100vw - 74rem) / 2);
+}
+
+.frame {
+  scroll-snap-align: start;
+  width: clamp(15rem, 34vw, 28rem);
+}
+
+.frame .slot {
+  aspect-ratio: 3 / 2;
+}
+
+.frame--tall {
+  width: clamp(10rem, 22vw, 18.5rem);
+}
+
+.frame--tall .slot {
+  aspect-ratio: 2 / 3;
+}
+
+.frame__no {
+  display: block;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+@media (max-width: 639.98px) {
+  .discipline--photo .discipline__head {
+    grid-template-columns: auto 1fr;
+  }
+
+  .strip__hint {
+    grid-column: 2;
+  }
+
+  .frame {
+    width: 78vw;
+  }
+
+  .frame--tall {
+    width: 52vw;
+  }
+}
+
 /* --------------------------------------------------------------------------
-   Music
+   03 Music: a record and its tracks
    -------------------------------------------------------------------------- */
+
+.discipline--music {
+  padding-bottom: var(--section-space);
+}
+
+.music {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+@media (min-width: 860px) {
+  .music {
+    grid-template-columns: minmax(16rem, 0.8fr) 1.2fr;
+  }
+}
+
+.record {
+  width: min(64vw, 22rem);
+  margin-inline: auto;
+}
+
+.record__disc {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 31%, rgba(255, 255, 255, 0.05) 31.5%, transparent 32.5%),
+    repeating-radial-gradient(circle, #0c1324 0 2px, #111a2e 2.5px 4px),
+    #0c1324;
+  box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  animation: spin 9s linear infinite;
+  animation-play-state: paused;
+}
+
+/* light catching the grooves */
+.record__disc::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 20deg, transparent 0 8%, rgba(233, 226, 212, 0.08) 12%, transparent 18% 58%, rgba(233, 226, 212, 0.06) 62%, transparent 68%);
+}
+
+.record__label {
+  position: relative;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--navy-950) 0 6%, var(--gold) 6.5% 100%);
+}
+
+.discipline--music:is(:hover, :focus-within) .record__disc {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .tracks {
   border-top: 1px solid var(--line-strong);
@@ -226,7 +529,7 @@ html[lang="ja"] .index__name {
 
 .track {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  grid-template-columns: 2.5rem 1fr auto;
   align-items: center;
   gap: 1rem;
   padding: 1.1rem 0;
@@ -235,158 +538,196 @@ html[lang="ja"] .index__name {
 
 .track__no {
   font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.7rem;
+  color: var(--gold);
 }
 
 .track__body {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.15rem 1.1rem;
+  gap: 0.2rem 1.25rem;
 }
 
 .track__title {
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+
+html[lang="ja"] .track__title {
+  font-family: var(--font-body);
+  font-size: 1rem;
 }
 
 .track__meta {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
 }
 
 .track__play {
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border: 1px solid var(--line-strong);
   border-radius: 50%;
-  background: var(--royal);
-  color: #fff;
+  color: var(--fg-strong);
+  cursor: not-allowed;
+  opacity: 0.55;
+  transition: opacity 0.3s var(--ease);
 }
 
 .track__play svg {
-  width: 1rem;
-  height: 1rem;
+  width: 0.85rem;
   fill: currentColor;
 }
 
-.track__play.is-pending {
-  cursor: not-allowed;
-  background: transparent;
-  color: var(--muted);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
+.track__play:hover,
+.track__play:focus-visible {
+  opacity: 0.85;
 }
 
-.tracks .tip {
+.track__play .tip {
   left: auto;
   right: 0;
   transform: translate(0, 0.3rem);
 }
 
-.tracks .is-pending:hover .tip,
-.tracks .is-pending:focus-visible .tip {
+.track__play:is(:hover, :focus-visible) .tip {
   transform: none;
 }
 
 /* --------------------------------------------------------------------------
-   About: the poem set vertically beside the story
+   About: a cream sheet in the night
    -------------------------------------------------------------------------- */
 
-.story__grid {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
+.story {
+  padding: var(--section-space) 0;
+  background: var(--bg);
+  color: var(--fg);
 }
 
-.poem {
-  font-family: var(--font-jp);
-  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
-  font-weight: 500;
-  line-height: 1.7;
-  letter-spacing: 0.2em;
+.story__inner {
+  display: grid;
+  gap: 3rem clamp(3rem, 8vw, 7rem);
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .story__inner {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+}
+
+.story__poem {
   writing-mode: vertical-rl;
-  white-space: nowrap;
+  justify-self: center;
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.8rem);
+  line-height: 2;
+  letter-spacing: 0.3em;
   color: var(--fg-strong);
 }
 
 .story__body {
-  display: grid;
-  gap: 1rem;
   max-width: 40rem;
 }
 
 .story__lead {
-  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.7rem);
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.9rem);
+  line-height: 1.45;
+}
+
+html[lang="ja"] .story__lead {
+  font-family: var(--font-display-ja);
+  font-size: 1.2rem;
+}
+
+.story__text {
+  margin-top: 1.4rem;
 }
 
 /* --------------------------------------------------------------------------
-   Find us
+   Links
    -------------------------------------------------------------------------- */
 
-.cards {
+.art-links {
+  padding-bottom: var(--section-space);
+}
+
+.art-links__list {
   border-top: 1px solid var(--line-strong);
 }
 
-.card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.2rem 1.5rem;
-  padding: 1.4rem 0;
+.art-links__list li {
   border-bottom: 1px solid var(--line);
+}
+
+.art-links__link {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 2rem;
+  padding: clamp(1.4rem, 3vw, 2rem) 0;
+}
+
+.art-links__name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.4rem);
+  line-height: 1.1;
   color: var(--fg-strong);
+  transition: color 0.5s var(--ease);
 }
 
-.card__name {
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+html[lang="ja"] .art-links__name {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
 }
 
-html[lang="ja"] .card__name {
-  letter-spacing: 0;
+.art-links__note {
+  font-size: 0.85rem;
 }
 
-.card__note {
-  grid-row: 2;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
+.art-links__arrow {
+  margin-left: auto;
+  align-self: center;
   color: var(--muted);
 }
 
-.card__arrow {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  width: 2.25rem;
-  height: auto;
-  aspect-ratio: 32 / 10;
+a[href].art-links__link:hover .art-links__name {
+  color: var(--gold);
 }
 
-.card[href]:hover {
-  color: var(--accent-text);
+a[href].art-links__link:hover .art-links__arrow {
+  transform: translateX(0.4rem);
+  color: var(--fg-strong);
 }
 
-.card[href]:hover .card__arrow {
-  transform: translateX(0.35rem);
+/* on phones the note drops under the name and every arrow lines up on the right */
+@media (max-width: 639.98px) {
+  .art-links__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.35rem 1rem;
+  }
+
+  .art-links__note {
+    grid-row: 2;
+  }
+
+  .art-links__arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
 }
 
-.card:not([href]) .card__arrow {
-  color: var(--line-strong);
-}
-
-/* --------------------------------------------------------------------------
-   Footer
-   -------------------------------------------------------------------------- */
-
-.art-credit {
-  margin-top: var(--section-space);
+.art .credit {
+  width: min(100% - 2 * var(--gutter), 74rem);
+  margin-inline: auto;
+  padding-inline: 0;
   border-top: 1px solid var(--line);
 }
 
@@ -403,19 +744,19 @@ html[lang="ja"] .card__name {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #c9cdd8;
+  color: var(--fg);
 }
 
 .viewer::backdrop {
-  background: rgba(11, 13, 20, 0.96);
+  background: rgba(11, 17, 32, 0.94);
 }
 
 .viewer[open] {
-  animation: fade 0.35s var(--ease);
+  animation: fade 0.5s var(--ease);
 }
 
 .viewer.is-closing {
-  animation: fade 0.3s var(--ease) reverse forwards;
+  animation: fade 0.35s var(--ease) reverse forwards;
 }
 
 @keyframes fade {
@@ -442,7 +783,6 @@ html[lang="ja"] .card__name {
   max-width: min(100%, 72rem);
   max-height: 78dvh;
   width: auto;
-  border-radius: var(--radius-box);
 }
 
 .viewer__caption {
@@ -452,14 +792,14 @@ html[lang="ja"] .card__name {
 }
 
 .viewer__title {
-  font-weight: 500;
-  color: #f3f4f7;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--fg-strong);
 }
 
 .viewer__meta {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #8d93a3;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .viewer__close {
@@ -469,8 +809,7 @@ html[lang="ja"] .card__name {
   width: 44px;
   height: 44px;
   border: 0;
-  border-radius: 50%;
-  background: #f3f4f7;
+  background: none;
   cursor: pointer;
 }
 
@@ -480,9 +819,9 @@ html[lang="ja"] .card__name {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 1.1rem;
-  height: 1.5px;
-  background: var(--ink);
+  width: 1.3rem;
+  height: 1px;
+  background: var(--fg-strong);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
@@ -491,47 +830,19 @@ html[lang="ja"] .card__name {
 }
 
 /* --------------------------------------------------------------------------
-   Smaller screens
+   Reduced motion
    -------------------------------------------------------------------------- */
 
-@media (max-width: 959.98px) {
-  .wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .piece--wide {
-    aspect-ratio: 8 / 5;
-  }
-}
-
-@media (max-width: 639.98px) {
-  .index__link {
-    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
-  }
-
-  .story__grid {
-    grid-template-columns: 1fr;
-  }
-
-  .poem {
-    justify-self: end;
-  }
-
-  .track {
-    grid-template-columns: 2rem minmax(0, 1fr) auto;
-    gap: 0.75rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
+  .willow__sway,
+  .art-hero__reflection i,
   .strip__hint .arrow,
-  .viewer[open],
-  .viewer.is-closing {
+  .record__disc {
     animation: none;
   }
 
-  .index__link,
-  .work__open img {
-    transition: none;
+  .viewer[open],
+  .viewer.is-closing {
+    animation: none;
   }
 }

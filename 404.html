@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-dark">
 <head>
   <meta charset="utf-8">
   <!-- GitHub Pages serves this file at whatever address was missed (say /foo/bar),
@@ -14,7 +14,7 @@
   <meta name="description" content="This page doesn’t exist. Head back to the gate." data-i18n-attr="content:meta.404.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#f5f6f8">
+  <meta name="theme-color" content="#101a2e">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kevin JG">
@@ -31,7 +31,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
@@ -51,11 +51,12 @@
 
   <main class="lost" id="main" data-testid="section-not-found">
     <div class="lost__inner">
-      <p class="lost__number mono" aria-hidden="true">404</p>
+      <span class="lost__frame" aria-hidden="true"></span>
+      <p class="lost__code">404</p>
       <h1 class="lost__title" data-i18n="nf.title">Nothing behind this door.</h1>
       <p class="lost__text" data-i18n="nf.text">The page you’re looking for isn’t here. The link may be old or mistyped.</p>
-      <a class="btn" href="./" data-transition="light" data-testid="back-to-gate">
-        <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+      <a class="btn lost__back" href="./" data-transition="dark" data-testid="back-to-gate">
+        <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
         <span data-i18n="common.back">Back to the gate</span>
       </a>
     </div>

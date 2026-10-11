@@ -1,237 +1,491 @@
 /* ==========================================================================
-   Gate: my name, the local time, and two doors.
-   Each door is a full panel and the whole panel is the link: a number and
-   its Japanese name at the top, the title large at the bottom, and an
-   Enter pill that says what clicking does. QA is a light panel, the
-   atelier a dark one; on hover either fills with royal. Also the 404.
+   Gate: one screen, split in two.
+   Cream on the left (QA), navy on the right (the atelier). Each half holds a
+   door drawn in thin lines. Hover or focus opens it a little; a click lets
+   that half take the whole screen, then the next page fades in.
+   Also styles the 404 page, which borrows the gate's quiet.
    ========================================================================== */
 
 body.gate {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
 }
 
-.g-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  padding: 1.25rem var(--gutter);
-}
-
-.g-name {
-  font-size: 0.98rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.g-meta {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.g-clock {
-  display: flex;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.g-clock .mono {
-  color: var(--ink);
-}
-
-.g-main {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 1rem;
-  padding: clamp(1rem, 4vh, 3rem) var(--gutter) 0;
-}
-
-.g-intro {
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  color: var(--ink);
+.gate__main {
+  height: 100%;
 }
 
 /* --------------------------------------------------------------------------
-   The doors
+   Corners: name, languages, a line of direction, the credit
    -------------------------------------------------------------------------- */
 
-.g-doors {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  min-height: clamp(22rem, 58vh, 40rem);
+.gate__top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem var(--gutter);
+  pointer-events: none;
+}
+
+.gate__top > * {
+  pointer-events: auto;
+}
+
+.gate__name {
+  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--fg-strong);
+}
+
+.gate__intro,
+.gate__credit {
+  position: fixed;
+  bottom: 0;
+  z-index: 20;
+  padding: 1.4rem var(--gutter);
+  pointer-events: none;
+}
+
+.gate__intro {
+  left: 0;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+html[lang="ja"] .gate__intro {
+  letter-spacing: 0.16em;
+}
+
+.gate__credit {
+  right: 0;
+  text-align: right;
+  color: #98a2b7;
+}
+
+/* the languages sit on the navy half on wide screens */
+@media (min-width: 760px) {
+  .gate__top .lang {
+    --fg: var(--cream-200);
+    --fg-strong: var(--cream-50);
+    --muted: #98a2b7;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The two halves
+   -------------------------------------------------------------------------- */
+
+.gate__stage {
+  display: flex;
+  height: 100%;
 }
 
 .door {
+  --door-w: clamp(7.5rem, 10.5vw, 10.5rem);
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 3rem;
-  padding: clamp(1.25rem, 2.5vw, 2rem);
-  border-radius: var(--radius-box);
-  background: var(--sheet);
-  color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--line);
-  transition: color 0.35s var(--ease), opacity 0.4s var(--ease);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.door--art {
-  background: var(--night);
-  color: #f3f4f7;
-  box-shadow: none;
-}
-
-/* royal rises from the bottom on hover */
-.door::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--royal);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.55s var(--ease-out);
-}
-
-.door:hover,
-.door:focus-visible {
-  color: #fff;
-}
-
-.door:hover::before,
-.door:focus-visible::before,
-.door.is-open::before {
-  transform: scaleY(1);
-}
-
-.door.is-open {
-  color: #fff;
-}
-
-.door:focus-visible {
-  outline-offset: 4px;
-}
-
-.door__head {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.9rem;
-}
-
-.door__no {
-  color: inherit;
-  opacity: 0.6;
-}
-
-.door__jp {
-  font-family: var(--font-jp);
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
-}
-
-.door__foot {
-  display: grid;
-  justify-items: start;
-  gap: 0.6rem;
-}
-
-.door__title {
-  font-size: clamp(2.2rem, 1.2rem + 3.6vw, 5rem);
-  font-weight: 500;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-html[lang="ja"] .door__title {
-  letter-spacing: 0;
-  line-height: 1.2;
-}
-
-.door__sub {
-  font-size: 0.95rem;
-  opacity: 0.72;
-}
-
-/* the pill that says what clicking does */
-.door__cta {
-  display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  margin-top: 1.1rem;
-  min-height: 2.9rem;
-  padding: 0.6rem 1.3rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
-  font-weight: 500;
-  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+  justify-content: center;
+  gap: clamp(2rem, 5vh, 3rem);
+  padding: 5rem var(--gutter);
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  transition: flex-grow 1s var(--ease), padding 1s var(--ease);
 }
 
-.door--art .door__cta {
-  background: #f3f4f7;
-  color: var(--ink);
-}
-
-.door:hover .door__cta,
-.door:focus-visible .door__cta,
-.door.is-open .door__cta {
-  background: #fff;
-  color: var(--royal);
-}
-
-.door:hover .door__cta .arrow,
-.door:focus-visible .door__cta .arrow {
-  transform: translateX(0.3rem);
-}
-
-.g-doors.has-open .door:not(.is-open) {
-  opacity: 0.4;
+.door:focus-visible {
+  outline-offset: -0.75rem;
 }
 
 /* --------------------------------------------------------------------------
-   Small screens
+   Door, drawn
    -------------------------------------------------------------------------- */
 
-@media (max-width: 719.98px) {
-  .g-top {
-    flex-wrap: wrap;
-  }
+.door__unit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .g-meta {
-    width: 100%;
-    justify-content: space-between;
-  }
+.door__frame {
+  position: relative;
+  width: var(--door-w);
+  aspect-ratio: 1 / 2.05;
+  border: 1.5px solid var(--fg-strong);
+  overflow: hidden;
+  perspective: 900px;
+  perspective-origin: 0 50%;
+}
 
-  .g-doors {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
+.door__floor {
+  width: calc(var(--door-w) * 2);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong) 25%, var(--line-strong) 75%, transparent);
+}
 
-  .door {
-    min-height: 15rem;
-    gap: 2rem;
+.door__behind {
+  position: absolute;
+  inset: 5px;
+  display: grid;
+  place-items: center;
+}
+
+/* QA: a lit room, and a tick waiting to be drawn */
+.door--qa .door__behind {
+  place-items: center end;
+  padding-right: 9%;
+  background: radial-gradient(circle at 50% 42%, #fffdf8 0%, var(--cream-50) 45%, var(--cream-200) 100%);
+}
+
+.door__tick {
+  width: 46%;
+  fill: none;
+  stroke: var(--navy-700);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.door__tick path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.9s var(--ease) 0.25s;
+}
+
+.door__leaf {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--fg-strong);
+  background: var(--bg);
+  transform-origin: 0 50%;
+  transition: transform 1.1s var(--ease);
+}
+
+.door__panel {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  border: 1px solid var(--line-strong);
+}
+
+.door__panel--upper {
+  top: 9%;
+  height: 40%;
+  /* a few slats, the only texture on this side */
+  background: repeating-linear-gradient(90deg, transparent 0 calc(20% - 1px), var(--line) calc(20% - 1px) 20%);
+}
+
+.door__panel--lower {
+  top: 56%;
+  height: 34%;
+}
+
+.door__handle {
+  position: absolute;
+  right: 9%;
+  top: 47%;
+  width: 1.5px;
+  height: 11%;
+  background: var(--gold);
+}
+
+/* Art: the night behind the paper, and the moon in it */
+.door--art .door__behind {
+  background: var(--navy-950);
+}
+
+.door__moon {
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #fbf8f0 0%, #e8e0cc 70%, #d4c9b0 100%);
+  box-shadow: 0 0 24px 4px rgba(240, 232, 214, 0.18), 0 0 70px 20px rgba(143, 164, 201, 0.14);
+  transform: translateY(-12%) scale(0.92);
+  transition: transform 1.2s var(--ease);
+}
+
+.shoji {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  width: calc(50% - 5px);
+  border: 1px solid var(--line-strong);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 calc(16.66% - 1px), rgba(233, 226, 212, 0.32) calc(16.66% - 1px) 16.66%),
+    repeating-linear-gradient(90deg, transparent 0 calc(33.33% - 1px), rgba(233, 226, 212, 0.32) calc(33.33% - 1px) 33.33%),
+    rgba(24, 36, 62, 0.88);
+  transition: transform 1.1s var(--ease);
+}
+
+.shoji--left {
+  left: 5px;
+}
+
+.shoji--right {
+  right: 5px;
+}
+
+/* --------------------------------------------------------------------------
+   Captions
+   -------------------------------------------------------------------------- */
+
+.door__caption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  text-align: center;
+  transition: opacity 0.6s var(--ease);
+}
+
+.door__num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.door__label {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.6rem);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  color: var(--fg-strong);
+}
+
+html[lang="ja"] .door__label:not(.latin) {
+  font-family: var(--font-display-ja);
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+}
+
+.door__sub {
+  font-size: 0.7rem;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.door--art .door__sub {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+html[lang="ja"] .door__sub {
+  letter-spacing: 0.12em;
+}
+
+html[lang="ja"] .door--art .door__sub {
+  font-family: var(--font-display-ja);
+  font-style: normal;
+  font-size: 0.95rem;
+}
+
+/* only touch screens need telling */
+.door__cue {
+  display: none;
+  margin-top: 0.4rem;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+@media (hover: none) {
+  .door__cue {
+    display: block;
   }
 }
 
+/* --------------------------------------------------------------------------
+   Peek (hover, focus, first tap), then open
+   -------------------------------------------------------------------------- */
+
+@media (hover: hover) {
+  .door:hover {
+    flex-grow: 1.18;
+  }
+
+  .gate__stage:hover .door:not(:hover) .door__caption {
+    opacity: 0.45;
+  }
+}
+
+.door.is-peek {
+  flex-grow: 1.18;
+}
+
+.door--qa:is(:hover, :focus-visible, .is-peek) .door__leaf {
+  transform: rotateY(-58deg);
+}
+
+.door--qa:is(:hover, :focus-visible, .is-peek) .door__tick path {
+  stroke-dashoffset: 0;
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .shoji--left {
+  transform: translateX(-38%);
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .shoji--right {
+  transform: translateX(38%);
+}
+
+.door--art:is(:hover, :focus-visible, .is-peek) .door__moon {
+  transform: none;
+}
+
+/* the chosen half takes the screen */
+.gate__stage.has-open .door {
+  flex-grow: 0;
+}
+
+.gate__stage.has-open .door.is-open {
+  flex-grow: 1;
+}
+
+/* the corners step aside too: their colours belong to the split */
+body:has(.gate__stage.has-open) :is(.gate__top, .gate__intro, .gate__credit) {
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+/* its padding goes too, or a strip of it would stay on screen */
+.gate__stage.has-open .door:not(.is-open) {
+  padding: 0;
+}
+
+.gate__stage.has-open .door:not(.is-open) > * {
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+
+.door--qa.is-open .door__leaf {
+  transform: rotateY(-84deg);
+}
+
+.door--art.is-open .shoji--left {
+  transform: translateX(-96%);
+}
+
+.door--art.is-open .shoji--right {
+  transform: translateX(96%);
+}
+
+.door.is-entering .door__unit {
+  transform: scale(1.06);
+  opacity: 0;
+  transition: transform 0.5s var(--ease), opacity 0.4s var(--ease);
+}
+
+.door.is-entering .door__caption {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens: top and bottom, door beside its caption
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 759.98px) {
+  .gate__stage {
+    flex-direction: column;
+  }
+
+  .door {
+    --door-w: min(27vw, 7rem);
+    flex-direction: row;
+    gap: 1.75rem;
+    padding: 4.25rem var(--gutter) 2.5rem;
+  }
+
+  .door--art {
+    flex-direction: row-reverse;
+    padding: 2.5rem var(--gutter) 4.25rem;
+  }
+
+  .door__caption {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .door--art .door__caption {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .door__label {
+    font-size: clamp(1.45rem, 6.5vw, 2rem);
+  }
+
+  .door__sub {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .door--art .door__sub {
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+  }
+
+  .door__floor {
+    width: calc(var(--door-w) * 1.6);
+  }
+
+  .gate__intro {
+    display: none;
+  }
+
+  .gate__credit {
+    left: 0;
+    text-align: center;
+    padding-bottom: 1.1rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion: doors still open, nothing travels
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-  .door::before {
+  .door,
+  .door__leaf,
+  .shoji,
+  .door__moon,
+  .door__tick path {
     transition-duration: 0.01s;
+    transition-delay: 0s;
+  }
+
+  .door:hover,
+  .door.is-peek {
+    flex-grow: 1;
+  }
+
+  .door.is-entering .door__unit {
+    transform: none;
   }
 }
 
@@ -240,48 +494,64 @@ html[lang="ja"] .door__title {
    ========================================================================== */
 
 body.lost-page {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
-.lost-page .topbar__end {
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
 }
 
 .lost {
+  flex: 1;
   display: grid;
-  align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  place-items: center;
+  padding: 2rem var(--gutter);
+  text-align: center;
 }
 
 .lost__inner {
-  width: min(100%, 84rem);
-  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 30rem;
 }
 
-.lost__number {
-  font-size: 0.95rem;
-  color: var(--accent-text);
+/* an empty frame: the door that isn't there */
+.lost__frame {
+  width: 4.5rem;
+  aspect-ratio: 1 / 2.05;
+  margin-bottom: 0.75rem;
+  border: 1.5px dashed var(--line-strong);
+}
+
+.lost__code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
 }
 
 .lost__title {
-  max-width: 16ch;
-  margin-top: 1rem;
-  font-size: clamp(2.4rem, 1.2rem + 4.6vw, 5.5rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  line-height: 1.15;
   color: var(--fg-strong);
 }
 
-html[lang="ja"] .lost__title {
-  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.25;
-  letter-spacing: 0;
+.lost__text {
+  color: var(--muted);
 }
 
-.lost__text {
-  max-width: 36rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.1rem;
+.lost__back {
+  margin-top: 1rem;
+}
+
+.lost__back .back-link__arrow {
+  width: 1.6rem;
+  height: 0.6rem;
+}
+
+.lost-page .topbar {
+  justify-content: flex-end;
 }

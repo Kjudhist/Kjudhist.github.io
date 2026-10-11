@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
+My personal site. It opens on one screen split in two: a door on cream that goes to my QA work, and a shoji on navy that goes to The Willow Atelier, where I keep my art.
 
-The look is *folio*: a quiet, exact portfolio. Light for QA, near-black for the atelier, royal blue as the one accent, a 12-column grid and hairline rules. Type is Schibsted Grotesk with IBM Plex Mono for numbers and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
+The look is *ma* (間): two colours, thin lines, a lot of room, and only small, cheap motion.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** my name and Jakarta's local time, then two full panels. Each whole panel is the link, with an **Enter** pill; hover fills it with royal, and one click or tap goes in.
-- **QA (light):** the name large, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
-- **The Willow Atelier (dark):** the name large, the tagline, and an index of:
-  1. **Drawing & Painting**, a grid of frames
-  2. **Photography**, a row of frames scrolled sideways
-  3. **Music**, a ruled list of tracks
+- **Gate:** cream on the left, navy on the right. Hover (or tap once on a phone) and the door opens a little: a tick waits behind the QA door, the moon behind the shoji. Click (or tap again) and that half takes the whole screen before the next page fades in.
+- **QA:** a report you can scan. Every section head has a small box that gets ticked as it comes into view, and the hero has a tiny "test run" of the facts.
+- **The Willow Atelier:** a moon and a willow, then three rooms:
+  1. **Drawing & Painting**, a wall of pieces
+  2. **Photography**, a strip of frames you scroll sideways
+  3. **Music**, a record (it turns while you're in the section) and a track list
 
-  Then the story with the poem set vertically, and two rows for Instagram and the shop.
+  Then a cream sheet for the story, and the links.
 
-With reduced motion turned on, nothing moves; the doors still work.
+With reduced motion turned on, nothing travels: doors still open, but instantly, and the willow, record and water stand still.
 
 ## Replacing placeholders
 
@@ -103,8 +103,8 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Drawings and paintings | six empty frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `piece--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
-| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `print--tall` makes a portrait frame |
+| Drawings and paintings | six empty slots ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `frame--tall` makes a portrait frame |
 | Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
 | A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
@@ -144,7 +144,7 @@ Key elements carry `data-testid` attributes:
 - Switcher: `lang-switcher`, `lang-option-en`, `lang-option-id`, `lang-option-ja`
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
-- Gate name: `station-sign`
+- Gate cues: `door-qa-cue`, `door-art-cue`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 

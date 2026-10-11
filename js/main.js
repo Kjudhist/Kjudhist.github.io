@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shared behaviour: local links, page transitions, scroll reveals,
-   sticky header, mobile menu, current-section highlight, the clock.
+   sticky header, mobile menu, current-section highlight.
    ========================================================================== */
 
 (function () {
@@ -50,7 +50,7 @@
     return veil;
   }
 
-  // The next page's colour rises over this one, then go. tone: "light" | "dark".
+  // Fade to the next page's colour, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -99,21 +99,6 @@
     items.forEach(function (el) {
       observer.observe(el);
     });
-  }
-
-  // A live clock for Jakarta, for anything marked [data-clock].
-  function initClock() {
-    const clocks = document.querySelectorAll('[data-clock]');
-    if (!clocks.length || !window.Intl) return;
-    const format = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false });
-    function tick() {
-      const text = format.format(new Date());
-      clocks.forEach(function (el) {
-        el.textContent = text;
-      });
-    }
-    tick();
-    window.setInterval(tick, 15000);
   }
 
   function initHeader() {
@@ -188,7 +173,6 @@
     initHeader();
     initMenu();
     initSectionSpy();
-    initClock();
     window.addEventListener('pageshow', resetAfterBack);
   }
 
