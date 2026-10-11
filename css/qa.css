@@ -235,13 +235,13 @@ html[lang="ja"] .hero__pitch {
 }
 
 .dip--mid {
-  background: var(--ai-400);
+  background: var(--ai-300);
   --t: var(--ai-900);
   --t-soft: #10284a;
 }
 
 .dip--pale {
-  background: var(--ai-200);
+  background: var(--ai-100);
   --t: var(--ai-900);
   --t-soft: #2a4466;
 }

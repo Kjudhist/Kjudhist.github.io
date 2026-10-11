@@ -28,6 +28,7 @@
 
   /* one warm note: vermilion, used for marks only, never for text */
   --shu: #e2572f;
+  --shu-bright: #ef714b; /* the same vermilion, lifted to read as text on deep indigo */
 
   /* light pages (gate left, QA) */
   --bg: var(--ai-50);

@@ -70,6 +70,7 @@ body.gate {
 
 .gate__intro {
   left: 0;
+  background: var(--ai-50);
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--muted);
@@ -79,6 +80,8 @@ body.gate {
   right: 0;
   text-align: right;
   color: #a3b8cf;
+  /* the credit always sits on the indigo half; give it that ground explicitly */
+  background: var(--ai-800);
 }
 
 /* on wide screens the languages sit on the indigo half */
@@ -87,6 +90,7 @@ body.gate {
     --fg-strong: var(--ai-50);
     --muted: #a3b8cf;
     --bg: var(--ai-800);
+    background: var(--ai-800);
   }
 }
 
@@ -527,7 +531,7 @@ body.lost-page {
   font-stretch: 125%;
   font-size: clamp(4rem, 3rem + 6vw, 8rem);
   line-height: 0.85;
-  color: var(--ai-400);
+  color: var(--ai-300);
 }
 
 .lost__title {

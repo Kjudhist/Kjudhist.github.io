@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "art/index.html"
+        ],
+        "createdAt": "2026-10-11T08:13:31.386Z",
+        "reason": "Agent: sections and the story sheet are inset by .wrap gutters (margin, not padding); list rows carry their own vertical padding inside the link, so text is never flush against a rule"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "qa/index.html"
+        ],
+        "createdAt": "2026-10-11T08:14:19.941Z",
+        "reason": "Agent: full-bleed colour bands (hero vat, experience dips, contact, page end) inset their content with .wrap gutters (margin, not padding); text never touches an edge"
+      }
+    ]
+  }
+}

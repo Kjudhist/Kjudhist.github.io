@@ -102,7 +102,7 @@
   font-weight: 900;
   font-size: clamp(2.2rem, 1.6rem + 2vw, 3.4rem);
   line-height: 1;
-  color: var(--shu);
+  color: var(--shu-bright);
 }
 
 .art-hero__title {
@@ -454,7 +454,7 @@ html[lang="ja"] .art-index__item {
 .track::before {
   content: counter(track);
   font-weight: 700;
-  color: var(--shu);
+  color: var(--accent);
 }
 
 .track__body {

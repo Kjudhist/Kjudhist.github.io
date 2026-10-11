@@ -18,16 +18,17 @@ Strategy: committed. Indigo carries most surfaces; light pages are undyed cotton
 | Token | Value | Role |
 |---|---|---|
 | `--ai-50` | `#f2f6f9` | undyed cotton, light page ground, text on deep indigo |
-| `--ai-100` | `#e0e9f1` | shoji paper, quiet tags |
-| `--ai-200` | `#bfd2e3` | palest experience band |
-| `--ai-300` | `#8eaecb` | |
-| `--ai-400` | `#5a84ad` | middle band, 404 numerals |
+| `--ai-100` | `#e0e9f1` | shoji paper, quiet tags, palest experience band |
+| `--ai-200` | `#bfd2e3` | accent text on indigo |
+| `--ai-300` | `#8eaecb` | middle experience band, 404 numerals |
+| `--ai-400` | `#5a84ad` | scrollbar thumb |
 | `--ai-500` | `#33608f` | record label, dots |
 | `--ai-600` | `#234a77` | shibori cloth |
 | `--ai-700` | `#193a62` | kon: doors, vat, current role, slots |
 | `--ai-800` | `#12294a` | dark page ground |
 | `--ai-900` | `#0b1a31` | ink on cotton, deepest band, page end |
-| `--shu` | `#e2572f` | vermilion: marks only (door handle, 柳, arrows, active nav, focus ring). Never body text |
+| `--shu` | `#e2572f` | vermilion: marks only (door handle, arrows, active nav, focus ring). Never body text |
+| `--shu-bright` | `#ef714b` | the same vermilion lifted for text on deep indigo (柳) |
 
 Themes: `:root` and `.theme-light` are cotton; `.theme-dark` is indigo. Text on cotton is `--ai-900` / `#22344f`, muted `#4b5d77`; on indigo `--ai-50` / `#d6e2ee`, muted `#a3b8cf`.
 
