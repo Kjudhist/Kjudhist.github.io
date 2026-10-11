@@ -6,7 +6,7 @@
   <title data-i18n="meta.qa.title">Kevin Judhistira Girsang · QA Engineer</title>
   <meta name="description" content="Product-focused QA engineer at Inteleq (Indivara Group) in Jakarta, testing payment and online banking products." data-i18n-attr="content:meta.qa.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#e6e9ec">
+  <meta name="theme-color" content="#f4f6fa">
   <link rel="canonical" href="https://kjudhist.github.io/qa/">
 
   <meta property="og:type" content="profile">
@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-gate.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A Japanese station name sign reading Kevin JG, pointing left to QA Engineer and right to The Willow Atelier.">
+  <meta property="og:image:alt" content="Two notebooks on a blue cutting mat: a white one labelled QA Engineer and a royal blue sketchbook labelled The Willow Atelier.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,14 +33,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=DotGothic16&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/qa.css">
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
 </head>
-<body class="qa">
+<body class="qa graph">
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
@@ -71,272 +71,267 @@
 
   <main id="main">
 
-    <!-- Hero: this line's first station sign. Its band points to the next stop. -->
+    <!-- Hero: the notebook's first page, with its contents -->
     <section class="hero" id="top" data-testid="section-hero">
-      <div class="wrap">
-        <p class="line-chip"><span class="line-chip__swatch" aria-hidden="true"></span><span data-i18n="line.qa">QA Line</span></p>
-
-        <div class="hero__sign">
-          <div class="hero__plate">
-            <span class="badge hero__badge" aria-hidden="true"><b>QA</b><span>00</span></span>
-            <div class="hero__copy">
-              <h1 class="hero__name" translate="no">Kevin Judhistira Girsang</h1>
-              <p class="hero__pitch" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>
-              <p class="hero__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</p>
-            </div>
-            <div class="hero__actions">
-              <!-- CV not ready yet. When it is, turn this back into
-                   <a class="btn" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf"> and drop the tip. -->
-              <span class="btn is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="hero-cv">
-                <span data-i18n="qa.hero.cv">Download CV</span>
-                <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
-                <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
-              </span>
-              <a class="btn" href="#contact" data-testid="hero-contact">
-                <span data-i18n="qa.hero.contact">Get in touch</span>
-                <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
-              </a>
-            </div>
+      <div class="wrap hero__grid">
+        <div class="hero__main">
+          <h1 class="hero__name" translate="no">Kevin Judhistira Girsang</h1>
+          <div class="hero__pitchline">
+            <p class="hero__pitch hand" data-reveal="write" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>
+            <span class="stamp" aria-hidden="true">検査済</span>
           </div>
-          <a class="hero__next" href="#about">
-            <span class="hero__next-label" data-i18n="common.next">Next</span>
-            <span class="badge" aria-hidden="true"><b>QA</b><span>01</span></span>
-            <span class="hero__next-name" data-i18n="qa.nav.about">About</span>
-            <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
-          </a>
+          <p class="hero__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</p>
+          <div class="hero__actions">
+            <!-- CV not ready yet. When it is, turn this back into
+                 <a class="btn" href="../assets/cv/kevin-jg-cv.pdf" download="Kevin-JG-CV.pdf"> and drop the tip. -->
+            <span class="btn is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="hero-cv">
+              <span data-i18n="qa.hero.cv">Download CV</span>
+              <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+              <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
+            </span>
+            <a class="btn" href="#contact" data-testid="hero-contact">
+              <span data-i18n="qa.hero.contact">Get in touch</span>
+              <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <nav class="contents tape" aria-labelledby="contents-title">
+          <h2 class="contents__title hand" id="contents-title" data-i18n="common.contents">Contents</h2>
+          <ol class="contents__list">
+            <li><a class="contents__link" href="#about"><span data-i18n="qa.about.title">About me</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 1</span></a></li>
+            <li><a class="contents__link" href="#experience"><span data-i18n="qa.exp.title">Experience</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 2</span></a></li>
+            <li><a class="contents__link" href="#skills"><span data-i18n="qa.skills.title">Skills &amp; tools</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 3</span></a></li>
+            <li><a class="contents__link" href="#contact"><span data-i18n="qa.contact.title">Contact</span><span class="contents__dots" aria-hidden="true"></span><span class="pageno">p. 4</span></a></li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+
+    <!-- p. 1 About -->
+    <section class="section about" id="about" aria-labelledby="about-title" data-testid="section-about">
+      <div class="wrap">
+        <header class="page-head" data-reveal>
+          <h2 class="section-title" id="about-title" data-i18n="qa.about.title">About me</h2>
+          <span class="pageno" aria-hidden="true">p. 1</span>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__body">
+            <p class="about__lead" data-reveal data-i18n="qa.about.p1">I’m a QA engineer at Inteleq, part of Indivara Group, in Jakarta. I test payment and online banking products across several projects, including system integration testing.</p>
+            <p class="about__text" data-reveal data-i18n="qa.about.p2">I got here through Indivara’s Java development training. Before that, I studied Informatics Engineering at Brawijaya University and ran the Homeband division of my faculty’s sports and arts body.</p>
+            <p class="about__text about__text--key" data-reveal data-i18n="qa.about.p3">When I test, I keep the client’s side in mind: what they’ll actually get at the end, not just whether a case passes or fails.</p>
+          </div>
+
+          <dl class="facts tape" aria-label="At a glance" data-i18n-attr="aria-label:qa.facts.label" data-reveal>
+            <div class="facts__item">
+              <dt data-i18n="qa.facts.based">Based in</dt>
+              <dd data-i18n="qa.facts.basedValue">Bekasi, Indonesia</dd>
+            </div>
+            <div class="facts__item">
+              <dt data-i18n="qa.facts.work">Works in</dt>
+              <dd data-i18n="qa.facts.workValue">Jakarta · Hybrid</dd>
+            </div>
+            <div class="facts__item">
+              <dt data-i18n="qa.facts.focus">Focus</dt>
+              <dd data-i18n="qa.facts.focusValue">Payments, online banking</dd>
+            </div>
+            <div class="facts__item">
+              <dt data-i18n="qa.facts.study">Studied</dt>
+              <dd data-i18n="qa.facts.studyValue">Informatics Engineering, Brawijaya University</dd>
+            </div>
+          </dl>
         </div>
       </div>
     </section>
 
-    <!-- The line itself: every section below is a stop on it -->
-    <div class="route">
+    <!-- p. 2 Experience: a test log, newest first -->
+    <section class="section exp" id="experience" aria-labelledby="exp-title" data-testid="section-experience">
+      <div class="wrap">
+        <header class="page-head" data-reveal>
+          <h2 class="section-title" id="exp-title" data-i18n="qa.exp.title">Experience</h2>
+          <span class="pageno" aria-hidden="true">p. 2</span>
+        </header>
 
-      <!-- QA 01 About -->
-      <section class="section about" id="about" aria-labelledby="about-title" data-testid="section-about">
-        <div class="wrap">
-          <header class="stop" data-reveal>
-            <span class="badge" aria-hidden="true"><b>QA</b><span>01</span></span>
-            <h2 class="section-title" id="about-title" data-i18n="qa.about.title">About me</h2>
-          </header>
+        <div class="log" data-reveal>
+          <div class="log__head">
+            <h3 class="log__company" translate="no">Inteleq <span class="log__parent">(Indivara Group)</span></h3>
+            <p class="log__meta" data-i18n="qa.exp.meta">Jakarta · Hybrid</p>
+          </div>
+          <div class="log__cols" aria-hidden="true">
+            <span data-i18n="qa.board.period">Period</span>
+            <span data-i18n="qa.board.role">Role</span>
+            <span data-i18n="qa.board.type">Type</span>
+          </div>
+          <ol class="log__rows" aria-label="Roles at Inteleq, newest first" data-i18n-attr="aria-label:qa.exp.roles">
+            <li class="row row--now">
+              <p class="row__time" data-i18n="qa.exp.r1.date">Mar 2026 - Present</p>
+              <h4 class="row__role" data-i18n="qa.exp.r1.title">Quality Assurance Engineer</h4>
+              <p class="row__type" data-i18n="qa.exp.r1.type">Full-time</p>
+              <p class="row__note" data-i18n="qa.exp.r1.p1">Quality assurance for payment and online banking products across multiple projects, including System Integration Testing (SIT).</p>
+            </li>
+            <li class="row">
+              <p class="row__time" data-i18n="qa.exp.r2.date">Nov 2025 - Mar 2026</p>
+              <h4 class="row__role" data-i18n="qa.exp.r2.title">Quality Assurance Engineer</h4>
+              <p class="row__type" data-i18n="qa.exp.r2.type">Internship</p>
+              <p class="row__note" data-i18n="qa.exp.r2.p1">Took part in quality assurance for payment and online banking projects and products, making sure each product delivers what it’s meant to.</p>
+            </li>
+            <li class="row">
+              <p class="row__time" data-i18n="qa.exp.r3.date">Aug 2025 - Nov 2025</p>
+              <h4 class="row__role" data-i18n="qa.exp.r3.title">Java Development Trainee</h4>
+              <p class="row__type"><span data-i18n="qa.exp.r3.type">Apprenticeship · Batch 16</span><span class="row__sep" aria-hidden="true"> / </span><span data-i18n="qa.exp.r3.place">Kelapa Gading, Jakarta · On-site</span></p>
+              <p class="row__note" data-i18n="qa.exp.r3.p1">Java development training program.</p>
+            </li>
+          </ol>
+        </div>
 
-          <div class="about__grid">
-            <div class="about__body">
-              <p class="about__lead" data-reveal data-i18n="qa.about.p1">I’m a QA engineer at Inteleq, part of Indivara Group, in Jakarta. I test payment and online banking products across several projects, including system integration testing.</p>
-              <p class="about__text" data-reveal data-i18n="qa.about.p2">I got here through Indivara’s Java development training. Before that, I studied Informatics Engineering at Brawijaya University and ran the Homeband division of my faculty’s sports and arts body.</p>
-              <p class="about__text about__text--key" data-reveal data-i18n="qa.about.p3">When I test, I keep the client’s side in mind: what they’ll actually get at the end, not just whether a case passes or fails.</p>
-            </div>
+        <div class="exp__rest">
+          <article class="entry" data-reveal>
+            <h3 class="entry__kicker" data-i18n="qa.exp.earlier">Earlier</h3>
+            <p class="entry__date">2021 - 2022</p>
+            <h4 class="entry__title" data-i18n="qa.exp.ihs.title">IT / Zoom Support</h4>
+            <p class="entry__org" translate="no">Indonesian Heritage Society</p>
+            <p class="entry__text" data-i18n="qa.exp.ihs.p1">IT documentation and website maintenance. Zoom support for live sessions.</p>
+          </article>
 
-            <dl class="facts" aria-label="At a glance" data-i18n-attr="aria-label:qa.facts.label" data-reveal>
-              <div class="facts__item">
-                <dt data-i18n="qa.facts.based">Based in</dt>
-                <dd data-i18n="qa.facts.basedValue">Bekasi, Indonesia</dd>
-              </div>
-              <div class="facts__item">
-                <dt data-i18n="qa.facts.work">Works in</dt>
-                <dd data-i18n="qa.facts.workValue">Jakarta · Hybrid</dd>
-              </div>
-              <div class="facts__item">
-                <dt data-i18n="qa.facts.focus">Focus</dt>
-                <dd data-i18n="qa.facts.focusValue">Payments, online banking</dd>
-              </div>
-              <div class="facts__item">
-                <dt data-i18n="qa.facts.study">Studied</dt>
-                <dd data-i18n="qa.facts.studyValue">Informatics Engineering, Brawijaya University</dd>
-              </div>
-            </dl>
+          <article class="entry" data-reveal style="--delay: .1s">
+            <h3 class="entry__kicker" data-i18n="qa.org.title">Organization</h3>
+            <p class="entry__date">2019</p>
+            <h4 class="entry__title" data-i18n="qa.org.role">Head of Division</h4>
+            <p class="entry__org"><span translate="no">BIOS FILKOM UB</span> <span class="entry__gloss" lang="id" translate="no">Badan Internal Olahraga dan Seni</span></p>
+            <p class="entry__text" data-i18n="qa.org.p1">Led the operations of the Homeband division. Trained Homeband talent and connected them with prospective publishers.</p>
+          </article>
+
+          <article class="entry" data-reveal style="--delay: .2s">
+            <h3 class="entry__kicker" data-i18n="qa.edu.title">Education</h3>
+            <p class="entry__date">2016 - 2023</p>
+            <h4 class="entry__title" data-i18n="qa.edu.degree">Informatics Engineering (S.Kom)</h4>
+            <p class="entry__org" data-i18n="qa.edu.school">Brawijaya University</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- p. 3 Skills & tools: label stickers -->
+    <section class="section skills" id="skills" aria-labelledby="skills-title" data-testid="section-skills">
+      <div class="wrap">
+        <header class="page-head" data-reveal>
+          <h2 class="section-title" id="skills-title" data-i18n="qa.skills.title">Skills &amp; tools</h2>
+          <span class="pageno" aria-hidden="true">p. 3</span>
+        </header>
+
+        <div class="skillset">
+          <div class="skillset__group skillset__group--lead" data-reveal>
+            <h3 class="skillset__name" data-i18n="qa.skills.testing">Testing</h3>
+            <ul class="skillset__list">
+              <li data-i18n="qa.skill.qa">Quality assurance</li>
+              <li data-i18n="qa.skill.sit">System integration testing (SIT)</li>
+              <li data-i18n="qa.skill.manual">Manual testing</li>
+              <li data-i18n="qa.skill.cases">Test case design</li>
+              <li data-i18n="qa.skill.bugs">Bug reporting</li>
+              <li data-i18n="qa.skill.auto">Automation</li>
+              <li data-i18n="qa.skill.ai">AI-assisted automation</li>
+            </ul>
+          </div>
+          <div class="skillset__group" data-reveal>
+            <h3 class="skillset__name" data-i18n="qa.skills.engineering">Engineering</h3>
+            <ul class="skillset__list" translate="no">
+              <li>Java</li>
+              <li>Git</li>
+            </ul>
+          </div>
+          <div class="skillset__group" data-reveal>
+            <h3 class="skillset__name" data-i18n="qa.skills.design">Product &amp; design</h3>
+            <ul class="skillset__list">
+              <li data-i18n="qa.skill.ux">UX research</li>
+              <li data-i18n="qa.skill.proto">Prototyping</li>
+              <li data-i18n="qa.skill.hcd">Human-centered design</li>
+            </ul>
+          </div>
+          <div class="skillset__group" data-reveal>
+            <h3 class="skillset__name" data-i18n="qa.skills.working">Ways of working</h3>
+            <ul class="skillset__list">
+              <li data-i18n="qa.skill.team">Teamwork</li>
+              <li data-i18n="qa.skill.pm">Project management</li>
+            </ul>
+          </div>
+          <div class="skillset__group" data-reveal>
+            <h3 class="skillset__name" data-i18n="qa.skills.tools">Tools</h3>
+            <ul class="skillset__list">
+              <li translate="no">VS Code</li>
+              <li translate="no">Git</li>
+              <li translate="no">Figma</li>
+              <li translate="no">Balsamiq</li>
+              <li data-i18n="qa.tool.tm">Test management tools</li>
+              <li data-i18n="qa.tool.bt">Bug trackers</li>
+              <li data-i18n="qa.tool.api">API testing tools</li>
+            </ul>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- QA 02 Experience: a departure board, newest first -->
-      <section class="section exp" id="experience" aria-labelledby="exp-title" data-testid="section-experience">
-        <div class="wrap">
-          <header class="stop" data-reveal>
-            <span class="badge" aria-hidden="true"><b>QA</b><span>02</span></span>
-            <h2 class="section-title" id="exp-title" data-i18n="qa.exp.title">Experience</h2>
-          </header>
+    <!-- Case studies: hidden until there's something to show. The markup is in git history
+         (commit "Add the QA page"); put it back here along with the "Work" link in the nav. -->
 
-          <div class="board" data-reveal>
-            <div class="board__head">
-              <h3 class="board__company" translate="no">Inteleq <span class="board__parent">(Indivara Group)</span></h3>
-              <p class="board__meta" data-i18n="qa.exp.meta">Jakarta · Hybrid</p>
+    <!-- p. 4 Contact: a postcard, with the CV clipped to it -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title" data-testid="section-contact">
+      <div class="wrap">
+        <header class="page-head" data-reveal>
+          <h2 class="section-title" id="contact-title" data-i18n="qa.contact.title">Contact</h2>
+          <span class="pageno" aria-hidden="true">p. 4</span>
+        </header>
+
+        <div class="mail" data-reveal>
+          <div class="postcard">
+            <div class="postcard__top" aria-hidden="true">
+              <span class="postcard__stamp"></span>
+              <span class="postcard__print" lang="ja">郵便はがき</span>
+              <span class="postcard__zip"><i></i><i></i><i></i><b></b><i></i><i></i><i></i><i></i></span>
             </div>
-            <div class="board__cols" aria-hidden="true">
-              <span data-i18n="qa.board.period">Period</span>
-              <span data-i18n="qa.board.role">Role</span>
-              <span data-i18n="qa.board.type">Type</span>
-            </div>
-            <ol class="board__rows" aria-label="Roles at Inteleq, newest first" data-i18n-attr="aria-label:qa.exp.roles">
-              <li class="row row--now">
-                <p class="row__time" data-i18n="qa.exp.r1.date">Mar 2026 - Present</p>
-                <h4 class="row__role" data-flap data-i18n="qa.exp.r1.title">Quality Assurance Engineer</h4>
-                <p class="row__type" data-i18n="qa.exp.r1.type">Full-time</p>
-                <p class="row__note" data-i18n="qa.exp.r1.p1">Quality assurance for payment and online banking products across multiple projects, including System Integration Testing (SIT).</p>
+            <p class="postcard__text" data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
+            <a class="postcard__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
+            <ul class="postcard__list">
+              <li class="postcard__item">
+                <span class="postcard__label" data-i18n="qa.contact.github">GitHub</span>
+                <a class="postcard__link" href="https://github.com/Kjudhist" rel="me" data-testid="contact-github">github.com/Kjudhist</a>
               </li>
-              <li class="row">
-                <p class="row__time" data-i18n="qa.exp.r2.date">Nov 2025 - Mar 2026</p>
-                <h4 class="row__role" data-flap data-i18n="qa.exp.r2.title">Quality Assurance Engineer</h4>
-                <p class="row__type" data-i18n="qa.exp.r2.type">Internship</p>
-                <p class="row__note" data-i18n="qa.exp.r2.p1">Took part in quality assurance for payment and online banking projects and products, making sure each product delivers what it’s meant to.</p>
+              <!-- LinkedIn, hidden for now. Uncomment and add the URL when ready.
+              <li class="postcard__item">
+                <span class="postcard__label">LinkedIn</span>
+                <a class="postcard__link" href="https://www.linkedin.com/in/your-handle" rel="me" data-testid="contact-linkedin">linkedin.com/in/your-handle</a>
               </li>
-              <li class="row">
-                <p class="row__time" data-i18n="qa.exp.r3.date">Aug 2025 - Nov 2025</p>
-                <h4 class="row__role" data-flap data-i18n="qa.exp.r3.title">Java Development Trainee</h4>
-                <p class="row__type"><span data-i18n="qa.exp.r3.type">Apprenticeship · Batch 16</span><span class="row__sep" aria-hidden="true"> / </span><span data-i18n="qa.exp.r3.place">Kelapa Gading, Jakarta · On-site</span></p>
-                <p class="row__note" data-i18n="qa.exp.r3.p1">Java development training program.</p>
-              </li>
-            </ol>
+              -->
+            </ul>
           </div>
 
-          <div class="exp__rest">
-            <article class="entry" data-reveal>
-              <h3 class="entry__kicker" data-i18n="qa.exp.earlier">Earlier</h3>
-              <p class="entry__date">2021 - 2022</p>
-              <h4 class="entry__title" data-i18n="qa.exp.ihs.title">IT / Zoom Support</h4>
-              <p class="entry__org" translate="no">Indonesian Heritage Society</p>
-              <p class="entry__text" data-i18n="qa.exp.ihs.p1">IT documentation and website maintenance. Zoom support for live sessions.</p>
-            </article>
-
-            <article class="entry" data-reveal style="--delay: .1s">
-              <h3 class="entry__kicker" data-i18n="qa.org.title">Organization</h3>
-              <p class="entry__date">2019</p>
-              <h4 class="entry__title" data-i18n="qa.org.role">Head of Division</h4>
-              <p class="entry__org"><span translate="no">BIOS FILKOM UB</span> <span class="entry__gloss" lang="id" translate="no">Badan Internal Olahraga dan Seni</span></p>
-              <p class="entry__text" data-i18n="qa.org.p1">Led the operations of the Homeband division. Trained Homeband talent and connected them with prospective publishers.</p>
-            </article>
-
-            <article class="entry" data-reveal style="--delay: .2s">
-              <h3 class="entry__kicker" data-i18n="qa.edu.title">Education</h3>
-              <p class="entry__date">2016 - 2023</p>
-              <h4 class="entry__title" data-i18n="qa.edu.degree">Informatics Engineering (S.Kom)</h4>
-              <p class="entry__org" data-i18n="qa.edu.school">Brawijaya University</p>
-            </article>
+          <div class="cvcard tape" id="cv" role="region" aria-labelledby="cv-title" data-testid="section-cv">
+            <h3 class="cvcard__title" id="cv-title" data-i18n="qa.cv.title">CV</h3>
+            <p class="cvcard__text" data-i18n="qa.cv.text">Everything above, on one page.</p>
+            <!-- Same as the hero button: becomes a real download link once the CV is ready. -->
+            <span class="btn is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="cv-download">
+              <span data-i18n="qa.cv.button">Download CV (PDF)</span>
+              <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+              <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
+            </span>
           </div>
         </div>
-      </section>
-
-      <!-- QA 03 Skills & tools -->
-      <section class="section skills" id="skills" aria-labelledby="skills-title" data-testid="section-skills">
-        <div class="wrap">
-          <header class="stop" data-reveal>
-            <span class="badge" aria-hidden="true"><b>QA</b><span>03</span></span>
-            <h2 class="section-title" id="skills-title" data-i18n="qa.skills.title">Skills &amp; tools</h2>
-          </header>
-
-          <div class="skillset">
-            <div class="skillset__group skillset__group--lead" data-reveal>
-              <h3 class="skillset__name" data-i18n="qa.skills.testing">Testing</h3>
-              <ul class="skillset__list">
-                <li data-i18n="qa.skill.qa">Quality assurance</li>
-                <li data-i18n="qa.skill.sit">System integration testing (SIT)</li>
-                <li data-i18n="qa.skill.manual">Manual testing</li>
-                <li data-i18n="qa.skill.cases">Test case design</li>
-                <li data-i18n="qa.skill.bugs">Bug reporting</li>
-                <li data-i18n="qa.skill.auto">Automation</li>
-                <li data-i18n="qa.skill.ai">AI-assisted automation</li>
-              </ul>
-            </div>
-            <div class="skillset__group" data-reveal>
-              <h3 class="skillset__name" data-i18n="qa.skills.engineering">Engineering</h3>
-              <ul class="skillset__list" translate="no">
-                <li>Java</li>
-                <li>Git</li>
-              </ul>
-            </div>
-            <div class="skillset__group" data-reveal>
-              <h3 class="skillset__name" data-i18n="qa.skills.design">Product &amp; design</h3>
-              <ul class="skillset__list">
-                <li data-i18n="qa.skill.ux">UX research</li>
-                <li data-i18n="qa.skill.proto">Prototyping</li>
-                <li data-i18n="qa.skill.hcd">Human-centered design</li>
-              </ul>
-            </div>
-            <div class="skillset__group" data-reveal>
-              <h3 class="skillset__name" data-i18n="qa.skills.working">Ways of working</h3>
-              <ul class="skillset__list">
-                <li data-i18n="qa.skill.team">Teamwork</li>
-                <li data-i18n="qa.skill.pm">Project management</li>
-              </ul>
-            </div>
-            <div class="skillset__group" data-reveal>
-              <h3 class="skillset__name" data-i18n="qa.skills.tools">Tools</h3>
-              <ul class="skillset__list">
-                <li translate="no">VS Code</li>
-                <li translate="no">Git</li>
-                <li translate="no">Figma</li>
-                <li translate="no">Balsamiq</li>
-                <li data-i18n="qa.tool.tm">Test management tools</li>
-                <li data-i18n="qa.tool.bt">Bug trackers</li>
-                <li data-i18n="qa.tool.api">API testing tools</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Case studies: hidden until there's something to show. The markup is in git history
-           (commit "Add the QA page"); put it back here along with the "Work" link in the nav. -->
-
-      <!-- QA 04 Contact: a ticket, with the CV as its stub -->
-      <section class="section contact" id="contact" aria-labelledby="contact-title" data-testid="section-contact">
-        <div class="wrap">
-          <header class="stop stop--terminal" data-reveal>
-            <span class="badge" aria-hidden="true"><b>QA</b><span>04</span></span>
-            <h2 class="section-title" id="contact-title" data-i18n="qa.contact.title">Contact</h2>
-          </header>
-
-          <div class="ticket" data-reveal>
-            <div class="ticket__main">
-              <p class="ticket__text" data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
-              <a class="ticket__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
-              <ul class="ticket__list">
-                <li class="ticket__item">
-                  <span class="ticket__label" data-i18n="qa.contact.github">GitHub</span>
-                  <a class="ticket__link" href="https://github.com/Kjudhist" rel="me" data-testid="contact-github">github.com/Kjudhist</a>
-                </li>
-                <!-- LinkedIn, hidden for now. Uncomment and add the URL when ready.
-                <li class="ticket__item">
-                  <span class="ticket__label">LinkedIn</span>
-                  <a class="ticket__link" href="https://www.linkedin.com/in/your-handle" rel="me" data-testid="contact-linkedin">linkedin.com/in/your-handle</a>
-                </li>
-                -->
-              </ul>
-            </div>
-
-            <div class="ticket__stub" id="cv" role="region" aria-labelledby="cv-title" data-testid="section-cv">
-              <h3 class="ticket__stub-title" id="cv-title" data-i18n="qa.cv.title">CV</h3>
-              <p class="ticket__stub-text" data-i18n="qa.cv.text">Everything above, on one page.</p>
-              <!-- Same as the hero button: becomes a real download link once the CV is ready. -->
-              <span class="btn is-pending" role="link" aria-disabled="true" tabindex="0" data-testid="cv-download">
-                <span data-i18n="qa.cv.button">Download CV (PDF)</span>
-                <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
-                <span class="tip" data-i18n="qa.cv.soon">Still in progress</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
-  <!-- End of the line: the platform edge, and a transfer to the Willow Line -->
-  <div class="tactile" aria-hidden="true"></div>
+  <!-- The last page: the other notebook is right there -->
   <div class="qa-end theme-dark">
     <aside class="wrap">
-      <a class="transfer" href="../art/" data-transition="dark" data-testid="link-to-art">
-        <span class="transfer__label" data-i18n="qa.toArt.transfer">Transfer</span>
-        <span class="badge badge--willow" aria-hidden="true"><b>WA</b><span>01</span></span>
-        <span class="transfer__text">
-          <span class="transfer__line" data-i18n="line.art">Willow Line</span>
-          <span class="transfer__name" data-i18n="qa.toArt">Outside of work, I make art</span>
-        </span>
-        <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+      <a class="next-book" href="../art/" data-transition="dark" data-testid="link-to-art">
+        <span class="next-book__label" data-i18n="qa.toArt.label">The other notebook</span>
+        <span class="next-book__name hand" data-i18n="qa.toArt">Outside of work, I make art</span>
+        <svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
       </a>
     </aside>
-
-    <footer class="credit wrap" data-testid="site-footer">
-      <p><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
-    </footer>
   </div>
+  <footer class="ruler" data-testid="site-footer">
+    <p class="credit"><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
+  </footer>
 </body>
 </html>

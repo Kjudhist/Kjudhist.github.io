@@ -4,58 +4,43 @@
     "ignoreFiles": [],
     "ignoreValues": [
       {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-11T12:00:00.000Z",
+        "reason": "Agent: the flagged text sits on the white cover labels (royal on #fff, 6.8:1); the detector samples the sketchbook cover's gradient behind the label instead"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "index.html",
+          "qa/index.html",
+          "art/index.html",
+          "404.html"
+        ],
+        "createdAt": "2026-10-11T12:00:00.000Z",
+        "reason": "Agent: the repeats draw real stationery (ruler ticks, staff lines on manuscript paper, index-card rules, the sketchbook spiral), not surface decoration"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "qa/index.html"
+        ],
+        "createdAt": "2026-10-11T11:25:29.653Z",
+        "reason": "Agent: log rows, the column bar and the postcard pad their own content (1-2.25rem, visible in screenshots); the end band insets with .wrap margins"
+      },
+      {
         "rule": "cramped-padding",
         "value": "*",
         "files": [
           "art/index.html"
         ],
-        "createdAt": "2026-10-11T08:13:31.386Z",
-        "reason": "Agent: sections and the story sheet are inset by .wrap gutters (margin, not padding); list rows carry their own vertical padding inside the link, so text is never flush against a rule"
-      },
-      {
-        "rule": "cramped-padding",
-        "value": "*",
-        "files": [
-          "qa/index.html"
-        ],
-        "createdAt": "2026-10-11T08:14:19.941Z",
-        "reason": "Agent: full-bleed colour bands (hero vat, experience dips, contact, page end) inset their content with .wrap gutters (margin, not padding); text never touches an edge"
-      },
-      {
-        "rule": "pulsing-dot",
-        "value": "*",
-        "files": [
-          "qa/index.html"
-        ],
-        "createdAt": "2026-10-11T08:33:59.598Z",
-        "reason": "Agent: the blinking LED marks the role that is current on the departure board; it is real state, and boards blink it"
-      },
-      {
-        "rule": "cramped-padding",
-        "value": "*",
-        "files": [
-          "index.html"
-        ],
-        "createdAt": "2026-10-11T08:38:56.118Z",
-        "reason": "Agent: the station sign plate is padded with clamp(1.25rem..2.5rem) on every side (48px at desktop in screenshots); detector reads it as flush"
-      },
-      {
-        "rule": "cramped-padding",
-        "value": "*",
-        "files": [
-          "404.html"
-        ],
-        "createdAt": "2026-10-11T08:38:56.392Z",
-        "reason": "Agent: the 404 sign is padded with clamp(1.25rem..2rem) on every side (32px at desktop in screenshots); detector reads it as flush"
-      },
-      {
-        "rule": "side-tab",
-        "value": "*",
-        "files": [
-          "css/qa.css"
-        ],
-        "createdAt": "2026-10-11T08:41:13.652Z",
-        "reason": "Agent: .ticket__stub::before is the ticket's perforation (a row of concrete-coloured holes along the tear line), not a coloured accent border"
+        "createdAt": "2026-10-11T11:25:29.864Z",
+        "reason": "Agent: slots are empty placeholders whose only child is a centred label; score rows sit inside the sheet's own padding"
       }
     ]
   }

@@ -1,221 +1,346 @@
 /* ==========================================================================
-   Gate: a station platform.
-   A station name sign for "Kevin JG", its bottom band pointing two ways:
-   left along the QA Line (navy), right along the Willow Line (green).
-   Under each direction, a platform screen door. Hover or focus opens it a
-   little; a click opens it and a train passes into the next page.
-   Also styles the 404 page.
+   Gate: two notebooks on a cutting mat.
+   The white one is the QA notebook, hinged on the left; the royal blue one
+   is the atelier's sketchbook, spiral-bound along the top. Hover, focus or a
+   first tap lifts the cover; opening it swings the cover right back, then
+   ink spreads into the next page. Also the 404 page.
    ========================================================================== */
 
 body.gate {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
-  /* platform tiles */
-  background:
-    linear-gradient(var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
-    linear-gradient(90deg, var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
-    var(--concrete);
+  background-color: var(--mat);
+  /* the cutting mat's grid: fine lines, a stronger one every five */
+  background-image:
+    linear-gradient(rgba(205, 217, 255, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(205, 217, 255, 0.13) 1px, transparent 1px),
+    linear-gradient(rgba(205, 217, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(205, 217, 255, 0.05) 1px, transparent 1px);
+  background-size: 7.5rem 7.5rem, 7.5rem 7.5rem, 1.5rem 1.5rem, 1.5rem 1.5rem;
+  background-position: calc(50% - 0.75rem) -1px;
 }
 
 .gate__top {
   display: flex;
-  justify-content: flex-end;
-  padding: 0.85rem var(--gutter);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 2.5vw, 1.75rem) var(--gutter) 0;
 }
 
-.gate__main {
-  flex: 1;
+/* --------------------------------------------------------------------------
+   The name sticker
+   -------------------------------------------------------------------------- */
+
+.nametag {
   display: flex;
-  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  border: 2px solid var(--royal);
+  border-radius: 10px;
+  background: var(--sheet);
+  color: var(--ink);
+  box-shadow: 0 10px 22px -12px rgba(0, 0, 0, 0.6);
+  transform: rotate(-1.5deg);
+  transform-origin: left top;
 }
 
-.station {
-  flex: 1;
+.nametag__label {
   display: grid;
   place-items: center;
-  padding: clamp(1rem, 4vh, 3rem) var(--gutter) clamp(1.5rem, 4vh, 3rem);
+  padding: 0 0.7rem;
+  border-radius: 7px 0 0 7px;
+  background: var(--royal);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.12em;
+}
+
+html[lang="ja"] .nametag__label {
+  letter-spacing: 0.3em;
+}
+
+.nametag__name {
+  padding: 0.35rem clamp(1rem, 2.5vw, 1.6rem) 0.4rem;
+  font-size: clamp(2rem, 1.2rem + 3.2vw, 3.9rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--royal);
+  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
-   The sign
+   Under the sticker
    -------------------------------------------------------------------------- */
 
-.sign {
-  width: min(100%, 60rem);
-  filter: drop-shadow(0 18px 22px rgba(15, 31, 58, 0.16)) drop-shadow(0 2px 3px rgba(15, 31, 58, 0.18));
+.gate__main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: clamp(0.9rem, 2.2vw, 1.5rem) var(--gutter) clamp(1.5rem, 4vh, 3rem);
 }
 
-.sign__plate {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
+.gate__intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 1.25rem;
+  color: var(--sky);
+}
+
+.gate__full {
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.gate__hint {
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   The desk, and the two notebooks on it
+   -------------------------------------------------------------------------- */
+
+.desk {
+  --gap: clamp(1rem, 6vw, 7rem);
+  flex: 1;
+  display: flex;
   align-items: center;
-  gap: 0.25rem clamp(1rem, 3vw, 2rem);
-  padding: clamp(1.25rem, 3.5vw, 2.5rem) clamp(1.25rem, 4vw, 3rem);
-  border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--plate);
-}
-
-.sign__badge {
-  font-size: clamp(1.15rem, 0.9rem + 1.2vw, 1.9rem);
-  --c: var(--ink);
-}
-
-.sign__title {
-  font-size: clamp(2.6rem, 1.4rem + 5.4vw, 6rem);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-
-.sign__full {
-  margin-top: 0.4rem;
-  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.2rem);
-  font-weight: 700;
-  color: var(--steel);
-}
-
-.sign__here {
-  grid-column: 1 / -1;
-  margin-top: 1rem;
-  padding-top: 0.9rem;
-  border-top: 2px solid var(--line);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--steel);
-}
-
-/* --------------------------------------------------------------------------
-   The two directions: the sign's bottom band, and a platform door under each
-   -------------------------------------------------------------------------- */
-
-.gate__stage {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  gap: var(--gap);
+  padding-top: clamp(1.25rem, 3vh, 2rem);
 }
 
 .door {
-  --line-c: var(--navy);
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  color: #fff;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.4s var(--ease);
-}
-
-.door--art {
-  --line-c: var(--willow);
-}
-
-.door__band {
-  display: flex;
   align-items: center;
   gap: 0.9rem;
-  min-height: 5rem;
-  padding: 0.9rem clamp(1rem, 3vw, 2rem);
-  background: var(--line-c);
-  transition: filter 0.3s var(--ease);
+  border-radius: 6px;
+  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.door--qa .door__band {
-  border-radius: 0 0 0 var(--radius);
+.door:focus-visible {
+  outline-offset: 10px;
 }
 
-.door--art .door__band {
-  justify-content: flex-end;
-  border-radius: 0 0 var(--radius) 0;
-  text-align: right;
-}
-
-.door__band .badge {
-  font-size: 0.95rem;
-  border-color: #fff;
-  background: #fff;
-}
-
-.door__arrow {
-  width: 2rem;
-  flex: none;
-  transition: transform 0.4s var(--ease-out);
-}
-
-.door__text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.door__label {
-  font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.6rem);
-  font-weight: 700;
-  line-height: 1.15;
-}
-
-.door__line {
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
-/* platform screen door: two leaves meeting in the middle, a stripe of line colour */
-.pdoor {
+.book {
+  --w: min(25rem, calc((100vw - 2 * var(--gutter) - var(--gap)) / 2), 46svh);
   position: relative;
   display: block;
-  width: min(78%, 17rem);
-  height: clamp(6.5rem, 15vh, 9.5rem);
-  margin: clamp(2rem, 6vh, 3.5rem) auto 0;
-  border-radius: 4px 4px 0 0;
-  /* what's behind the doors: the train's own colour */
-  background: linear-gradient(180deg, var(--line-c), color-mix(in srgb, var(--line-c) 70%, #000));
-  box-shadow: inset 0 0 0 4px #9aa3ad;
-  overflow: hidden;
+  width: var(--w);
+  aspect-ratio: 182 / 257; /* B5 */
+  container-type: inline-size;
+  perspective: 1800px;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.6s var(--ease-out);
 }
 
-.pdoor__leaf {
+.book--note {
+  --tilt: -2.2deg;
+}
+
+.book--sketch {
+  --tilt: 1.8deg;
+}
+
+/* the first page, under the cover; the edges of the rest stack behind it */
+.book__page {
   position: absolute;
-  top: 4px;
-  bottom: 0;
-  width: calc(50% - 4px);
-  background:
-    linear-gradient(var(--line-c), var(--line-c)) 0 32% / 100% 0.5rem no-repeat,
-    linear-gradient(180deg, #f6f7f8, #dfe3e7);
-  box-shadow: inset 0 0 0 1px rgba(21, 24, 29, 0.18);
-  transition: transform 0.75s var(--ease);
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: 18cqw 12cqw 0 16cqw;
+  border-radius: 2px 5px 5px 2px;
+  background-color: var(--sheet);
+  box-shadow:
+    2px 3px 0 #e4e9f5,
+    4px 6px 0 #d3daeb,
+    0 26px 40px -16px rgba(0, 0, 0, 0.75);
 }
 
-.pdoor__leaf::after {
+.book--note .book__page {
+  background-image:
+    linear-gradient(var(--grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-strong) 1px, transparent 1px);
+  background-size: 5cqw 5cqw;
+}
+
+.book--sketch .book__page {
+  padding: 22cqw 12cqw 0;
+  border-radius: 3px;
+  background-color: #fbfcff;
+}
+
+.book__scribble {
+  font-size: 7.4cqw;
+  line-height: 1.45;
+  color: var(--royal);
+  transform: rotate(-2deg);
+}
+
+/* the cover */
+.book__cover {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border-radius: 2px 5px 5px 2px;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  transition: transform 0.7s var(--ease-out), box-shadow 0.7s var(--ease-out);
+}
+
+/* the inside of the cover, seen once it swings past upright */
+.book__cover::after {
   content: "";
   position: absolute;
-  top: 12%;
-  left: 22%;
-  right: 22%;
-  height: 14%;
+  inset: 0;
+  border-radius: inherit;
+  background: #e9edf8;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+.book__cover > * {
+  backface-visibility: hidden;
+}
+
+/* QA: a white school notebook, its spine bound in royal blue cloth tape */
+.book--note .book__cover {
+  background:
+    linear-gradient(90deg, var(--royal) 0 13%, rgba(0, 0, 0, 0.12) 13% calc(13% + 1px), transparent calc(13% + 1px)),
+    var(--sheet);
+}
+
+.book--note .book__label {
+  position: absolute;
+  top: 16%;
+  left: 23%;
+  right: 10%;
+  display: grid;
+  gap: 2cqw;
+  padding: 5cqw 6cqw 6cqw;
+  border: 1.5px solid var(--royal);
   border-radius: 3px;
-  background: rgba(21, 24, 29, 0.14);
+  color: var(--ink);
 }
 
-.pdoor__leaf--l {
-  left: 4px;
+.book--note .book__no {
+  padding-bottom: 2cqw;
+  border-bottom: 1px solid rgba(35, 72, 200, 0.3);
 }
 
-.pdoor__leaf--r {
-  right: 4px;
+.book__no {
+  font-size: 4cqw;
+  font-weight: 700;
+  color: var(--royal);
 }
 
+.book__no .hand {
+  margin-left: 0.3em;
+  font-size: 1.5em;
+  color: var(--ink);
+}
+
+.book__title {
+  font-size: 10cqw;
+  line-height: 1.2;
+  color: var(--royal);
+}
+
+.book__kind {
+  font-size: 4.2cqw;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--pencil);
+}
+
+/* the notebook's printed foot */
+.book--note .book__cover::before {
+  content: "";
+  position: absolute;
+  left: 23%;
+  right: 10%;
+  bottom: 9%;
+  height: 4cqw;
+  border-top: 1.5px solid var(--royal);
+  border-bottom: 4px solid var(--royal);
+}
+
+/* Art: the sketchbook. Royal blue board, spiral along the top, a white patch for the title */
+.book--sketch .book__cover {
+  transform-origin: center top;
+  border-radius: 3px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, var(--mat) 0 0.9cqw, transparent 1.1cqw) 0 2.4cqw / 6cqw 4cqw repeat-x,
+    linear-gradient(160deg, #2d55dc, var(--royal) 45%, #1d3eb4);
+  color: var(--royal);
+}
+
+.book--sketch .book__cover::after {
+  transform: rotateX(180deg);
+}
+
+.book__kanji {
+  position: absolute;
+  right: -6cqw;
+  top: 12cqw;
+  font-family: var(--font-hand);
+  font-size: 92cqw;
+  font-weight: 600;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 0.4cqw rgba(205, 217, 255, 0.4);
+  pointer-events: none;
+}
+
+.book--sketch .book__label {
+  position: absolute;
+  left: 9%;
+  bottom: 10%;
+  display: grid;
+  gap: 2cqw;
+  max-width: 76%;
+  padding: 5cqw 6cqw;
+  border-radius: 2px;
+  background: var(--sheet);
+  box-shadow: 0 6px 14px -8px rgba(0, 0, 0, 0.5);
+}
+
+.book__rings {
+  position: absolute;
+  top: -2.6cqw;
+  left: 0;
+  right: 0;
+  height: 7cqw;
+  z-index: 3;
+  background: repeating-linear-gradient(90deg, transparent 0 1.6cqw, #dfe4ef 1.6cqw 3cqw, #9aa4bd 3cqw 3.6cqw, transparent 3.6cqw 6cqw);
+  border-radius: 2cqw;
+  -webkit-mask: linear-gradient(transparent 0 8%, #000 8% 92%, transparent 92%);
+  mask: linear-gradient(transparent 0 8%, #000 8% 92%, transparent 92%);
+  pointer-events: none;
+}
+
+/* the touch hint under each book */
 .door__cue {
   display: none;
-  align-self: center;
-  margin-top: 0.9rem;
-  padding: 0.35rem 0.8rem;
-  border-radius: var(--radius);
-  background: var(--ink);
+  font-size: 0.95rem;
+  color: var(--sky);
+  text-align: center;
+  transition: color 0.3s var(--ease);
+}
+
+.door.is-peek .door__cue {
   color: #fff;
-  font-size: 0.85rem;
-  font-weight: 700;
 }
 
 @media (hover: none) {
@@ -225,182 +350,205 @@ body.gate {
 }
 
 /* --------------------------------------------------------------------------
-   Peek (hover, focus, first tap), then open
+   Lifting and opening
    -------------------------------------------------------------------------- */
 
-.door:is(:hover, :focus-visible, .is-peek) .door__band {
-  filter: brightness(1.12);
+.door.is-peek .book--note .book__cover {
+  transform: rotateY(-34deg);
+  box-shadow: 18px 0 30px -14px rgba(0, 0, 0, 0.45);
 }
 
-.door--qa:is(:hover, :focus-visible, .is-peek) .door__arrow {
-  transform: translateX(-0.4rem);
+.door.is-peek .book--sketch .book__cover {
+  transform: rotateX(28deg);
+  box-shadow: 0 22px 30px -14px rgba(0, 0, 0, 0.45);
 }
 
-.door--art:is(:hover, :focus-visible, .is-peek) .door__arrow {
-  transform: translateX(0.4rem);
+@media (hover: hover) {
+  .door:hover .book--note .book__cover,
+  .door:focus-visible .book--note .book__cover {
+    transform: rotateY(-34deg);
+    box-shadow: 18px 0 30px -14px rgba(0, 0, 0, 0.45);
+  }
+
+  .door:hover .book--sketch .book__cover,
+  .door:focus-visible .book--sketch .book__cover {
+    transform: rotateX(28deg);
+    box-shadow: 0 22px 30px -14px rgba(0, 0, 0, 0.45);
+  }
+
+  .door:hover .book,
+  .door:focus-visible .book {
+    transform: rotate(0deg) translateY(-0.4rem);
+  }
 }
 
-.door:is(:hover, :focus-visible, .is-peek) .pdoor__leaf--l {
-  transform: translateX(-38%);
+.door.is-peek .book {
+  transform: rotate(0deg) translateY(-0.4rem);
 }
 
-.door:is(:hover, :focus-visible, .is-peek) .pdoor__leaf--r {
-  transform: translateX(38%);
+.door.is-open .book--note .book__cover,
+.door.is-open:hover .book--note .book__cover {
+  transform: rotateY(-178deg);
+  box-shadow: none;
 }
 
-.door:focus-visible {
-  outline-offset: 6px;
+.door.is-open .book--sketch .book__cover,
+.door.is-open:hover .book--sketch .book__cover {
+  transform: rotateX(178deg);
+  box-shadow: none;
 }
 
-.door.is-open .pdoor__leaf--l {
-  transform: translateX(-100%);
+.door.is-open .book--sketch .book__rings {
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
 }
 
-.door.is-open .pdoor__leaf--r {
-  transform: translateX(100%);
+.desk.has-open .door:not(.is-open) {
+  opacity: 0.25;
 }
 
-.gate__stage.has-open .door:not(.is-open) {
-  opacity: 0.35;
+.door.is-entering .book {
+  transform: rotate(0deg) scale(1.06);
 }
 
 /* --------------------------------------------------------------------------
-   The track below the platform
+   Footer
    -------------------------------------------------------------------------- */
 
-.track {
-  background-color: var(--night-3);
-  /* the sleepers under the rails */
-  background-image: repeating-linear-gradient(90deg, transparent 0 3.2rem, rgba(255, 255, 255, 0.05) 3.2rem 4.4rem);
-}
-
-.track .credit {
-  color: #b0c4e2;
+.gate .ruler {
+  position: relative;
+  z-index: 1;
 }
 
 /* --------------------------------------------------------------------------
-   Narrow screens
+   Small screens: the two books stay side by side, smaller
    -------------------------------------------------------------------------- */
 
-@media (max-width: 639.98px) {
-  .sign__plate {
-    grid-template-columns: 1fr;
-    justify-items: start;
+@media (max-width: 719.98px) {
+  .gate__top {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1.1rem;
   }
 
-  .door__band {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    min-height: 0;
-    padding: 0.75rem;
+  .gate__top .lang {
+    align-self: flex-end;
   }
 
-  .door--art .door__band {
-    flex-wrap: wrap-reverse;
+  .nametag {
+    align-self: flex-start;
   }
 
-  .door__band .badge {
-    font-size: 0.8rem;
+  .desk {
+    --gap: 1.1rem;
+    align-items: center;
+    padding-top: 1.5rem;
   }
 
-  .door__arrow {
-    width: 1.5rem;
+  .door__cue {
+    max-width: calc(var(--w, 10rem) + 1rem);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    word-break: auto-phrase;
   }
 
-  .door__text {
-    flex-basis: 100%;
+  .book {
+    --w: calc((100vw - 2 * var(--gutter) - var(--gap)) / 2);
   }
 
-  .door__label {
-    font-size: 1.05rem;
-  }
-
-  .pdoor {
-    width: 86%;
+  .door {
+    gap: 1.1rem;
   }
 }
 
-/* --------------------------------------------------------------------------
-   Reduced motion: doors still open, nothing travels
-   -------------------------------------------------------------------------- */
+@media (max-height: 640px) and (min-width: 720px) {
+  .book {
+    --w: min(25rem, 40svh);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .pdoor__leaf,
-  .door__arrow,
+  .book,
+  .book__cover,
   .door {
     transition-duration: 0.01s;
   }
 }
 
 /* ==========================================================================
-   404: a stop that isn't on any line
+   404: a page someone rubbed out
    ========================================================================== */
 
 body.lost-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .lost {
-  flex: 1;
   display: grid;
-  place-items: center;
-  padding: 2rem var(--gutter);
+  align-items: center;
+  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
 }
 
 .lost__inner {
-  width: min(100%, 44rem);
-}
-
-.lost__sign {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 1.25rem;
-  padding: clamp(1.25rem, 3vw, 2rem);
-  border-radius: var(--radius) var(--radius) 0 0;
-  background: var(--plate);
-  color: var(--ink);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  width: min(100%, 68rem);
+  margin-inline: auto;
 }
 
-.lost__sign .badge {
-  font-size: 1.3rem;
-  --c: var(--signal);
+/* 404 in pencil, half erased: a mask wipes across it in strokes */
+.lost__number {
+  position: relative;
+  font-family: var(--font-hand);
+  font-size: clamp(7rem, 4rem + 16vw, 17rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--royal);
+  -webkit-mask-image: linear-gradient(172deg, #000 0 36%, rgba(0, 0, 0, 0.16) 44% 56%, #000 66%);
+  mask-image: linear-gradient(172deg, #000 0 36%, rgba(0, 0, 0, 0.16) 44% 56%, #000 66%);
 }
 
-.lost__sign .badge span {
-  font-size: 0.78em;
+/* eraser crumbs */
+.lost__crumbs {
+  position: relative;
+  height: 1.5rem;
+  margin-top: 0.75rem;
+  background:
+    radial-gradient(ellipse 0.55rem 0.22rem at 12% 40%, #c3cbe0 98%, transparent),
+    radial-gradient(ellipse 0.35rem 0.18rem at 22% 70%, #c3cbe0 98%, transparent),
+    radial-gradient(ellipse 0.7rem 0.24rem at 36% 30%, #c3cbe0 98%, transparent),
+    radial-gradient(ellipse 0.3rem 0.16rem at 47% 64%, #c3cbe0 98%, transparent),
+    radial-gradient(ellipse 0.5rem 0.2rem at 58% 45%, #c3cbe0 98%, transparent);
 }
 
 .lost__title {
-  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem);
-  line-height: 1.15;
-  color: var(--ink);
+  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--fg-strong);
 }
 
-.lost__band {
-  padding: 0.9rem clamp(1.25rem, 3vw, 2rem);
-  border-radius: 0 0 var(--radius) var(--radius);
-  background: var(--signal);
-  color: var(--ink);
-  font-weight: 700;
+html[lang="ja"] .lost__title {
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.35;
 }
 
 .lost__text {
-  margin-top: 1.75rem;
-  color: var(--muted);
+  max-width: 34rem;
+  margin: 1.1rem 0 2rem;
 }
 
-.lost__back {
-  margin-top: 1.5rem;
+@media (max-width: 719.98px) {
+  .lost__inner {
+    grid-template-columns: 1fr;
+  }
 }
 
-.lost__back .back-link__arrow {
-  width: 1.5rem;
-  height: 0.6rem;
-}
-
-.lost-page .topbar {
-  justify-content: flex-end;
+.lost-page .topbar__end {
+  margin-left: auto;
 }

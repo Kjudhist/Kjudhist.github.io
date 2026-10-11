@@ -1,54 +1,54 @@
-# Design system: eki (駅)
+# Design system: bungu (文具)
 
-The Japanese railway station, as wayfinding. Recorded from the built site (css/base.css, gate.css, qa.css, art.css).
+Japanese stationery, written in royal blue fountain-pen ink. Recorded from the built site (css/base.css, gate.css, qa.css, art.css).
 
 ## Idea
 
-The site is a small rail network. The gate is a station named after me; each side is a line with its own colour, and its sections are numbered stops on that line.
+The site is a desk. The gate is a cutting mat with a name sticker and two notebooks on it; each side of the site is one of those notebooks.
 
-- Station signs: a white plate with a line-coloured band along the bottom; the band names the next stop with an arrow.
-- Station numbers: a rounded square bordered in the line colour, line letters over a number (`QA 01`, `WA 03`). The last stop on a line is filled.
-- Departure boards: dark panels with dot-matrix text; amber for times, white for names, green for type.
-- Platform furniture: screen doors on the gate, yellow tactile paving at the edge of each page, framed posters, a train window, yellow exit signs.
+- QA is the white school notebook: graph paper, blue ink, and the things a careful tester leaves on a page: a contents sheet, a sticky note, a test log, index cards, label stickers, a postcard.
+- The Willow Atelier is the royal blue sketchbook: the page is the ink itself, and the work is white paper taped onto it: sheets, prints with photo corners, staff paper, manuscript squares.
+- Red pen appears only where a tester would use it: the 検査済 stamp and the circle around the current role.
 
 ## Colour
 
-Strategy: full palette with fixed roles. Each colour means one thing.
+Strategy: one ink. Royal blue carries the brand on both sides; blue-black is for text; red is a single, rare correction mark.
 
 | Token | Value | Role |
 |---|---|---|
-| `--concrete` | `#e6e9ec` | light ground (gate, QA), with a faint 4.5rem tile grid |
-| `--plate` | `#fbfcfc` | sign plates, ticket stub, panels |
-| `--ink` | `#15181d` | text on plates |
-| `--ink-2` | `#353c46` | body text on concrete |
-| `--steel` | `#5b6470` | secondary text on light grounds |
-| `--navy` | `#1c3d73` | QA Line: bands, route line, badges, buttons |
-| `--night` | `#0f1f3a` | dark ground (atelier, 404) |
-| `--night-2` / `--night-3` | `#172b4d` / `#0a1528` | slots; boards and the track |
-| `--willow` | `#237a4b` | Willow Line: bands, map line, badges |
-| `--willow-2` | `#8fd1aa` | Willow green as text on night |
-| `--signal` | `#f6b800` | safety yellow: tactile paving, exit signs, tooltips, focus ring |
-| `--led` | `#ffb21f` | amber LED text on boards |
+| `--paper` | `#f4f6fa` | light ground (QA, 404), with the graph-paper grid |
+| `--sheet` | `#ffffff` | paper laid on top: cards, sheets, covers, tabs |
+| `--grid` / `--grid-strong` | royal at 7.5% / 13% | graph-paper lines, card rules |
+| `--royal` | `#2348c8` | the ink: accents, buttons, handwriting; the whole atelier ground |
+| `--royal-2` | `#1a379f` | hover on royal |
+| `--royal-4` | `#0a1648` | photo corners, viewer backdrop |
+| `--sky` | `#cdd9ff` | pale blue: text and tape on royal, the ruler, sticky notes |
+| `--ink` | `#131a38` | blue-black text |
+| `--ink-2` | `#2d3657` | body text on paper |
+| `--pencil` | `#58617f` | secondary text, placeholders |
+| `--red` | `#c8352a` | red pen: stamp and circle only |
+| `--mat` | `#121a3c` | the cutting mat on the gate |
 
-Dark theme text: `#f4f6f9` strong, `#d7dee8` body, `#b0c4e2` muted (tinted toward the night, not grey).
+On royal: `#ffffff` strong, `#e8eeff` body, `--sky` muted.
 
 ## Type
 
-- BIZ UDPGothic 400/700 for everything: Latin, Indonesian and Japanese. It is a universal-design face used in Japanese public signage.
-- DotGothic16 only on boards (times, roles, track titles).
-- Curly quotes and the middle dot come from the system Latin sans (`Sign Latin Punct`, a unicode-range face), because BIZ UDPGothic draws them full-width.
-- Sizes are fluid `clamp()`; display tops out around 6rem. No small uppercase labels above headings; the station number does that job.
+- Zen Kaku Gothic New 400/500/700/900 for printed text. Display headings are 900 with tight tracking.
+- Klee One 400/600 for anything handwritten: the name sticker, the pitch, the atelier title, notes, dates, page numbers, placeholders (written in pencil).
+- Curly quotes and the middle dot come from the system Latin sans (`Latin Punct`, a unicode-range face), because Japanese faces draw them full-width.
+- No small uppercase labels above headings. Section heads are a heading over a ruled line with the page number in the corner; page numbers are meaningful because the contents and the divider tabs link to them.
 
 ## Shape
 
-- `--radius: 6px` on plates, badges, buttons, boards, tickets.
-- `--radius-window: 14px` only for train windows.
-- Line swatches and the route line are fully rounded bars.
+- Paper is square-cornered (`--radius: 4px` at most). Sheets sit at small tilts (under 2.5deg) and straighten on hover.
+- Interactive labels are pills (`--radius-pill`): buttons, the language switcher, skill stickers.
+- Tape: a pale blue strip across the top of taped things (`.tape`), tilted.
+- Shadows are tinted with royal, never black.
 
 ## Motion
 
-- Page change: a panel slides across left to right with a band of the line colour leading (`.veil`).
-- Gate: platform doors slide 38% open on peek, fully on enter.
-- Split-flap: `[data-flap]` text cycles through A-Z/0-9 and settles when it scrolls into view (station name, board roles). It starts after i18n settles, and a language switch restores the final text.
-- Text reveals: a short fade and rise.
-- Reduced motion turns all of it off; doors still open, instantly.
+- Page change: a drop of ink spreads from the middle until it fills the screen (`.veil`, clip-path circle), royal or paper depending on where you are going.
+- Gate: the QA cover swings on its left edge, the sketchbook cover flips up on its spiral; 34deg/28deg on peek, all the way on open.
+- Handwriting (`[data-reveal="write"]`) is uncovered left to right, like a pen moving. Other text settles with a short fade and rise.
+- The inspection stamp lands once after the pitch is written.
+- Reduced motion turns all of it off; covers still open, instantly.

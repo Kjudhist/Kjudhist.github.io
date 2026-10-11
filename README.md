@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on a station platform: a station name sign for "Kevin JG" points left along the QA Line to my QA work, and right along the Willow Line to The Willow Atelier, where I keep my art.
+My personal site. It opens on a desk: two notebooks on a cutting mat under a name sticker reading "Kevin JG". The white notebook holds my QA work; the royal blue sketchbook is The Willow Atelier, where I keep my art.
 
-The look is *eki* (駅), the Japanese railway station: white sign plates with a line-coloured band, numbered stops, platform doors, yellow tactile paving and dot-matrix departure boards. Each side of the site is a line with its own colour (QA Line navy, Willow Line green). Type is BIZ UDPGothic, a Japanese public-signage face, with DotGothic16 on the boards. The design system is written down in `DESIGN.md`.
+The look is *bungu* (文具), Japanese stationery, written in royal blue fountain-pen ink: graph paper, masking tape, sticky notes, a red inspection stamp, a postcard, staff paper and manuscript squares. The QA side is white paper with blue ink; the atelier is the royal blue itself with white paper taped to it. Printed text is Zen Kaku Gothic New; anything handwritten is Klee One. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** a station name sign on a tiled platform. Its bottom band points two ways, each half a link with a platform screen door under it. Hover, focus or tap once and that door slides open a little; click or tap again and it opens, then a train passes (the page change wipes across in the line's colour).
-- **QA (QA Line):** the hero is the line's first station sign, with a "Next" band to the first stop. Every section is a numbered stop (QA 01 to QA 04) on one continuous navy route line. Experience is a departure board, roles in dot-matrix with their names flipping into place; the current role blinks. Contact is a ticket with the CV as its stub. The page ends at the platform's edge with a transfer to the Willow Line.
-- **The Willow Atelier (Willow Line):** a night platform. The station sign and a line map with three stops lead to:
-  1. **Drawing & Painting**, framed posters on the platform wall
-  2. **Photography**, the view from a train window, scrolled sideways
-  3. **Music**, a board of departure melodies
+- **Gate:** a name sticker and two notebooks on a cutting mat, with a ruler along the bottom. Each notebook is a link. Hover, focus or tap once and its cover lifts (the QA notebook sideways, the sketchbook up on its spiral); click or tap again and the cover swings open, then ink spreads over the screen into the next page.
+- **QA (the white notebook):** the first page has my name, the pitch in pen with a red 検査済 (inspected) stamp, and a contents sheet linking to the four pages. About has a sticky note of facts; Experience is a test log with the current role circled in red pen, then index cards; Skills are label stickers; Contact is a postcard with the CV taped beside it. The last page hands you the sketchbook.
+- **The Willow Atelier (the sketchbook):** royal blue throughout. The title is handwritten across the first page, with three divider tabs for:
+  1. **Drawing & Painting**, sheets taped to the page
+  2. **Photography**, prints held by photo corners, scrolled sideways
+  3. **Music**, a sheet of staff paper, one track per staff
 
-  Then a large sign for the story, and the station's exits (yellow signs) to Instagram and the shop.
+  Then the story on manuscript paper (原稿用紙), the poem written into its squares, and two cards for Instagram and the shop.
 
-With reduced motion turned on, nothing travels or flips: doors still open, but instantly.
+With reduced motion turned on, nothing swings or writes itself in: covers still open, but instantly.
 
 ## Replacing placeholders
 
@@ -103,8 +103,8 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Drawings and paintings | six empty poster frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `poster--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
-| Photos | six windows ("Photo 1" to "Photo 6") under Photography. Same swap as above; `pane--tall` makes a portrait window |
+| Drawings and paintings | six empty taped sheets ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `piece--wide` makes a landscape sheet. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six prints ("Photo 1" to "Photo 6") under Photography. Same swap as above; `print--tall` makes a portrait print |
 | Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
 | A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
@@ -145,7 +145,7 @@ Key elements carry `data-testid` attributes:
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
 - Gate cues: `door-qa-cue`, `door-art-cue`
-- Gate sign: `station-sign`
+- Gate name sticker: `station-sign`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 

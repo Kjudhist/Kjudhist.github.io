@@ -50,7 +50,7 @@
     return veil;
   }
 
-  // Fade to the next page's colour, then go. tone: "light" | "dark".
+  // Ink spreads over the page in the next page's colour, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -89,84 +89,24 @@
       });
       return;
     }
+    // Handwriting starts fully clipped, which can hide it from the observer:
+    // watch its parent instead.
+    const byTarget = new Map();
     const observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
+        (byTarget.get(entry.target) || []).forEach(function (el) {
+          el.classList.add('is-visible');
+        });
         observer.unobserve(entry.target);
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
     items.forEach(function (el) {
-      observer.observe(el);
+      const target = el.getAttribute('data-reveal') === 'write' ? el.parentElement : el;
+      if (!byTarget.has(target)) byTarget.set(target, []);
+      byTarget.get(target).push(el);
+      observer.observe(target);
     });
-  }
-
-  // Split-flap text, like a station departure board: when a [data-flap]
-  // element comes into view its letters cycle through the board's
-  // alphabet and settle, left to right. Japanese text just settles in order.
-  const FLAP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const flapRuns = new Map(); // timer -> { el, target }
-
-  function flap(el) {
-    const target = el.textContent;
-    const latin = /^[\x20-\x7eÀ-ɏ’·]*$/.test(target);
-    const steps = 14;
-    let frame = 0;
-    const timer = window.setInterval(function () {
-      frame += 1;
-      const settled = Math.floor((frame / steps) * target.length);
-      let text = target.slice(0, settled);
-      for (let i = settled; i < target.length; i += 1) {
-        const ch = target[i];
-        if (ch === ' ' || !latin) {
-          text += latin ? ch : '';
-        } else {
-          text += FLAP_CHARS[Math.floor(Math.random() * FLAP_CHARS.length)];
-        }
-      }
-      el.textContent = text;
-      if (frame >= steps) {
-        window.clearInterval(timer);
-        flapRuns.delete(timer);
-        el.textContent = target;
-      }
-    }, 45);
-    flapRuns.set(timer, { el: el, target: target });
-  }
-
-  function initFlap() {
-    const items = document.querySelectorAll('[data-flap]');
-    if (!items.length || prefersReducedMotion() || !('IntersectionObserver' in window)) return;
-
-    // A language switch replaces translated text outright: stop any flap
-    // mid-way, and put back the text of anything i18n doesn't own.
-    document.addEventListener('langchange', function () {
-      flapRuns.forEach(function (run, timer) {
-        window.clearInterval(timer);
-        if (!run.el.hasAttribute('data-i18n')) run.el.textContent = run.target;
-      });
-      flapRuns.clear();
-    });
-
-    function watch() {
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          observer.unobserve(entry.target);
-          flap(entry.target);
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-      items.forEach(function (el) {
-        observer.observe(el);
-      });
-    }
-
-    // i18n settles the page on DOMContentLoaded; start after it.
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', watch, { once: true });
-    } else {
-      watch();
-    }
   }
 
   function initHeader() {
@@ -241,7 +181,6 @@
     initHeader();
     initMenu();
     initSectionSpy();
-    initFlap();
     window.addEventListener('pageshow', resetAfterBack);
   }
 
