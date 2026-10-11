@@ -4,15 +4,6 @@
     "ignoreFiles": [],
     "ignoreValues": [
       {
-        "rule": "low-contrast",
-        "value": "*",
-        "files": [
-          "index.html"
-        ],
-        "createdAt": "2026-10-11T12:11:56.852Z",
-        "reason": "Agent: the pale credit colour applies only under 720px, where the footer sits on the royal field (5.3:1); the detector pairs it with the white field"
-      },
-      {
         "rule": "cramped-padding",
         "value": "*",
         "files": [

@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on one screen split in two: a white field that goes to my QA work, and a royal blue field that goes to The Willow Atelier, where I keep my art, with one circle split across the seam.
+My personal site. It opens on two shop entrances, each hung with a noren curtain: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is a Japanese modernist poster: royal blue and white in flat fields, one circle, heavy wide Latin type (Archivo) and Japanese set vertically beside it (Noto Sans JP). The design system is written down in `DESIGN.md`.
+The look is *noren* (暖簾), the split curtain over a Japanese shop entrance: royal blue cloth with white characters, Zen Old Mincho for display and Zen Kaku Gothic New for text. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** "Kevin JG" on the white field, with the two fields as doors. Hover, focus or tap once and a field widens; click or tap again and it takes the whole page, then the next page's colour rises from the bottom.
-- **QA (the white side):** the name set wide and heavy, 品質保証 down the edge, and a royal band with the pitch. Each section opens on a heavy rule with its Japanese name set vertically. Experience is a ruled table with the current role in royal; skills lead with testing, set large; contact is the address set large on a royal field with the CV beside it. The page ends on a royal field that leads to the atelier.
-- **The Willow Atelier (the royal side):** the name in white beside a white circle with 柳, then an index of:
+- **Gate:** two cards, each a doorway with its noren, a name, one line and an **Enter** button. The whole card is the link: hover parts the curtain a little, and one click or tap goes in.
+- **QA (the white side):** the name beside a royal noren reading 品質保証, and a royal band with the pitch. Each section opens with a short noren tab carrying its Japanese name. Experience is a ruled table with the current role in royal; skills lead with testing, set large; contact is the address set large on a royal field with the CV beside it. The page ends on a royal field that leads to the atelier.
+- **The Willow Atelier (the royal side):** the name in white beside a white noren reading 柳の工房, then an index of:
   1. **Drawing & Painting**, a grid of frames
   2. **Photography**, a row of frames scrolled sideways
   3. **Music**, a ruled list of tracks
 
   Then the story with the poem set vertically, and two large rows for Instagram and the shop.
 
-With reduced motion turned on, nothing slides: fields still open, but instantly.
+With reduced motion turned on, nothing moves; the doors still work.
 
 ## Replacing placeholders
 
@@ -144,7 +144,6 @@ Key elements carry `data-testid` attributes:
 - Switcher: `lang-switcher`, `lang-option-en`, `lang-option-id`, `lang-option-ja`
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
-- Gate cues: `door-qa-cue`, `door-art-cue`
 - Gate name: `station-sign`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`

@@ -1,183 +1,161 @@
 /* ==========================================================================
-   Gate: a poster in two fields.
-   White on the left for QA, royal blue on the right for the atelier, and
-   one circle split across the seam, each half in the other field's colour.
-   Hover, focus or a first tap widens a field; opening it pushes the other
-   off the page, then the next page's colour rises. Also the 404 page.
+   Gate: two shop entrances, each hung with a noren.
+   Each door is a card with its curtain at the top, a name, one line, and
+   an Enter button; the whole card is the link. Hovering or focusing parts
+   the curtain a little; clicking parts it fully and goes in. Also 404.
    ========================================================================== */
 
 body.gate {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
-  background: var(--white);
+  background: var(--paper);
 }
 
-.gate__main {
-  position: relative;
-  height: 100vh;
-  height: 100dvh;
-  min-height: 34rem;
-  overflow: hidden;
-}
-
-/* the name, top left on the white field */
-.gate__head {
-  position: absolute;
-  top: clamp(1.25rem, 3vw, 2.5rem);
-  left: var(--gutter);
-  z-index: 5;
-  color: var(--ink);
-  pointer-events: none;
-  transition: opacity 0.4s var(--ease);
+.gate__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2.25rem) var(--gutter) 0;
 }
 
 .gate__name {
-  font-size: clamp(2.6rem, 1.2rem + 5vw, 6.5rem);
-  font-weight: 800;
-  font-stretch: 125%;
-  line-height: 0.9;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.6rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
-.gate__intro {
-  margin-top: 0.9rem;
-  font-weight: 600;
+.gate__full {
+  margin-top: 0.5rem;
+  font-weight: 500;
   color: var(--grey);
 }
 
-.gate__lang {
-  position: absolute;
-  top: clamp(1.25rem, 3vw, 2.5rem);
-  right: var(--gutter);
-  z-index: 5;
-  /* sits on the royal field */
-  --fg-strong: var(--white);
-  --bg: var(--royal);
-  --line: rgba(255, 255, 255, 0.2);
-  transition: opacity 0.4s var(--ease);
+.gate__main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vh, 1.75rem);
+  padding: clamp(1.5rem, 4vh, 3rem) var(--gutter);
 }
 
-.stage.has-open ~ .gate__foot,
-.gate__main:has(.stage.has-open) :is(.gate__head, .gate__lang) {
-  opacity: 0;
+.gate__intro {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
+  font-weight: 600;
+  color: var(--ink);
 }
 
 /* --------------------------------------------------------------------------
-   The two fields
+   The doors
    -------------------------------------------------------------------------- */
 
-.stage {
-  position: absolute;
-  inset: 0;
-  display: flex;
+.doors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 27rem));
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  width: 100%;
 }
 
 .door {
-  --disc: min(40vw, 64vh);
+  --cloth: var(--royal);
+  --cloth-ink: var(--white);
+  --door-inside: #dfe5f5;
   position: relative;
-  flex: 1 1 0;
-  min-width: 0;
-  overflow: hidden;
   display: flex;
-  padding: clamp(1.25rem, 3vw, 2.5rem) var(--gutter) clamp(4rem, 9vh, 6rem);
-  transition: flex-grow 0.7s var(--ease), flex-basis 0.7s var(--ease), padding 0.7s var(--ease);
+  flex-direction: column;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgba(11, 16, 48, 0.08), 0 18px 40px -24px rgba(15, 31, 122, 0.45);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), opacity 0.4s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
 
-.door:focus-visible {
-  outline-offset: -8px;
-}
-
-.door--qa {
-  background: var(--white);
-  color: var(--ink);
-  justify-content: flex-start;
-  align-items: flex-end;
-  --focus: var(--royal);
-}
-
 .door--art {
+  --cloth: var(--white);
+  --cloth-ink: var(--royal);
+  --door-inside: var(--royal-2);
   background: var(--royal);
   color: var(--white);
-  justify-content: flex-end;
-  align-items: flex-end;
-  text-align: right;
-  --focus: var(--white);
 }
 
-/* each field holds half of the circle, against the seam */
-.door__disc {
+.door:focus-visible {
+  outline: 3px solid var(--royal);
+  outline-offset: 4px;
+}
+
+/* the doorway: a dark lintel, and the curtain hanging from it in two panels */
+.noren {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  height: clamp(10rem, 30vh, 17rem);
+  padding: 0 1.25rem;
+  border-top: 10px solid var(--ink);
+  background: var(--door-inside);
+}
+
+.door--art .noren {
+  border-top-color: var(--royal-3);
+}
+
+.noren__panel {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding-top: clamp(1rem, 3vh, 1.75rem);
+  background: var(--cloth);
+  color: var(--cloth-ink);
+  transform-origin: top center;
+  transition: transform 0.55s var(--ease-out);
+}
+
+/* the cloth's hem */
+.noren__panel::after {
+  content: "";
   position: absolute;
-  top: 50%;
-  width: var(--disc);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  transition: transform 0.7s var(--ease);
-}
-
-.door--qa .door__disc {
-  right: 0;
-  background: var(--royal);
-  transform: translate(50%, -50%);
-}
-
-.door--art .door__disc {
   left: 0;
-  background: var(--white);
-  transform: translate(-50%, -50%);
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.12);
 }
 
-/* the field's name in Japanese, down its outer edge */
-.door__tate {
-  position: absolute;
-  top: clamp(7.5rem, 17vh, 10rem);
-  font-size: min(clamp(1.6rem, 0.8rem + 2.4vw, 3.4rem), 5vh);
-}
-
-.door--qa .door__tate {
-  top: 50%;
-  left: var(--gutter);
-  color: var(--royal);
-  transform: translateY(-50%);
-}
-
-.door--art .door__tate {
-  right: var(--gutter);
-  color: var(--white);
+.noren__text {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 1.2rem + 3vh, 3.4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
 }
 
 .door__body {
-  position: relative;
-  z-index: 1;
   display: grid;
-  gap: 0.6rem;
-  max-width: min(30rem, 34vw);
-}
-
-.door--art .door__body {
-  justify-items: end;
+  justify-items: start;
+  gap: 0.5rem;
+  padding: clamp(1.25rem, 3vh, 1.9rem) clamp(1.25rem, 2.5vw, 1.9rem) clamp(1.4rem, 3vh, 2rem);
 }
 
 .door__label {
-  font-size: clamp(1.8rem, 1rem + 2.6vw, 3.6rem);
-  font-weight: 800;
-  font-stretch: 118%;
-  line-height: 0.98;
-  letter-spacing: -0.025em;
-}
-
-html[lang="ja"] .door__label {
-  font-stretch: 100%;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.1rem + 1.5vw, 2.4rem);
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .door__sub {
   font-weight: 500;
-}
-
-.door--qa .door__sub {
   color: var(--grey);
 }
 
@@ -185,196 +163,123 @@ html[lang="ja"] .door__label {
   color: var(--pale);
 }
 
-/* the arrow that grows on peek */
-.door__label::after {
-  content: "";
-  display: block;
-  width: 3.5rem;
-  height: 4px;
-  margin-top: 1rem;
-  background: currentColor;
-  transition: width 0.6s var(--ease-out);
-}
-
-.door--art .door__label::after {
-  margin-left: auto;
-}
-
-.door__cue {
-  display: none;
-  font-size: 0.9rem;
+/* the button that says what the card does */
+.door__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 0.9rem;
+  min-height: 3rem;
+  padding: 0.6rem 1.35rem;
+  border-radius: var(--radius);
+  background: var(--royal);
+  color: var(--white);
   font-weight: 700;
+  transition: background-color 0.3s var(--ease);
 }
 
-@media (hover: none) {
-  .door__cue {
-    display: block;
-  }
+.door--art .door__btn {
+  background: var(--white);
+  color: var(--royal);
 }
 
-/* --------------------------------------------------------------------------
-   Peek and open
-   -------------------------------------------------------------------------- */
-
-.door.is-peek {
-  flex-grow: 1.3;
+/* hover and focus: the card lifts, the curtain parts, the arrow moves */
+.door:hover,
+.door:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 0 rgba(11, 16, 48, 0.08), 0 28px 50px -24px rgba(15, 31, 122, 0.55);
 }
 
-.door.is-peek .door__label::after {
-  width: 7rem;
+.door:hover .noren__panel:first-child,
+.door:focus-visible .noren__panel:first-child {
+  transform: rotate(4deg) translateX(-4%);
 }
 
-@media (hover: hover) {
-  .stage:not(.has-open) .door:hover,
-  .stage:not(.has-open) .door:focus-visible {
-    flex-grow: 1.3;
-  }
-
-  .door:hover .door__label::after,
-  .door:focus-visible .door__label::after {
-    width: 7rem;
-  }
+.door:hover .noren__panel:last-child,
+.door:focus-visible .noren__panel:last-child {
+  transform: rotate(-4deg) translateX(4%);
 }
 
-.stage.has-open .door.is-open {
-  flex: 1 0 100%;
+.door:hover .door__btn .arrow,
+.door:focus-visible .door__btn .arrow {
+  transform: translateX(0.35rem);
 }
 
-.stage.has-open .door:not(.is-open) {
-  flex: 0 0 0;
-  padding-inline: 0;
+.door--qa:hover .door__btn {
+  background: var(--royal-2);
 }
 
-/* when a field takes the page, its half of the circle slides out after the other */
-.door--qa.is-open .door__disc {
-  transform: translate(100%, -50%);
+.door--art:hover .door__btn {
+  background: var(--pale);
 }
 
-.door--art.is-open .door__disc {
-  transform: translate(-100%, -50%);
+/* going in: the curtain swings right open */
+.door.is-open .noren__panel:first-child {
+  transform: rotate(16deg) translateX(-30%);
+}
+
+.door.is-open .noren__panel:last-child {
+  transform: rotate(-16deg) translateX(30%);
+}
+
+.doors.has-open .door:not(.is-open) {
+  opacity: 0.35;
 }
 
 /* --------------------------------------------------------------------------
    Footer
    -------------------------------------------------------------------------- */
 
-.gate__foot {
-  position: absolute;
-  left: var(--gutter);
-  bottom: 1.1rem;
-  z-index: 5;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--grey);
-  transition: opacity 0.4s var(--ease);
+.gate .credit {
+  border-top: 0;
 }
 
 /* --------------------------------------------------------------------------
-   Small screens: the fields stack, white over royal; the circle sits on the seam
+   Small screens: the doors stack, curtains shorter
    -------------------------------------------------------------------------- */
 
 @media (max-width: 719.98px) {
-  .stage {
-    flex-direction: column;
+  .gate__top {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1rem;
   }
 
-  .door {
-    --disc: min(34vw, 18vh);
-    padding: 1.25rem var(--gutter) 1.5rem;
+  .gate__top .lang {
+    align-self: flex-end;
   }
 
-  .door--qa {
-    padding-top: clamp(9rem, 22vh, 12rem);
-  }
-
-  .door--art {
-    padding-bottom: 3.75rem;
-  }
-
-  .door__body {
-    max-width: 58%;
-  }
-
-  .door--qa .door__disc {
-    top: auto;
-    right: 22%;
-    bottom: 0;
-    transform: translate(50%, 50%);
-  }
-
-  .door--art .door__disc {
-    top: 0;
-    left: 78%;
-    transform: translate(-50%, -50%);
-  }
-
-  .door--qa.is-open .door__disc {
-    transform: translate(50%, 100%);
-  }
-
-  .door--art.is-open .door__disc {
-    transform: translate(-50%, -100%);
-  }
-
-  .door__tate {
-    top: auto;
-    bottom: 1.5rem;
-    transform: none;
-    font-size: 1.5rem;
-  }
-
-  .door--qa .door__tate {
-    display: none;
-  }
-
-  .door--art .door__tate {
-    right: var(--gutter);
-    bottom: 3.75rem;
-  }
-
-  .door--art {
+  .gate__main {
+    align-items: stretch;
     justify-content: flex-start;
-    text-align: left;
   }
 
-  .door--art .door__body {
-    justify-items: start;
+  .doors {
+    grid-template-columns: 1fr;
   }
 
-  .door--art .door__label::after {
-    margin-left: 0;
+  .noren {
+    height: 7.5rem;
   }
 
-  .stage.has-open .door:not(.is-open) {
-    padding-block: 0;
+  .noren__panel {
+    padding-top: 0.75rem;
   }
 
-  .gate__lang {
-    --fg-strong: var(--ink);
-    --bg: var(--white);
-    --line: rgba(11, 16, 48, 0.12);
-  }
-
-  .gate__head {
-    top: 4.5rem;
-  }
-
-  .gate__foot {
-    bottom: 1rem;
-    color: var(--pale);
+  .noren__text {
+    font-size: 1.9rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .door,
-  .door__disc,
-  .door__label::after {
+  .noren__panel {
     transition-duration: 0.01s;
   }
 }
 
 /* ==========================================================================
-   404: a royal field, the number cut from it as outline
+   404: the shop is closed
    ========================================================================== */
 
 body.lost-page {
@@ -393,50 +298,68 @@ body.lost-page {
 }
 
 .lost__inner {
-  width: min(100%, 80rem);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 5rem);
+  width: min(100%, 64rem);
   margin-inline: auto;
 }
 
-.lost__number {
-  font-size: clamp(7rem, 2rem + 24vw, 22rem);
-  font-weight: 900;
-  font-stretch: 125%;
-  line-height: 0.82;
-  letter-spacing: 0;
-  color: transparent;
-  -webkit-text-stroke: 2px var(--white);
+/* a curtain reading 本日休業, "closed today" */
+.lost__noren {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: clamp(9rem, 18vw, 13rem);
+  border-top: 10px solid var(--royal-3);
 }
 
-.lost__row {
+.lost__noren span {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 5vw, 5rem);
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding-top: 1.25rem;
-  border-top: 6px solid var(--white);
+  justify-content: start;
+  align-content: center;
+  height: clamp(13rem, 26vw, 19rem);
+  padding-top: 1rem;
+  background: var(--white);
+  color: var(--royal);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.2rem + 1.8vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.1em;
+}
+
+.lost__number {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 2rem + 6vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--pale);
 }
 
 .lost__title {
-  font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3.4rem);
-  font-weight: 800;
-  font-stretch: 118%;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 3rem);
+  font-weight: 900;
+  line-height: 1.15;
   color: var(--white);
 }
 
 html[lang="ja"] .lost__title {
-  font-stretch: 100%;
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.6rem);
-  line-height: 1.35;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.5rem);
+  line-height: 1.4;
 }
 
 .lost__text {
-  margin-bottom: 1.75rem;
+  max-width: 34rem;
+  margin: 1rem 0 1.75rem;
 }
 
 @media (max-width: 719.98px) {
-  .lost__row {
+  .lost__inner {
     grid-template-columns: 1fr;
   }
 }

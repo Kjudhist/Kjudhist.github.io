@@ -1,8 +1,7 @@
 /* ==========================================================================
-   QA: the white side of the poster.
-   The name runs wide and heavy across the top with 品質保証 down the edge,
-   then a royal band with the pitch and half a circle. Each section opens on
-   a heavy rule with its Japanese name set vertically. Experience is a ruled
+   QA: the white side, behind a royal noren.
+   The name beside a noren reading 品質保証, then a royal band with the
+   pitch. Each section opens with a short noren tab. Experience is a ruled
    table; contact is the address set large on a royal field.
    ========================================================================== */
 
@@ -24,16 +23,35 @@
 
 .hero__name {
   font-size: clamp(3rem, 0.6rem + 9.4vw, 10.5rem);
-  font-weight: 800;
-  font-stretch: 125%;
-  line-height: 0.88;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   color: var(--ink);
 }
 
-.hero__tate {
-  font-size: clamp(1.5rem, 0.9rem + 2vw, 3rem);
-  color: var(--royal);
+.hero__noren {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: clamp(7rem, 12vw, 11rem);
+  border-top: 10px solid var(--ink);
+}
+
+.hero__noren span {
+  display: grid;
+  justify-content: start;
+  align-content: center;
+  height: clamp(10rem, 18vw, 16rem);
+  padding-top: 1rem;
+  background: var(--royal);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1rem + 1.8vw, 3rem);
+  font-weight: 900;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
 }
 
 .hero__band {
@@ -57,14 +75,12 @@
 .hero__pitch {
   font-size: clamp(1.6rem, 1rem + 2.2vw, 3.1rem);
   font-weight: 700;
-  font-stretch: 112%;
   line-height: 1.1;
   letter-spacing: -0.015em;
   color: var(--white);
 }
 
 html[lang="ja"] .hero__pitch {
-  font-stretch: 100%;
   line-height: 1.35;
 }
 
@@ -78,18 +94,6 @@ html[lang="ja"] .hero__pitch {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-}
-
-/* half a circle, rising out of the band's right edge */
-.hero__disc {
-  position: absolute;
-  right: clamp(-12rem, -8vw, -3rem);
-  top: 50%;
-  width: clamp(14rem, 32vw, 30rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--royal-2);
-  transform: translateY(-50%);
 }
 
 /* --------------------------------------------------------------------------
@@ -162,16 +166,15 @@ html[lang="ja"] .hero__pitch {
 
 .log__company {
   font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.5rem);
-  font-weight: 800;
-  font-stretch: 118%;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 
 .log__parent {
   font-size: 0.95rem;
   font-weight: 500;
-  font-stretch: 100%;
   letter-spacing: 0;
   color: var(--muted);
 }
@@ -223,7 +226,7 @@ html[lang="ja"] .hero__pitch {
 
 .row__role {
   font-size: clamp(1.15rem, 1rem + 0.6vw, 1.45rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.3;
   color: var(--ink);
 }
@@ -252,7 +255,7 @@ html[lang="ja"] .hero__pitch {
 
 .entry {
   padding-top: 1rem;
-  border-top: 6px solid var(--royal);
+  border-top: 4px solid var(--royal);
 }
 
 .entry__kicker {
@@ -308,7 +311,7 @@ html[lang="ja"] .hero__pitch {
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--ink);
   font-size: 0.95rem;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--ink);
 }
 
@@ -330,10 +333,10 @@ html[lang="ja"] .hero__pitch {
 
 .skillset__group--lead .skillset__list li {
   font-size: clamp(1.4rem, 1rem + 1.6vw, 2.6rem);
-  font-weight: 800;
-  font-stretch: 115%;
+  font-family: var(--font-display);
+  font-weight: 900;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--royal);
 }
 
@@ -345,7 +348,6 @@ html[lang="ja"] .hero__pitch {
 }
 
 html[lang="ja"] .skillset__group--lead .skillset__list li {
-  font-stretch: 100%;
 }
 
 /* --------------------------------------------------------------------------
@@ -364,18 +366,6 @@ html[lang="ja"] .skillset__group--lead .skillset__list li {
   color: var(--fg);
 }
 
-/* the circle again, low and to the left */
-.mail::before {
-  content: "";
-  position: absolute;
-  left: -8rem;
-  bottom: -12rem;
-  width: 24rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--royal-2);
-}
-
 .addr {
   position: relative;
 }
@@ -388,10 +378,9 @@ html[lang="ja"] .skillset__group--lead .skillset__list li {
   display: inline-block;
   margin-top: 0.5rem;
   font-size: clamp(1.5rem, 0.6rem + 3.4vw, 3.6rem);
-  font-weight: 800;
-  font-stretch: 112%;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.01em;
   color: var(--white);
   overflow-wrap: anywhere;
   background: linear-gradient(var(--white), var(--white)) 0 100% / 0 3px no-repeat;
@@ -446,8 +435,8 @@ html[lang="ja"] .skillset__group--lead .skillset__list li {
 
 .cvcard__title {
   font-size: 1.8rem;
-  font-weight: 800;
-  font-stretch: 125%;
+  font-family: var(--font-display);
+  font-weight: 900;
   line-height: 1;
   color: var(--ink);
 }
@@ -483,15 +472,14 @@ html[lang="ja"] .skillset__group--lead .skillset__list li {
 
 .next-book__name {
   font-size: clamp(2rem, 0.8rem + 4.4vw, 5.5rem);
-  font-weight: 800;
-  font-stretch: 125%;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
   color: var(--white);
 }
 
 html[lang="ja"] .next-book__name {
-  font-stretch: 100%;
   line-height: 1.25;
   letter-spacing: 0;
 }
@@ -536,7 +524,7 @@ html[lang="ja"] .next-book__name {
     grid-template-columns: 1fr;
   }
 
-  .hero__tate {
+  .hero__noren {
     display: none;
   }
 

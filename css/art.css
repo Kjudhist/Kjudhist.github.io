@@ -1,9 +1,9 @@
 /* ==========================================================================
-   The Willow Atelier: the royal side of the poster.
-   A royal field throughout. The name runs wide in white beside a white
-   circle with 柳 cut into it; an index of the three kinds of work sits on
-   a rule below. Works hang in a plain grid of frames; photographs scroll
-   sideways; tracks are a ruled list; the poem is set vertically.
+   The Willow Atelier: royal blue, behind its own noren.
+   The name in white beside a white noren reading 柳の工房, then an index
+   of the three kinds of work on a heavy rule. Each section opens with a
+   short noren tab. Works hang in a plain grid of frames; photographs
+   scroll sideways; tracks are a ruled list; the poem is set vertically.
    ========================================================================== */
 
 body.art {
@@ -27,30 +27,38 @@ body.art {
   gap: clamp(1.5rem, 4vw, 4rem);
 }
 
-.art-hero__disc {
+/* the atelier's noren, white on royal */
+.art-hero__noren {
   display: grid;
-  place-items: center;
-  width: clamp(12rem, 30vw, 30rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--royal);
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  width: clamp(10rem, 22vw, 19rem);
+  border-top: 12px solid var(--royal-3);
 }
 
-.art-hero__disc span {
-  font-family: var(--font-jp);
-  font-size: clamp(6rem, 2rem + 11vw, 17rem);
+.art-hero__noren span {
+  display: grid;
+  justify-content: start;
+  align-content: center;
+  height: clamp(14rem, 30vw, 26rem);
+  padding-top: 1.25rem;
+  background: var(--white);
+  color: var(--royal);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 1.2rem + 3vw, 4.4rem);
   font-weight: 900;
-  line-height: 1;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
 }
 
 .art-hero__title {
   max-width: 9ch;
   font-size: clamp(3.2rem, 0.8rem + 7.4vw, 9rem);
-  font-weight: 800;
-  font-stretch: 125%;
-  line-height: 0.88;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   color: var(--white);
 }
 
@@ -93,8 +101,7 @@ body.art {
 
 .index__name {
   font-size: clamp(1.1rem, 0.9rem + 0.9vw, 1.7rem);
-  font-weight: 800;
-  font-stretch: 112%;
+  font-weight: 700;
   line-height: 1.15;
   color: var(--white);
 }
@@ -246,8 +253,8 @@ body.art {
 
 .track__no {
   font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  font-weight: 800;
-  font-stretch: 125%;
+  font-family: var(--font-display);
+  font-weight: 900;
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1.5px var(--white);
@@ -312,6 +319,10 @@ body.art {
 }
 
 .poem {
+  font-family: var(--font-display);
+  font-weight: 900;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
   font-size: clamp(2rem, 1.2rem + 2.6vw, 3.6rem);
   line-height: 1.5;
   letter-spacing: 0.18em;
@@ -349,14 +360,13 @@ body.art {
 
 .card__name {
   font-size: clamp(2rem, 1rem + 4vw, 5rem);
-  font-weight: 800;
-  font-stretch: 125%;
-  line-height: 0.95;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
 }
 
 html[lang="ja"] .card__name {
-  font-stretch: 100%;
   letter-spacing: 0;
 }
 
@@ -507,14 +517,16 @@ html[lang="ja"] .card__name {
     grid-template-columns: 1fr;
   }
 
-  .art-hero__disc {
+  .art-hero__noren {
     order: -1;
     justify-self: end;
-    width: 8.5rem;
+    width: 7rem;
   }
 
-  .art-hero__disc span {
-    font-size: 5rem;
+  .art-hero__noren span {
+    height: 9rem;
+    padding-top: 0.75rem;
+    font-size: 1.8rem;
   }
 
   .index__list {

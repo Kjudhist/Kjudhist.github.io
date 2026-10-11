@@ -6,7 +6,7 @@
   <title data-i18n="meta.gate.title">Kevin JG · QA Engineer and The Willow Atelier</title>
   <meta name="description" content="Two doors. One leads to my work as a QA engineer in payments and online banking. The other leads to The Willow Atelier, where I make art." data-i18n-attr="content:meta.gate.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#2340d8">
+  <meta name="theme-color" content="#eef1f8">
   <link rel="canonical" href="https://kjudhist.github.io/">
 
   <meta property="og:type" content="website">
@@ -17,7 +17,7 @@
   <meta property="og:image" content="https://kjudhist.github.io/assets/og/og-gate.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A poster split into a white field and a royal blue field, one circle across the seam: QA Engineer on the left, The Willow Atelier on the right.">
+  <meta property="og:image:alt" content="Two doorways hung with royal blue noren curtains: QA Engineer on the left, The Willow Atelier on the right.">
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="id_ID">
   <meta property="og:locale:alternate" content="ja_JP">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Noto+Sans+JP:wght@400;700;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;900&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
@@ -42,48 +42,51 @@
   <script src="js/gate.js" defer></script>
 </head>
 <body class="gate">
-  <main class="gate__main" id="main">
-    <header class="gate__head" data-testid="station-sign">
+  <header class="gate__top">
+    <div class="gate__id" data-testid="station-sign">
       <h1 class="gate__name" translate="no"><span class="sr-only">Kevin Judhistira Girsang</span><span aria-hidden="true">Kevin JG</span></h1>
-      <p class="gate__intro" data-i18n="gate.intro">Choose a door.</p>
-    </header>
-
-    <div class="gate__lang">
-      <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
-        <button class="lang__opt" type="button" lang="en" title="English" aria-label="English" aria-pressed="true" data-lang-option="en" data-testid="lang-option-en">EN</button>
-        <button class="lang__opt" type="button" lang="id" title="Bahasa Indonesia" aria-label="Bahasa Indonesia" aria-pressed="false" data-lang-option="id" data-testid="lang-option-id">ID</button>
-        <button class="lang__opt" type="button" lang="ja" title="日本語" aria-label="日本語" aria-pressed="false" data-lang-option="ja" data-testid="lang-option-ja">日本語</button>
-      </div>
+      <p class="gate__full" translate="no" aria-hidden="true">Kevin Judhistira Girsang</p>
     </div>
+    <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
+      <button class="lang__opt" type="button" lang="en" title="English" aria-label="English" aria-pressed="true" data-lang-option="en" data-testid="lang-option-en">EN</button>
+      <button class="lang__opt" type="button" lang="id" title="Bahasa Indonesia" aria-label="Bahasa Indonesia" aria-pressed="false" data-lang-option="id" data-testid="lang-option-id">ID</button>
+      <button class="lang__opt" type="button" lang="ja" title="日本語" aria-label="日本語" aria-pressed="false" data-lang-option="ja" data-testid="lang-option-ja">日本語</button>
+    </div>
+  </header>
 
-    <!-- Two fields, white and royal, with one circle split across the seam. Each field is a door. -->
-    <nav class="stage" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
+  <main class="gate__main" id="main">
+    <p class="gate__intro" data-i18n="gate.intro">Choose a door.</p>
 
+    <!-- Two shop entrances, each behind a noren (暖簾). The whole card is the link. -->
+    <nav class="doors" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
       <a class="door door--qa" href="qa/" data-door data-tone="light" data-testid="door-qa">
-        <span class="door__disc" aria-hidden="true"></span>
-        <span class="door__tate tate" lang="ja" aria-hidden="true">品質保証</span>
+        <span class="noren" aria-hidden="true">
+          <span class="noren__panel"><span class="noren__text" lang="ja">品質</span></span>
+          <span class="noren__panel"><span class="noren__text" lang="ja">保証</span></span>
+        </span>
         <span class="door__body">
           <span class="door__label" data-i18n="gate.qa">QA Engineer</span>
           <span class="door__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</span>
-          <span class="door__cue" aria-hidden="true" data-cue data-i18n="gate.tap" data-testid="door-qa-cue">Tap to open</span>
+          <span class="door__btn"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg></span>
         </span>
       </a>
 
       <a class="door door--art" href="art/" data-door data-tone="dark" data-testid="door-art">
-        <span class="door__disc" aria-hidden="true"></span>
-        <span class="door__tate tate" lang="ja" aria-hidden="true">柳のアトリエ</span>
+        <span class="noren" aria-hidden="true">
+          <span class="noren__panel"><span class="noren__text" lang="ja">柳の</span></span>
+          <span class="noren__panel"><span class="noren__text" lang="ja">工房</span></span>
+        </span>
         <span class="door__body">
           <span class="door__label" translate="no" data-i18n="gate.art">The Willow Atelier</span>
           <span class="door__sub" data-i18n="art.tagline">Where the lost come to rest.</span>
-          <span class="door__cue" aria-hidden="true" data-cue data-i18n="gate.tap" data-testid="door-art-cue">Tap to open</span>
+          <span class="door__btn"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.75"/></svg></span>
         </span>
       </a>
-
     </nav>
-
-    <footer class="gate__foot" data-testid="site-footer">
-      <p><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
-    </footer>
   </main>
+
+  <footer class="credit" data-testid="site-footer">
+    <p><span>© 2026 Kevin JG</span><span class="credit__dot" aria-hidden="true">·</span><span data-i18n="common.made">Made with help from Claude</span></p>
+  </footer>
 </body>
 </html>

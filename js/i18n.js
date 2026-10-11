@@ -44,8 +44,7 @@
       'gate.doors': 'Doors',
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
-      'gate.tap': 'Tap to open',
-      'gate.again': 'Tap again to enter',
+      'gate.enter': 'Enter',
 
       'qa.nav.label': 'Sections',
       'qa.nav.about': 'About',
@@ -208,8 +207,7 @@
       'gate.doors': 'Pintu',
       'gate.qa': 'QA Engineer',
       'gate.art': 'The Willow Atelier',
-      'gate.tap': 'Ketuk untuk membuka',
-      'gate.again': 'Ketuk lagi untuk masuk',
+      'gate.enter': 'Masuk',
 
       'qa.nav.label': 'Bagian',
       'qa.nav.about': 'Tentang',
@@ -372,8 +370,7 @@
       'gate.doors': '扉',
       'gate.qa': 'QAエンジニア',
       'gate.art': 'The Willow Atelier',
-      'gate.tap': 'タップして開く',
-      'gate.again': 'もう一度タップして入る',
+      'gate.enter': '入る',
 
       'qa.nav.label': 'セクション',
       'qa.nav.about': '私について',
