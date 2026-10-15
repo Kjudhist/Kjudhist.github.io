@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *folio*: a quiet, exact portfolio. Light for QA, near-black for the atelier, royal blue as the one accent, a 12-column grid and hairline rules. Type is Schibsted Grotesk with IBM Plex Mono for numbers and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
+The look is *satoyama* (里山), the Japanese countryside: layered hills in haze, rice paddies, utility poles and their wires, drifting mist and fireflies. QA is the morning and the atelier is the evening. Type is Shippori Mincho for display, Schibsted Grotesk for text, IBM Plex Mono for small facts and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -84,16 +84,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** my name and Jakarta's local time, then two full panels. Each whole panel is the link, with an **Enter** pill; hover fills it with royal, and one click or tap goes in.
-- **QA (light):** the name large, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
-- **The Willow Atelier (dark):** the name large, the tagline, and an index of:
+- **Gate:** one landscape from morning (left) to dusk (right), with my name, Jakarta's local time and two cards over it. Each whole card is the link, with an **Enter** pill; one click or tap goes in.
+- **QA (the morning):** the name large over a pale sky and a band of misty hills, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
+- **The Willow Atelier (the evening):** night over the hills, with stars, the moon and fireflies; the name large, the tagline, and an index of:
   1. **Drawing & Painting**, a grid of frames
   2. **Photography**, a row of frames scrolled sideways
   3. **Music**, a ruled list of tracks
 
   Then the story with the poem set vertically, and two rows for Instagram and the shop.
 
-With reduced motion turned on, nothing moves; the doors still work.
+With reduced motion turned on, the mist and fireflies hold still; the doors still work.
 
 ## Replacing placeholders
 

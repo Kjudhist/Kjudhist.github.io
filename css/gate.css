@@ -1,29 +1,63 @@
 /* ==========================================================================
-   Gate: my name, the local time, and two doors.
-   Each door is a full panel and the whole panel is the link: a number and
-   its Japanese name at the top, the title large at the bottom, and an
-   Enter pill that says what clicking does. QA is a light panel, the
-   atelier a dark one; on hover either fills with royal. Also the 404.
+   Gate: one stretch of countryside, morning on the left, dusk on the right.
+   Over it, my name and Jakarta's local time, and two doors set low on the
+   fields: QA on the morning side, the atelier on the evening side. Each
+   door is a card and the whole card is the link, with an Enter pill that
+   says so. Also the 404.
    ========================================================================== */
 
 body.gate {
+  position: relative;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
+  background: var(--night);
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.scene .scene__mist .mist {
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0) 70%);
+}
+
+.scene .mist--1 {
+  top: 54%;
+}
+
+.scene .mist--2 {
+  top: 66%;
+}
+
+.scene .mist--3 {
+  top: 78%;
+}
+
+.g-top,
+.g-main,
+.gate .credit {
+  position: relative;
+  z-index: 1;
 }
 
 .g-top {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem 2rem;
-  padding: 1.25rem var(--gutter);
+  padding: clamp(1.25rem, 3vw, 2.25rem) var(--gutter);
 }
 
 .g-name {
-  font-size: 0.98rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.05;
   letter-spacing: -0.01em;
   color: var(--ink);
 }
@@ -31,34 +65,47 @@ body.gate {
 .g-meta {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
+  /* this corner sits on the evening sky */
+  --line: rgba(244, 241, 232, 0.16);
+  --bg-raised: #f4f1e8;
+  --fg: #dfe4f3;
+  --fg-strong: var(--ink);
 }
 
 .g-clock {
   display: flex;
   gap: 0.6rem;
   font-size: 0.85rem;
-  color: var(--muted);
+  color: #c3cce6;
   white-space: nowrap;
 }
 
 .g-clock .mono {
-  color: var(--ink);
+  color: #f4f1e8;
+}
+
+.g-meta .lang__opt:not([aria-pressed="true"]):hover {
+  color: #fff;
 }
 
 .g-main {
-  display: grid;
-  grid-template-rows: auto 1fr;
-  gap: 1rem;
-  padding: clamp(1rem, 4vh, 3rem) var(--gutter) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1.25rem;
+  padding: 0 var(--gutter) clamp(1rem, 3vh, 2rem);
 }
 
 .g-intro {
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.8rem);
   font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  color: var(--ink);
+  align-self: flex-start;
+  padding: 0.3rem 1rem 0.4rem;
+  border-radius: var(--radius);
+  background: rgba(14, 23, 56, 0.62);
+  color: #f4f1e8;
 }
 
 /* --------------------------------------------------------------------------
@@ -68,131 +115,106 @@ body.gate {
 .g-doors {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  min-height: clamp(22rem, 58vh, 40rem);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .door {
   position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 3rem;
-  padding: clamp(1.25rem, 2.5vw, 2rem);
-  border-radius: var(--radius-box);
-  background: var(--sheet);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 1rem 2rem;
+  padding: clamp(1.25rem, 2.2vw, 1.9rem);
+  border-radius: 10px;
+  background: rgba(242, 245, 249, 0.94);
   color: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--line);
-  transition: color 0.35s var(--ease), opacity 0.4s var(--ease);
+  box-shadow: 0 24px 50px -28px rgba(14, 23, 56, 0.7);
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), opacity 0.4s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
 
 .door--art {
-  background: var(--night);
-  color: #f3f4f7;
-  box-shadow: none;
-}
-
-/* royal rises from the bottom on hover */
-.door::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--royal);
-  transform: scaleY(0);
-  transform-origin: bottom;
-  transition: transform 0.55s var(--ease-out);
+  background: rgba(14, 23, 56, 0.9);
+  color: #f4f1e8;
+  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(244, 241, 232, 0.12);
 }
 
 .door:hover,
 .door:focus-visible {
-  color: #fff;
-}
-
-.door:hover::before,
-.door:focus-visible::before,
-.door.is-open::before {
-  transform: scaleY(1);
-}
-
-.door.is-open {
-  color: #fff;
+  transform: translateY(-4px);
 }
 
 .door:focus-visible {
+  outline: 2px solid #f4f1e8;
   outline-offset: 4px;
 }
 
 .door__head {
+  grid-column: 1 / -1;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .door__no {
-  color: inherit;
   opacity: 0.6;
 }
 
 .door__jp {
   font-family: var(--font-jp);
   font-weight: 500;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
 }
 
 .door__foot {
-  display: grid;
-  justify-items: start;
-  gap: 0.6rem;
+  display: contents;
 }
 
 .door__title {
-  font-size: clamp(2.2rem, 1.2rem + 3.6vw, 5rem);
-  font-weight: 500;
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-}
-
-html[lang="ja"] .door__title {
-  letter-spacing: 0;
-  line-height: 1.2;
+  grid-column: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
 }
 
 .door__sub {
-  font-size: 0.95rem;
-  opacity: 0.72;
+  grid-column: 1;
+  font-size: 0.92rem;
+  opacity: 0.85;
 }
 
-/* the pill that says what clicking does */
 .door__cta {
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  align-self: end;
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  margin-top: 1.1rem;
   min-height: 2.9rem;
   padding: 0.6rem 1.3rem;
   border-radius: var(--radius);
   background: var(--royal);
   color: #fff;
   font-weight: 500;
-  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+  white-space: nowrap;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 .door--art .door__cta {
-  background: #f3f4f7;
-  color: var(--ink);
+  background: #f4e3a1;
+  color: var(--night);
 }
 
-.door:hover .door__cta,
-.door:focus-visible .door__cta,
-.door.is-open .door__cta {
-  background: #fff;
-  color: var(--royal);
+.door--qa:hover .door__cta {
+  background: var(--royal-2);
+}
+
+.door--art:hover .door__cta {
+  background: #fff1bf;
 }
 
 .door:hover .door__cta .arrow,
@@ -201,47 +223,77 @@ html[lang="ja"] .door__title {
 }
 
 .g-doors.has-open .door:not(.is-open) {
-  opacity: 0.4;
+  opacity: 0.35;
+}
+
+.door.is-open {
+  transform: translateY(-4px) scale(1.01);
+}
+
+.gate .credit {
+  color: #c3cce6;
 }
 
 /* --------------------------------------------------------------------------
-   Small screens
+   Small screens: the cards stack; the header sits on a strip of haze
    -------------------------------------------------------------------------- */
 
 @media (max-width: 719.98px) {
   .g-top {
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.9rem;
   }
 
   .g-meta {
     width: 100%;
     justify-content: space-between;
+    /* on phones this row sits on the paler middle of the sky */
+    --line: rgba(19, 28, 61, 0.12);
+    --bg-raised: #fff;
+    --fg: var(--ink-2);
+  }
+
+  .g-clock {
+    color: var(--ink-2);
+  }
+
+  .g-clock .mono {
+    color: var(--ink);
   }
 
   .g-doors {
     grid-template-columns: 1fr;
-    min-height: 0;
   }
 
   .door {
-    min-height: 15rem;
-    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  .door__cta {
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+
+  .scene__land {
+    object-position: center;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door::before {
+  .door {
     transition-duration: 0.01s;
   }
 }
 
 /* ==========================================================================
-   404
+   404: lost in the mist
    ========================================================================== */
 
 body.lost-page {
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto 1fr auto auto;
 }
 
 .lost-page .topbar__end {
@@ -251,7 +303,7 @@ body.lost-page {
 .lost {
   display: grid;
   align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(1rem, 3vw, 2rem);
 }
 
 .lost__inner {
@@ -265,18 +317,19 @@ body.lost-page {
 }
 
 .lost__title {
-  max-width: 16ch;
+  max-width: 18ch;
   margin-top: 1rem;
-  font-size: clamp(2.4rem, 1.2rem + 4.6vw, 5.5rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
   color: var(--fg-strong);
 }
 
 html[lang="ja"] .lost__title {
   font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.25;
+  line-height: 1.3;
   letter-spacing: 0;
 }
 
@@ -284,4 +337,8 @@ html[lang="ja"] .lost__title {
   max-width: 36rem;
   margin: 1.5rem 0 2rem;
   font-size: 1.1rem;
+}
+
+.vista--lost {
+  height: clamp(9rem, 22vw, 15rem);
 }

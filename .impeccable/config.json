@@ -20,6 +20,60 @@
         ],
         "createdAt": "2026-10-11T12:44:25.702Z",
         "reason": "Agent: slots are empty placeholders whose only child is a centred label"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T11:15:38.517Z",
+        "reason": "Agent: fireflies over the dusk fields, decoration that fades in and out; they stop under reduced motion"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "art/index.html"
+        ],
+        "createdAt": "2026-10-15T11:15:38.742Z",
+        "reason": "Agent: fireflies over the night paddies, decoration; they stop under reduced motion"
+      },
+      {
+        "rule": "shape-assembled-illustration",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T11:15:39.009Z",
+        "reason": "Agent: the generated landscape (layered ridges, poles, wires) is the design's subject, drawn as flat graphic layers on purpose"
+      },
+      {
+        "rule": "shape-assembled-illustration",
+        "value": "*",
+        "files": [
+          "art/index.html"
+        ],
+        "createdAt": "2026-10-15T11:15:39.400Z",
+        "reason": "Agent: the night landscape is the design's subject, drawn as flat graphic layers on purpose"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T11:15:39.714Z",
+        "reason": "Agent: the header text sits on the pale morning sky of the SVG scene (ink on #dfe7f0 is 13:1); the detector measures against the body's night fallback colour"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "404.html"
+        ],
+        "createdAt": "2026-10-15T11:15:50.303Z",
+        "reason": "Agent: the 404 has no fireflies; the detector reads the shared firefly rule in base.css"
       }
     ]
   }

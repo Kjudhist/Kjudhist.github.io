@@ -1,25 +1,35 @@
 /* ==========================================================================
-   QA: the light side.
-   The name large, the pitch and two actions under it. Then each section on
-   the grid: its name in the left column, the content to the right. The
-   experience is a table of roles, contact sets the address large on a
-   dark panel, and the page ends on a dark band leading to the atelier.
+   QA: the morning.
+   The name large over a pale sky, then a band of hills with mist drifting
+   across them. Each section sits on the grid: its name in the left column,
+   the content to the right. Contact sets the address large on the evening
+   blue, and the page ends at dusk, leading to the atelier.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    Hero
    -------------------------------------------------------------------------- */
 
+body.qa {
+  background: linear-gradient(#e3e9f3, var(--paper) 38rem) no-repeat, var(--paper);
+}
+
 .hero {
-  padding: clamp(3rem, 9vw, 8rem) 0 0;
+  padding: clamp(3rem, 9vw, 7rem) 0 0;
+}
+
+.vista--morning {
+  height: clamp(9rem, 20vw, 17rem);
+  margin-top: clamp(1rem, 3vw, 2.5rem);
 }
 
 .hero__name {
   max-width: 12ch;
-  font-size: clamp(3rem, 1rem + 7.6vw, 8.6rem);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.055em;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 1rem + 7vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.025em;
   color: var(--ink);
 }
 
@@ -34,10 +44,11 @@
 }
 
 .hero__pitch {
-  font-size: clamp(1.3rem, 1rem + 1.1vw, 2rem);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.05rem + 1.2vw, 2.2rem);
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.01em;
   color: var(--accent-text);
 }
 
@@ -397,7 +408,7 @@ html[lang="ja"] .hero__pitch {
 
 .qa-end {
   margin-top: var(--section-space);
-  background: var(--night);
+  background: linear-gradient(#2b3c7a, var(--night) 70%);
   color: var(--fg);
 }
 
@@ -413,15 +424,16 @@ html[lang="ja"] .hero__pitch {
   grid-column: 1 / -1;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--muted);
+  color: #b7c0dc;
 }
 
 .next-book__name {
-  font-size: clamp(2rem, 0.9rem + 4.2vw, 5rem);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: #f4f1e8;
   transition: color 0.3s var(--ease);
 }
 
@@ -448,8 +460,8 @@ html[lang="ja"] .next-book__name {
 
 .qa .credit {
   background: var(--night);
-  color: #8d93a3;
-  border-top: 1px solid rgba(243, 244, 247, 0.12);
+  color: #98a3c4;
+  border-top: 1px solid rgba(244, 241, 232, 0.12);
 }
 
 /* --------------------------------------------------------------------------

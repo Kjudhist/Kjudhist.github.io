@@ -2,11 +2,12 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is folio: a quiet, exact portfolio. Cool off-white for QA,
-   near-black for the atelier, royal blue as the one accent. Schibsted
-   Grotesk for text, IBM Plex Mono for numbers and small facts, Noto Sans JP for the
-   Japanese name each section carries. A 12-column grid, hairline rules,
-   generous space, and motion only where it explains something.
+   The world is satoyama (里山): the Japanese countryside where low
+   mountains meet rice fields. Layered hills fading into haze, flooded
+   paddies, utility poles and their wires, mist that drifts. QA is the
+   morning, pale and clear; the atelier is the evening, deep blue with
+   fireflies. Shippori Mincho for display, Schibsted Grotesk for text,
+   IBM Plex Mono for small facts, Noto Sans JP for Japanese.
    ========================================================================== */
 
 :root {
@@ -14,13 +15,13 @@
   --royal-2: #1b36b3;
   --royal-soft: #8ea2ff;  /* royal as text on near-black */
 
-  --paper: #f5f6f8;
+  --paper: #f2f5f9;   /* morning haze */
   --sheet: #ffffff;
-  --ink: #0b0d14;
-  --ink-2: #3a3f4c;
-  --grey: #6a7080;
-  --night: #0b0d14;
-  --night-2: #151925;
+  --ink: #131c3d;     /* blue-black, like the far hills at dusk */
+  --ink-2: #3a4361;
+  --grey: #616a86;
+  --night: #0e1738;   /* the evening sky */
+  --night-2: #18234e;
 
   /* light pages (gate, QA, 404) */
   --bg: var(--paper);
@@ -28,14 +29,15 @@
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
   --muted: var(--grey);
-  --line: rgba(11, 13, 20, 0.1);
-  --line-strong: rgba(11, 13, 20, 0.22);
+  --line: rgba(19, 28, 61, 0.11);
+  --line-strong: rgba(19, 28, 61, 0.24);
   --accent: var(--royal);
   --accent-text: var(--royal);
   --accent-fg: #fff;
   --focus: var(--royal);
 
   --font: "Schibsted Grotesk", "Noto Sans JP", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Shippori Mincho", "Noto Serif JP", "Yu Mincho", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
 
@@ -53,11 +55,11 @@
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
-  --fg: #c9cdd8;
-  --fg-strong: #f3f4f7;
-  --muted: #8d93a3;
-  --line: rgba(243, 244, 247, 0.12);
-  --line-strong: rgba(243, 244, 247, 0.26);
+  --fg: #ccd4ea;
+  --fg-strong: #f4f1e8;
+  --muted: #98a3c4;
+  --line: rgba(244, 241, 232, 0.13);
+  --line-strong: rgba(244, 241, 232, 0.28);
   --accent: var(--royal);
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
@@ -70,8 +72,8 @@
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
   --muted: var(--grey);
-  --line: rgba(11, 13, 20, 0.1);
-  --line-strong: rgba(11, 13, 20, 0.22);
+  --line: rgba(19, 28, 61, 0.11);
+  --line-strong: rgba(19, 28, 61, 0.24);
   --accent-text: var(--royal);
   --focus: var(--royal);
 }
@@ -407,7 +409,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
     gap: 0;
     padding: 0.25rem var(--gutter) 1.25rem;
     background: var(--bg);
-    box-shadow: 0 1px 0 var(--line), 0 24px 40px -30px rgba(11, 13, 20, 0.35);
+    box-shadow: 0 1px 0 var(--line), 0 24px 40px -30px rgba(19, 28, 61, 0.35);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition: clip-path 0.45s var(--ease-out), visibility 0s 0.45s;
@@ -502,7 +504,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .lang__opt[aria-pressed="true"] {
   background: var(--bg-raised);
   color: var(--fg-strong);
-  box-shadow: 0 1px 2px rgba(11, 13, 20, 0.12);
+  box-shadow: 0 1px 2px rgba(19, 28, 61, 0.12);
 }
 
 @media (max-width: 719.98px) {
@@ -625,10 +627,11 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .section-title {
-  font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.9rem);
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 1.25rem + 1vw, 2.2rem);
+  font-weight: 600;
   line-height: 1.2;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--fg-strong);
 }
 
@@ -681,6 +684,121 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
+   The landscape: inline SVG hills, with mist and fireflies laid over them
+   -------------------------------------------------------------------------- */
+
+.vista {
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vista__land,
+.scene__land {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* mist: soft bands of white that drift sideways, very slowly */
+.scene__mist {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mist {
+  position: absolute;
+  left: -30%;
+  width: 160%;
+  height: 22%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
+  animation: drift var(--t, 70s) linear infinite alternate;
+}
+
+.mist--1 {
+  top: 46%;
+  --t: 80s;
+}
+
+.mist--2 {
+  top: 60%;
+  height: 18%;
+  opacity: 0.8;
+  --t: 64s;
+  animation-direction: alternate-reverse;
+}
+
+.mist--3 {
+  top: 72%;
+  height: 16%;
+  opacity: 0.6;
+  --t: 96s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-8%);
+  }
+
+  to {
+    transform: translateX(8%);
+  }
+}
+
+/* fireflies: small warm points that brighten and fade */
+.fireflies {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fireflies i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #f4e3a1;
+  opacity: 0;
+  animation: firefly var(--t) var(--d) ease-in-out infinite;
+}
+
+@keyframes firefly {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+
+  30% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 0.2;
+    transform: translate(10px, -14px);
+  }
+
+  70% {
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mist {
+    animation: none;
+  }
+
+  .fireflies i {
+    animation: none;
+    opacity: 0.6;
+  }
+}
+
+/* --------------------------------------------------------------------------
    Motion
    -------------------------------------------------------------------------- */
 
@@ -714,7 +832,7 @@ html.i18n-pending body {
   z-index: 150;
   pointer-events: none;
   background: var(--night);
-  border-top: 3px solid var(--royal);
+  border-top: 2px solid rgba(244, 227, 161, 0.7);
   transform: translateY(101%);
   transition: transform 0.7s var(--ease);
 }

@@ -1,8 +1,9 @@
 /* ==========================================================================
-   The Willow Atelier: the dark side.
-   The name large on near-black, the tagline, and an index of the three
-   kinds of work as full-width rows. Sections sit on the same grid as the
-   QA page. Works hang in plain frames, photographs scroll sideways, tracks
+   The Willow Atelier: the evening.
+   Night over the hills: stars, a crescent moon, utility poles against the
+   last light, fireflies over the paddies. The name sits large in the sky,
+   then an index of the three kinds of work. Sections share the QA page's
+   grid; works hang in plain frames, photographs scroll sideways, tracks
    are a ruled list, and the poem is set vertically beside the story.
    ========================================================================== */
 
@@ -11,7 +12,22 @@
    -------------------------------------------------------------------------- */
 
 .art-hero {
-  padding: clamp(3rem, 9vw, 8rem) 0 0;
+  position: relative;
+  padding: clamp(3rem, 9vw, 7rem) 0 0;
+  background: radial-gradient(70% 45% at 20% 62%, rgba(58, 78, 150, 0.45), transparent 70%);
+}
+
+body.art {
+  background: linear-gradient(#0a1230, var(--night) 30rem) no-repeat, var(--night);
+}
+
+.vista--night {
+  position: absolute;
+  inset: 0;
+}
+
+.art-hero > .wrap {
+  position: relative;
 }
 
 .art-hero__jp {
@@ -19,16 +35,17 @@
   font-size: 0.9rem;
   font-weight: 500;
   letter-spacing: 0.12em;
-  color: var(--accent-text);
+  color: #f4e3a1;
 }
 
 .art-hero__title {
   max-width: 10ch;
   margin-top: 1.25rem;
-  font-size: clamp(3rem, 1rem + 7.6vw, 8.6rem);
-  font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.055em;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 1rem + 7vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--fg-strong);
 }
 
@@ -41,11 +58,12 @@
 
 /* the index: three rows, each a link */
 .index {
-  margin-top: clamp(3.5rem, 8vw, 6rem);
+  margin-top: clamp(14rem, 30vw, 26rem);
 }
 
 .index__list {
   border-top: 1px solid var(--line-strong);
+  background: rgba(14, 23, 56, 0.86);
 }
 
 .index__link {
@@ -64,10 +82,11 @@
 }
 
 .index__name {
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.6rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 html[lang="ja"] .index__name {
@@ -344,10 +363,11 @@ html[lang="ja"] .index__name {
 }
 
 .card__name {
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
 }
 
 html[lang="ja"] .card__name {
@@ -403,11 +423,11 @@ html[lang="ja"] .card__name {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #c9cdd8;
+  color: #ccd4ea;
 }
 
 .viewer::backdrop {
-  background: rgba(11, 13, 20, 0.96);
+  background: rgba(10, 18, 48, 0.96);
 }
 
 .viewer[open] {
@@ -453,13 +473,13 @@ html[lang="ja"] .card__name {
 
 .viewer__title {
   font-weight: 500;
-  color: #f3f4f7;
+  color: #f4f1e8;
 }
 
 .viewer__meta {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: #8d93a3;
+  color: #98a3c4;
 }
 
 .viewer__close {
@@ -470,7 +490,7 @@ html[lang="ja"] .card__name {
   height: 44px;
   border: 0;
   border-radius: 50%;
-  background: #f3f4f7;
+  background: #f4f1e8;
   cursor: pointer;
 }
 
