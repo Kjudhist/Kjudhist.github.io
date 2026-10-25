@@ -74,6 +74,15 @@
         ],
         "createdAt": "2026-10-15T11:15:50.303Z",
         "reason": "Agent: the 404 has no fireflies; the detector reads the shared firefly rule in base.css"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "world/index.html"
+        ],
+        "createdAt": "2026-10-25T09:48:44.048Z",
+        "reason": "Agent: same as art/index.html, slots are empty placeholders with a centred label, and the index rows sit on the shared .wrap inset"
       }
     ]
   }

@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
+My personal site. It opens on three doors: one goes to my QA work, one to The Willow Atelier, where I keep my art, and one to the worlds I build.
 
-The look is *satoyama* (里山), the Japanese countryside: layered hills in haze, rice paddies, utility poles and their wires, drifting mist and fireflies. QA is the morning and the atelier is the evening. Type is Shippori Mincho for display, Schibsted Grotesk for text, IBM Plex Mono for small facts and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
+The look is *satoyama* (里山), the Japanese countryside: layered hills in haze, rice paddies, utility poles and their wires, drifting mist and fireflies. QA is the morning, the atelier is the evening and the worlds are the night. Type is Shippori Mincho for display, Schibsted Grotesk for text, IBM Plex Mono for small facts and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -12,15 +12,17 @@ Live at https://kjudhist.github.io/
 
 ```
 /
-├── index.html            the gate (two doors)
+├── index.html            the gate (three doors)
 ├── qa/index.html         QA side
 ├── art/index.html        The Willow Atelier
+├── world/index.html      Worlds: lore, maps, characters
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
 │   ├── gate.css          the split gate and its doors (and the 404)
 │   ├── qa.css
-│   └── art.css
+│   ├── art.css
+│   └── world.css         loads after art.css and reuses its hero, frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
 │   ├── main.js           shared bits: page fades, scroll reveals, menu, local links

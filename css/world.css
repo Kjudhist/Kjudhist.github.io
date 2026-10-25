@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Worlds: the deep night, past the atelier's evening.
+   Loads after art.css and borrows its hero, index, frames and viewer. What
+   is new here: a fuller sky with stars joined into dashed charts, the
+   worlds as a numbered register, a large map frame, and lore fragments.
+   ========================================================================== */
+
+body.world {
+  background: linear-gradient(#060b24, var(--night) 34rem) no-repeat, var(--night);
+}
+
+.world-hero {
+  background: radial-gradient(60% 40% at 75% 30%, rgba(58, 78, 150, 0.35), transparent 70%);
+}
+
+.vista--deep {
+  position: absolute;
+  inset: 0;
+}
+
+.world-hero .art-hero__jp {
+  color: #c9d6ff;
+}
+
+/* --------------------------------------------------------------------------
+   The worlds: a numbered register
+   -------------------------------------------------------------------------- */
+
+.realms {
+  border-top: 1px solid var(--line-strong);
+}
+
+.realm {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.realm__no {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.realm__body {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.realm__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+html[lang="ja"] .realm__name {
+  letter-spacing: 0;
+}
+
+.realm__line {
+  max-width: 44rem;
+  font-size: 0.98rem;
+}
+
+.realm__status {
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  font-size: 0.75rem;
+  color: #c9d6ff;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Maps: one large frame over two wide ones
+   -------------------------------------------------------------------------- */
+
+.piece--map {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 8;
+}
+
+.wall--maps .piece--wide {
+  aspect-ratio: 8 / 5;
+}
+
+/* --------------------------------------------------------------------------
+   Lore: fragments, set like quotations
+   -------------------------------------------------------------------------- */
+
+.fragments {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.fragment {
+  padding-left: clamp(1rem, 2vw, 1.75rem);
+  border-left: 1px solid var(--line-strong);
+}
+
+.fragment__text {
+  max-width: 40rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem);
+  line-height: 1.45;
+}
+
+.fragment__from {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+}
+
+@media (max-width: 639.98px) {
+  .realm {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+  }
+
+  .realm__status {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .piece--map {
+    aspect-ratio: 4 / 3;
+  }
+}
