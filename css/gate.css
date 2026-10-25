@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Gate: one stretch of countryside, morning on the left, night on the right.
-   Over it, my name and Jakarta's local time, and three doors set low on the
-   fields: QA in the morning, the atelier at dusk, the worlds at night. Each
+   Gate: one stretch of countryside, morning on the left, dusk on the right.
+   Over it, my name and Jakarta's local time, and two doors set low on the
+   fields: QA on the morning side, the atelier on the evening side. Each
    door is a card and the whole card is the link, with an Enter pill that
    says so. Also the 404.
    ========================================================================== */
@@ -114,18 +114,17 @@ body.gate {
 
 .g-doors {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(0.75rem, 1.6vw, 1.25rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .door {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
-  gap: 0.6rem;
-  padding: clamp(1.25rem, 2vw, 1.75rem);
+  gap: 1rem 2rem;
+  padding: clamp(1.25rem, 2.2vw, 1.9rem);
   border-radius: 10px;
   background: rgba(242, 245, 249, 0.94);
   color: var(--ink);
@@ -140,12 +139,6 @@ body.gate {
   box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(244, 241, 232, 0.12);
 }
 
-.door--world {
-  background: rgba(6, 11, 36, 0.92);
-  color: #f4f1e8;
-  box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(201, 214, 255, 0.22);
-}
-
 .door:hover,
 .door:focus-visible {
   transform: translateY(-4px);
@@ -158,11 +151,9 @@ body.gate {
 
 .door__head {
   grid-column: 1 / -1;
-  align-self: start;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: clamp(1rem, 3vh, 2rem);
   font-size: 0.85rem;
 }
 
@@ -184,7 +175,7 @@ body.gate {
 .door__title {
   grid-column: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.7rem, 1rem + 1.5vw, 2.6rem);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 3.2rem);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -197,9 +188,9 @@ body.gate {
 }
 
 .door__cta {
-  grid-column: 1;
-  justify-self: start;
-  margin-top: 0.6rem;
+  grid-column: 2;
+  grid-row: 2 / span 2;
+  align-self: end;
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
@@ -216,15 +207,6 @@ body.gate {
 .door--art .door__cta {
   background: #f4e3a1;
   color: var(--night);
-}
-
-.door--world .door__cta {
-  background: #c9d6ff;
-  color: var(--night);
-}
-
-.door--world:hover .door__cta {
-  background: #e3eaff;
 }
 
 .door--qa:hover .door__cta {
@@ -283,12 +265,15 @@ body.gate {
     grid-template-columns: 1fr;
   }
 
-  .door__head {
-    margin-bottom: 0.75rem;
+  .door {
+    grid-template-columns: 1fr;
   }
 
   .door__cta {
-    margin-top: 0.25rem;
+    grid-column: 1;
+    grid-row: auto;
+    justify-self: start;
+    margin-top: 0.5rem;
   }
 
   .scene__land {

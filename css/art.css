@@ -402,12 +402,82 @@ html[lang="ja"] .card__name {
 }
 
 /* --------------------------------------------------------------------------
+   Onward: the way out to the worlds, under a deeper sky
+   -------------------------------------------------------------------------- */
+
+.onward {
+  margin-top: var(--section-space);
+  background: linear-gradient(var(--night), #060b24);
+  border-top: 1px solid var(--line);
+}
+
+.onward__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 0.75rem 2rem;
+  padding: clamp(3rem, 7vw, 6rem) 0;
+}
+
+.onward__label {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.onward__jp {
+  font-family: var(--font-jp);
+  letter-spacing: 0.12em;
+  color: #c9d6ff;
+}
+
+.onward__name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--fg-strong);
+  transition: color 0.3s var(--ease);
+}
+
+html[lang="ja"] .onward__name {
+  font-size: clamp(1.7rem, 1rem + 3vw, 4rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.onward__link .arrow {
+  width: clamp(2.5rem, 5vw, 4rem);
+  height: auto;
+  aspect-ratio: 32 / 10;
+  margin-bottom: 0.6rem;
+  color: var(--fg-strong);
+}
+
+.onward__link:hover .onward__name {
+  color: #c9d6ff;
+}
+
+.onward__link:hover .arrow {
+  transform: translateX(0.5rem);
+}
+
+/* --------------------------------------------------------------------------
    Footer
    -------------------------------------------------------------------------- */
 
 .art-credit {
   margin-top: var(--section-space);
   border-top: 1px solid var(--line);
+}
+
+.onward + .art-credit {
+  margin-top: 0;
+  background: #060b24;
 }
 
 /* --------------------------------------------------------------------------

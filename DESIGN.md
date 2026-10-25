@@ -6,8 +6,8 @@ The Japanese countryside where low mountains meet rice fields. Recorded from the
 
 One stretch of countryside across a day. QA is the morning; the atelier is the evening ("outside of work, I make art").
 
-- Gate: a single landscape from morning on the left to dusk on the right: hazy layered hills, a low sun on one side and a crescent moon and stars on the other, flooded paddies, utility poles and their wires running into the distance, mist drifting, fireflies at dusk. Over it, my name, Jakarta's local time, "Choose a door.", and three cards: QA (pale, morning side), the atelier (navy, evening) and Worlds (deepest night, pale blue Enter pill). Each whole card is the link, with an **Enter** pill.
-- Worlds: the deep night past the atelier. More stars, some joined by dashed lines like a star chart, no poles or paddies. The worlds are a numbered register (I, II, III) with a status pill; maps get one large frame over two wide ones; characters are portrait frames; lore is fragments set like quotations.
+- Gate: a single landscape from morning on the left to dusk on the right: hazy layered hills, a low sun on one side and a crescent moon and stars on the other, flooded paddies, utility poles and their wires running into the distance, mist drifting, fireflies at dusk. Over it, my name, Jakarta's local time, "Choose a door.", and two cards: QA (pale, morning side) and the atelier (night, evening side). Each whole card is the link, with an **Enter** pill.
+- Worlds (`/world/`, not on the gate; reached from a closing band at the end of the atelier): the deep night past the atelier. More stars, some joined by dashed lines like a star chart, no poles or paddies. The worlds are a numbered register (I, II, III) with a status pill; maps get one large frame over two wide ones; characters are portrait frames; lore is fragments set like quotations.
 - QA: a pale morning sky over the name, then a band of misty hills with a pair of poles. The page ends at dusk.
 - The Willow Atelier: night over the hills, with stars, the moon, poles against the last light, and fireflies. Its index sits on the fields.
 - 404: the hills, half lost in mist.
