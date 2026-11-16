@@ -1,8 +1,8 @@
 /* ==========================================================================
-   Worlds: a third sheet from the same pack, reached from the atelier.
-   Loads after art.css and borrows its hero, index, sheets and viewer. What
-   is new here: a folded compass star beside the name, the worlds as a
-   numbered register, a large map sheet, and lore fragments.
+   Worlds: a third sheet in the same series, reached from the atelier.
+   Loads after art.css and borrows its hero, index, frames and viewer. What
+   is new here: a sky whose stars are joined into dashed charts, the worlds
+   as a numbered register, a large map frame, and lore fragments.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -10,7 +10,7 @@
    -------------------------------------------------------------------------- */
 
 .realms {
-  border-top: var(--rule) dashed var(--line-strong);
+  border-top: var(--rule) solid var(--key);
 }
 
 .realm {
@@ -81,7 +81,7 @@ html[lang="ja"] .realm__name {
 
 .fragment {
   padding-left: clamp(1rem, 2vw, 1.75rem);
-  border-left: var(--rule) dashed var(--line-strong);
+  border-left: var(--rule) solid var(--key);
 }
 
 .fragment__text {

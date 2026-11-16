@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shared behaviour: local links, page transitions, scroll reveals,
-   mobile menu, current-section highlight, the clock, the folded figures.
+   mobile menu, current-section highlight, the clock, the willow.
    ========================================================================== */
 
 (function () {
@@ -116,16 +116,16 @@
     window.setInterval(tick, 15000);
   }
 
-  // A folded figure leans a little toward the pointer: --lean runs from -1 to 1.
-  function initTilt() {
-    const figures = document.querySelectorAll('[data-tilt]');
-    if (!figures.length || prefersReducedMotion()) return;
+  // The willow leans a little toward the pointer: --lean runs from -1 to 1.
+  function initWillow() {
+    const willows = document.querySelectorAll('[data-willow]');
+    if (!willows.length || prefersReducedMotion()) return;
     if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     let pointerX = 0;
     let queued = false;
     function update() {
       queued = false;
-      figures.forEach(function (el) {
+      willows.forEach(function (el) {
         const box = el.getBoundingClientRect();
         const offset = (pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2);
         el.style.setProperty('--lean', Math.max(-1, Math.min(1, offset)).toFixed(3));
@@ -198,7 +198,7 @@
     fixLocalLinks();
     initPageTransitions();
     initReveal();
-    initTilt();
+    initWillow();
     initMenu();
     initSectionSpy();
     initClock();
