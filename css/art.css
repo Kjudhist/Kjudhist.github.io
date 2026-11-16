@@ -1,11 +1,11 @@
 /* ==========================================================================
-   The Willow Atelier: the night sheet.
-   The whole page is printed solid, with the lines left pale. The name
-   takes its ink at the top beside the willow, then a strip of the same sea
-   under a full moon, then an index of the three kinds of work. Sections
-   share the QA page's grid; works hang in ruled frames, photographs scroll
-   sideways, tracks are a ruled list, and the poem is set vertically
-   beside the story.
+   The Willow Atelier: the blue side of the sheet.
+   The page is the coloured side, so what is folded here shows white. The
+   name is creased once at the top beside a paper crane, then a pleated
+   band, then an index of the three kinds of work. Sections share the QA
+   page's grid; works hang as sheets with a corner turned, photographs
+   scroll sideways, tracks are a list on fold lines, and the poem is set
+   vertically beside the story.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -22,20 +22,26 @@
   z-index: 1;
 }
 
-.art-hero .hanga--strip {
+.art-hero .pleat {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
-/* the name in Japanese, boxed like a title cartouche */
+/* the name in Japanese, marked with a small folded corner */
 .art-hero__jp {
-  display: inline-block;
-  padding: 0.25rem 0.65rem 0.3rem;
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-jp);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  color: var(--fg-strong);
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.art-hero__jp::before {
+  content: "";
+  width: 0.6rem;
+  height: 0.6rem;
+  background: linear-gradient(to bottom left, transparent 50%, var(--accent-text) 50%);
 }
 
 .art-hero__title {
@@ -45,7 +51,7 @@
   font-size: clamp(2.9rem, 1rem + 5.6vw, 6.4rem);
   font-weight: 800;
   line-height: 1.04;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.035em;
 }
 
 .art-hero__tagline {
@@ -110,7 +116,7 @@ html[lang="ja"] .index__name {
   font-size: 0.95rem;
 }
 
-/* an empty frame, waiting for a piece */
+/* an empty sheet, waiting for a piece */
 .slot {
   display: grid;
   place-items: center;
@@ -118,7 +124,6 @@ html[lang="ja"] .index__name {
   height: 100%;
   border-radius: var(--radius-box);
   background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--muted);
@@ -233,7 +238,7 @@ html[lang="ja"] .index__name {
    -------------------------------------------------------------------------- */
 
 .tracks {
-  border-top: var(--rule) solid var(--key);
+  border-top: var(--rule) dashed var(--line-strong);
 }
 
 .track {
@@ -342,7 +347,7 @@ html[lang="ja"] .index__name {
    -------------------------------------------------------------------------- */
 
 .cards {
-  border-top: var(--rule) solid var(--key);
+  border-top: var(--rule) dashed var(--line-strong);
 }
 
 .card {
@@ -394,22 +399,22 @@ html[lang="ja"] .card__name {
 }
 
 /* --------------------------------------------------------------------------
-   Onward: the way out to the worlds, under a deeper sky
+   Onward: the way out to the worlds, on a darker sheet
    -------------------------------------------------------------------------- */
 
 .onward {
   position: relative;
-  margin-top: calc(var(--section-space) + 30px);
+  margin-top: calc(var(--section-space) + 22px);
   background: #060e33;
 }
 
-/* a deeper sea rises over the end of the page */
+/* the edge of a darker sheet, folded into a row of points */
 .onward::before {
   content: "";
   position: absolute;
-  inset: -29px 0 auto;
-  height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%23060e33'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%23dfe7f7' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+  inset: -21px 0 auto;
+  height: 22px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M0 22 22 0l22 22z' fill='%23060e33'/%3E%3C/svg%3E") repeat-x;
 }
 
 .onward__link {

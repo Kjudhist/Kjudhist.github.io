@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *hanga* (版画), the Japanese woodblock print, pulled in one blue ink: the same sea by day for QA and by night for the atelier. Every page prints itself in three passes as you arrive, a willow hangs from the top edge, and a printer's registration marks sit in the corner of the window. Type is Kaisei Tokumin for display, Zen Kaku Gothic New for text and Spline Sans Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *origami* (折り紙). Origami paper is coloured on one side and white on the other, and the site is that one sheet: QA is the white side, the atelier is the blue side. Every raised sheet has a corner folded over to show its other side, rules are dashed fold lines, and a folded figure drifts beside each page's name: a paper dart, a crane, a compass star. Type is M PLUS 1 throughout, with M PLUS 1 Code for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -25,7 +25,7 @@ Live at https://kjudhist.github.io/
 │   └── world.css         loads after art.css and reuses its hero, frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, local links
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the folded figures, local links
 │   ├── gate.js           door behaviour (one click or tap walks through)
 │   └── art.js            the full-size viewer for artworks
 ├── assets/
@@ -86,9 +86,9 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** one landscape from morning (left) to dusk (right), with my name, Jakarta's local time and two cards over it. Each whole card is the link, with an **Enter** pill; one click or tap goes in.
-- **QA (the morning):** the name large over a pale sky and a band of misty hills, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
-- **The Willow Atelier (the evening):** night over the hills, with stars, the moon and fireflies; the name large, the tagline, and an index of:
+- **Gate:** one sheet folded down the middle and opened, white side on the left and blue side on the right, under my name and Jakarta's local time. Each whole half is the link, with an **Enter** block; one click or tap goes in.
+- **QA (the white side):** the name large beside a paper dart, over a pleated blue band, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
+- **The Willow Atelier (the blue side):** a white paper crane beside the name, the tagline, and an index of:
   1. **Drawing & Painting**, a grid of frames
   2. **Photography**, a row of frames scrolled sideways
   3. **Music**, a ruled list of tracks

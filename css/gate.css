@@ -1,9 +1,10 @@
 /* ==========================================================================
-   Gate: a diptych. One sea, printed twice: by day on the left sheet, by
-   night on the right, the waves and the mountain running across both. A
-   willow hangs over the seam. Each sheet is a door and the whole sheet is
-   the link; the caption under its image carries an Enter block that says
-   so. Also the 404.
+   Gate: one sheet of origami paper, folded down the middle and opened.
+   The left half lies white side up, the right half blue side up; the seam
+   between them is the fold. Each half is a door and the whole half is the
+   link; the caption under its figure carries an Enter block that says so.
+   The outer corner of each half is turned over to show the other side.
+   Also the 404.
    ========================================================================== */
 
 body.gate {
@@ -23,10 +24,10 @@ body.gate {
 }
 
 .g-name {
-  font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
   font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 .g-meta {
@@ -60,7 +61,7 @@ body.gate {
 }
 
 /* --------------------------------------------------------------------------
-   The two sheets
+   The sheet and its two halves
    -------------------------------------------------------------------------- */
 
 .g-doors {
@@ -68,64 +69,142 @@ body.gate {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
   min-height: 25rem;
+  perspective: 1800px;
 }
 
-/* a sheet of paper: the image printed inside its margin, the caption under it */
 .door {
+  --under: var(--paper);
+  --fold: clamp(2.75rem, 5vw, 4.75rem);
   position: relative;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  padding: 10px;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  color: var(--ink);
-  transition: transform 0.5s var(--ease-out), opacity 0.4s var(--ease);
+  padding: clamp(0.9rem, 1.6vw, 1.5rem);
+  box-shadow: var(--shadow-sheet);
+  transition: transform 0.7s var(--ease-out), opacity 0.5s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
 
-.door .hanga {
-  min-height: 11rem;
-  outline: var(--rule) solid var(--key);
-  outline-offset: calc(var(--rule) * -1);
+/* each half darkens a little toward the fold */
+.door--qa {
+  transform-origin: 100% 50%;
+  background: linear-gradient(90deg, var(--sheet) 0 88%, #e6ebf2);
+  color: var(--ink);
 }
 
-/* keep the dark top edge of the night sky off the moon */
-.door .hanga--night::after {
-  height: 14%;
+.door--art {
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #071034, var(--night) 12%);
+  color: #f1f4fa;
+}
+
+/* on arrival the sheet opens flat from the fold, its halves swinging up from behind */
+.js .door--qa {
+  animation: open-left 1.1s var(--ease-out) 0.15s backwards;
+}
+
+.js .door--art {
+  animation: open-right 1.1s var(--ease-out) 0.15s backwards;
+}
+
+@keyframes open-left {
+  from {
+    transform: rotateY(-64deg);
+  }
+}
+
+@keyframes open-right {
+  from {
+    transform: rotateY(64deg);
+  }
+}
+
+/* the outer corner, turned over to show the other side */
+.door::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: var(--fold);
+  height: var(--fold);
+  transition: width 0.5s var(--ease-out), height 0.5s var(--ease-out);
+}
+
+.door--qa::after {
+  left: 0;
+  background: linear-gradient(to bottom right, var(--under) 50%, #071034 50%, var(--night) 62%);
+}
+
+.door--art::after {
+  right: 0;
+  background: linear-gradient(to bottom left, var(--under) 50%, #c3d0ec 50%, var(--sheet) 62%);
 }
 
 .door:hover,
 .door:focus-visible {
-  transform: translateY(-5px);
+  --fold: clamp(4.5rem, 8vw, 7.5rem);
 }
 
 .door:focus-visible {
   outline: 3px solid var(--royal);
-  outline-offset: 3px;
+  outline-offset: -8px;
 }
 
-/* the title cartouche: the door's name in Japanese, set vertically */
+.door--art:focus-visible {
+  outline-color: #dfe7f7;
+}
+
+/* the figure, lying on the sheet's crease pattern */
+.door__fig {
+  position: relative;
+  display: block;
+  min-height: 11rem;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.door__fig::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 100 100M100 0 0 100M50 0v100M0 50h100' fill='none' stroke='%2317318f' stroke-dasharray='7 6' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+
+.door--art .door__fig::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 100 100M100 0 0 100M50 0v100M0 50h100' fill='none' stroke='%23dfe7f7' stroke-dasharray='7 6' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+}
+
+.door__fig svg {
+  position: absolute;
+  inset: 9% 14%;
+  width: 72%;
+  height: 82%;
+}
+
+.door:hover .door__fig,
+.door:focus-visible .door__fig {
+  transform: translateY(-0.5rem);
+}
+
+/* the door's name in Japanese, set vertically either side of the fold */
 .door__tag {
   position: absolute;
-  top: 24px;
-  left: 24px;
-  padding: 0.7rem 0.35rem;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-display);
-  font-size: 1rem;
+  top: clamp(1rem, 2vw, 1.75rem);
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.3;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.3em;
   writing-mode: vertical-rl;
   white-space: nowrap;
 }
 
+.door--qa .door__tag {
+  right: clamp(1rem, 2vw, 1.75rem);
+  color: var(--ai-4);
+}
+
 .door--art .door__tag {
-  left: auto;
-  right: 24px;
+  left: clamp(1rem, 2vw, 1.75rem);
+  color: #dfe7f7;
 }
 
 /* the caption: number, name and what is inside on the left, Enter on the right */
@@ -134,7 +213,7 @@ body.gate {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 0.2rem 1.5rem;
-  padding: 1rem 0.6rem 0.55rem;
+  padding: 1rem 0.4rem 0.4rem;
 }
 
 .door__no {
@@ -144,16 +223,28 @@ body.gate {
 
 .door__title {
   grid-column: 1;
-  font-family: var(--font-display);
   font-size: clamp(1.6rem, 0.9rem + 1.6vw, 2.5rem);
   font-weight: 800;
   line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+html[lang="ja"] .door__title {
+  letter-spacing: 0;
 }
 
 .door__sub {
   grid-column: 1;
   font-size: 0.92rem;
   color: var(--ink-2);
+}
+
+.door--art .door__no {
+  color: #94a2c8;
+}
+
+.door--art .door__sub {
+  color: #c5cfe8;
 }
 
 .door__cta {
@@ -164,7 +255,6 @@ body.gate {
   gap: 0.7rem;
   min-height: 3rem;
   padding: 0.6rem 1.4rem;
-  border-radius: var(--radius);
   background: var(--royal);
   color: #fff;
   font-weight: 700;
@@ -172,13 +262,20 @@ body.gate {
   transition: background-color 0.3s var(--ease);
 }
 
+/* on the blue side the block is the white side */
 .door--art .door__cta {
-  background: var(--night);
+  background: #f9fafb;
+  color: var(--ai-5);
 }
 
-.door:hover .door__cta,
-.door:focus-visible .door__cta {
+.door--qa:hover .door__cta,
+.door--qa:focus-visible .door__cta {
   background: var(--ai-4);
+}
+
+.door--art:hover .door__cta,
+.door--art:focus-visible .door__cta {
+  background: var(--ai-1);
 }
 
 .door:hover .door__cta .arrow,
@@ -186,46 +283,15 @@ body.gate {
   transform: translateX(0.3rem);
 }
 
-.g-doors.has-open .door:not(.is-open) {
+/* a door is chosen: the other half folds away */
+.g-doors.has-open .door--qa:not(.is-open) {
+  transform: rotateY(-72deg);
   opacity: 0.35;
 }
 
-.door.is-open {
-  transform: translateY(-5px);
-}
-
-/* the willow over the seam: ink strands on the day sheet, pale on the night.
-   Sized from the sheets' height, so it never reaches the captions. */
-.willow--gate {
-  top: 10px;
-  left: 50%;
-  right: auto;
-  z-index: 2;
-  width: auto;
-  height: 46%;
-  aspect-ratio: 520 / 600;
-  transform: translateX(-50%);
-}
-
-.willow--gate svg {
-  width: 100%;
-  height: 100%;
-}
-
-.willow__strand--ink .willow__stem {
-  stroke: var(--ai-5);
-}
-
-.willow__strand--ink .willow__leaves {
-  fill: var(--ai-4);
-}
-
-.willow__strand--pale .willow__stem {
-  stroke: #dfe7f7;
-}
-
-.willow__strand--pale .willow__leaves {
-  fill: var(--ai-2);
+.g-doors.has-open .door--art:not(.is-open) {
+  transform: rotateY(72deg);
+  opacity: 0.35;
 }
 
 .gate .credit {
@@ -234,7 +300,8 @@ body.gate {
 }
 
 /* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the sheets stack
+   Narrower screens: Enter drops under the name; on phones the sheet is
+   folded across instead, white half above, blue half below
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1099.98px) {
@@ -263,56 +330,80 @@ body.gate {
 
   .g-doors {
     grid-template-columns: 1fr;
-    gap: 14px;
   }
 
-  .door .hanga {
-    aspect-ratio: 6 / 5;
+  .door__fig {
+    min-height: 0;
+    aspect-ratio: 5 / 3;
+  }
+
+  .door--qa {
+    transform-origin: 50% 100%;
+    background: linear-gradient(var(--sheet) 0 88%, #e6ebf2);
+  }
+
+  .door--art {
+    transform-origin: 50% 0;
+    background: linear-gradient(#071034, var(--night) 12%);
+  }
+
+  .js .door--qa {
+    animation-name: open-top;
+  }
+
+  .js .door--art {
+    animation-name: open-bottom;
+  }
+
+  .g-doors.has-open .door--qa:not(.is-open) {
+    transform: rotateX(72deg);
+  }
+
+  .g-doors.has-open .door--art:not(.is-open) {
+    transform: rotateX(-72deg);
   }
 
   .door__tag {
-    top: 20px;
-    left: 20px;
-    padding: 0.55rem 0.3rem;
     font-size: 0.85rem;
   }
+}
 
-  .door--art .door__tag {
-    right: 20px;
+@keyframes open-top {
+  from {
+    transform: rotateX(64deg);
   }
+}
 
-  /* the sheet is cropped closer here: keep the dark edge off the moon */
-  .door .hanga--night::after {
-    height: 9%;
-  }
-
-  .willow--gate {
-    left: auto;
-    right: 1.25rem;
-    width: 7.5rem;
-    height: auto;
-    transform: none;
-  }
-
-  /* on a phone the willow hangs over the day sheet only */
-  .willow--gate .willow__strand--pale {
-    display: none;
+@keyframes open-bottom {
+  from {
+    transform: rotateX(-64deg);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door {
+  .js .door--qa,
+  .js .door--art {
+    animation: none;
+  }
+
+  .door,
+  .door::after,
+  .door__fig {
     transition-duration: 0.01s;
+  }
+
+  .g-doors.has-open .door:not(.is-open) {
+    transform: none;
   }
 }
 
 /* ==========================================================================
-   404: a misprint. The colour blocks have slipped off their registration.
+   404: a sheet that was never folded. Only its crease pattern is there.
    ========================================================================== */
 
 body.lost-page {
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto;
 }
 
 .lost-page .topbar__end {
@@ -326,6 +417,7 @@ body.lost-page {
 }
 
 .lost__inner {
+  position: relative;
   width: min(100%, 84rem);
   margin-inline: auto;
 }
@@ -335,41 +427,69 @@ body.lost-page {
   color: var(--accent-text);
 }
 
-/* the title's pale pass has landed beside its key line */
 .lost__title {
-  max-width: 18ch;
+  max-width: 14ch;
   margin-top: 1rem;
-  font-family: var(--font-display);
   font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
   color: var(--fg-strong);
-  text-shadow: 0.09em 0.07em 0 var(--ai-1);
 }
 
 html[lang="ja"] .lost__title {
   font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
   line-height: 1.3;
+  letter-spacing: 0;
 }
 
 .lost__text {
-  max-width: 36rem;
+  max-width: 34rem;
   margin: 1.5rem 0 2rem;
   font-size: 1.1rem;
 }
 
-/* cut a little large, so a slipped block still reaches the edges */
-.hanga--off .hanga__pass {
-  inset: -14px;
-  width: calc(100% + 28px);
-  max-width: none;
-  height: calc(100% + 28px);
+/* the flat sheet: valley folds dashed, mountain folds dash-dot */
+.flat {
+  position: absolute;
+  top: 50%;
+  right: clamp(0rem, 4vw, 5rem);
+  width: clamp(12rem, 30vw, 24rem);
+  transform: translateY(-50%) rotate(-7deg);
 }
 
-.hanga--off .hanga__pass--light {
-  translate: 14px 9px;
+.flat svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 18px 16px rgba(12, 27, 77, 0.18));
 }
 
-.hanga--off .hanga__pass--deep {
-  translate: -11px -7px;
+.flat__sheet {
+  fill: var(--sheet);
+}
+
+.flat__valley,
+.flat__mountain {
+  fill: none;
+  stroke: var(--ai-3);
+  stroke-width: 1.5;
+}
+
+.flat__valley {
+  stroke-dasharray: 9 7;
+}
+
+.flat__mountain {
+  stroke: var(--ai-2);
+  stroke-dasharray: 14 5 2 5;
+}
+
+@media (max-width: 899.98px) {
+  .flat {
+    position: static;
+    width: 11rem;
+    margin: 3rem 1rem 0 auto;
+    transform: rotate(-6deg);
+  }
 }

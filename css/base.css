@@ -2,17 +2,17 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is hanga (版画), the Japanese woodblock print, and within it
-   aizuri-e: prints pulled almost entirely in one blue ink. Paper, a few
-   strengths of that blue, and a dark key line. Three things recur on every
-   page: the page prints itself in three passes as you arrive, a willow
-   hangs from the top edge, and printer's registration marks sit in the
-   corner of the window. Kaisei Tokumin for display, Zen Kaku Gothic New
-   for text in every language, Spline Sans Mono for small facts.
+   The world is origami (折り紙). Origami paper is coloured on one side and
+   white on the other, and the whole site is that one sheet: QA is the
+   white side, the atelier is the blue side. Nothing is outlined; things
+   are sheets, told apart by tone, a soft shadow and a corner folded over
+   to show the other side. Rules are fold lines, dashed the way a folding
+   diagram draws them. M PLUS 1 for everything, M PLUS 1 Code for small
+   facts.
    ========================================================================== */
 
 :root {
-  /* one ink, in five strengths */
+  /* one blue, in five strengths */
   --ai-1: #cfdcf1;
   --ai-2: #8eabe3;
   --ai-3: #2449d8;
@@ -23,12 +23,12 @@
   --royal-2: var(--ai-4);
   --royal-soft: var(--ai-2); /* the ink as text on the night ground */
 
-  --paper: #eef1f3;   /* washi */
+  --paper: #eef1f3;   /* the table the sheets lie on */
   --sheet: #f9fafb;
-  --ink: var(--ai-5); /* the key block */
+  --ink: var(--ai-5);
   --ink-2: #2b3a66;
   --grey: #5c6788;
-  --night: #0b1848;   /* a sheet printed solid */
+  --night: #0b1848;   /* the coloured side */
   --night-2: #13235f;
 
   /* light pages (gate, QA, 404) */
@@ -38,7 +38,7 @@
   --fg-strong: var(--ink);
   --muted: var(--grey);
   --key: var(--ink);
-  --wash: #a9bfea;    /* the first, pale pass under a title */
+  --wash: #a9bfea;
   --line: rgba(12, 27, 77, 0.14);
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent: var(--royal);
@@ -46,15 +46,28 @@
   --accent-fg: #fff;
   --focus: var(--royal);
 
-  --font: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Kaisei Tokumin", "Noto Serif JP", "Yu Mincho", serif;
-  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font: "M PLUS 1", system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-display: var(--font);
+  --font-mono: "M PLUS 1 Code", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-jp: var(--font);
 
-  /* prints have square corners: everything does */
-  --radius: 2px;
-  --radius-box: 2px;
-  --rule: 1.5px;     /* the weight of a key line */
+  /* paper has square corners: everything does */
+  --radius: 0px;
+  --radius-box: 0px;
+  --rule: 1.5px;     /* the weight of a fold line */
+
+  /* a folded corner: what shows under it, and the other side of the sheet */
+  --fold: 1.6rem;
+  --under: var(--bg);
+  --flap: var(--ai-3);
+  --flap-edge: var(--ai-4);
+  --shadow-sheet: 0 1px 0 rgba(12, 27, 77, 0.06), 0 16px 28px -18px rgba(12, 27, 77, 0.45);
+  --crease-tint: rgba(12, 27, 77, 0.035);
+  /* the four faces of a folded figure, lightest first */
+  --f1: var(--ai-2);
+  --f2: var(--ai-3);
+  --f3: var(--ai-4);
+  --f4: var(--ai-5);
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,7 +76,7 @@
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* the atelier and the worlds: the night sheet */
+/* the atelier and the worlds: the blue side */
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
@@ -78,6 +91,15 @@
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
   --focus: var(--royal-soft);
+  --under: var(--bg);
+  --flap: #f1f4fa;
+  --flap-edge: #a9bfea;
+  --shadow-sheet: 0 16px 28px -18px rgba(0, 0, 0, 0.7);
+  --crease-tint: rgba(223, 231, 247, 0.035);
+  --f1: #fff;
+  --f2: #dfe7f7;
+  --f3: #a9bfea;
+  --f4: #7f9be0;
 }
 
 .theme-light {
@@ -92,6 +114,14 @@
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent-text: var(--royal);
   --focus: var(--royal);
+  --under: var(--bg);
+  --flap: var(--ai-3);
+  --flap-edge: var(--ai-4);
+  --shadow-sheet: 0 1px 0 rgba(12, 27, 77, 0.06), 0 16px 28px -18px rgba(12, 27, 77, 0.45);
+  --f1: var(--ai-2);
+  --f2: var(--ai-3);
+  --f3: var(--ai-4);
+  --f4: var(--ai-5);
 }
 
 /* --------------------------------------------------------------------------
@@ -123,7 +153,7 @@ body {
   font-weight: 400;
   font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
   line-height: 1.65;
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -272,7 +302,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   position: sticky;
   top: 0;
   background-color: var(--bg);
-  box-shadow: 0 var(--rule) 0 var(--key);
+  box-shadow: 0 1px 0 var(--line), 0 14px 22px -20px rgba(12, 27, 77, 0.55);
 }
 
 .topbar__end {
@@ -418,7 +448,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
     gap: 0;
     padding: 0.25rem var(--gutter) 1.25rem;
     background: var(--bg);
-    box-shadow: 0 var(--rule) 0 var(--key);
+    box-shadow: 0 1px 0 var(--line), 0 14px 22px -20px rgba(12, 27, 77, 0.55);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition: clip-path 0.45s var(--ease-out), visibility 0s 0.45s;
@@ -478,14 +508,15 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Language switcher: a ruled box in three parts
+   Language switcher: three tabs; the chosen one is turned to its blue side
    -------------------------------------------------------------------------- */
 
 .lang {
   display: flex;
   align-items: center;
   border-radius: var(--radius);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  background: var(--bg-raised);
+  box-shadow: 0 0 0 1px var(--line), var(--shadow-sheet);
 }
 
 .lang__opt {
@@ -618,7 +649,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   column-gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
   padding-top: 1.25rem;
-  border-top: var(--rule) solid var(--key);
+  border-top: var(--rule) dashed var(--line-strong);
 }
 
 .section > .wrap > * {
@@ -635,24 +666,45 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.25rem + 1.1vw, 2.3rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.2;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
   color: var(--fg-strong);
 }
 
-/* the Japanese name of a section, boxed like a print's title cartouche */
+/* every section is a step in the folding: its number sits over its name */
+.section {
+  counter-increment: fold;
+}
+
+.sec-head::before {
+  content: counter(fold, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-text);
+}
+
+/* the Japanese name of a section, marked with a small folded corner */
 .sec-head__jp,
 .tag {
-  display: inline-block;
-  padding: 0.2rem 0.55rem 0.25rem;
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-jp);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.8rem;
   font-weight: 500;
   line-height: 1.4;
-  letter-spacing: 0.14em;
-  color: var(--fg-strong);
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+.sec-head__jp::before,
+.tag::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  background: linear-gradient(to bottom left, transparent 50%, var(--accent-text) 50%);
 }
 
 .sec-head__jp {
@@ -672,11 +724,15 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   .section > .wrap > .sec-head {
     grid-row: auto;
     position: static;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 0 1rem;
     margin-bottom: 2rem;
+  }
+
+  .sec-head::before {
+    grid-column: 1 / -1;
   }
 
   .sec-head__jp {
@@ -699,10 +755,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Washi: a faint paper grain over everything, and the registration marks.
-   A printer cuts two marks (kento) into every block so each colour lands
-   in the same place: an L at one corner and a bar further along the same
-   edge. Here they sit on the window's right edge, clear of the text.
+   Paper: a faint grain over everything, and one crease across the window,
+   as if the page itself had been folded once and opened flat again.
    -------------------------------------------------------------------------- */
 
 body::before {
@@ -711,66 +765,132 @@ body::before {
   inset: 0;
   z-index: 120;
   pointer-events: none;
-  opacity: 0.5;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 7px;
-  z-index: 121;
-  pointer-events: none;
   background:
-    linear-gradient(var(--key), var(--key)) right bottom / 14px var(--rule) no-repeat,
-    linear-gradient(var(--key), var(--key)) right bottom / var(--rule) 14px no-repeat,
-    linear-gradient(var(--key), var(--key)) right bottom 26% / var(--rule) 24px no-repeat;
+    linear-gradient(112deg, transparent 0 61%, var(--crease-tint) 61% 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .28 -.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* --------------------------------------------------------------------------
-   A print: three stacked layers, pulled one after another as the page
-   arrives. Key lines first, then the pale flats, then the deep flats.
+   A sheet: raised by tone and a soft shadow, with one corner folded over
+   to show its other side. --under is whatever lies beneath the corner.
    -------------------------------------------------------------------------- */
 
-.hanga {
+.entry,
+.about__text--key,
+.cvcard,
+.mail,
+.slot {
   position: relative;
-  overflow: hidden;
+  background: var(--bg-raised);
+  box-shadow: var(--shadow-sheet);
+}
+
+.entry::after,
+.about__text--key::after,
+.cvcard::after,
+.mail::after,
+.slot::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--fold);
+  height: var(--fold);
+  background: linear-gradient(to bottom left, var(--under) 50%, var(--flap-edge) 50%, var(--flap) 64%);
+}
+
+/* --------------------------------------------------------------------------
+   A folded figure: flat faces in four tones. It drifts on its own and
+   leans a little toward the pointer (js/main.js sets --lean).
+   -------------------------------------------------------------------------- */
+
+.fig {
+  --lean: 0;
   pointer-events: none;
 }
 
-.hanga--day {
-  background: var(--paper);
+.fig--pale {
+  --f1: #fff;
+  --f2: #dfe7f7;
+  --f3: #a9bfea;
+  --f4: #7f9be0;
 }
 
-.hanga--night {
-  background: var(--night);
-}
-
-.hanga__pass {
-  position: absolute;
-  inset: 0;
-  display: block;
+.fig svg {
   width: 100%;
-  height: 100%;
+  height: auto;
+  overflow: visible;
+  transform: translateX(calc(var(--lean) * 0.7rem)) rotate(calc(var(--lean) * 3deg));
+  transition: transform 1.4s var(--ease-out);
 }
 
-.js .hanga__pass {
-  animation: press 0.75s var(--ease) both;
+.fig__float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: drift 6.5s ease-in-out infinite alternate;
 }
 
-.js .hanga__pass--key {
-  animation-delay: 0.1s;
+@keyframes drift {
+  from {
+    transform: translateY(-5px) rotate(-1.3deg);
+  }
+
+  to {
+    transform: translateY(6px) rotate(1.5deg);
+  }
 }
 
-.js .hanga__pass--light {
-  animation-delay: 0.55s;
+.f1 {
+  fill: var(--f1);
 }
 
-.js .hanga__pass--deep {
-  animation-delay: 1s;
+.f2 {
+  fill: var(--f2);
 }
 
-@keyframes press {
+.f3 {
+  fill: var(--f3);
+}
+
+.f4 {
+  fill: var(--f4);
+}
+
+/* beside a page's title */
+.fig--hero {
+  position: absolute;
+  top: clamp(1.5rem, 3vw, 3rem);
+  right: clamp(1rem, 7vw, 7rem);
+  z-index: 0;
+  width: clamp(6.5rem, 26vw, 23rem);
+}
+
+.js .fig--hero {
+  animation: land 1.2s var(--ease-out) 0.15s backwards;
+}
+
+@keyframes land {
+  from {
+    opacity: 0;
+    transform: translate(3.5rem, -2rem) rotate(9deg);
+  }
+}
+
+/* a pleated band across the page: the same sheet, folded like a fan */
+.pleat {
+  height: clamp(2.75rem, 5.5vw, 5rem);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='64' viewBox='0 0 96 64'%3E%3Cpath d='M0 10 48 0v54L0 64z' fill='%232449d8'/%3E%3Cpath d='M48 0l48 10v54L48 54z' fill='%2317318f'/%3E%3C/svg%3E") 0 0 / auto 100% repeat-x;
+}
+
+.theme-dark .pleat {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='64' viewBox='0 0 96 64'%3E%3Cpath d='M0 10 48 0v54L0 64z' fill='%23f1f4fa'/%3E%3Cpath d='M48 0l48 10v54L48 54z' fill='%23a9bfea'/%3E%3C/svg%3E");
+}
+
+.js .pleat {
+  animation: unpleat 1.1s var(--ease) 0.25s backwards;
+}
+
+@keyframes unpleat {
   from {
     clip-path: inset(0 100% 0 0);
   }
@@ -780,147 +900,55 @@ body::after {
   }
 }
 
-/* the top edge of the sky, wiped darker by hand (bokashi) */
-.hanga::after {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 30%;
-  background: linear-gradient(rgba(36, 73, 216, 0.5), rgba(36, 73, 216, 0));
-}
-
-.hanga--night::after {
-  height: 22%;
-  background: linear-gradient(#050c2e, rgba(5, 12, 46, 0));
-}
-
-/* a strip of sea across the page, ruled top and bottom */
-.hanga--strip {
-  height: clamp(10rem, 22vw, 19rem);
-  border-block: var(--rule) solid var(--key);
-}
-
-/* the night strip is shallow: keep the dark edge off the moon */
-.hanga--strip.hanga--night::after {
-  height: 12%;
-}
-
-/* the sea rolls: each band slides one wave-length, then starts again */
-.sea {
-  animation: sea var(--t) linear infinite;
-}
-
-@keyframes sea {
-  to {
-    transform: translateX(calc(var(--p) * -1px));
-  }
-}
-
-/* a title takes its ink from left to right over a pale first pass */
-.inked {
-  /* room for descenders: the ink is clipped to this box */
+/* a title is creased once: the far side of the fold catches the blue */
+.creased {
+  /* room for descenders: the colour is clipped to this box */
   padding-bottom: 0.16em;
   margin-bottom: -0.16em;
   color: var(--fg-strong);
 }
 
+@property --crease {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 52%;
+}
+
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .js .inked {
-    background: linear-gradient(90deg, var(--fg-strong) 50%, var(--wash) 50%) 100% 0 / 200% 100% no-repeat;
+  .js .creased {
+    background: linear-gradient(108deg, var(--fg-strong) var(--crease), var(--accent-text) var(--crease));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: ink 1.1s var(--ease) 0.3s forwards;
+    animation: crease 1.3s var(--ease) 0.2s backwards;
   }
 }
 
-@keyframes ink {
-  to {
-    background-position: 0 0;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   The willow: strands hanging from the top edge. Each sways on its own
-   clock and leans a little toward the pointer (js/main.js sets --lean).
-   -------------------------------------------------------------------------- */
-
-.willow {
-  --lean: 0;
-  position: absolute;
-  top: 0;
-  right: clamp(0.5rem, 5vw, 5rem);
-  z-index: 0;
-  width: clamp(5.5rem, 19vw, 16rem);
-  pointer-events: none;
-}
-
-.willow svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.willow__strand,
-.willow__sway {
-  transform-box: view-box;
-  transform-origin: var(--x) 0;
-}
-
-.willow__strand {
-  transform: rotate(calc(var(--lean) * var(--k) * 1deg));
-  transition: transform 1.4s var(--ease-out);
-}
-
-.willow__sway {
-  animation: sway var(--t) ease-in-out var(--d) infinite alternate;
-}
-
-@keyframes sway {
+@keyframes crease {
   from {
-    transform: rotate(-1.2deg);
+    --crease: 0%;
   }
-
-  to {
-    transform: rotate(1.4deg);
-  }
-}
-
-.willow__stem {
-  fill: none;
-  stroke: var(--key);
-  stroke-width: 1.4;
-}
-
-.willow__leaves {
-  fill: var(--accent-text);
-}
-
-.js .willow {
-  animation: page-in 0.9s var(--ease) 0.1s both;
 }
 
 @media (max-width: 719.98px) {
-  .willow {
-    right: 0.25rem;
-    width: 4.75rem;
+  .fig--hero {
+    top: 1rem;
+    right: 0.75rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .hanga__pass,
-  .js .inked,
-  .js .willow {
-    animation-duration: 0.01s;
-    animation-delay: 0s;
-  }
-
-  .sea,
-  .willow__sway {
+  .js .fig--hero,
+  .js .pleat,
+  .js .creased {
     animation: none;
   }
 
-  .willow__strand {
+  .fig__float {
+    animation: none;
+  }
+
+  .fig svg {
     transition: none;
   }
 }
@@ -952,16 +980,15 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* leaving a page: the next sheet's ground is pulled across, a band of ink leading */
+/* leaving a page: the next sheet folds over this one from the top corner */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
   background: var(--night);
-  border-right: 10px solid var(--royal);
-  transform: translateX(-101%);
-  transition: transform 0.7s var(--ease);
+  clip-path: polygon(100% 0, 100% 0, 100% 0);
+  transition: clip-path 0.7s var(--ease);
 }
 
 .veil[data-tone="light"] {
@@ -969,13 +996,14 @@ html.i18n-pending body {
 }
 
 html.is-leaving .veil {
-  transform: translateX(0);
+  clip-path: polygon(100% 0, -110% 0, 100% 210%);
   pointer-events: auto;
 }
 
 .js [data-reveal] {
   opacity: 0;
-  transform: translate3d(0, 0.8rem, 0);
+  transform: perspective(60rem) rotateX(-14deg) translate3d(0, 0.6rem, 0);
+  transform-origin: 50% 0;
   transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
   transition-delay: var(--delay, 0s);
 }
@@ -1001,8 +1029,7 @@ html.is-leaving .veil {
   }
 
   .veil {
-    transform: none;
-    border: 0;
+    clip-path: none;
     opacity: 0;
     transition: opacity 0.25s linear;
   }

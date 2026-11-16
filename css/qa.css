@@ -1,10 +1,10 @@
 /* ==========================================================================
-   QA: the day sheet.
-   The name takes its ink at the top, the willow hangs beside it, and under
-   them runs a strip of sea printed by day. Each section sits on the grid:
-   its name in the left column, the content to the right. Contact is a block
-   printed solid, and the page ends where the sea turns to night, leading
-   to the atelier.
+   QA: the white side of the sheet.
+   The name is creased once at the top, a paper dart drifts beside it, and
+   under them runs a pleated band in the sheet's blue. Each section is a
+   step in the folding: its number and name in the left column, the
+   content to the right. Contact is a sheet turned to its blue side, and
+   the page ends on a folded edge, leading to the atelier.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-.hero .hanga--strip {
+.hero .pleat {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -31,7 +31,7 @@
   font-size: clamp(2.9rem, 1rem + 5.6vw, 6.4rem);
   font-weight: 800;
   line-height: 1.04;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.035em;
 }
 
 .hero__row {
@@ -41,7 +41,7 @@
   gap: 2rem 3rem;
   margin-top: clamp(2rem, 4vw, 3.25rem);
   padding-top: 1.25rem;
-  border-top: var(--rule) solid var(--key);
+  border-top: var(--rule) dashed var(--line-strong);
 }
 
 .hero__pitch {
@@ -95,8 +95,6 @@ html[lang="ja"] .hero__pitch {
   margin-top: 0.4rem;
   padding: 1.1rem 1.25rem;
   border-radius: var(--radius-box);
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
   color: var(--ink);
 }
 
@@ -166,7 +164,7 @@ html[lang="ja"] .hero__pitch {
 
 .log__cols {
   padding: 0.6rem 0;
-  border-top: var(--rule) solid var(--key);
+  border-top: var(--rule) dashed var(--line-strong);
   border-bottom: 1px solid var(--line);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -186,14 +184,14 @@ html[lang="ja"] .hero__pitch {
   color: var(--ink-2);
 }
 
-/* the current role: a small block of ink before the date */
+/* the current role: a small folded corner before the date */
 .row--now .row__time::before {
   content: "";
   display: inline-block;
   width: 0.45rem;
   height: 0.45rem;
   margin-right: 0.55rem;
-  background: var(--royal);
+  background: linear-gradient(to bottom left, transparent 50%, var(--royal) 50%);
   vertical-align: 0.12em;
 }
 
@@ -226,8 +224,6 @@ html[lang="ja"] .hero__pitch {
 .entry {
   padding: 1.25rem;
   border-radius: var(--radius-box);
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
 }
 
 .entry__kicker {
@@ -307,7 +303,7 @@ html[lang="ja"] .hero__pitch {
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  box-shadow: var(--shadow-sheet);
   font-size: 1rem;
 }
 
@@ -322,6 +318,10 @@ html[lang="ja"] .hero__pitch {
   gap: clamp(2rem, 5vw, 4rem);
   padding: clamp(1.5rem, 4vw, 3rem);
   border-radius: var(--radius-box);
+  --under: var(--paper);
+  --flap: #f1f4fa;
+  --flap-edge: #a9bfea;
+  --fold: 2.4rem;
   background: var(--night);
   color: var(--fg);
 }
@@ -384,6 +384,10 @@ html[lang="ja"] .hero__pitch {
   gap: 0.4rem;
   padding: 1.4rem;
   border-radius: var(--radius-box);
+  --under: var(--night);
+  --flap: var(--ai-3);
+  --flap-edge: var(--ai-4);
+  --fold: 1.6rem;
   background: var(--sheet);
   color: var(--fg);
   scroll-margin-top: 6rem;
@@ -407,18 +411,18 @@ html[lang="ja"] .hero__pitch {
 
 .qa-end {
   position: relative;
-  margin-top: calc(var(--section-space) + 30px);
+  margin-top: calc(var(--section-space) + 22px);
   background: var(--night);
   color: var(--fg);
 }
 
-/* the night sea rises over the end of the page */
+/* the edge of the blue side, folded into a row of points */
 .qa-end::before {
   content: "";
   position: absolute;
-  inset: -29px 0 auto;
-  height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%230b1848'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%230c1b4d' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+  inset: -21px 0 auto;
+  height: 22px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='22' viewBox='0 0 44 22'%3E%3Cpath d='M0 22 22 0l22 22z' fill='%230b1848'/%3E%3C/svg%3E") repeat-x;
 }
 
 .next-book {
