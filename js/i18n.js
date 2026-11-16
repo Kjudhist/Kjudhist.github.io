@@ -750,6 +750,24 @@
   // CSS uses .js to hide things that only make sense with scripts (reveals, menu).
   document.documentElement.classList.add('js');
 
+  // Arriving through a page change: the previous page left its veil drawn
+  // across the window. Start this page under the same veil and let it slide
+  // off, so the two halves read as one movement. Done here, before the first
+  // paint, because this script runs first.
+  try {
+    const arriving = window.sessionStorage.getItem('kjg-veil');
+    if (arriving) {
+      window.sessionStorage.removeItem('kjg-veil');
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced) {
+        document.documentElement.classList.add('is-arriving');
+        document.documentElement.setAttribute('data-arrive', arriving === 'light' ? 'light' : 'dark');
+      }
+    }
+  } catch (e) {
+    // no storage: the page fades in as usual
+  }
+
   // Settle the language before the body paints.
   current = resolveLang();
   setDocumentLang(current);

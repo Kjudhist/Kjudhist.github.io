@@ -973,6 +973,39 @@ html.is-leaving .veil {
   pointer-events: auto;
 }
 
+/* arriving: the same veil, already across the window, carries on to the right */
+html.is-arriving::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  background: var(--night);
+  border-right: 10px solid var(--royal);
+  /* js/main.js starts it on the first frame the page can show; the long
+     delay is only a failsafe in case the script never runs */
+  animation: veil-out 0.75s var(--ease) 2.5s forwards;
+}
+
+html.is-arriving.is-arrived::after {
+  animation-delay: 0.05s;
+}
+
+html.is-arriving[data-arrive="light"]::after {
+  background: var(--paper);
+}
+
+@keyframes veil-out {
+  to {
+    transform: translateX(calc(100% + 12px));
+  }
+}
+
+/* under the veil the page is already there, so it does not fade in as well */
+.js.is-arriving body {
+  animation: none;
+}
+
 .js [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 0.8rem, 0);

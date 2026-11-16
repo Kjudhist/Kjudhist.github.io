@@ -56,6 +56,12 @@
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
     void veil.offsetWidth; // let the tone land before the fade starts
     root.classList.add('is-leaving');
+    // The next page picks the veil up where this one leaves it (see js/i18n.js).
+    try {
+      window.sessionStorage.setItem('kjg-veil', tone === 'light' ? 'light' : 'dark');
+    } catch (e) {
+      // no storage: the next page simply fades in
+    }
     return wait(prefersReducedMotion() ? LEAVE_MS_REDUCED : LEAVE_MS).then(function () {
       window.location.assign(url);
     });
@@ -194,7 +200,19 @@
     });
   }
 
+  // Arriving under the previous page's veil (set up in js/i18n.js): wait until
+  // this page has painted a frame under it, then let it slide off.
+  function initArrival() {
+    if (!root.classList.contains('is-arriving')) return;
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        root.classList.add('is-arrived');
+      });
+    });
+  }
+
   function init() {
+    initArrival();
     fixLocalLinks();
     initPageTransitions();
     initReveal();
