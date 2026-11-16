@@ -14,7 +14,7 @@ Three things recur on every page, so both sides read as one person's:
 
 Pages:
 
-- Gate: a diptych. Two sheets of paper side by side, each with an image inside its margin: the sea by day (a sun, mist bars) and by night (a full moon, stars), one mountain split across the seam. Each sheet has a vertical title cartouche (品質保証 / 柳のアトリエ) and a paper label with the door's name and an **Enter** block. The whole sheet is the link.
+- Gate: a diptych. Two sheets of paper side by side, each with an image inside its margin: the sea by day (a sun, mist bars) and by night (a full moon, stars), one mountain split across the seam. Each sheet has a vertical title cartouche (品質保証 / 柳のアトリエ) on the image and, under it, a caption with the door’s name and an **Enter** block, so nothing covers the picture. The composition sits low in the frame so it survives short, wide windows. The whole sheet is the link.
 - QA: the name, the willow, then a strip of the day sea across the page. Contact is a block printed solid. The page ends where a wave edge rises into the night.
 - The Willow Atelier: printed solid, lines left pale. The name, the willow, a strip of the night sea, then the index of work.
 - Worlds (`/world/`, not on the gate; reached from the closing band of the atelier): the same night sheet, with stars joined into dashed charts.
