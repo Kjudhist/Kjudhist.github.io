@@ -1,14 +1,14 @@
 /* ==========================================================================
    Gate doors.
-   Hover and keyboard focus part the curtain through CSS alone. A click or
-   tap goes straight in: the curtain parts fully, then the next page's
-   colour rises over this one.
+   Hover and keyboard focus lift a sheet through CSS alone. A click or tap
+   goes straight in: the other sheet fades back, then the next page's
+   colour is pulled across this one.
    ========================================================================== */
 
 (function () {
   'use strict';
 
-  const OPEN_MS = 550; // the curtain parts before the page changes
+  const OPEN_MS = 350; // the other sheet fades back before the page changes
   const REDUCED_OPEN_MS = 150;
 
   const stage = document.querySelector('[data-gate]');

@@ -1,10 +1,11 @@
 /* ==========================================================================
-   The Willow Atelier: the evening.
-   Night over the hills: stars, a crescent moon, utility poles against the
-   last light, fireflies over the paddies. The name sits large in the sky,
-   then an index of the three kinds of work. Sections share the QA page's
-   grid; works hang in plain frames, photographs scroll sideways, tracks
-   are a ruled list, and the poem is set vertically beside the story.
+   The Willow Atelier: the night sheet.
+   The whole page is printed solid, with the lines left pale. The name
+   takes its ink at the top beside the willow, then a strip of the same sea
+   under a full moon, then an index of the three kinds of work. Sections
+   share the QA page's grid; works hang in ruled frames, photographs scroll
+   sideways, tracks are a ruled list, and the poem is set vertically
+   beside the story.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -13,40 +14,38 @@
 
 .art-hero {
   position: relative;
-  padding: clamp(3rem, 9vw, 7rem) 0 0;
-  background: radial-gradient(70% 45% at 20% 62%, rgba(58, 78, 150, 0.45), transparent 70%);
-}
-
-body.art {
-  background: linear-gradient(#0a1230, var(--night) 30rem) no-repeat, var(--night);
-}
-
-.vista--night {
-  position: absolute;
-  inset: 0;
+  padding: clamp(3.5rem, 9vw, 7rem) 0 0;
 }
 
 .art-hero > .wrap {
   position: relative;
+  z-index: 1;
 }
 
+.art-hero .hanga--strip {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* the name in Japanese, boxed like a title cartouche */
 .art-hero__jp {
+  display: inline-block;
+  padding: 0.25rem 0.65rem 0.3rem;
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   font-family: var(--font-jp);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
-  color: #f4e3a1;
+  letter-spacing: 0.16em;
+  color: var(--fg-strong);
 }
 
 .art-hero__title {
   max-width: 10ch;
   margin-top: 1.25rem;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 1rem + 7vw, 8rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--fg-strong);
+  font-size: clamp(2.9rem, 1rem + 6.6vw, 7.6rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
 }
 
 .art-hero__tagline {
@@ -56,14 +55,9 @@ body.art {
   color: var(--fg);
 }
 
-/* the index: three rows, each a link */
+/* the index: one row for each kind of work, each a link */
 .index {
-  margin-top: clamp(14rem, 30vw, 26rem);
-}
-
-.index__list {
-  border-top: 1px solid var(--line-strong);
-  background: rgba(14, 23, 56, 0.86);
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .index__link {
@@ -84,9 +78,8 @@ body.art {
 .index__name {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.5rem);
-  font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 html[lang="ja"] .index__name {
@@ -125,7 +118,7 @@ html[lang="ja"] .index__name {
   height: 100%;
   border-radius: var(--radius-box);
   background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--muted);
@@ -240,7 +233,7 @@ html[lang="ja"] .index__name {
    -------------------------------------------------------------------------- */
 
 .tracks {
-  border-top: 1px solid var(--line-strong);
+  border-top: var(--rule) solid var(--key);
 }
 
 .track {
@@ -281,7 +274,7 @@ html[lang="ja"] .index__name {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 50%;
+  border-radius: var(--radius);
   background: var(--royal);
   color: #fff;
 }
@@ -349,7 +342,7 @@ html[lang="ja"] .index__name {
    -------------------------------------------------------------------------- */
 
 .cards {
-  border-top: 1px solid var(--line-strong);
+  border-top: var(--rule) solid var(--key);
 }
 
 .card {
@@ -365,9 +358,8 @@ html[lang="ja"] .index__name {
 .card__name {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 html[lang="ja"] .card__name {
@@ -406,9 +398,18 @@ html[lang="ja"] .card__name {
    -------------------------------------------------------------------------- */
 
 .onward {
-  margin-top: var(--section-space);
-  background: linear-gradient(var(--night), #060b24);
-  border-top: 1px solid var(--line);
+  position: relative;
+  margin-top: calc(var(--section-space) + 30px);
+  background: #060e33;
+}
+
+/* a deeper sea rises over the end of the page */
+.onward::before {
+  content: "";
+  position: absolute;
+  inset: -29px 0 auto;
+  height: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%23060e33'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%23dfe7f7' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
 }
 
 .onward__link {
@@ -431,15 +432,14 @@ html[lang="ja"] .card__name {
 .onward__jp {
   font-family: var(--font-jp);
   letter-spacing: 0.12em;
-  color: #c9d6ff;
+  color: var(--fg-strong);
 }
 
 .onward__name {
   font-family: var(--font-display);
   font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.1;
   color: var(--fg-strong);
   transition: color 0.3s var(--ease);
 }
@@ -459,7 +459,7 @@ html[lang="ja"] .onward__name {
 }
 
 .onward__link:hover .onward__name {
-  color: #c9d6ff;
+  color: var(--accent-text);
 }
 
 .onward__link:hover .arrow {
@@ -477,7 +477,7 @@ html[lang="ja"] .onward__name {
 
 .onward + .art-credit {
   margin-top: 0;
-  background: #060b24;
+  background: #060e33;
 }
 
 /* --------------------------------------------------------------------------
@@ -493,11 +493,11 @@ html[lang="ja"] .onward__name {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #ccd4ea;
+  color: #c5cfe8;
 }
 
 .viewer::backdrop {
-  background: rgba(10, 18, 48, 0.96);
+  background: rgba(6, 14, 51, 0.97);
 }
 
 .viewer[open] {
@@ -543,13 +543,13 @@ html[lang="ja"] .onward__name {
 
 .viewer__title {
   font-weight: 500;
-  color: #f4f1e8;
+  color: #f1f4fa;
 }
 
 .viewer__meta {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: #98a3c4;
+  color: #94a2c8;
 }
 
 .viewer__close {
@@ -559,8 +559,8 @@ html[lang="ja"] .onward__name {
   width: 44px;
   height: 44px;
   border: 0;
-  border-radius: 50%;
-  background: #f4f1e8;
+  border-radius: var(--radius);
+  background: #f1f4fa;
   cursor: pointer;
 }
 

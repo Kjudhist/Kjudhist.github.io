@@ -2,26 +2,34 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is satoyama (里山): the Japanese countryside where low
-   mountains meet rice fields. Layered hills fading into haze, flooded
-   paddies, utility poles and their wires, mist that drifts. QA is the
-   morning, pale and clear; the atelier is the evening, deep blue with
-   fireflies. Shippori Mincho for display, Schibsted Grotesk for text,
-   IBM Plex Mono for small facts, Noto Sans JP for Japanese.
+   The world is hanga (版画), the Japanese woodblock print, and within it
+   aizuri-e: prints pulled almost entirely in one blue ink. Paper, a few
+   strengths of that blue, and a dark key line. Three things recur on every
+   page: the page prints itself in three passes as you arrive, a willow
+   hangs from the top edge, and printer's registration marks sit in the
+   corner of the window. Kaisei Tokumin for display, Zen Kaku Gothic New
+   for text in every language, Spline Sans Mono for small facts.
    ========================================================================== */
 
 :root {
-  --royal: #2445d6;
-  --royal-2: #1b36b3;
-  --royal-soft: #8ea2ff;  /* royal as text on near-black */
+  /* one ink, in five strengths */
+  --ai-1: #cfdcf1;
+  --ai-2: #8eabe3;
+  --ai-3: #2449d8;
+  --ai-4: #17318f;
+  --ai-5: #0c1b4d;
 
-  --paper: #f2f5f9;   /* morning haze */
-  --sheet: #ffffff;
-  --ink: #131c3d;     /* blue-black, like the far hills at dusk */
-  --ink-2: #3a4361;
-  --grey: #616a86;
-  --night: #0e1738;   /* the evening sky */
-  --night-2: #18234e;
+  --royal: var(--ai-3);
+  --royal-2: var(--ai-4);
+  --royal-soft: var(--ai-2); /* the ink as text on the night ground */
+
+  --paper: #eef1f3;   /* washi */
+  --sheet: #f9fafb;
+  --ink: var(--ai-5); /* the key block */
+  --ink-2: #2b3a66;
+  --grey: #5c6788;
+  --night: #0b1848;   /* a sheet printed solid */
+  --night-2: #13235f;
 
   /* light pages (gate, QA, 404) */
   --bg: var(--paper);
@@ -29,20 +37,24 @@
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
   --muted: var(--grey);
-  --line: rgba(19, 28, 61, 0.11);
-  --line-strong: rgba(19, 28, 61, 0.24);
+  --key: var(--ink);
+  --wash: #a9bfea;    /* the first, pale pass under a title */
+  --line: rgba(12, 27, 77, 0.14);
+  --line-strong: rgba(12, 27, 77, 0.6);
   --accent: var(--royal);
   --accent-text: var(--royal);
   --accent-fg: #fff;
   --focus: var(--royal);
 
-  --font: "Schibsted Grotesk", "Noto Sans JP", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Shippori Mincho", "Noto Serif JP", "Yu Mincho", serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-jp: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Kaisei Tokumin", "Noto Serif JP", "Yu Mincho", serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
 
-  --radius: 999px;   /* buttons and the switcher are pills */
-  --radius-box: 6px; /* panels and frames */
+  /* prints have square corners: everything does */
+  --radius: 2px;
+  --radius-box: 2px;
+  --rule: 1.5px;     /* the weight of a key line */
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -51,15 +63,17 @@
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* the atelier */
+/* the atelier and the worlds: the night sheet */
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
-  --fg: #ccd4ea;
-  --fg-strong: #f4f1e8;
-  --muted: #98a3c4;
-  --line: rgba(244, 241, 232, 0.13);
-  --line-strong: rgba(244, 241, 232, 0.28);
+  --fg: #c5cfe8;
+  --fg-strong: #f1f4fa;
+  --muted: #94a2c8;
+  --key: #dfe7f7;
+  --wash: #3a55b4;
+  --line: rgba(223, 231, 247, 0.16);
+  --line-strong: rgba(223, 231, 247, 0.55);
   --accent: var(--royal);
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
@@ -72,8 +86,10 @@
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
   --muted: var(--grey);
-  --line: rgba(19, 28, 61, 0.11);
-  --line-strong: rgba(19, 28, 61, 0.24);
+  --key: var(--ink);
+  --wash: #a9bfea;
+  --line: rgba(12, 27, 77, 0.14);
+  --line-strong: rgba(12, 27, 77, 0.6);
   --accent-text: var(--royal);
   --focus: var(--royal);
 }
@@ -111,7 +127,6 @@ body {
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
 
 h1,
@@ -161,7 +176,7 @@ button {
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: var(--radius);
 }
 
 h1,
@@ -256,14 +271,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .topbar--sticky {
   position: sticky;
   top: 0;
-  transition: background-color 0.4s var(--ease), box-shadow 0.4s var(--ease), backdrop-filter 0.4s var(--ease);
-}
-
-.topbar--sticky.is-scrolled {
-  background-color: color-mix(in srgb, var(--bg) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 1px 0 var(--line);
+  background-color: var(--bg);
+  box-shadow: 0 var(--rule) 0 var(--key);
 }
 
 .topbar__end {
@@ -409,7 +418,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
     gap: 0;
     padding: 0.25rem var(--gutter) 1.25rem;
     background: var(--bg);
-    box-shadow: 0 1px 0 var(--line), 0 24px 40px -30px rgba(19, 28, 61, 0.35);
+    box-shadow: 0 var(--rule) 0 var(--key);
     clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition: clip-path 0.45s var(--ease-out), visibility 0s 0.45s;
@@ -469,24 +478,22 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Language switcher: a segmented pill
+   Language switcher: a ruled box in three parts
    -------------------------------------------------------------------------- */
 
 .lang {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
   border-radius: var(--radius);
-  background: var(--line);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
 }
 
 .lang__opt {
   min-width: 2.6rem;
-  min-height: 34px;
+  min-height: 36px;
   padding: 0 0.7rem;
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 0;
   background: transparent;
   font-family: var(--font);
   font-size: 0.8rem;
@@ -502,9 +509,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .lang__opt[aria-pressed="true"] {
-  background: var(--bg-raised);
-  color: var(--fg-strong);
-  box-shadow: 0 1px 2px rgba(19, 28, 61, 0.12);
+  background: var(--key);
+  color: var(--bg);
 }
 
 @media (max-width: 719.98px) {
@@ -568,7 +574,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   font-size: 0.8rem;
   font-weight: 500;
   color: #fff;
-  background: var(--ink);
+  background: var(--ai-5);
   opacity: 0;
   transform: translate(-50%, 0.3rem);
   transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-out);
@@ -576,8 +582,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 .theme-dark .tip {
-  color: var(--ink);
-  background: #f3f4f7;
+  color: var(--ai-5);
+  background: #f1f4fa;
 }
 
 .is-pending:hover .tip,
@@ -612,7 +618,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   column-gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
   padding-top: 1.25rem;
-  border-top: 1px solid var(--line-strong);
+  border-top: var(--rule) solid var(--key);
 }
 
 .section > .wrap > * {
@@ -628,20 +634,29 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 1.25rem + 1vw, 2.2rem);
-  font-weight: 600;
+  font-size: clamp(1.6rem, 1.25rem + 1.1vw, 2.3rem);
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
+  color: var(--fg-strong);
+}
+
+/* the Japanese name of a section, boxed like a print's title cartouche */
+.sec-head__jp,
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem 0.25rem;
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  font-family: var(--font-jp);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
   color: var(--fg-strong);
 }
 
 .sec-head__jp {
-  margin-top: 0.35rem;
-  font-family: var(--font-jp);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--muted);
+  margin-top: 0.75rem;
 }
 
 @media (max-width: 879.98px) {
@@ -684,117 +699,229 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   The landscape: inline SVG hills, with mist and fireflies laid over them
+   Washi: a faint paper grain over everything, and the registration marks.
+   A printer cuts two marks (kento) into every block so each colour lands
+   in the same place: an L at one corner and a bar further along the same
+   edge. Here they sit on the window's right edge, clear of the text.
    -------------------------------------------------------------------------- */
 
-.vista {
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  pointer-events: none;
+  opacity: 0.5;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 7px;
+  z-index: 121;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--key), var(--key)) right bottom / 14px var(--rule) no-repeat,
+    linear-gradient(var(--key), var(--key)) right bottom / var(--rule) 14px no-repeat,
+    linear-gradient(var(--key), var(--key)) right bottom 26% / var(--rule) 24px no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   A print: three stacked layers, pulled one after another as the page
+   arrives. Key lines first, then the pale flats, then the deep flats.
+   -------------------------------------------------------------------------- */
+
+.hanga {
   position: relative;
   overflow: hidden;
   pointer-events: none;
 }
 
-.vista__land,
-.scene__land {
+.hanga--day {
+  background: var(--paper);
+}
+
+.hanga--night {
+  background: var(--night);
+}
+
+.hanga__pass {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
 }
 
-/* mist: soft bands of white that drift sideways, very slowly */
-.scene__mist {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
+.js .hanga__pass {
+  animation: press 0.75s var(--ease) both;
 }
 
-.mist {
-  position: absolute;
-  left: -30%;
-  width: 160%;
-  height: 22%;
-  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 70%);
-  animation: drift var(--t, 70s) linear infinite alternate;
+.js .hanga__pass--key {
+  animation-delay: 0.1s;
 }
 
-.mist--1 {
-  top: 46%;
-  --t: 80s;
+.js .hanga__pass--light {
+  animation-delay: 0.55s;
 }
 
-.mist--2 {
-  top: 60%;
-  height: 18%;
-  opacity: 0.8;
-  --t: 64s;
-  animation-direction: alternate-reverse;
+.js .hanga__pass--deep {
+  animation-delay: 1s;
 }
 
-.mist--3 {
-  top: 72%;
-  height: 16%;
-  opacity: 0.6;
-  --t: 96s;
-}
-
-@keyframes drift {
+@keyframes press {
   from {
-    transform: translateX(-8%);
+    clip-path: inset(0 100% 0 0);
   }
 
   to {
-    transform: translateX(8%);
+    clip-path: inset(0 0 0 0);
   }
 }
 
-/* fireflies: small warm points that brighten and fade */
-.fireflies {
+/* the top edge of the sky, wiped darker by hand (bokashi) */
+.hanga::after {
+  content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
+  height: 30%;
+  background: linear-gradient(rgba(36, 73, 216, 0.5), rgba(36, 73, 216, 0));
+}
+
+.hanga--night::after {
+  height: 22%;
+  background: linear-gradient(#050c2e, rgba(5, 12, 46, 0));
+}
+
+/* a strip of sea across the page, ruled top and bottom */
+.hanga--strip {
+  height: clamp(10rem, 22vw, 19rem);
+  border-block: var(--rule) solid var(--key);
+}
+
+/* the night strip is shallow: keep the dark edge off the moon */
+.hanga--strip.hanga--night::after {
+  height: 12%;
+}
+
+/* the sea rolls: each band slides one wave-length, then starts again */
+.sea {
+  animation: sea var(--t) linear infinite;
+}
+
+@keyframes sea {
+  to {
+    transform: translateX(calc(var(--p) * -1px));
+  }
+}
+
+/* a title takes its ink from left to right over a pale first pass */
+.inked {
+  /* room for descenders: the ink is clipped to this box */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+  color: var(--fg-strong);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .js .inked {
+    background: linear-gradient(90deg, var(--fg-strong) 50%, var(--wash) 50%) 100% 0 / 200% 100% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ink 1.1s var(--ease) 0.3s forwards;
+  }
+}
+
+@keyframes ink {
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The willow: strands hanging from the top edge. Each sways on its own
+   clock and leans a little toward the pointer (js/main.js sets --lean).
+   -------------------------------------------------------------------------- */
+
+.willow {
+  --lean: 0;
+  position: absolute;
+  top: 0;
+  right: clamp(0.5rem, 5vw, 5rem);
+  z-index: 0;
+  width: clamp(5.5rem, 19vw, 16rem);
   pointer-events: none;
 }
 
-.fireflies i {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #f4e3a1;
-  opacity: 0;
-  animation: firefly var(--t) var(--d) ease-in-out infinite;
+.willow svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-@keyframes firefly {
-  0%,
-  100% {
-    opacity: 0;
-    transform: translate(0, 0);
+.willow__strand,
+.willow__sway {
+  transform-box: view-box;
+  transform-origin: var(--x) 0;
+}
+
+.willow__strand {
+  transform: rotate(calc(var(--lean) * var(--k) * 1deg));
+  transition: transform 1.4s var(--ease-out);
+}
+
+.willow__sway {
+  animation: sway var(--t) ease-in-out var(--d) infinite alternate;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-1.2deg);
   }
 
-  30% {
-    opacity: 0.9;
+  to {
+    transform: rotate(1.4deg);
   }
+}
 
-  50% {
-    opacity: 0.2;
-    transform: translate(10px, -14px);
-  }
+.willow__stem {
+  fill: none;
+  stroke: var(--key);
+  stroke-width: 1.4;
+}
 
-  70% {
-    opacity: 0.8;
+.willow__leaves {
+  fill: var(--accent-text);
+}
+
+.js .willow {
+  animation: page-in 0.9s var(--ease) 0.1s both;
+}
+
+@media (max-width: 719.98px) {
+  .willow {
+    right: 0.25rem;
+    width: 4.75rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mist {
+  .js .hanga__pass,
+  .js .inked,
+  .js .willow {
+    animation-duration: 0.01s;
+    animation-delay: 0s;
+  }
+
+  .sea,
+  .willow__sway {
     animation: none;
   }
 
-  .fireflies i {
-    animation: none;
-    opacity: 0.6;
+  .willow__strand {
+    transition: none;
   }
 }
 
@@ -825,15 +952,15 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* leaving a page: the next page's ground slides up, a royal line leading */
+/* leaving a page: the next sheet's ground is pulled across, a band of ink leading */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
   background: var(--night);
-  border-top: 2px solid rgba(244, 227, 161, 0.7);
-  transform: translateY(101%);
+  border-right: 10px solid var(--royal);
+  transform: translateX(-101%);
   transition: transform 0.7s var(--ease);
 }
 
@@ -842,7 +969,7 @@ html.i18n-pending body {
 }
 
 html.is-leaving .veil {
-  transform: translateY(0);
+  transform: translateX(0);
   pointer-events: auto;
 }
 
@@ -875,6 +1002,7 @@ html.is-leaving .veil {
 
   .veil {
     transform: none;
+    border: 0;
     opacity: 0;
     transition: opacity 0.25s linear;
   }

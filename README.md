@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *satoyama* (里山), the Japanese countryside: layered hills in haze, rice paddies, utility poles and their wires, drifting mist and fireflies. QA is the morning and the atelier is the evening. Type is Shippori Mincho for display, Schibsted Grotesk for text, IBM Plex Mono for small facts and Noto Sans JP for Japanese. The design system is written down in `DESIGN.md`.
+The look is *hanga* (版画), the Japanese woodblock print, pulled in one blue ink: the same sea by day for QA and by night for the atelier. Every page prints itself in three passes as you arrive, a willow hangs from the top edge, and a printer's registration marks sit in the corner of the window. Type is Kaisei Tokumin for display, Zen Kaku Gothic New for text and Spline Sans Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -19,14 +19,14 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the split gate and its doors (and the 404)
+│   ├── gate.css          the two sheets of the gate (and the 404)
 │   ├── qa.css
 │   ├── art.css
 │   └── world.css         loads after art.css and reuses its hero, frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page fades, scroll reveals, menu, local links
-│   ├── gate.js           door behaviour (hover, tap twice on phones, walk through)
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, local links
+│   ├── gate.js           door behaviour (one click or tap walks through)
 │   └── art.js            the full-size viewer for artworks
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)

@@ -1,36 +1,37 @@
 /* ==========================================================================
-   QA: the morning.
-   The name large over a pale sky, then a band of hills with mist drifting
-   across them. Each section sits on the grid: its name in the left column,
-   the content to the right. Contact sets the address large on the evening
-   blue, and the page ends at dusk, leading to the atelier.
+   QA: the day sheet.
+   The name takes its ink at the top, the willow hangs beside it, and under
+   them runs a strip of sea printed by day. Each section sits on the grid:
+   its name in the left column, the content to the right. Contact is a block
+   printed solid, and the page ends where the sea turns to night, leading
+   to the atelier.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
    Hero
    -------------------------------------------------------------------------- */
 
-body.qa {
-  background: linear-gradient(#e3e9f3, var(--paper) 38rem) no-repeat, var(--paper);
-}
-
 .hero {
-  padding: clamp(3rem, 9vw, 7rem) 0 0;
+  position: relative;
+  padding: clamp(3.5rem, 9vw, 7rem) 0 0;
 }
 
-.vista--morning {
-  height: clamp(9rem, 20vw, 17rem);
-  margin-top: clamp(1rem, 3vw, 2.5rem);
+.hero > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
+.hero .hanga--strip {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
 .hero__name {
   max-width: 12ch;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 1rem + 7vw, 8rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.025em;
-  color: var(--ink);
+  font-size: clamp(2.9rem, 1rem + 6.6vw, 7.6rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
 }
 
 .hero__row {
@@ -40,15 +41,14 @@ body.qa {
   gap: 2rem 3rem;
   margin-top: clamp(2.5rem, 6vw, 5rem);
   padding-top: 1.25rem;
-  border-top: 1px solid var(--line-strong);
+  border-top: var(--rule) solid var(--key);
 }
 
 .hero__pitch {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 1.05rem + 1.2vw, 2.2rem);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  line-height: 1.25;
   color: var(--accent-text);
 }
 
@@ -96,7 +96,7 @@ html[lang="ja"] .hero__pitch {
   padding: 1.1rem 1.25rem;
   border-radius: var(--radius-box);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   color: var(--ink);
 }
 
@@ -166,7 +166,7 @@ html[lang="ja"] .hero__pitch {
 
 .log__cols {
   padding: 0.6rem 0;
-  border-top: 1px solid var(--line-strong);
+  border-top: var(--rule) solid var(--key);
   border-bottom: 1px solid var(--line);
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -186,14 +186,13 @@ html[lang="ja"] .hero__pitch {
   color: var(--ink-2);
 }
 
-/* the current role: a small royal dot before the date */
+/* the current role: a small block of ink before the date */
 .row--now .row__time::before {
   content: "";
   display: inline-block;
   width: 0.45rem;
   height: 0.45rem;
   margin-right: 0.55rem;
-  border-radius: 50%;
   background: var(--royal);
   vertical-align: 0.12em;
 }
@@ -228,7 +227,7 @@ html[lang="ja"] .hero__pitch {
   padding: 1.25rem;
   border-radius: var(--radius-box);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
 }
 
 .entry__kicker {
@@ -308,7 +307,7 @@ html[lang="ja"] .hero__pitch {
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1px var(--line);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   font-size: 1rem;
 }
 
@@ -407,9 +406,19 @@ html[lang="ja"] .hero__pitch {
    -------------------------------------------------------------------------- */
 
 .qa-end {
-  margin-top: var(--section-space);
-  background: linear-gradient(#2b3c7a, var(--night) 70%);
+  position: relative;
+  margin-top: calc(var(--section-space) + 30px);
+  background: var(--night);
   color: var(--fg);
+}
+
+/* the night sea rises over the end of the page */
+.qa-end::before {
+  content: "";
+  position: absolute;
+  inset: -29px 0 auto;
+  height: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%230b1848'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%230c1b4d' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
 }
 
 .next-book {
@@ -424,16 +433,15 @@ html[lang="ja"] .hero__pitch {
   grid-column: 1 / -1;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: #b7c0dc;
+  color: var(--muted);
 }
 
 .next-book__name {
   font-family: var(--font-display);
   font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
-  color: #f4f1e8;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--fg-strong);
   transition: color 0.3s var(--ease);
 }
 
@@ -460,8 +468,8 @@ html[lang="ja"] .next-book__name {
 
 .qa .credit {
   background: var(--night);
-  color: #98a3c4;
-  border-top: 1px solid rgba(244, 241, 232, 0.12);
+  color: #94a2c8;
+  border-top: 1px solid rgba(223, 231, 247, 0.16);
 }
 
 /* --------------------------------------------------------------------------

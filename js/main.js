@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shared behaviour: local links, page transitions, scroll reveals,
-   sticky header, mobile menu, current-section highlight, the clock.
+   mobile menu, current-section highlight, the clock, the willow.
    ========================================================================== */
 
 (function () {
@@ -50,7 +50,7 @@
     return veil;
   }
 
-  // The next page's colour rises over this one, then go. tone: "light" | "dark".
+  // The next sheet's colour is pulled across this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -116,14 +116,27 @@
     window.setInterval(tick, 15000);
   }
 
-  function initHeader() {
-    const header = document.querySelector('.topbar--sticky');
-    if (!header) return;
-    const update = function () {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
+  // The willow leans a little toward the pointer: --lean runs from -1 to 1.
+  function initWillow() {
+    const willows = document.querySelectorAll('[data-willow]');
+    if (!willows.length || prefersReducedMotion()) return;
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let pointerX = 0;
+    let queued = false;
+    function update() {
+      queued = false;
+      willows.forEach(function (el) {
+        const box = el.getBoundingClientRect();
+        const offset = (pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2);
+        el.style.setProperty('--lean', Math.max(-1, Math.min(1, offset)).toFixed(3));
+      });
+    }
+    window.addEventListener('pointermove', function (event) {
+      pointerX = event.clientX;
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
   }
 
   function initMenu() {
@@ -185,7 +198,7 @@
     fixLocalLinks();
     initPageTransitions();
     initReveal();
-    initHeader();
+    initWillow();
     initMenu();
     initSectionSpy();
     initClock();
