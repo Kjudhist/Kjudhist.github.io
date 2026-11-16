@@ -1,112 +1,134 @@
 /* ==========================================================================
-   Worlds: a third sheet in the same series, reached from the atelier.
-   Loads after art.css and borrows its hero, index, frames and viewer. What
-   is new here: a sky whose stars are joined into dashed charts, the worlds
-   as a numbered register, a large map frame, and lore fragments.
+   Worlds: the Worlds Line, run through from the end of the Willow Line.
+   Loads after art.css and borrows its station sign, line map, posters and
+   viewer; the line colour is sky blue (WD). What is new here: the worlds
+   on a departure board, a large map poster, and lore fragments.
    ========================================================================== */
 
+.world {
+  --line-c: var(--sky);
+  --line-c2: var(--sky-2);
+  --accent: var(--sky-2);
+}
+
 /* --------------------------------------------------------------------------
-   The worlds: a numbered register
+   The worlds: a departure board, one world to a row
    -------------------------------------------------------------------------- */
 
 .realms {
-  border-top: var(--rule) solid var(--key);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--night-3);
+  box-shadow: inset 0 0 0 2px #1d2c47, 0 18px 30px -20px rgba(0, 0, 0, 0.7);
 }
 
 .realm {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  grid-template-columns: 3.5rem minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 0.5rem 1.5rem;
-  padding: 1.6rem 0;
-  border-bottom: 1px solid var(--line);
+  gap: 0.35rem 1.5rem;
+  padding: 1.25rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid rgba(244, 246, 249, 0.08);
+}
+
+.realm:last-child {
+  border-bottom: 0;
 }
 
 .realm__no {
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.realm__body {
-  display: grid;
-  gap: 0.4rem;
+  grid-row: 1 / span 2;
+  font-family: var(--font-led);
+  font-size: 1.1rem;
+  color: var(--led);
 }
 
 .realm__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
+  font-family: var(--font-led);
+  font-size: clamp(1.3rem, 1rem + 1.2vw, 2rem);
+  line-height: 1.2;
+  color: #fff;
 }
 
-html[lang="ja"] .realm__name {
-  letter-spacing: 0;
+.realm__name.ph {
+  font-style: normal;
 }
 
 .realm__line {
+  grid-column: 2 / -1;
   max-width: 44rem;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .realm__status {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  font-size: 0.75rem;
-  color: var(--fg-strong);
+  grid-column: 3;
+  grid-row: 1;
+  font-family: var(--font-led);
+  font-size: 0.9rem;
+  color: var(--sky-2);
   white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
-   Maps: one large frame over two wide ones
+   Maps: one large poster over two wide ones
    -------------------------------------------------------------------------- */
 
-.piece--map {
+.poster--map {
   grid-column: 1 / -1;
-  aspect-ratio: 16 / 8;
-}
-
-.wall--maps .piece--wide {
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 16 / 7;
 }
 
 /* --------------------------------------------------------------------------
-   Lore: fragments, set like quotations
+   Lore: fragments, set like notices on the platform wall
    -------------------------------------------------------------------------- */
+
+.world-lore {
+  padding-bottom: var(--section-space);
+}
 
 .fragments {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .fragment {
-  padding-left: clamp(1rem, 2vw, 1.75rem);
-  border-left: var(--rule) solid var(--key);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius);
+  background: var(--plate);
+  color: var(--ink);
 }
 
 .fragment__text {
-  max-width: 40rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem);
-  line-height: 1.45;
+  max-width: 44rem;
+  font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.45rem);
+  line-height: 1.6;
+}
+
+.fragment .ph {
+  color: var(--steel);
 }
 
 .fragment__from {
   margin-top: 0.75rem;
-  font-size: 0.78rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--sky);
 }
 
 @media (max-width: 639.98px) {
   .realm {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
+    grid-template-columns: 2.25rem minmax(0, 1fr);
   }
 
   .realm__status {
     grid-column: 2;
-    justify-self: start;
+    grid-row: auto;
   }
 
-  .piece--map {
+  .realm__line {
+    grid-column: 2;
+  }
+
+  .poster--map {
     aspect-ratio: 4 / 3;
   }
 }

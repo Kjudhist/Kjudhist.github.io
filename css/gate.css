@@ -1,375 +1,882 @@
 /* ==========================================================================
-   Gate: a diptych. One sea, printed twice: by day on the left sheet, by
-   night on the right, the waves and the mountain running across both. A
-   willow hangs over the seam. Each sheet is a door and the whole sheet is
-   the link; the caption under its image carries an Enter block that says
-   so. Also the 404.
+   Gate: a station concourse in the Tokyo style.
+   A station name sign for "Kevin JG" points both ways along the two lines.
+   Under it, a ticket machine has issued two tickets, one to each station.
+   Choosing one tears its stub off along the perforation and punches it;
+   then a train on that line runs past and carries you to the next page.
+   js/gate.js builds the train and runs the sequence. Also styles the 404.
    ========================================================================== */
 
 body.gate {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
+  /* concourse tiles */
+  background:
+    linear-gradient(var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    linear-gradient(90deg, var(--tile-line) 1px, transparent 1px) 0 0 / 4.5rem 4.5rem,
+    var(--concrete);
 }
 
-.g-top {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
-}
-
-.g-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.g-meta {
+.gate__top {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem var(--gutter);
 }
 
-.g-clock {
+/* the station clock: amber dot-matrix on a dark board */
+.clock {
   display: flex;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 0.75rem;
   font-size: 0.85rem;
-  color: var(--muted);
+  font-weight: 700;
+  color: var(--steel);
+}
+
+.clock__led {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--night-3);
+  color: var(--led);
+  font-family: var(--font-led);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
-.g-clock .mono {
-  color: var(--ink);
-}
-
-.g-main {
+.gate__main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: clamp(0.9rem, 2vw, 1.4rem) var(--gutter) 0.25rem;
 }
 
-.g-intro {
-  font-size: 0.95rem;
-  color: var(--ink-2);
+.station {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.5rem, 4.5vh, 3rem);
+  padding: clamp(0.5rem, 2.5vh, 2rem) var(--gutter) clamp(1.75rem, 5vh, 3.5rem);
 }
 
 /* --------------------------------------------------------------------------
-   The two sheets
+   The sign
    -------------------------------------------------------------------------- */
 
-.g-doors {
-  position: relative;
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  min-height: 25rem;
+.sign {
+  width: min(100%, 64rem);
+  filter: drop-shadow(0 18px 22px rgba(15, 31, 58, 0.16)) drop-shadow(0 2px 3px rgba(15, 31, 58, 0.18));
 }
 
-/* a sheet of paper: the image printed inside its margin, the caption under it */
-.door {
+.sign__plate {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.25rem clamp(1rem, 3vw, 2rem);
+  padding: clamp(1rem, 2.6vw, 2rem) clamp(1.25rem, 4vw, 3rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--plate);
+}
+
+.sign__badge {
+  font-size: clamp(1.1rem, 0.85rem + 1.1vw, 1.75rem);
+}
+
+.sign__title {
+  font-size: clamp(2.4rem, 1.2rem + 4.6vw, 5.25rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.sign__full {
+  margin-top: 0.35rem;
+  font-size: clamp(0.95rem, 0.85rem + 0.35vw, 1.15rem);
+  font-weight: 700;
+  color: var(--steel);
+}
+
+/* "you are here": a red dot, as on a station map */
+.sign__here {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: start;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--steel);
+  white-space: nowrap;
+}
+
+.sign__dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: #d8342c;
+  box-shadow: 0 0 0 3px rgba(216, 52, 44, 0.2);
+}
+
+.sign__band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  color: #fff;
+  font-size: clamp(0.95rem, 0.85rem + 0.45vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.sign__dir {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3.4rem;
+  padding: 0.6rem clamp(1rem, 3vw, 2rem);
+}
+
+.sign__dir--qa {
+  border-radius: 0 0 0 var(--radius);
+  background: var(--navy);
+}
+
+.sign__dir--art {
+  justify-content: flex-end;
+  border-radius: 0 0 var(--radius) 0;
+  background: var(--willow);
+  text-align: right;
+}
+
+.sign__dir .badge {
+  font-size: 0.8rem;
+  border-color: #fff;
+}
+
+.sign__arrow {
+  width: 1.6rem;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   The ticket machine and its two tickets
+   -------------------------------------------------------------------------- */
+
+.machine {
+  width: min(100%, 64rem);
+}
+
+.machine__title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--ink-2);
+}
+
+/* the slot the tickets came out of */
+.machine__title::before {
+  content: "";
+  width: 2.4rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--night-3);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.tickets {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.ticket {
+  --line-c: var(--navy);
+  --tint: rgba(28, 61, 115, 0.07);
+  --tooth: 7px;
   position: relative;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  padding: 10px;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  grid-template-columns: clamp(4.75rem, 8vw, 6.5rem) minmax(0, 1fr);
   color: var(--ink);
-  transition: transform 0.5s var(--ease-out), opacity 0.4s var(--ease);
+  filter: drop-shadow(0 12px 14px rgba(15, 31, 58, 0.16)) drop-shadow(0 1px 2px rgba(15, 31, 58, 0.22));
+  transition: transform 0.45s var(--ease-out), opacity 0.4s var(--ease);
   -webkit-tap-highlight-color: transparent;
 }
 
-.door .hanga {
-  min-height: 11rem;
-  outline: var(--rule) solid var(--key);
-  outline-offset: calc(var(--rule) * -1);
+.ticket--qa {
+  transform: rotate(-1deg);
 }
 
-/* keep the dark top edge of the night sky off the moon */
-.door .hanga--night::after {
-  height: 14%;
+.ticket--art {
+  --line-c: var(--willow);
+  --tint: rgba(35, 122, 75, 0.08);
+  transform: rotate(0.8deg);
 }
 
-.door:hover,
-.door:focus-visible {
-  transform: translateY(-5px);
+/* ticket paper: a fine security pattern tinted with the line's colour */
+.ticket__stub,
+.ticket__body {
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, var(--tint) 0 1px, transparent 1px 6px),
+    repeating-linear-gradient(45deg, var(--tint) 0 1px, transparent 1px 6px),
+    #fbfaf6;
 }
 
-.door:focus-visible {
-  outline: 3px solid var(--royal);
-  outline-offset: 3px;
+/* The perforation. The stub's edge has teeth and the body's edge the matching
+   notches, so until the ticket is torn the two halves meet as one sheet. */
+.ticket__stub {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem calc(0.4rem + var(--tooth)) 0.9rem 0.4rem;
+  border-radius: var(--radius) 0 0 var(--radius);
+  text-align: center;
+  -webkit-mask:
+    linear-gradient(#000 0 0) left / calc(100% - var(--tooth)) 100% no-repeat,
+    conic-gradient(from 225deg at 0 50%, #000 90deg, transparent 0) right / var(--tooth) calc(var(--tooth) * 2) repeat-y;
+  mask:
+    linear-gradient(#000 0 0) left / calc(100% - var(--tooth)) 100% no-repeat,
+    conic-gradient(from 225deg at 0 50%, #000 90deg, transparent 0) right / var(--tooth) calc(var(--tooth) * 2) repeat-y;
+  transition: transform 0.6s var(--ease), opacity 0.5s var(--ease) 0.15s;
+  transform-origin: 30% 20%;
 }
 
-/* the title cartouche: the door's name in Japanese, set vertically */
-.door__tag {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  padding: 0.7rem 0.35rem;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.22em;
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-}
-
-.door--art .door__tag {
-  left: auto;
-  right: 24px;
-}
-
-/* the caption: number, name and what is inside on the left, Enter on the right */
-.door__label {
+.ticket__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.2rem 1.5rem;
-  padding: 1rem 0.6rem 0.55rem;
+  align-content: space-between;
+  gap: 0.6rem 1rem;
+  margin-left: calc(var(--tooth) * -1);
+  padding: 0 clamp(1rem, 2vw, 1.5rem) 0.9rem calc(var(--tooth) + clamp(0.9rem, 1.8vw, 1.4rem));
+  border-radius: 0 var(--radius) var(--radius) 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) right / calc(100% - var(--tooth)) 100% no-repeat,
+    conic-gradient(from 225deg at 0 50%, transparent 90deg, #000 0) left / var(--tooth) calc(var(--tooth) * 2) repeat-y;
+  mask:
+    linear-gradient(#000 0 0) right / calc(100% - var(--tooth)) 100% no-repeat,
+    conic-gradient(from 225deg at 0 50%, transparent 90deg, #000 0) left / var(--tooth) calc(var(--tooth) * 2) repeat-y;
+  transition: transform 0.5s var(--ease-out);
 }
 
-.door__no {
+/* the dashed line printed along the perforation */
+.ticket__body::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: calc(var(--tooth) + 3px);
+  border-left: 2px dashed rgba(21, 24, 29, 0.28);
+}
+
+/* the line's colour across the top */
+.ticket__body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.45rem;
+  background: var(--line-c);
+}
+
+.ticket__kanji {
+  font-size: clamp(0.95rem, 0.8rem + 0.6vw, 1.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+  color: var(--line-c);
+}
+
+.ticket__kind,
+.ticket__way {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--steel);
+}
+
+.ticket__way {
+  padding: 0.15rem 0.4rem;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+}
+
+.ticket__from {
   grid-column: 1 / -1;
-  color: var(--grey);
-}
-
-.door__title {
-  grid-column: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 0.9rem + 1.6vw, 2.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.door__sub {
-  grid-column: 1;
-  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: var(--ink-2);
 }
 
-.door__cta {
-  grid-column: 2;
-  grid-row: 2 / span 2;
+.ticket__from .badge {
+  font-size: 0.68rem;
+}
+
+.ticket__from-label {
+  color: var(--steel);
+  font-weight: 400;
+}
+
+.ticket__arrow {
+  width: 2.4rem;
+  height: 0.7rem;
+  color: var(--line-c);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.ticket__dest {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.ticket__dest .badge {
+  font-size: clamp(0.95rem, 0.8rem + 0.5vw, 1.2rem);
+}
+
+.ticket__dest-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ticket__name {
+  font-size: clamp(1.35rem, 0.95rem + 1.5vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+html[lang="ja"] .ticket__name {
+  letter-spacing: 0.02em;
+}
+
+.ticket__line {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--line-c);
+}
+
+.ticket__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.9rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--steel);
+}
+
+.ticket__date,
+.ticket__no {
+  font-family: var(--font-led);
+  font-size: 0.85rem;
+  color: var(--ink-2);
+}
+
+/* the hint: tear here, pointing back at the perforation */
+.ticket__cue {
+  align-self: end;
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  min-height: 3rem;
-  padding: 0.6rem 1.4rem;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
   border-radius: var(--radius);
-  background: var(--royal);
+  background: var(--line-c);
   color: #fff;
+  font-size: 0.8rem;
   font-weight: 700;
   white-space: nowrap;
-  transition: background-color 0.3s var(--ease);
+  transition: transform 0.35s var(--ease-out);
 }
 
-.door--art .door__cta {
-  background: var(--night);
+.ticket__cue-arrow {
+  width: 1.3rem;
+  height: 0.5rem;
+  transition: transform 0.45s var(--ease-out);
 }
 
-.door:hover .door__cta,
-.door:focus-visible .door__cta {
-  background: var(--ai-4);
+.ticket__cue-text--touch {
+  display: none;
 }
 
-.door:hover .door__cta .arrow,
-.door:focus-visible .door__cta .arrow {
-  transform: translateX(0.3rem);
+@media (hover: none) {
+  .ticket__cue-text--mouse {
+    display: none;
+  }
+
+  .ticket__cue-text--touch {
+    display: inline;
+  }
 }
 
-.g-doors.has-open .door:not(.is-open) {
-  opacity: 0.35;
+/* the gate punches a notch out of the ticket */
+.ticket__punch {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--concrete);
+  box-shadow: inset 0 2px 3px rgba(15, 31, 58, 0.35);
+  transform: scale(0);
+  transition: transform 0.3s var(--ease-out) 0.2s;
 }
 
-.door.is-open {
-  transform: translateY(-5px);
+/* hover and focus: the ticket is picked up, the stub already starts to give */
+.ticket:is(:hover, :focus-visible) {
+  transform: translateY(-6px) rotate(0deg);
 }
 
-/* the willow over the seam: ink strands on the day sheet, pale on the night.
-   Sized from the sheets' height, so it never reaches the captions. */
-.willow--gate {
-  top: 10px;
-  left: 50%;
-  right: auto;
-  z-index: 2;
-  width: auto;
-  height: 46%;
-  aspect-ratio: 520 / 600;
-  transform: translateX(-50%);
+.ticket:is(:hover, :focus-visible) .ticket__stub {
+  transform: rotate(-3deg) translate(-3px, 2px);
 }
 
-.willow--gate svg {
-  width: 100%;
-  height: 100%;
+.ticket:is(:hover, :focus-visible) .ticket__arrow {
+  transform: translateX(0.35rem);
 }
 
-.willow__strand--ink .willow__stem {
-  stroke: var(--ai-5);
+.ticket:is(:hover, :focus-visible) .ticket__cue-arrow {
+  transform: translateX(-0.3rem);
 }
 
-.willow__strand--ink .willow__leaves {
-  fill: var(--ai-4);
+.ticket:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 6px;
+  border-radius: var(--radius);
 }
 
-.willow__strand--pale .willow__stem {
-  stroke: #dfe7f7;
+/* torn: the stub drops away, the gate punches the ticket */
+.ticket.is-torn {
+  transform: translateY(-6px) rotate(0deg);
 }
 
-.willow__strand--pale .willow__leaves {
-  fill: var(--ai-2);
+.ticket.is-torn .ticket__stub {
+  transform: translate(-1.5rem, 4.5rem) rotate(-24deg);
+  opacity: 0;
 }
 
-.gate .credit {
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
+.ticket.is-torn .ticket__body {
+  transform: translateX(0.6rem);
+}
+
+.ticket.is-torn .ticket__punch {
+  transform: scale(1);
+}
+
+.ticket.is-torn .ticket__cue {
+  transform: scale(0.9);
+}
+
+.tickets.has-open .ticket:not(.is-torn) {
+  opacity: 0.3;
+  transform: translateY(6px) rotate(0deg);
 }
 
 /* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the sheets stack
+   The track below the platform, and the train
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1099.98px) {
-  .door__label {
-    grid-template-columns: 1fr;
-  }
+.track {
+  position: relative;
+  background-color: var(--night-3);
+  /* the sleepers under the rails */
+  background-image:
+    linear-gradient(#8d97a3, #8d97a3),
+    linear-gradient(#8d97a3, #8d97a3),
+    repeating-linear-gradient(90deg, transparent 0 3.2rem, rgba(255, 255, 255, 0.06) 3.2rem 4.4rem);
+  background-size: 100% 3px, 100% 3px, auto;
+  background-position: 0 0.9rem, 0 calc(100% - 0.9rem), 0 0;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
 
-  .door__cta {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: start;
-    margin-top: 0.7rem;
+.track .credit {
+  position: relative;
+  color: #b0c4e2;
+}
+
+/* The train. Built by js/gate.js only when a ticket is torn; runs right to
+   left along the bottom of the window. Its wake is the next page's ground. */
+.train {
+  --h: clamp(8.5rem, 30vh, 16rem);
+  --c: var(--navy);
+  position: fixed;
+  left: 0;
+  bottom: 0.5rem;
+  z-index: 160;
+  display: flex;
+  width: max-content;
+  height: var(--h);
+  pointer-events: none;
+  transform: translateX(100vw);
+}
+
+.train[data-line="art"] {
+  --c: var(--willow);
+}
+
+.train.is-running {
+  animation: run var(--run, 1.9s) cubic-bezier(0.4, 0, 0.75, 1) forwards;
+}
+
+@keyframes run {
+  to {
+    transform: translateX(calc(var(--train-w) * -1));
   }
 }
 
-@media (max-width: 719.98px) {
-  .g-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.9rem;
+.car {
+  --w: calc(var(--h) * 2.9);
+  position: relative;
+  flex: none;
+  width: var(--w);
+  height: 100%;
+  margin-right: calc(var(--h) * 0.05);
+  border-radius: calc(var(--h) * 0.06);
+  background:
+    linear-gradient(var(--c), var(--c)) 0 64% / 100% 7% no-repeat,
+    linear-gradient(var(--c), var(--c)) 0 7% / 100% 2.5% no-repeat,
+    linear-gradient(180deg, #f5f7f9 0%, #dde2e7 55%, #b4bcc5 92%, #8b939c 100%);
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.25), inset 0 2px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* the coupler between cars */
+.car + .car::before {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 30%;
+  width: calc(var(--h) * 0.05);
+  height: 50%;
+  background: #4a525c;
+}
+
+/* bogies under each end */
+.car::after {
+  content: "";
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  bottom: calc(var(--h) * -0.05);
+  height: calc(var(--h) * 0.1);
+  background:
+    radial-gradient(circle at 50% 50%, #1b2027 52%, transparent 54%) 0 0 / calc(var(--h) * 0.1) 100% no-repeat,
+    radial-gradient(circle at 50% 50%, #1b2027 52%, transparent 54%) calc(var(--h) * 0.14) 0 / calc(var(--h) * 0.1) 100% no-repeat,
+    radial-gradient(circle at 50% 50%, #1b2027 52%, transparent 54%) 100% 0 / calc(var(--h) * 0.1) 100% no-repeat,
+    radial-gradient(circle at 50% 50%, #1b2027 52%, transparent 54%) calc(100% - var(--h) * 0.14) 0 / calc(var(--h) * 0.1) 100% no-repeat;
+}
+
+/* the side of each car: windows and doors */
+.car__side {
+  position: absolute;
+  top: 15%;
+  bottom: 9%;
+  left: 4%;
+  right: 4%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.car--lead .car__side {
+  left: 15%;
+}
+
+.car__win {
+  width: 11%;
+  height: 52%;
+  margin-top: 3%;
+  border-radius: var(--radius-window);
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, 0.16) 38% 46%, transparent 46%),
+    linear-gradient(180deg, #2c3a50, #0d1522 70%);
+  box-shadow: inset 0 0 0 3px #8e98a4;
+}
+
+.car__door {
+  position: relative;
+  width: 9.5%;
+  height: 100%;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 2px rgba(21, 24, 29, 0.28);
+}
+
+/* the seam between the two door leaves, and their windows */
+.car__door::before {
+  content: "";
+  position: absolute;
+  top: 8%;
+  left: 14%;
+  right: 14%;
+  height: 40%;
+  border-radius: 5px;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 1px), #8e98a4 calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(180deg, #2c3a50, #0d1522 70%);
+}
+
+.car__door::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  width: 2px;
+  background: rgba(21, 24, 29, 0.28);
+}
+
+/* the leading car: a sloped cab with its windscreen and destination display */
+.car--lead {
+  border-radius: calc(var(--h) * 0.32) calc(var(--h) * 0.06) calc(var(--h) * 0.06) calc(var(--h) * 0.1);
+}
+
+.car__cab {
+  position: absolute;
+  top: 18%;
+  left: 2.5%;
+  width: 9.5%;
+  height: 40%;
+  border-radius: calc(var(--h) * 0.2) 6px 6px calc(var(--h) * 0.05);
+  background:
+    linear-gradient(115deg, transparent 0 40%, rgba(255, 255, 255, 0.18) 40% 50%, transparent 50%),
+    linear-gradient(180deg, #2c3a50, #0d1522 70%);
+}
+
+.car__lamp {
+  position: absolute;
+  left: 3%;
+  top: 74%;
+  width: 3%;
+  height: 4%;
+  border-radius: 999px;
+  background: #fff6d6;
+}
+
+.car__dest {
+  position: absolute;
+  top: 1.5%;
+  left: 15%;
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  height: 10%;
+  padding: 0 0.8em;
+  border-radius: 4px;
+  background: #0a0d12;
+  color: var(--led);
+  font-family: var(--font-led);
+  font-size: calc(var(--h) * 0.065);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.car__dest b {
+  font-weight: 400;
+  color: #fff;
+}
+
+/* behind the last car: the next page's ground, a band of the line colour leading */
+.train__wake {
+  position: absolute;
+  left: 100%;
+  bottom: -0.5rem;
+  width: 120vw;
+  height: calc(100vh + 1rem);
+  height: calc(100dvh + 1rem);
+  background: linear-gradient(90deg, var(--c) 0 1.25rem, var(--wake, var(--concrete)) 1.25rem);
+}
+
+.train[data-tone="dark"] .train__wake {
+  --wake: var(--night);
+}
+
+/* --------------------------------------------------------------------------
+   Short and narrow screens
+   -------------------------------------------------------------------------- */
+
+@media (max-height: 760px) and (min-width: 720px) {
+  .sign__plate {
+    padding-block: 0.9rem;
   }
 
-  .g-meta {
-    justify-content: space-between;
+  .sign__title {
+    font-size: clamp(2.2rem, 1rem + 3.4vw, 3.8rem);
   }
 
-  .g-doors {
+  .sign__dir {
+    min-height: 2.8rem;
+  }
+
+  .ticket__from {
+    margin-top: 0.9rem;
+  }
+}
+
+@media (max-width: 899.98px) {
+  .tickets {
     grid-template-columns: 1fr;
-    gap: 14px;
+    max-width: 36rem;
+    margin-inline: auto;
   }
 
-  .door .hanga {
-    aspect-ratio: 6 / 5;
+  .machine__title {
+    max-width: 36rem;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 639.98px) {
+  .gate__top {
+    padding-block: 0.7rem;
   }
 
-  .door__tag {
-    top: 20px;
-    left: 20px;
-    padding: 0.55rem 0.3rem;
+  .clock__label {
+    display: none;
+  }
+
+  .sign__plate {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .sign__here {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .sign__band {
     font-size: 0.85rem;
   }
 
-  .door--art .door__tag {
-    right: 20px;
+  .sign__dir {
+    gap: 0.45rem;
+    min-height: 0;
+    padding: 0.6rem 0.75rem;
   }
 
-  /* the sheet is cropped closer here: keep the dark edge off the moon */
-  .door .hanga--night::after {
-    height: 9%;
-  }
-
-  .willow--gate {
-    left: auto;
-    right: 1.25rem;
-    width: 7.5rem;
-    height: auto;
-    transform: none;
-  }
-
-  /* on a phone the willow hangs over the day sheet only */
-  .willow--gate .willow__strand--pale {
+  .sign__dir .badge {
     display: none;
+  }
+
+  .sign__arrow {
+    width: 1.1rem;
+  }
+
+  .ticket__cue {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .ticket__foot {
+    grid-column: 1 / -1;
   }
 }
 
+/* --------------------------------------------------------------------------
+   Reduced motion: the ticket is still torn, nothing travels
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-  .door {
+  .ticket,
+  .ticket__stub,
+  .ticket__body,
+  .ticket__punch,
+  .ticket__arrow,
+  .ticket__cue,
+  .ticket__cue-arrow {
     transition-duration: 0.01s;
+    transition-delay: 0s;
+  }
+
+  .ticket:is(:hover, :focus-visible) .ticket__stub {
+    transform: none;
   }
 }
 
 /* ==========================================================================
-   404: a misprint. The colour blocks have slipped off their registration.
+   404: a stop that isn't on any line
    ========================================================================== */
 
 body.lost-page {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-}
-
-.lost-page .topbar__end {
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .lost {
+  flex: 1;
   display: grid;
-  align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(1.5rem, 4vw, 3rem);
+  place-items: center;
+  padding: 2rem var(--gutter);
 }
 
 .lost__inner {
-  width: min(100%, 84rem);
-  margin-inline: auto;
+  width: min(100%, 44rem);
 }
 
-.lost__number {
-  font-size: 0.95rem;
-  color: var(--accent-text);
+.lost__sign {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--plate);
+  color: var(--ink);
 }
 
-/* the title's pale pass has landed beside its key line */
+.lost__sign .badge {
+  font-size: 1.3rem;
+  --c: var(--signal);
+}
+
+.lost__sign .badge span {
+  font-size: 0.78em;
+}
+
 .lost__title {
-  max-width: 18ch;
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--fg-strong);
-  text-shadow: 0.09em 0.07em 0 var(--ai-1);
+  font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem);
+  line-height: 1.15;
+  color: var(--ink);
 }
 
-html[lang="ja"] .lost__title {
-  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.3;
+.lost__band {
+  padding: 0.9rem clamp(1.25rem, 3vw, 2rem);
+  border-radius: 0 0 var(--radius) var(--radius);
+  background: var(--signal);
+  color: var(--ink);
+  font-weight: 700;
 }
 
 .lost__text {
-  max-width: 36rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.1rem;
+  margin-top: 1.75rem;
+  color: var(--muted);
 }
 
-/* cut a little large, so a slipped block still reaches the edges */
-.hanga--off .hanga__pass {
-  inset: -14px;
-  width: calc(100% + 28px);
-  max-width: none;
-  height: calc(100% + 28px);
+.lost__back {
+  margin-top: 1.5rem;
 }
 
-.hanga--off .hanga__pass--light {
-  translate: 14px 9px;
+.lost__back .back-link__arrow {
+  width: 1.5rem;
+  height: 0.6rem;
 }
 
-.hanga--off .hanga__pass--deep {
-  translate: -11px -7px;
+.lost-page .topbar {
+  justify-content: flex-end;
 }
