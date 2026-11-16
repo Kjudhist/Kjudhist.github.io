@@ -1,6 +1,6 @@
 /* ==========================================================================
    Shared behaviour: local links, page transitions, scroll reveals,
-   sticky header, mobile menu, current-section highlight.
+   mobile menu, current-section highlight, the clock, the willow.
    ========================================================================== */
 
 (function () {
@@ -50,7 +50,7 @@
     return veil;
   }
 
-  // Fade to the next page's colour, then go. tone: "light" | "dark".
+  // The next sheet's colour is pulled across this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -101,82 +101,42 @@
     });
   }
 
-  // Split-flap text, like a station departure board: when a [data-flap]
-  // element comes into view its letters cycle through the board's
-  // alphabet and settle, left to right. Japanese text just settles in order.
-  const FLAP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const flapRuns = new Map(); // timer -> { el, target }
-
-  function flap(el) {
-    const target = el.textContent;
-    const latin = /^[\x20-\x7eÀ-ɏ’·]*$/.test(target);
-    const steps = 14;
-    let frame = 0;
-    const timer = window.setInterval(function () {
-      frame += 1;
-      const settled = Math.floor((frame / steps) * target.length);
-      let text = target.slice(0, settled);
-      for (let i = settled; i < target.length; i += 1) {
-        const ch = target[i];
-        if (ch === ' ' || !latin) {
-          text += latin ? ch : '';
-        } else {
-          text += FLAP_CHARS[Math.floor(Math.random() * FLAP_CHARS.length)];
-        }
-      }
-      el.textContent = text;
-      if (frame >= steps) {
-        window.clearInterval(timer);
-        flapRuns.delete(timer);
-        el.textContent = target;
-      }
-    }, 45);
-    flapRuns.set(timer, { el: el, target: target });
-  }
-
-  function initFlap() {
-    const items = document.querySelectorAll('[data-flap]');
-    if (!items.length || prefersReducedMotion() || !('IntersectionObserver' in window)) return;
-
-    // A language switch replaces translated text outright: stop any flap
-    // mid-way, and put back the text of anything i18n doesn't own.
-    document.addEventListener('langchange', function () {
-      flapRuns.forEach(function (run, timer) {
-        window.clearInterval(timer);
-        if (!run.el.hasAttribute('data-i18n')) run.el.textContent = run.target;
-      });
-      flapRuns.clear();
-    });
-
-    function watch() {
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          observer.unobserve(entry.target);
-          flap(entry.target);
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
-      items.forEach(function (el) {
-        observer.observe(el);
+  // A live clock for Jakarta, for anything marked [data-clock].
+  function initClock() {
+    const clocks = document.querySelectorAll('[data-clock]');
+    if (!clocks.length || !window.Intl) return;
+    const format = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false });
+    function tick() {
+      const text = format.format(new Date());
+      clocks.forEach(function (el) {
+        el.textContent = text;
       });
     }
-
-    // i18n settles the page on DOMContentLoaded; start after it.
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', watch, { once: true });
-    } else {
-      watch();
-    }
+    tick();
+    window.setInterval(tick, 15000);
   }
 
-  function initHeader() {
-    const header = document.querySelector('.topbar--sticky');
-    if (!header) return;
-    const update = function () {
-      header.classList.toggle('is-scrolled', window.scrollY > 8);
-    };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
+  // The willow leans a little toward the pointer: --lean runs from -1 to 1.
+  function initWillow() {
+    const willows = document.querySelectorAll('[data-willow]');
+    if (!willows.length || prefersReducedMotion()) return;
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let pointerX = 0;
+    let queued = false;
+    function update() {
+      queued = false;
+      willows.forEach(function (el) {
+        const box = el.getBoundingClientRect();
+        const offset = (pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2);
+        el.style.setProperty('--lean', Math.max(-1, Math.min(1, offset)).toFixed(3));
+      });
+    }
+    window.addEventListener('pointermove', function (event) {
+      pointerX = event.clientX;
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
   }
 
   function initMenu() {
@@ -234,29 +194,13 @@
     });
   }
 
-  // A live clock for Jakarta, for anything marked [data-clock].
-  function initClock() {
-    const clocks = document.querySelectorAll('[data-clock]');
-    if (!clocks.length || !window.Intl) return;
-    const format = new Intl.DateTimeFormat('en-GB', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', hour12: false });
-    function tick() {
-      const text = format.format(new Date());
-      clocks.forEach(function (el) {
-        el.textContent = text;
-      });
-    }
-    tick();
-    window.setInterval(tick, 15000);
-  }
-
   function init() {
     fixLocalLinks();
     initPageTransitions();
     initReveal();
-    initHeader();
+    initWillow();
     initMenu();
     initSectionSpy();
-    initFlap();
     initClock();
     window.addEventListener('pageshow', resetAfterBack);
   }

@@ -1,8 +1,8 @@
 # kjudhist.github.io
 
-My personal site. It opens on a station platform: a station name sign for "Kevin JG" points left along the QA Line to my QA work, and right along the Willow Line to The Willow Atelier, where I keep my art.
+My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *eki* (駅), the Japanese railway station: white sign plates with a line-coloured band, numbered stops, platform doors, yellow tactile paving and dot-matrix departure boards. Each side of the site is a line with its own colour (QA Line navy, Willow Line green). Type is BIZ UDPGothic, a Japanese public-signage face, with DotGothic16 on the boards. The design system is written down in `DESIGN.md`.
+The look is *hanga* (版画), the Japanese woodblock print, pulled in one blue ink: the same sea by day for QA and by night for the atelier. Every page prints itself in three passes as you arrive, a willow hangs from the top edge, and a printer's registration marks sit in the corner of the window. Type is Kaisei Tokumin for display, Zen Kaku Gothic New for text and Spline Sans Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -12,21 +12,21 @@ Live at https://kjudhist.github.io/
 
 ```
 /
-├── index.html            the gate (a ticket machine, two tickets)
+├── index.html            the gate (two doors)
 ├── qa/index.html         QA side
 ├── art/index.html        The Willow Atelier
-├── world/index.html      Worlds: lore, maps, characters (through service from the end of the atelier)
+├── world/index.html      Worlds: lore, maps, characters (linked from the end of the atelier)
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the gate: sign, tickets, the train (and the 404)
+│   ├── gate.css          the two sheets of the gate (and the 404)
 │   ├── qa.css
 │   ├── art.css
-│   └── world.css         the Worlds Line, on top of art.css
+│   └── world.css         loads after art.css and reuses its hero, frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, split-flap text, the clock, local links
-│   ├── gate.js           the tickets: date and serial, tear, punch, and the train
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, local links
+│   ├── gate.js           door behaviour (one click or tap walks through)
 │   └── art.js            the full-size viewer for artworks
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)
@@ -86,17 +86,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** a Tokyo-style station. The station name sign for Kevin JG points both ways along the two lines, and under it a ticket machine has issued two tickets: one to QA Engineer (QA Line), one to The Willow Atelier (Willow Line). Each whole ticket is the link. Pick one and its stub tears off, the ticket is punched, and a train on that line runs past with its destination on the display; the next page arrives behind it.
-- **QA (QA Line):** the hero is the line's first station sign, with a "Next" band to the first stop. Every section is a numbered stop (QA 01 to QA 04) on one continuous navy route line. Experience is a departure board, roles in dot-matrix with their names flipping into place; the current role blinks. Contact is a ticket with the CV as its stub. The page ends at the platform's edge with a transfer to the Willow Line.
-- **The Willow Atelier (Willow Line):** a night platform. The station sign and a line map with three stops lead to:
-  1. **Drawing & Painting**, framed posters on the platform wall
-  2. **Photography**, the view from a train window, scrolled sideways
-  3. **Music**, a board of departure melodies
+- **Gate:** one landscape from morning (left) to dusk (right), with my name, Jakarta's local time and two cards over it. Each whole card is the link, with an **Enter** pill; one click or tap goes in.
+- **QA (the morning):** the name large over a pale sky and a band of misty hills, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
+- **The Willow Atelier (the evening):** night over the hills, with stars, the moon and fireflies; the name large, the tagline, and an index of:
+  1. **Drawing & Painting**, a grid of frames
+  2. **Photography**, a row of frames scrolled sideways
+  3. **Music**, a ruled list of tracks
 
-  Then a large sign for the story, the station's exits (yellow signs) to Instagram and the shop, and a through service onto the Worlds Line.
-- **Worlds (Worlds Line, sky blue):** the same night platform: a station sign and a line map with four stops. The worlds are rows on a departure board; maps and characters hang as posters; lore fragments are notices on the platform wall. Its back link returns to the atelier.
+  Then the story with the poem set vertically, and two rows for Instagram and the shop.
 
-With reduced motion turned on, nothing travels or flips: the ticket is still torn, instantly, and no train runs.
+With reduced motion turned on, the mist and fireflies hold still; the doors still work.
 
 ## Replacing placeholders
 
@@ -106,8 +105,8 @@ Anything in `[square brackets]` is a placeholder. Most of them live in `js/i18n.
 |---|---|
 | About the atelier text | `art.about.*` in `js/i18n.js` |
 | Case studies | hidden for now; the old markup is in git history (see the comment in `qa/index.html`) |
-| Drawings and paintings | six empty poster frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `poster--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
-| Photos | six windows ("Photo 1" to "Photo 6") under Photography. Same swap as above; `pane--tall` makes a portrait window |
+| Drawings and paintings | six empty frames ("Art 1" to "Art 6") under Drawing & Painting in `art/index.html`; `piece--wide` makes a landscape frame. Put the image in `assets/art/`, then swap a slot's `<div class="slot">` for `<button class="work__open" type="button" data-view data-title="Title" data-meta="Medium, Year"><img src="../assets/art/your-file.jpg" width="…" height="…" alt="…" loading="lazy"></button>`. Clicking it opens the full-size viewer |
+| Photos | six frames ("Photo 1" to "Photo 6") under Photography. Same swap as above; `print--tall` makes a portrait frame |
 | Music | four tracks under Music. Fill in `art.track.*` (or write the title straight into the HTML), and when a track is out turn its title into a link and drop the "Coming soon" tip |
 | A line for each room | `art.painting.text`, `art.photo.text`, `art.music.text` in `js/i18n.js` |
 | Instagram and shop links | `art/index.html`: add `href="..."` to the two `<a>` tags under "Find the atelier" and delete their "[Link coming soon]" lines |
@@ -147,7 +146,7 @@ Key elements carry `data-testid` attributes:
 - Switcher: `lang-switcher`, `lang-option-en`, `lang-option-id`, `lang-option-ja`
 - Navigation: `nav-*`, `nav-toggle`, `back-to-gate`, `link-to-art`
 - Sections: `section-*`
-- Gate sign: `station-sign`
+- Gate name: `station-sign`
 - Atelier: `art-index`, `index-*`, `painting-1` to `painting-6`, `photo-1` to `photo-6`, `track-1` to `track-4`, `viewer-close`, `link-instagram`, `link-shop`
 - Footer: `site-footer`
 
