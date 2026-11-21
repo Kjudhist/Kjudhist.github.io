@@ -39,12 +39,13 @@
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/qa.js" defer></script>
 </head>
 <body class="qa">
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
-    <a class="back-link" href="../" data-transition="light" data-testid="back-to-gate">
+    <a class="back-link" href="../" data-transition="dark" data-testid="back-to-gate">
       <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
       <span class="back-link__full" data-i18n="common.back">Back to the gate</span>
       <span class="back-link__short" data-i18n="common.backShort">Gate</span>
@@ -163,6 +164,15 @@
           <div class="log__head">
             <h3 class="log__company" translate="no">Inteleq <span class="log__parent">(Indivara Group)</span></h3>
             <p class="log__meta" data-i18n="qa.exp.meta">Jakarta · Hybrid</p>
+          </div>
+          <!-- run the roles as a test suite: each gets checked and stamped (js/qa.js) -->
+          <div class="runner" data-runner hidden>
+            <button class="runner__run" type="button" data-run>
+              <svg viewBox="0 0 10 12" aria-hidden="true" focusable="false"><path d="M0 0L10 6L0 12Z" fill="currentColor"/></svg>
+              <span data-i18n="qa.run.button">Run checks</span>
+            </button>
+            <div class="runner__bar" aria-hidden="true"><span class="runner__fill" data-fill></span></div>
+            <p class="runner__out mono" data-out aria-live="polite" data-i18n="qa.run.idle">6 checks, not run yet</p>
           </div>
           <div class="log__cols" aria-hidden="true">
             <span data-i18n="qa.board.period">Period</span>
@@ -291,7 +301,10 @@
         <div class="mail theme-dark" data-reveal>
           <div class="addr">
             <p class="addr__text" data-i18n="qa.contact.text">Email is the easiest way to reach me.</p>
-            <a class="addr__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
+            <div class="addr__row">
+              <a class="addr__email" href="mailto:work.kjudhist@gmail.com" data-testid="contact-email">work.kjudhist@gmail.com</a>
+              <button class="addr__copy" type="button" data-copy="work.kjudhist@gmail.com" hidden><span data-i18n="qa.contact.copy">Copy</span></button>
+            </div>
             <ul class="addr__list">
               <li class="addr__item">
                 <span class="addr__label" data-i18n="qa.contact.github">GitHub</span>

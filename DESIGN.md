@@ -4,7 +4,7 @@ Sliding screens of paper in a lacquered frame, with a thin wooden lattice (kumik
 
 ## Idea
 
-The design is meant to be handled, not only looked at. Four things recur:
+The design is meant to be handled, not only looked at. Each page has its own thing to play with (fireflies and a wind chime on the gate, a test runner on QA, a koi pond in the atelier), and four things recur:
 
 1. **Doors you slide.** On the gate each door is a pair of shoji. Drag the pair apart and the screens follow your hand; let go past the middle and you go in, short of it they slide shut. A click, a tap or Enter slides them open for you. Hover parts them a finger's width.
 2. **The lantern.** A soft light under the page follows the pointer (or the last touch), and where it falls you can see the lattice of the screen behind the page.
@@ -13,9 +13,9 @@ The design is meant to be handled, not only looked at. Four things recur:
 
 Pages:
 
-- Gate: two doors side by side (stacked on phones). Each is a frame with a heavy lintel and a sill, two panels with pulls (hikite), and a garden behind: by day for QA, under the moon for the atelier. A vertical name plate (品質保証 / 柳のアトリエ) hangs on the lintel's corner. Under each frame is a caption with the door's name and an **Enter** block: on paper for QA, on the night for the atelier. A line under both says how the doors work. The whole door is a plain link.
-- QA: the name, the willow's shadow, then the engawa: four screens across the page, the middle pair sliding open on arrival to show the garden by day. Either middle screen can be dragged. Contact is a block in the night colour. The page ends on a sill (a double rail) over the night, leading to the atelier.
-- The Willow Atelier: the same, after dark. The paper is lit low; the garden has the moon and stars.
+- Gate: the night garden. The ground is the night; fireflies (hotaru) drift over it under the doors, gather loosely round the pointer, and a click on the garden lets out more. A glass wind chime (furin) hangs from the eaves: hover swings it, a click rings it (a synthesised glass bell; sound only ever starts from a click). Two doors side by side (stacked on phones), lit screens in the dark. Each is a frame with a heavy lintel and a sill, two panels with pulls (hikite), and a garden behind: by day for QA, under the moon for the atelier. A vertical name plate (品質保証 / 柳のアトリエ) hangs on the lintel's corner. Under each frame is a caption with the door's name and an **Enter** block: on paper for QA, on the night for the atelier. A line under both says how the doors work. The whole door is a plain link.
+- QA: the name, the willow's shadow, then the engawa: four screens across the page, the middle pair sliding open on arrival to show the garden by day. Either middle screen can be dragged. Experience is a test suite: **Run checks** walks every role and entry in turn, flashing each field as it is asserted and stamping it 合格 (passed) in a ruled seal, with a progress bar and a summary line ("6 passed, 0 failed in 3.05s"); any one can be re-run by clicking it. Nothing is hidden before a run. Contact is a block in the night colour, with a Copy button beside the email. The page ends on a sill (a double rail) over the night, leading to the atelier.
+- The Willow Atelier: the same, after dark, with a koi pond where the engawa was, its screens pushed back to the sides. Moving over the water leaves ripples; a click drops food and the koi turn and come for it; some drift over to look at the pointer. The moon's reflection wobbles. Koi are in the one ink: white and pale bodies with royal and deep markings. Without scripts the still garden under the moon shows instead.
 - Worlds (`/world/`, not on the gate; reached from the closing band of the atelier): the same night, with more stars and the charts.
 - 404: a shoji wall with a hole in it, and nothing behind but the night. Click or tap the paper to poke more holes; the lattice stays where the paper is torn.
 
@@ -56,4 +56,4 @@ At night the screen paper is lit low (`#dbe3f2`). Night text: `#f1f4fa` strong, 
 - Arrival: the screens open from the middle (0.85s); the title is revealed the same way, from the middle out; the engawa's middle pair slides open after 0.7s.
 - Gate: hover parts a door slightly; drag follows the hand; opening takes 0.8s, then a short step into the garden (the view scales up) before the page-change screens close.
 - Ambient: the willow and bamboo sway, the stars twinkle, the lantern trails the pointer.
-- Reduced motion: no sway, no twinkle, no lantern movement, the engawa is already open, and page changes are a short fade.
+- Reduced motion: no sway, no twinkle, no lantern movement, the engawa is already open, fireflies and koi are a still frame, the test runner stamps at once, and page changes are a short fade.

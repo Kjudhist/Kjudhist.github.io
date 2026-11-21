@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *shoji* (障子), Japanese sliding paper screens, in one blue ink: the same garden by day for QA and by night for the atelier. Each door on the gate is a pair of screens you drag (or click) open, a lantern follows the pointer and shows the lattice behind the page, the willow is a shadow cast on the paper, and every page change is a pair of screens closing and opening. On the 404 you can poke holes in the paper. Type is Shippori Mincho B1 for display, Zen Kaku Gothic New for text and DM Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *shoji* (障子), Japanese sliding paper screens, in one blue ink: the same garden by day for QA and by night for the atelier. Each door on the gate is a pair of screens you drag (or click) open, a lantern follows the pointer and shows the lattice behind the page, the willow is a shadow cast on the paper, and every page change is a pair of screens closing and opening. The gate is a night garden with fireflies and a wind chime you can ring, the QA page runs my experience as a test suite and stamps each role 合格, the atelier has a koi pond you can feed, and on the 404 you can poke holes in the paper. Type is Shippori Mincho B1 for display, Zen Kaku Gothic New for text and DM Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 

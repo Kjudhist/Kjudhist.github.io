@@ -11,6 +11,7 @@
 
 body.gate {
   position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
@@ -47,7 +48,7 @@ body.gate {
 }
 
 .g-clock .mono {
-  color: var(--ink);
+  color: var(--fg-strong);
 }
 
 .g-main {
@@ -59,7 +60,7 @@ body.gate {
 
 .g-intro {
   font-size: 0.95rem;
-  color: var(--ink-2);
+  color: var(--fg);
 }
 
 .g-hint {
@@ -120,6 +121,8 @@ body.gate {
   border-top-width: 1.5rem;
   border-bottom-width: 1.1rem;
   background: var(--frame);
+  /* lit screens in the dark garden */
+  box-shadow: 0 0 3.5rem rgba(142, 171, 227, 0.14);
   cursor: grab;
   touch-action: pan-y;
 }
@@ -299,7 +302,7 @@ body.gate {
 }
 
 .door--art .door__label {
-  background: var(--night);
+  background: var(--night-2);
   box-shadow: none;
   color: #f1f4fa;
 }
@@ -371,6 +374,121 @@ body.gate {
   padding-bottom: 1.5rem;
 }
 
+/* the night garden: the gate sits on the dark ground, fireflies drift over
+   it under the doors, and a wind chime hangs from the eaves */
+.gate .g-top,
+.gate .g-main,
+.gate .credit {
+  position: relative;
+  z-index: 1;
+}
+
+.hotaru {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.furin {
+  position: absolute;
+  top: 0;
+  left: 57%;
+  z-index: 3;
+  width: 2.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.furin svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.furin__cord,
+.furin__line {
+  fill: none;
+  stroke: #8eabe3;
+  stroke-width: 1.2;
+}
+
+.furin__bell {
+  fill: rgba(223, 231, 247, 0.16);
+  stroke: #dfe7f7;
+  stroke-width: 1.4;
+}
+
+.furin__rim {
+  stroke: #dfe7f7;
+  stroke-width: 1.4;
+}
+
+.furin__clapper {
+  fill: #dfe7f7;
+}
+
+.furin__strip rect {
+  fill: #f7f9fc;
+}
+
+.furin__strip path {
+  stroke: var(--royal);
+  stroke-width: 1.2;
+}
+
+/* it stirs in the air on its own; rung, it swings and settles */
+.furin__swing {
+  transform-box: view-box;
+  transform-origin: 30px 44px;
+  animation: breeze 4.5s ease-in-out infinite alternate;
+}
+
+.furin.is-ringing .furin__swing {
+  animation: ring 1.8s var(--ease-out);
+}
+
+@keyframes breeze {
+  from {
+    transform: rotate(-2deg);
+  }
+
+  to {
+    transform: rotate(2.5deg);
+  }
+}
+
+@keyframes ring {
+  15% {
+    transform: rotate(14deg);
+  }
+
+  35% {
+    transform: rotate(-10deg);
+  }
+
+  55% {
+    transform: rotate(6deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+
+  to {
+    transform: rotate(0);
+  }
+}
+
+.furin:focus-visible {
+  outline-offset: 2px;
+}
+
 /* --------------------------------------------------------------------------
    Narrower screens: Enter drops under the name; on phones the doors stack
    -------------------------------------------------------------------------- */
@@ -419,6 +537,16 @@ body.gate {
   .door--art .door__tag {
     right: 1.1rem;
   }
+
+  .g-name {
+    padding-right: 2.75rem;
+  }
+
+  .furin {
+    left: auto;
+    right: 0.75rem;
+    width: 2.1rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -429,7 +557,9 @@ body.gate {
     transition-duration: 0.01s;
   }
 
-  .door__cast .sway {
+  .door__cast .sway,
+  .furin__swing,
+  .furin.is-ringing .furin__swing {
     animation: none;
   }
 }

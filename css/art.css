@@ -625,3 +625,84 @@ html[lang="ja"] .onward__name {
     transition: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   The koi pond (js/pond.js), seen from the engawa with its screens pushed
+   back to the sides. Rails above and below, like the strip on the QA page.
+   -------------------------------------------------------------------------- */
+
+.art-hero .pond {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.pond {
+  position: relative;
+  height: clamp(17rem, 34vw, 28rem);
+  overflow: hidden;
+  border-block: 0.6rem solid var(--frame);
+  background: #0b1848;
+  cursor: pointer;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pond__water,
+.pond__still,
+.pond__canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.pond__still svg,
+.pond__canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.pond.is-live .pond__still {
+  display: none;
+}
+
+/* the screens, slid back to either side */
+.pond__side {
+  --kumiko-size: 50% 100%, 100% calc(100% / 6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: clamp(2.5rem, 8vw, 7rem);
+  pointer-events: none;
+}
+
+.pond__side--l {
+  left: 0;
+}
+
+.pond__side--r {
+  right: 0;
+}
+
+.pond__hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.9rem;
+  z-index: 3;
+  padding: 0.3rem 0.8rem;
+  background: rgba(6, 14, 51, 0.6);
+  color: #dfe7f7;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+@media (max-width: 639.98px) {
+  .pond__hint {
+    white-space: normal;
+    width: max-content;
+    max-width: 70%;
+    text-align: center;
+  }
+}

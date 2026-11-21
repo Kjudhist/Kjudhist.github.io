@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-dark">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title data-i18n="meta.gate.title">Kevin JG · QA Engineer and The Willow Atelier</title>
   <meta name="description" content="Two doors. One leads to my work as a QA engineer in payments and online banking. The other leads to The Willow Atelier, where I make art." data-i18n-attr="content:meta.gate.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#eef1f3">
+  <meta name="theme-color" content="#0b1848">
   <link rel="canonical" href="https://kjudhist.github.io/">
 
   <meta property="og:type" content="website">
@@ -42,6 +42,25 @@
   <script src="js/gate.js" defer></script>
 </head>
 <body class="gate">
+  <!-- fireflies drift over the night garden (js/gate.js) -->
+  <canvas class="hotaru" data-hotaru aria-hidden="true"></canvas>
+
+  <!-- a wind chime (furin) under the eaves: hover or tap it to ring it -->
+  <button class="furin" type="button" data-furin aria-label="Ring the wind chime" data-i18n-attr="aria-label:gate.furin">
+    <svg viewBox="0 0 60 150" aria-hidden="true" focusable="false">
+      <path class="furin__cord" d="M30 0V44"/>
+      <g class="furin__swing">
+        <path class="furin__bell" d="M12 60Q12 40 30 40Q48 40 48 60V68H12Z"/>
+        <path class="furin__rim" d="M10 68H50"/>
+        <path class="furin__line" d="M30 68V96"/>
+        <circle class="furin__clapper" cx="30" cy="70" r="3"/>
+        <g class="furin__strip">
+          <rect x="22" y="96" width="16" height="48" rx="1"/>
+          <path d="M26 106H34M26 112H34" />
+        </g>
+      </g>
+    </svg>
+  </button>
   <header class="g-top">
     <div class="g-id" data-testid="station-sign">
       <h1 class="g-name unveil" translate="no">Kevin Judhistira Girsang</h1>
@@ -90,7 +109,7 @@
         </span>
       </a>
     </nav>
-    <p class="g-hint" data-i18n="gate.hint">Slide a screen open, or just click it.</p>
+    <p class="g-hint" data-i18n="gate.hint">Slide a screen open, or just click it. Click the garden for more fireflies.</p>
   </main>
 
   <footer class="credit" data-testid="site-footer">

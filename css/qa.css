@@ -513,3 +513,210 @@ html[lang="ja"] .next-book__name {
     grid-template-columns: 1fr;
   }
 }
+
+/* --------------------------------------------------------------------------
+   The test runner (js/qa.js): the experience runs as a suite. A case being
+   run dims, its fields flash as each is asserted, and it gets a 合格 stamp.
+   -------------------------------------------------------------------------- */
+
+.runner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.9rem 0 1.1rem;
+  border-top: 1px solid var(--line);
+}
+
+.runner__run {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--royal);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), transform 0.15s var(--ease);
+}
+
+.runner__run svg {
+  width: 0.6rem;
+  height: 0.75rem;
+}
+
+.runner__run:hover {
+  background: var(--royal-2);
+}
+
+.runner__run:active {
+  transform: translateY(1px);
+}
+
+.runner__run:disabled {
+  cursor: progress;
+  background: var(--grey);
+}
+
+.runner__bar {
+  flex: 1 1 8rem;
+  height: 0.35rem;
+  background: var(--line);
+}
+
+.runner__fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--royal);
+  transition: width 0.3s var(--ease-out);
+}
+
+.runner__out {
+  flex: 1 1 100%;
+  color: var(--muted);
+}
+
+.runner.is-done .runner__out {
+  color: var(--accent-text);
+}
+
+.case {
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s var(--ease);
+}
+
+.row.case:hover {
+  background: rgba(36, 73, 216, 0.04);
+}
+
+.case > :not(.stamp) {
+  transition: opacity 0.25s var(--ease);
+}
+
+.case.is-running > :not(.stamp) {
+  opacity: 0.35;
+}
+
+.case.is-running > .is-checked {
+  opacity: 1;
+  animation: assert 0.45s var(--ease-out);
+}
+
+@keyframes assert {
+  from {
+    background-color: rgba(36, 73, 216, 0.18);
+  }
+}
+
+/* the inspector's seal: 合格, passed */
+.stamp {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.25rem;
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 2.5px solid var(--royal);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px var(--bg-raised), inset 0 0 0 3.5px var(--royal);
+  color: var(--royal);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: rotate(-12deg) scale(1.7);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* a role is stamped in the empty space under its dates */
+.row .stamp {
+  top: 3.1rem;
+  right: auto;
+  left: 0.6rem;
+}
+
+.entry .stamp {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.case.is-passed .stamp {
+  animation: stamp 0.4s var(--ease-out) forwards;
+}
+
+@keyframes stamp {
+  60% {
+    opacity: 0.9;
+    transform: rotate(-12deg) scale(0.94);
+  }
+
+  to {
+    opacity: 0.82;
+    transform: rotate(-12deg) scale(1);
+  }
+}
+
+/* the email, with a copy button beside it */
+.addr__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+}
+
+.addr__copy {
+  min-height: 2.25rem;
+  padding: 0.3rem 0.9rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--fg-strong);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.addr__copy:hover {
+  background: rgba(223, 231, 247, 0.1);
+}
+
+.addr__copy.is-copied {
+  background: var(--royal);
+  box-shadow: none;
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case.is-running > .is-checked,
+  .case.is-passed .stamp {
+    animation: none;
+  }
+
+  .case.is-passed .stamp {
+    opacity: 0.82;
+    transform: rotate(-12deg);
+  }
+}
+
+@media (max-width: 719.98px) {
+  /* one column: the dates line is short, so the stamp sits at its right */
+  .row .stamp {
+    top: 0.9rem;
+    right: 0;
+    left: auto;
+    width: 3rem;
+    height: 3rem;
+    font-size: 0.85rem;
+  }
+}
