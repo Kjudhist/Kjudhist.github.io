@@ -33,14 +33,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/art.js" defer></script>
-  <script src="../js/pond.js" defer></script>
+  <script src="../js/hanabi.js" defer></script>
+  <script src="../js/kingyo.js" defer></script>
 </head>
 <body class="art">
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
@@ -94,16 +95,18 @@
         <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
       </div>
 
-      <!-- the koi pond, seen from the engawa with its screens pushed back (js/pond.js).
-           Without scripts it shows the garden under the moon. -->
-      <div class="pond" data-pond>
-        <div class="pond__water" aria-hidden="true">
-          <div class="pond__still"><svg viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" focusable="false"><defs><linearGradient id="sky-night-4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050c2e"/><stop offset=".6" stop-color="#0b1848"/><stop offset="1" stop-color="#13235f"/></linearGradient></defs><rect width="1600" height="420" fill="url(#sky-night-4)"/><g fill="#dfe7f7" class="view__stars"><circle cx="377.7" cy="23.8" r="2.2"/><circle cx="766.2" cy="20.8" r="1.1"/><circle cx="642.5" cy="212" r="1.1"/><circle cx="355.1" cy="124" r="1.8"/><circle cx="1247.6" cy="191" r="1.8"/><circle cx="343" cy="214.2" r="1.8"/><circle cx="1280.7" cy="44.7" r="1.8"/><circle cx="463.4" cy="200.4" r="1.8"/><circle cx="138.7" cy="140" r="2.2"/><circle cx="809.5" cy="41.1" r="2.2"/><circle cx="448" cy="218.2" r="1.8"/><circle cx="11.5" cy="67.4" r="1.8"/><circle cx="1356.9" cy="117.4" r="2.2"/><circle cx="678" cy="66.6" r="2.2"/><circle cx="258.1" cy="70.5" r="1.1"/><circle cx="129.7" cy="106.9" r="1.8"/><circle cx="830.2" cy="149.7" r="1.8"/><circle cx="232.1" cy="155.6" r="1.1"/><circle cx="660.5" cy="46.8" r="2.2"/><circle cx="442.1" cy="82.2" r="1.8"/><circle cx="1015.1" cy="45.9" r="1.8"/><circle cx="161.6" cy="14.2" r="1.4"/><circle cx="444" cy="134.5" r="1.4"/><circle cx="195.4" cy="215.9" r="1.8"/><circle cx="734.4" cy="9.9" r="1.1"/><circle cx="1433.5" cy="220.5" r="1.8"/><circle cx="29.1" cy="66.8" r="1.4"/><circle cx="1240.4" cy="94.8" r="1.1"/><circle cx="469.5" cy="44.2" r="2.2"/><circle cx="467.2" cy="57.8" r="1.4"/><circle cx="530.1" cy="2.2" r="1.1"/><circle cx="727.7" cy="84.4" r="1.8"/><circle cx="1595.5" cy="132" r="2.2"/><circle cx="1570.8" cy="97.9" r="1.4"/><circle cx="181.8" cy="14.4" r="1.4"/><circle cx="952.9" cy="224.2" r="1.1"/><circle cx="874" cy="134.6" r="1.8"/><circle cx="1596.2" cy="28.2" r="1.8"/><circle cx="1238.1" cy="94.6" r="1.4"/><circle cx="764.4" cy="55.9" r="2.2"/><circle cx="787.1" cy="50.6" r="2.2"/><circle cx="397.7" cy="205.4" r="1.4"/><circle cx="797.7" cy="7.3" r="1.8"/><circle cx="405.4" cy="121.4" r="1.4"/><circle cx="667.4" cy="60.4" r="1.8"/><circle cx="82" cy="214.4" r="1.1"/><circle cx="1584.9" cy="93.1" r="1.1"/><circle cx="790.9" cy="21.5" r="1.4"/><circle cx="1487.9" cy="132.2" r="1.4"/><circle cx="538.5" cy="151.7" r="1.8"/><circle cx="1303.7" cy="122" r="1.8"/><circle cx="541.6" cy="90.6" r="2.2"/><circle cx="119" cy="224.3" r="1.4"/><circle cx="71.3" cy="207.7" r="1.4"/><circle cx="1226.9" cy="62.2" r="1.1"/><circle cx="1392.1" cy="158.9" r="2.2"/><circle cx="910.7" cy="172.4" r="2.2"/><circle cx="349.7" cy="0.8" r="1.4"/><circle cx="21" cy="202.5" r="1.1"/><circle cx="633.3" cy="177.8" r="2.2"/><circle cx="1404.6" cy="127.2" r="1.4"/><circle cx="259" cy="140.5" r="2.2"/><circle cx="1464.4" cy="101.6" r="1.1"/><circle cx="54.7" cy="137.3" r="2.2"/><circle cx="897.3" cy="59.4" r="1.4"/><circle cx="66.2" cy="18.4" r="1.1"/><circle cx="475.1" cy="80.1" r="1.1"/><circle cx="136.2" cy="125.5" r="2.2"/><circle cx="328.6" cy="225.6" r="2.2"/><circle cx="373.9" cy="112.4" r="2.2"/><circle cx="152.2" cy="26.4" r="1.8"/><circle cx="820" cy="100.2" r="2.2"/><circle cx="107.1" cy="203.6" r="1.4"/><circle cx="1019.1" cy="214.8" r="2.2"/><circle cx="675.9" cy="184.4" r="1.4"/><circle cx="594.6" cy="37.6" r="1.4"/><circle cx="522.5" cy="198.6" r="1.8"/><circle cx="867" cy="208.8" r="1.4"/><circle cx="8.9" cy="72" r="1.1"/><circle cx="778.4" cy="165.3" r="2.2"/></g><circle cx="770" cy="126" r="58" fill="#eef2fa"/><circle cx="770" cy="126" r="96" fill="#8eabe3" fill-opacity=".09"/><rect x="693.9" y="135.8" width="264.2" height="14" rx="7" fill="#2a3f8f" opacity=".8"/><rect x="336.4" y="106.7" width="227" height="14" rx="7" fill="#2a3f8f" opacity=".8"/><rect x="42" y="90.7" width="318.2" height="14" rx="7" fill="#2a3f8f" opacity=".8"/><path d="M-160,249.9 Q-160,249.9 -80,243.3 Q0,236.8 80,243.4 Q160,249.9 240,247.6 Q320,245.4 400,241.5 Q480,237.7 560,244.3 Q640,250.9 720,243.2 Q800,235.4 880,234.3 Q960,233.1 1040,236.2 Q1120,239.4 1200,235.4 Q1280,231.3 1360,228.8 Q1440,226.3 1520,232.5 Q1600,238.7 1680,245.7 L1760,1100 L-160,1100 Z" fill="#16297a"/><path d="M-200,272.4 Q-200,272.4 -100,273.8 Q0,275.2 100,277.8 Q200,280.4 300,281.4 Q400,282.5 500,281.7 Q600,280.9 700,275.8 Q800,270.8 900,280.6 Q1000,290.4 1100,279.3 Q1200,268.1 1300,277.1 Q1400,286 1500,284.2 Q1600,282.4 1700,285.6 L1800,1100 L-200,1100 Z" fill="#13235f"/><path d="M-240,309 Q-240,309 -120,315.9 Q0,322.7 120,325.8 Q240,328.9 360,322 Q480,315.1 600,315.6 Q720,316.1 840,313.8 Q960,311.4 1080,319.9 Q1200,328.4 1320,325 Q1440,321.7 1560,320.7 L1840,1100 L-240,1100 Z" fill="#0f1d52"/><path d="M-280,365.8 Q-280,365.8 -140,359.8 Q0,353.8 140,356.2 Q280,358.7 420,362.7 Q560,366.8 700,360.4 Q840,354 980,354.7 Q1120,355.5 1260,362.7 Q1400,370 1540,367 L1880,1100 L-280,1100 Z" fill="#0a1644"/></svg></div>
-          <canvas class="pond__canvas"></canvas>
+      <!-- kingyo-sukui: scoop goldfish with a paper poi before it tears (js/kingyo.js).
+           Without scripts it is a still tub of fish. -->
+      <div class="kingyo" data-kingyo>
+        <div class="kingyo__tub">
+          <canvas class="kingyo__canvas" aria-hidden="true"></canvas>
         </div>
-        <div class="shoji pond__side pond__side--l" aria-hidden="true"></div>
-        <div class="shoji pond__side pond__side--r" aria-hidden="true"></div>
-        <p class="pond__hint" data-i18n="art.pond.hint" hidden>Touch the water. Click to feed the koi.</p>
+        <div class="kingyo__side">
+          <p class="kingyo__hint" data-i18n="art.kingyo.hint">Press to dip the poi, let go to scoop. The paper tears.</p>
+          <p class="kingyo__bag"><span class="kingyo__bag-label" data-i18n="art.kingyo.bag">In the bag</span> <b class="mono" data-catch>0</b></p>
+          <p class="kingyo__poi"><span data-i18n="art.kingyo.poi">Poi left</span> <b class="mono" data-poi>3</b></p>
+          <button class="kingyo__again" type="button" data-again hidden><span data-i18n="art.kingyo.again">New poi</span></button>
+        </div>
       </div>
 
       <div class="wrap">

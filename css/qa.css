@@ -1,8 +1,8 @@
 /* ==========================================================================
-   QA: the room by day.
-   The name opens from the middle, the willow's shadow hangs beside it, and
-   under them runs the engawa: four screens whose middle pair slides open on
-   the garden by day. Each section sits on the grid: its name in the left
+   QA: the festival by day, on paper.
+   The name lifts in, the willow hangs beside it, and under them a string
+   of lanterns reads 品質保証検査合格 (four lit; light the rest). Bugs wander
+   in now and then to be caught. Each section sits on the grid: its name in the left
    column, the content to the right. Contact is a block in the night colour,
    and the page ends on a sill over the night, leading to the atelier.
    ========================================================================== */
@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-.hero .engawa {
+.hero .lanterns {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -718,5 +718,183 @@ html[lang="ja"] .next-book__name {
     width: 3rem;
     height: 3rem;
     font-size: 0.85rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   The bug hunt (js/qa.js): bugs wander in from the edges; click one to
+   catch it. The tally sits in the bottom corner once the first one shows.
+   -------------------------------------------------------------------------- */
+
+.bug {
+  position: fixed;
+  top: -16px;
+  left: -16px;
+  z-index: 90;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+/* a bigger target than the bug itself, for fingers */
+.bug::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+}
+
+.bug svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.bug__legs path,
+.bug__feelers {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.bug__legs {
+  transform-origin: 16px 16px;
+  animation: scuttle 0.18s steps(2) infinite;
+}
+
+.bug.is-still .bug__legs {
+  animation: none;
+}
+
+@keyframes scuttle {
+  to {
+    transform: scaleY(0.88);
+  }
+}
+
+.bug__shell {
+  fill: var(--ink);
+}
+
+.bug__head {
+  fill: var(--ink-2);
+}
+
+.bug__seam {
+  stroke: var(--paper);
+  stroke-width: 1;
+}
+
+.bug__dot {
+  fill: var(--royal-soft);
+}
+
+.bug.is-squashed {
+  cursor: default;
+  pointer-events: none;
+}
+
+.bug.is-squashed svg {
+  animation: squash 1.4s var(--ease-out) forwards;
+}
+
+@keyframes squash {
+  12% {
+    transform: scale(1.4, 0.35);
+  }
+
+  40% {
+    transform: scale(1.3, 0.3);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(1.3, 0.3);
+    opacity: 0;
+  }
+}
+
+.bughud {
+  position: fixed;
+  left: max(1rem, env(safe-area-inset-left));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: #f1f4fa;
+  font-size: 0.8rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(12, 27, 77, 0.25);
+}
+
+.bughud[hidden] {
+  display: none;
+}
+
+.bughud svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.bughud .bug__shell,
+.bughud .bug__head {
+  fill: #f1f4fa;
+}
+
+.bughud .bug__legs path,
+.bughud .bug__feelers {
+  stroke: #f1f4fa;
+}
+
+.bughud .bug__legs {
+  animation: none;
+}
+
+.bughud__count {
+  color: var(--royal-soft);
+}
+
+.bughud.is-bumped {
+  animation: bump 0.5s var(--ease-back);
+}
+
+@keyframes bump {
+  40% {
+    transform: scale(1.12);
+  }
+}
+
+.bughud__toast {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.5rem);
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius);
+  background: var(--royal);
+  color: #fff;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bughud.is-bumped .bughud__toast {
+  animation: toast 2s var(--ease-out);
+}
+
+@keyframes toast {
+  10%,
+  75% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
   }
 }

@@ -1,8 +1,8 @@
 /* ==========================================================================
-   The Willow Atelier: the room after dark.
-   The ground is the night, with the lines left pale. The name opens from
-   the middle beside the moonlit willow, then the engawa opens on the same
-   garden under the moon, then an index of the three kinds of work. Sections
+   The Willow Atelier: the festival after dark.
+   The ground is the night, with the lines left pale. The name lifts in
+   beside the willow, then a tub of goldfish to scoop (kingyo-sukui), then
+   an index of the three kinds of work. Sections
    share the QA page's grid; works hang in ruled frames, photographs scroll
    sideways, tracks are a ruled list, and the poem is set vertically
    beside the story.
@@ -22,20 +22,17 @@
   z-index: 1;
 }
 
-.art-hero .engawa {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-}
-
-/* the name in Japanese, boxed like a title cartouche */
+/* the name in Japanese, on a festival tag */
 .art-hero__jp {
   display: inline-block;
-  padding: 0.25rem 0.65rem 0.3rem;
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  padding: 0.3rem 0.9rem 0.35rem;
+  border-radius: var(--radius);
+  background: var(--key);
   font-family: var(--font-jp);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.16em;
-  color: var(--fg-strong);
+  color: var(--bg);
 }
 
 .art-hero__title {
@@ -627,82 +624,128 @@ html[lang="ja"] .onward__name {
 }
 
 /* --------------------------------------------------------------------------
-   The koi pond (js/pond.js), seen from the engawa with its screens pushed
-   back to the sides. Rails above and below, like the strip on the QA page.
+   Kingyo-sukui (js/kingyo.js): a blue festival tub of goldfish and a paper
+   poi, with the bag and the poi count beside it. Fireworks strips (the
+   worlds) use the shared .skystrip.
    -------------------------------------------------------------------------- */
 
-.art-hero .pond {
+.art-hero .kingyo,
+.art-hero .skystrip {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
-.pond {
-  position: relative;
-  height: clamp(17rem, 34vw, 28rem);
-  overflow: hidden;
-  border-block: 0.6rem solid var(--frame);
-  background: #0b1848;
-  cursor: pointer;
-  touch-action: pan-y;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-select: none;
-  user-select: none;
+.kingyo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 1.5rem;
+  align-items: stretch;
+  width: min(100% - 2 * var(--gutter), 84rem);
+  margin-inline: auto;
 }
 
-.pond__water,
-.pond__still,
-.pond__canvas {
+.kingyo__tub {
+  position: relative;
+  height: clamp(16rem, 32vw, 26rem);
+  overflow: hidden;
+  border: 0.75rem solid var(--royal);
+  border-radius: 2.2rem;
+  background: #a9bfea;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 1.5rem 3rem rgba(5, 11, 46, 0.5);
+}
+
+.kingyo__canvas {
   position: absolute;
   inset: 0;
-}
-
-.pond__still svg,
-.pond__canvas {
   width: 100%;
   height: 100%;
+  cursor: none;
+  touch-action: none;
 }
 
-.pond.is-live .pond__still {
-  display: none;
+.kingyo:not(.is-live) .kingyo__canvas {
+  cursor: default;
 }
 
-/* the screens, slid back to either side */
-.pond__side {
-  --kumiko-size: 50% 100%, 100% calc(100% / 6);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-  width: clamp(2.5rem, 8vw, 7rem);
-  pointer-events: none;
+.kingyo__side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding: 1.25rem;
+  border-radius: var(--radius-box);
+  background: var(--night-2);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
-.pond__side--l {
-  left: 0;
+.kingyo__hint {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--fg);
 }
 
-.pond__side--r {
-  right: 0;
+.kingyo.is-torn .kingyo__hint {
+  color: var(--fg-strong);
+  font-weight: 700;
 }
 
-.pond__hint {
-  position: absolute;
-  left: 50%;
-  bottom: 0.9rem;
-  z-index: 3;
-  padding: 0.3rem 0.8rem;
-  background: rgba(6, 14, 51, 0.6);
-  color: #dfe7f7;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  transform: translateX(-50%);
-  pointer-events: none;
+.kingyo__bag,
+.kingyo__poi {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
-@media (max-width: 639.98px) {
-  .pond__hint {
-    white-space: normal;
-    width: max-content;
-    max-width: 70%;
-    text-align: center;
+.kingyo__bag b,
+.kingyo__poi b {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--fg-strong);
+}
+
+.kingyo.is-bagged .kingyo__bag b {
+  animation: bagged 0.5s var(--ease-back);
+}
+
+@keyframes bagged {
+  40% {
+    transform: scale(1.35);
+    color: var(--spark);
+  }
+}
+
+.kingyo__again {
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--royal);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.kingyo__again:hover {
+  background: var(--spark);
+}
+
+@media (max-width: 879.98px) {
+  .kingyo {
+    grid-template-columns: 1fr;
+  }
+
+  .kingyo__side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+  }
+
+  .kingyo__hint,
+  .kingyo__again {
+    grid-column: 1 / -1;
   }
 }

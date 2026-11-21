@@ -1,59 +1,63 @@
-# Design system: shoji (障子)
+# Design system: matsuri (祭)
 
-Sliding screens of paper in a lacquered frame, with a thin wooden lattice (kumiko) over the paper. The site is one house at night: QA is the room by day, the atelier is the room after dark ("outside of work, I make art"), and both look out on the same garden. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, gate.js). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
+A Japanese summer festival at night, in one blue ink. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, hanabi.js, gate.js, qa.js, kingyo.js). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
 
 ## Idea
 
-The design is meant to be handled, not only looked at. Each page has its own thing to play with (fireflies and a wind chime on the gate, a test runner on QA, a koi pond in the atelier), and four things recur:
+Every page has something to play with, and the play is the point:
 
-1. **Doors you slide.** On the gate each door is a pair of shoji. Drag the pair apart and the screens follow your hand; let go past the middle and you go in, short of it they slide shut. A click, a tap or Enter slides them open for you. Hover parts them a finger's width.
-2. **The lantern.** A soft light under the page follows the pointer (or the last touch), and where it falls you can see the lattice of the screen behind the page.
-3. **Shadows on the paper.** The willow is a shadow cast by the lantern: it sways, leans toward the light and slides away from it. On the gate, bamboo throws its shadow on the day door and the willow on the night door; the shadow stays put while the paper slides under it.
-4. **Screens between pages.** Changing page, a pair of screens in the next page's tone slides shut; the next page opens them again.
+- **Fireworks (hanabi).** On the gate the whole window is sky: a shell goes up every few seconds, and a click anywhere that is not a control bursts one where you clicked. Five kinds: kiku (chrysanthemum, tailed), botan (peony, bright dots), shidare (willow: long silver trails that hang and fall, the atelier's own), ring (tilted), senrin (a thousand small crackling bursts). The worlds and the 404 have a strip of sky to launch in.
+- **Lanterns (chōchin).** A string of paper lanterns on a sagging rope. Brush past one and it swings on a damped spring; click it to light it or put it out. Light every lantern on the gate and the sky answers with a finale. The QA page's string reads 品質保証検査合格.
+- **Stalls with noren.** The gate's two doors are festival stalls. Each noren is four strips on springs: move the pointer through it and they swing with your speed; hover parts them; click and they fling aside and you go in. Past the noren: jars ticked off on shelves (QA) and paintings and brushes (the atelier).
+- **Bug hunt (QA).** Now and then a small bug walks in from an edge and wanders. Click it to catch it; a tally in the corner counts them ("Bug #3 caught. Logged.").
+- **Test runner (QA).** Run checks walks the experience as a test suite and stamps each role 合格.
+- **Kingyo-sukui (the atelier).** A blue tub of goldfish and a paper poi that follows the pointer. Press to dip, let go to scoop; fish scatter from the poi, slow ones are easier, and the paper weakens in the water and tears. Three poi, then a new set.
+- **Sparkler.** On the night pages the pointer throws a few short, branching sparks as it moves (senkō hanabi).
+- **Noren between pages.** Changing page, a noren in the next page's colour drops over this one; the next page lifts it.
+- Sound: fireworks can boom and crackle (synthesised); off until the Sound button on the gate is switched on.
 
 Pages:
 
-- Gate: the night garden. The ground is the night; fireflies (hotaru) drift over it under the doors, gather loosely round the pointer, and a click on the garden lets out more. A glass wind chime (furin) hangs from the eaves: hover swings it, a click rings it (a synthesised glass bell; sound only ever starts from a click). Two doors side by side (stacked on phones), lit screens in the dark. Each is a frame with a heavy lintel and a sill, two panels with pulls (hikite), and a garden behind: by day for QA, under the moon for the atelier. A vertical name plate (品質保証 / 柳のアトリエ) hangs on the lintel's corner. Under each frame is a caption with the door's name and an **Enter** block: on paper for QA, on the night for the atelier. A line under both says how the doors work. The whole door is a plain link.
-- QA: the name, the willow's shadow, then the engawa: four screens across the page, the middle pair sliding open on arrival to show the garden by day. Either middle screen can be dragged. Experience is a test suite: **Run checks** walks every role and entry in turn, flashing each field as it is asserted and stamping it 合格 (passed) in a ruled seal, with a progress bar and a summary line ("6 passed, 0 failed in 3.05s"); any one can be re-run by clicking it. Nothing is hidden before a run. Contact is a block in the night colour, with a Copy button beside the email. The page ends on a sill (a double rail) over the night, leading to the atelier.
-- The Willow Atelier: the same, after dark, with a koi pond where the engawa was, its screens pushed back to the sides. Moving over the water leaves ripples; a click drops food and the koi turn and come for it; some drift over to look at the pointer. The moon's reflection wobbles. Koi are in the one ink: white and pale bodies with royal and deep markings. Without scripts the still garden under the moon shows instead.
-- Worlds (`/world/`, not on the gate; reached from the closing band of the atelier): the same night, with more stars and the charts.
-- 404: a shoji wall with a hole in it, and nothing behind but the night. Click or tap the paper to poke more holes; the lattice stays where the paper is torn.
-
-The garden views are inline SVG (sky gradient, sun or moon, mist bars, four ridges), generated once and written into the pages.
+- Gate: the night. Name in the corner, then Sound, the clock and the language pill. The lantern string under the header, then the two stalls: QA's with a royal-and-white striped awning and a white noren 品質保証, the atelier's with a navy-and-pale awning and a navy noren アトリエ. Captions under them with the name and an Enter pill. A line tells you what you can do.
+- QA: paper. Bunting under the header. The name, the willow, the lantern string. Sections on the grid; the test runner and the bug hunt; contact on the night colour with a Copy button.
+- The Willow Atelier: the night. The name, the willow, the goldfish tub with the bag and poi count beside it, then the index of work.
+- Worlds: the night, with a strip of sky to launch fireworks in.
+- 404: the night: "Nothing behind this door", and a strip of sky.
 
 ## Colour
 
-One ink in five strengths, paper, and the night. Nothing else.
+One ink in five strengths, paper and the night, plus the bright blue of a firework.
 
 | Token | Value | Role |
 |---|---|---|
-| `--paper` | `#edf0f4` | the wall: light ground |
-| `--sheet` / `--shoji-paper` | `#f7f9fc` | screen paper, captions, name plates |
-| `--ai-1` | `#cfdcf1` | far ridge, mist |
-| `--ai-2` | `#8eabe3` | mid ridge; the ink as text on night |
-| `--ai-3` / `--royal` | `#2449d8` | actions |
-| `--ai-4` | `#17318f` | hover |
-| `--ai-5` / `--ink` / `--frame` | `#0c1b4d` | text, rules, the lacquered frames and lattice |
-| `--night` | `#0b1848` | dark ground |
-| `--night-2` | `#13235f` | panels at night; the dark page-change screens |
+| `--paper` | `#eef1f6` | QA ground |
+| `--sheet` | `#f8f9fc` | cards, the QA caption, white noren and awning stripes |
+| `--ai-1` | `#cfdcf1` | pale wash |
+| `--ai-2` | `#8eabe3` | pale blue: awning stripes at night, text accents on night |
+| `--ai-3` / `--royal` | `#2449d8` | actions, awning stripes, the goldfish tub |
+| `--spark` | `#5b7cff` | firework blue, hover, bunting at night |
+| `--ai-5` / `--ink` | `#0c1b4d` | text on paper, navy noren |
+| `--night` | `#0a1440` | dark ground |
+| `--night-2` | `#121f5c` | cards at night |
+| `--night-3` | `#050b2e` | stall posts, the top of the sky, hills |
 
-At night the screen paper is lit low (`#dbe3f2`). Night text: `#f1f4fa` strong, `#c5cfe8` body, `#94a2c8` muted.
+Fireworks use white, `#dfe7f7`, `#c9d6f0`, `#8eabe3`, `#5b7cff` and royal. Lit lanterns glow blue-white.
 
 ## Type
 
-- Shippori Mincho B1 500 to 800 for display: names, titles, section names. A mincho with a brushed finish, covering Latin and Japanese.
-- Zen Kaku Gothic New for text in every language; DM Mono for the clock, dates and small labels.
+- Dela Gothic One for display: names, titles, section names, noren and lantern characters. One weight; faux bold is switched off.
+- Zen Maru Gothic for text in every language; IBM Plex Mono for the clock, dates and counts.
 
-## Shape and line
+## Shape
 
-- Square corners everywhere (`--radius: 2px`).
-- Frames are thick and solid: a heavier lintel on top, a sill below. The lattice is 2px bars in the frame colour, three columns by seven rows on a door.
-- The sticky header ends in a double rule, like the top rail of a screen. Hairlines (`--line`) only divide rows inside a block.
-- Japanese section names sit in a small ruled box. A faint paper grain lies over everything.
+- Anything you press is a pill (`--radius: 999px`): buttons, the language switcher, Sound, tags. Cards are soft (`--radius-box: 14px`).
+- Section names in Japanese sit on a filled tag.
+- Bunting under the sticky header: two colours of triangular flag.
+- A faint paper grain lies over everything.
 
 ## Motion
 
-- Arrival: the screens open from the middle (0.85s); the title is revealed the same way, from the middle out; the engawa's middle pair slides open after 0.7s.
-- Gate: hover parts a door slightly; drag follows the hand; opening takes 0.8s, then a short step into the garden (the view scales up) before the page-change screens close.
-- Ambient: the willow and bamboo sway, the stars twinkle, the lantern trails the pointer.
-- Reduced motion: no sway, no twinkle, no lantern movement, the engawa is already open, fireflies and koi are a still frame, the test runner stamps at once, and page changes are a short fade.
+- Arrival: the noren lifts (0.8s); titles lift in out of a blur.
+- Ambient: lanterns sway, the willow sways, fireworks go up on the gate and in the sky strips.
+- Physics: lanterns and noren strips are damped springs driven by the pointer's speed.
+- Reduced motion: no autoplay fireworks (a click paints one still burst), no sparkler, no swinging or sway, no bugs, a still goldfish tub, the test runner stamps at once, and page changes are a short fade.

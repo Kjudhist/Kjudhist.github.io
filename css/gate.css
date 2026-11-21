@@ -1,23 +1,35 @@
 /* ==========================================================================
-   Gate: two doors, each a pair of shoji in a lacquered frame. Behind the
-   QA screens is the garden by day; behind the atelier's, the same garden
-   at night. Bamboo throws its shadow on the day paper, the willow on the
-   night paper, and both shadows slide away from the lantern.
-
-   Drag a pair apart and it slides open under your hand; let go past the
-   middle and you go in. A click (or Enter) slides it open for you. The
-   whole door is a plain link underneath (js/gate.js). Also the 404.
+   Gate: a summer festival at night. The whole window is sky (fireworks,
+   js/hanabi.js); a string of lanterns hangs under the header; two festival
+   stalls are the doors. QA's stall has a royal-and-white awning and a white
+   noren reading 品質保証; the atelier's has a navy awning and a navy noren
+   reading アトリエ. Glimpsed past each noren: jars ticked off on shelves,
+   and paintings and brushes. Also the 404.
    ========================================================================== */
 
 body.gate {
-  /* at night the lacquered frames are darker than the sky, so they read */
-  --frame: #040a29;
   position: relative;
-  isolation: isolate;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
+  isolation: isolate;
+}
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.gate .g-top,
+.gate .lanterns,
+.gate .g-main,
+.gate .credit {
+  position: relative;
+  z-index: 1;
 }
 
 .g-top {
@@ -26,19 +38,25 @@ body.gate {
   justify-content: space-between;
   gap: 1rem 2rem;
   padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
+  pointer-events: none;
+}
+
+.g-top > * {
+  pointer-events: auto;
 }
 
 .g-name {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.1;
+  text-shadow: 0 0 1.2rem rgba(91, 124, 255, 0.35);
 }
 
 .g-meta {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.1rem;
 }
 
 .g-clock {
@@ -53,11 +71,60 @@ body.gate {
   color: var(--fg-strong);
 }
 
+/* sound: off until you ask for it */
+.sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 36px;
+  padding: 0 0.85rem 0 0.35rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--rule) var(--line-strong);
+  color: var(--fg);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.sound__icon {
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: var(--line);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.sound[aria-pressed="true"] {
+  background: var(--royal);
+  box-shadow: none;
+  color: #fff;
+}
+
+.sound[aria-pressed="true"] .sound__icon {
+  background: #fff;
+  color: var(--royal);
+}
+
+.lanterns--gate {
+  margin: 0.4rem var(--gutter) 0;
+}
+
 .g-main {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: clamp(0.9rem, 2vw, 1.4rem) var(--gutter) 0.25rem;
+  padding: 0 var(--gutter) 0.25rem;
+  pointer-events: none;
+}
+
+.g-main > * {
+  pointer-events: auto;
 }
 
 .g-intro {
@@ -69,274 +136,250 @@ body.gate {
   font-size: 0.82rem;
   color: var(--muted);
   text-align: center;
+  pointer-events: none;
 }
 
 /* --------------------------------------------------------------------------
-   The doors
+   The stalls
    -------------------------------------------------------------------------- */
 
-.g-doors {
-  position: relative;
+.g-stalls {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1rem, 2.4vw, 2rem);
-  min-height: 24rem;
+  gap: clamp(1.25rem, 3.5vw, 3rem);
+  min-height: 22rem;
+  padding-top: 1rem;
 }
 
-.door {
-  --open: 0;
-  --peek: 0;
+.stall {
+  --awning-a: var(--royal);
+  --awning-b: #f2f5fc;
+  --noren: #f2f5fc;
+  --noren-ink: var(--royal);
+  --post: #050b2e;
   position: relative;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0.9rem;
   color: var(--ink);
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out);
   -webkit-tap-highlight-color: transparent;
   -webkit-user-drag: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
 
-/* the screens part a finger's width when you come near */
-.door:hover,
-.door:focus-visible {
-  --peek: 0.07;
+.stall--art {
+  --awning-a: #0c1b4d;
+  --awning-b: var(--ai-2);
+  --noren: #0c1b4d;
+  --noren-ink: #dfe7f7;
 }
 
-.door.is-open,
-.door.is-dragging {
-  --peek: 0;
+.stall:focus-visible {
+  outline: 3px solid var(--royal-soft);
+  outline-offset: 6px;
+  border-radius: var(--radius-box);
 }
 
-.door:focus-visible {
-  outline: 3px solid var(--royal);
-  outline-offset: 4px;
-}
-
-/* the frame: a heavy lintel on top, a sill below, posts at the sides */
-.door__frame {
+.stall__booth {
   position: relative;
-  min-height: 13rem;
-  overflow: hidden;
-  border: 0.8rem solid var(--frame);
-  border-top-width: 1.5rem;
-  border-bottom-width: 1.1rem;
-  background: var(--frame);
-  /* lit screens in the dark garden */
-  box-shadow: 0 0 3.5rem rgba(142, 171, 227, 0.14);
-  cursor: grab;
-  touch-action: pan-y;
+  min-height: 12rem;
+  margin-top: 0.9rem;
+  border-inline: 0.7rem solid var(--post);
+  border-bottom: 0.5rem solid var(--post);
+  cursor: pointer;
 }
 
-.door.is-dragging .door__frame {
-  cursor: grabbing;
-}
-
-/* the garden behind: it comes forward a little as the screens part */
-.door__room {
+/* the awning: striped, with a scalloped edge, wider than the posts */
+.stall__roof {
   position: absolute;
-  inset: 0;
-  transform: scale(calc(1.08 - var(--open) * 0.08));
-  transition: transform 0.9s var(--ease-out);
+  top: -0.9rem;
+  left: -1.4rem;
+  right: -1.4rem;
+  z-index: 3;
+  height: 3.2rem;
+  border-radius: 0.6rem 0.6rem 0 0;
+  background: repeating-linear-gradient(90deg, var(--awning-a) 0 2.2rem, var(--awning-b) 2.2rem 4.4rem);
+  box-shadow: inset 0 0.5rem 0 rgba(5, 11, 46, 0.25);
 }
 
-.door__room svg {
-  width: 100%;
-  height: 100%;
-}
-
-.door.is-entering .door__room {
-  transform: scale(1.14);
-  transition-duration: 0.6s;
-}
-
-.door__panel {
+.stall__roof::after {
+  content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: 50%;
-  transition: transform 0.85s var(--ease-out);
-}
-
-.door__panel--l {
+  top: 100%;
   left: 0;
-  transform: translateX(calc((var(--open) + var(--peek)) * -100%));
-}
-
-.door__panel--r {
   right: 0;
-  transform: translateX(calc((var(--open) + var(--peek)) * 100%));
+  height: 1.1rem;
+  background:
+    radial-gradient(circle at 50% 0, var(--awning-a) 1.1rem, transparent calc(1.1rem + 1px)) 0 0 / 4.4rem 1.1rem repeat-x,
+    radial-gradient(circle at 50% 0, var(--awning-b) 1.1rem, transparent calc(1.1rem + 1px)) 2.2rem 0 / 4.4rem 1.1rem repeat-x;
 }
 
-.door.is-dragging .door__panel,
-.door.is-dragging .door__cast {
-  transition: none;
-}
-
-.door__panel--l .door__hikite {
-  right: 0.75rem;
-}
-
-.door__panel--r .door__hikite {
-  left: 0.75rem;
-}
-
-/* The shadow stays put in the world while the paper slides under it, so
-   each panel's shadow layer is the width of the whole door and moves the
-   other way. The lantern nudges it too (--sx, --sy from js/main.js). */
-.door__cast {
-  --sx: 0px;
-  --sy: 0px;
+/* inside the stall, lit */
+.stall__inside {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: 200%;
-  translate: var(--sx) var(--sy);
-  transition: transform 0.85s var(--ease-out), translate 1.2s var(--ease-out);
+  inset: 2.3rem 0 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse 90% 80% at 50% 30%, #eaf0fd, #b8c8ee 55%, #7f97d6);
+  transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
 }
 
-.door__panel--l .door__cast {
-  left: 0;
-  transform: translateX(calc((var(--open) + var(--peek)) * 50%));
+.stall--art .stall__inside {
+  background: radial-gradient(ellipse 90% 80% at 50% 30%, #2a3f9a, #13235f 60%, #0a1440);
 }
 
-.door__panel--r .door__cast {
-  left: -100%;
-  transform: translateX(calc((var(--open) + var(--peek)) * -50%));
-}
-
-.door__cast svg {
+.stall__inside svg {
   width: 100%;
   height: 100%;
-  filter: blur(var(--cast-blur));
 }
 
-.door__cast path,
-.door__cast rect {
-  fill: var(--cast);
+.in-wood {
+  fill: #0c1b4d;
 }
 
-.door__cast .willow__stem {
+.in-jars rect {
+  fill: rgba(36, 73, 216, 0.22);
+  stroke: var(--royal);
+  stroke-width: 2;
+}
+
+.in-ticks path {
   fill: none;
-  stroke: var(--cast);
-  stroke-width: 1.6;
+  stroke: var(--royal);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-/* the day door: bright paper, soft bamboo */
-.door--qa {
-  --cast: rgba(12, 27, 77, 0.2);
-  --cast-blur: 2px;
+.in-counter {
+  fill: #0c1b4d;
 }
 
-/* the night door: paper lit from inside, the willow sharp against it */
-.door--art {
-  --cast: rgba(12, 27, 77, 0.62);
-  --cast-blur: 0.6px;
+.stall--art .in-counter {
+  fill: #050b2e;
 }
 
-.door--art .door__panel {
-  background: radial-gradient(ellipse 120% 80% at 50% 35%, #f4f6fb, #cdd8ef);
+.in-frame {
+  fill: #f2f5fc;
+  stroke: #8eabe3;
+  stroke-width: 3;
 }
 
-.door--art .door__panel--l {
-  background-position: 0 0;
-  background-size: 200% 100%;
+.in-paint {
+  fill: var(--royal);
 }
 
-.door--art .door__panel--r {
-  background-position: 100% 0;
-  background-size: 200% 100%;
+.in-moon {
+  fill: #8eabe3;
 }
 
-/* the bamboo leaves stir */
-.door__cast .sway {
-  transform-box: view-box;
-  transform-origin: var(--o);
-  animation: leaf var(--t) ease-in-out var(--d) infinite alternate;
+.in-line {
+  fill: none;
+  stroke: var(--royal);
+  stroke-width: 3;
+  stroke-linecap: round;
 }
 
-@keyframes leaf {
-  from {
-    transform: rotate(-2.5deg);
-  }
-
-  to {
-    transform: rotate(2deg);
-  }
+.in-brushes rect {
+  fill: #8eabe3;
 }
 
-/* the name plate on the lintel's corner, set vertically */
-.door__tag {
+.in-brushes path {
+  stroke: #dfe7f7;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* the noren: four strips on a rod, each swinging from the top (js/gate.js) */
+.noren {
   position: absolute;
-  top: 0.9rem;
-  left: 1.6rem;
-  z-index: 4;
-  padding: 0.7rem 0.35rem;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--frame), 0 0.2rem 0 var(--frame);
+  top: 2.3rem;
+  left: 0.3rem;
+  right: 0.3rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.35rem;
+  height: 46%;
+  pointer-events: none;
+}
+
+.noren::before {
+  content: "";
+  position: absolute;
+  top: -0.3rem;
+  left: -0.6rem;
+  right: -0.6rem;
+  height: 0.45rem;
+  border-radius: 0.3rem;
+  background: var(--post);
+}
+
+.noren__strip {
+  --a: 0deg;
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  padding-top: clamp(0.8rem, 2vw, 1.4rem);
+  border-radius: 0 0 0.35rem 0.35rem;
+  background: var(--noren);
+  box-shadow: inset 0 -0.55rem 0 rgba(5, 11, 46, 0.12);
+  color: var(--noren-ink);
   font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.22em;
-  color: var(--ink);
-  writing-mode: vertical-rl;
-  white-space: nowrap;
+  font-size: clamp(1.5rem, 1rem + 2.2vw, 3rem);
+  line-height: 1;
+  transform: rotate(var(--a));
+  transform-origin: 50% 0;
 }
 
-.door--art .door__tag {
-  left: auto;
-  right: 1.6rem;
+.noren__strip b {
+  font-weight: 400;
 }
 
-/* the caption under the frame: by day on paper, by night on the night */
-.door__label {
+/* the caption under each stall */
+.stall__label {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 0.2rem 1.5rem;
-  padding: 1rem 1.1rem 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-box);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--frame);
 }
 
-.door--art .door__label {
+.stall--art .stall__label {
   background: var(--night-2);
-  box-shadow: none;
+  box-shadow: inset 0 0 0 1px rgba(223, 231, 247, 0.18);
   color: #f1f4fa;
 }
 
-.door__no {
+.stall__no {
   grid-column: 1 / -1;
   color: var(--grey);
 }
 
-.door--art .door__no {
+.stall--art .stall__no {
   color: #94a2c8;
 }
 
-.door__title {
+.stall__title {
   grid-column: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 0.9rem + 1.6vw, 2.5rem);
-  font-weight: 800;
+  font-size: clamp(1.5rem, 0.9rem + 1.5vw, 2.4rem);
   line-height: 1.1;
 }
 
-.door__sub {
+.stall__sub {
   grid-column: 1;
   font-size: 0.92rem;
   color: var(--ink-2);
 }
 
-.door--art .door__sub {
+.stall--art .stall__sub {
   color: #c5cfe8;
 }
 
-.door__cta {
+.stall__cta {
   grid-column: 2;
   grid-row: 2 / span 2;
   display: inline-flex;
@@ -349,26 +392,33 @@ body.gate {
   color: #fff;
   font-weight: 700;
   white-space: nowrap;
-  transition: background-color 0.3s var(--ease);
+  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease-back);
 }
 
-.door:hover .door__cta,
-.door:focus-visible .door__cta {
-  background: var(--ai-4);
+.stall:hover .stall__cta,
+.stall:focus-visible .stall__cta {
+  background: var(--spark);
+  transform: scale(1.04);
 }
 
-.door--art:hover .door__cta,
-.door--art:focus-visible .door__cta {
-  background: #3a5ce6;
-}
-
-.door:hover .door__cta .arrow,
-.door:focus-visible .door__cta .arrow {
+.stall:hover .stall__cta .arrow,
+.stall:focus-visible .stall__cta .arrow {
   transform: translateX(0.3rem);
 }
 
-.g-doors.has-open .door:not(.is-open) {
+.stall:hover .stall__inside {
+  filter: brightness(1.08);
+}
+
+/* going in: the noren flings aside (js/gate.js) and you step up to the counter */
+.stall.is-open .stall__inside {
+  transform: scale(1.12);
+  filter: brightness(1.15);
+}
+
+.g-stalls.has-open .stall:not(.is-open) {
   opacity: 0.3;
+  transform: scale(0.97);
 }
 
 .gate .credit {
@@ -376,137 +426,16 @@ body.gate {
   padding-bottom: 1.5rem;
 }
 
-/* the night garden: the gate sits on the dark ground, fireflies drift over
-   it under the doors, and a wind chime hangs from the eaves */
-.gate .g-top,
-.gate .g-main,
-.gate .credit {
-  position: relative;
-  z-index: 1;
-}
-
-.hotaru {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* it takes its own place in the header row, before the clock, so it can
-   never sit on top of anything; the bell and strip hang out of the box and
-   the cord runs up out of the window */
-.furin {
-  position: relative;
-  z-index: 3;
-  flex: none;
-  align-self: stretch;
-  width: 2.2rem;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.furin svg {
-  position: absolute;
-  top: -1.3rem;
-  left: 0;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
-
-.furin__cord,
-.furin__line {
-  fill: none;
-  stroke: #8eabe3;
-  stroke-width: 1.2;
-}
-
-.furin__bell {
-  fill: rgba(223, 231, 247, 0.16);
-  stroke: #dfe7f7;
-  stroke-width: 1.4;
-}
-
-.furin__rim {
-  stroke: #dfe7f7;
-  stroke-width: 1.4;
-}
-
-.furin__clapper {
-  fill: #dfe7f7;
-}
-
-.furin__strip rect {
-  fill: #f7f9fc;
-}
-
-.furin__strip path {
-  stroke: var(--royal);
-  stroke-width: 1.2;
-}
-
-/* it stirs in the air on its own; rung, it swings and settles */
-.furin__swing {
-  transform-box: view-box;
-  transform-origin: 30px 44px;
-  animation: breeze 4.5s ease-in-out infinite alternate;
-}
-
-.furin.is-ringing .furin__swing {
-  animation: ring 1.8s var(--ease-out);
-}
-
-@keyframes breeze {
-  from {
-    transform: rotate(-2deg);
-  }
-
-  to {
-    transform: rotate(2.5deg);
-  }
-}
-
-@keyframes ring {
-  15% {
-    transform: rotate(14deg);
-  }
-
-  35% {
-    transform: rotate(-10deg);
-  }
-
-  55% {
-    transform: rotate(6deg);
-  }
-
-  75% {
-    transform: rotate(-3deg);
-  }
-
-  to {
-    transform: rotate(0);
-  }
-}
-
-.furin:focus-visible {
-  outline-offset: 2px;
-}
-
 /* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the doors stack
+   Narrower screens: Enter drops under the name; on phones the stalls stack
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1099.98px) {
-  .door__label {
+  .stall__label {
     grid-template-columns: 1fr;
   }
 
-  .door__cta {
+  .stall__cta {
     grid-column: 1;
     grid-row: auto;
     justify-self: start;
@@ -522,67 +451,36 @@ body.gate {
   }
 
   .g-meta {
+    flex-wrap: wrap;
     justify-content: space-between;
+    gap: 0.75rem;
   }
 
-  .g-doors {
+  .g-clock {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .g-stalls {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
 
-  .door__frame {
+  .stall__booth {
     aspect-ratio: 5 / 4;
-    border-width: 1.1rem 0.6rem 0.8rem;
-  }
-
-  .door__tag {
-    top: 0.6rem;
-    left: 1.1rem;
-    padding: 0.55rem 0.3rem;
-    font-size: 0.85rem;
-  }
-
-  .door--art .door__tag {
-    right: 1.1rem;
-  }
-
-  .g-name {
-    padding-right: 2.75rem;
-  }
-
-  /* on a phone the header stacks: the chime hangs in the top corner */
-  .furin {
-    position: absolute;
-    top: 0;
-    right: 0.75rem;
-    width: 2.1rem;
-    height: 5.3rem;
-  }
-
-  .furin svg {
-    top: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door,
-  .door__panel,
-  .door__cast,
-  .door__room {
+  .stall,
+  .stall__inside,
+  .stall__cta {
     transition-duration: 0.01s;
-  }
-
-  .door__cast .sway,
-  .furin__swing,
-  .furin.is-ringing .furin__swing {
-    animation: none;
   }
 }
 
 /* ==========================================================================
-   404: a shoji with a hole in it, and nothing behind but the night.
-   Click or tap the paper to poke more (js/main.js). The lattice stays where
-   the paper is torn, as it would.
+   404: lost at the festival. Nothing here but the sky; click it.
    ========================================================================== */
 
 body.lost-page {
@@ -615,7 +513,7 @@ body.lost-page {
   margin-top: 1rem;
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 800;
+  font-weight: 400;
   line-height: 1.1;
   color: var(--fg-strong);
 }
@@ -629,72 +527,4 @@ html[lang="ja"] .lost__title {
   max-width: 36rem;
   margin: 1.5rem 0 2rem;
   font-size: 1.1rem;
-}
-
-.poke__hint {
-  padding: 0 var(--gutter) 0.6rem;
-  font-size: 0.82rem;
-  color: var(--muted);
-}
-
-.poke__wall {
-  --kumiko-size: 7.5rem 100%, 100% 25%;
-  height: clamp(12rem, 28vw, 22rem);
-  background: var(--frame);
-  border-block: 0.6rem solid var(--frame);
-  box-shadow: none;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.poke__wall::after {
-  inset: 0;
-}
-
-.poke__night {
-  position: absolute;
-  inset: 0;
-}
-
-.poke__night svg {
-  width: 100%;
-  height: 100%;
-}
-
-/* the paper, with every hole cut out of it (js/main.js adds the holes) */
-.poke__paper {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--shoji-paper);
-  -webkit-mask-image: radial-gradient(ellipse 46px 38px at 64% 48%, transparent 94%, #000 100%);
-  mask-image: radial-gradient(ellipse 46px 38px at 64% 48%, transparent 94%, #000 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-}
-
-/* torn fibres round each hole */
-.poke__tear {
-  position: absolute;
-  z-index: 1;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(12, 27, 77, 0.16), 0 0 0.6rem 0.15rem rgba(12, 27, 77, 0.12);
-  outline: 1.5px dashed rgba(12, 27, 77, 0.28);
-  outline-offset: 2px;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  animation: tear 0.35s var(--ease-out) both;
-}
-
-@keyframes tear {
-  from {
-    transform: translate(-50%, -50%) scale(0.3);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .poke__tear {
-    animation: none;
-  }
 }

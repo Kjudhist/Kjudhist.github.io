@@ -2,13 +2,13 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is shoji (障子): sliding screens of paper in a lacquered frame,
-   with a thin wooden lattice (kumiko) over the paper. The site is a house
-   at night. Each door is a pair of screens you slide open; every page
-   change is a pair of screens closing and opening again; a lantern follows
-   the pointer and shows the lattice wherever its light falls, and the
-   willow is a shadow cast on the paper. Shippori Mincho B1 for display,
-   Zen Kaku Gothic New for text in every language, DM Mono for small facts.
+   The world is matsuri (祭): a Japanese summer festival at night, in one
+   blue ink. Paper lanterns on a sagging rope that swing when you brush past
+   and light when you click; fireworks you launch by clicking the sky; stalls
+   with split noren curtains that part as you walk through; a sparkler for a
+   pointer on the night pages; bunting under the header. Page changes are a
+   noren dropping and lifting. Dela Gothic One for display, Zen Maru Gothic
+   for text in every language, IBM Plex Mono for small facts.
    ========================================================================== */
 
 :root {
@@ -21,27 +21,20 @@
 
   --royal: var(--ai-3);
   --royal-2: var(--ai-4);
-  --royal-soft: var(--ai-2); /* the ink as text on the night ground */
+  --royal-soft: var(--ai-2);
+  --spark: #5b7cff;   /* the bright blue of a firework */
 
-  --paper: #edf0f4;   /* the wall */
-  --sheet: #f7f9fc;
+  --paper: #eef1f6;
+  --sheet: #f8f9fc;
   --ink: var(--ai-5);
   --ink-2: #2b3a66;
   --grey: #5c6788;
-  --night: #0b1848;
-  --night-2: #13235f;
+  --night: #0a1440;
+  --night-2: #121f5c;
+  --night-3: #050b2e;
+  --frame: #0c1b4d;
 
-  /* the screens */
-  --frame: #0c1b4d;    /* lacquered wood */
-  --frame-w: 0.35rem;
-  --shoji-paper: #f7f9fc;
-  --kumiko-light:
-    linear-gradient(90deg, rgba(12, 27, 77, 0.62) 2px, transparent 0),
-    linear-gradient(rgba(12, 27, 77, 0.62) 2px, transparent 0);
-  --kumiko-img: var(--kumiko-light);
-  --kumiko-size: calc(100% / 3) 100%, 100% calc(100% / 7);
-
-  /* light pages (gate, QA, 404) */
+  /* light pages (QA) */
   --bg: var(--paper);
   --bg-raised: var(--sheet);
   --fg: var(--ink-2);
@@ -54,29 +47,30 @@
   --accent-text: var(--royal);
   --accent-fg: #fff;
   --focus: var(--royal);
-  --glow: rgba(255, 255, 255, 0.85);
-  --lattice: rgba(12, 27, 77, 0.075);
-  --shade: rgba(12, 27, 77, 0.26);
-  --shade-blur: 1.2px;
+  --rope: rgba(12, 27, 77, 0.55);
+  --lantern-cap: #0c1b4d;
+  --flag-a: var(--royal);
+  --flag-b: var(--ai-2);
 
-  --font: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Shippori Mincho B1", "Noto Serif JP", "Yu Mincho", serif;
-  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font: "Zen Maru Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Dela Gothic One", "Zen Maru Gothic", "Hiragino Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
 
-  /* screens have square corners: everything does */
-  --radius: 2px;
-  --radius-box: 2px;
+  /* festival shapes: anything you press is a pill, cards are soft */
+  --radius: 999px;
+  --radius-box: 14px;
   --rule: 1.5px;
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-back: cubic-bezier(0.34, 1.4, 0.64, 1);
 
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* the atelier and the worlds: the house at night */
+/* the gate, the atelier, the worlds and the 404: the festival at night */
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
@@ -90,12 +84,10 @@
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
   --focus: var(--royal-soft);
-  --glow: rgba(110, 140, 230, 0.16);
-  --lattice: rgba(223, 231, 247, 0.07);
-  --shade: rgba(142, 171, 227, 0.42);
-  --shade-blur: 0.4px;
-  /* paper at night, lit low */
-  --shoji-paper: #dbe3f2;
+  --rope: rgba(223, 231, 247, 0.45);
+  --lantern-cap: #050b2e;
+  --flag-a: var(--spark);
+  --flag-b: #dfe7f7;
 }
 
 .theme-light {
@@ -109,9 +101,6 @@
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent-text: var(--royal);
   --focus: var(--royal);
-  --glow: rgba(255, 255, 255, 0.85);
-  --lattice: rgba(12, 27, 77, 0.075);
-  --shade: rgba(12, 27, 77, 0.26);
 }
 
 /* --------------------------------------------------------------------------
@@ -126,6 +115,8 @@
 
 html {
   overflow-x: clip;
+  /* Dela Gothic One has a single weight: never fake a bold of it */
+  font-synthesis: none;
   background: var(--bg);
   color: var(--fg);
   -webkit-text-size-adjust: 100%;
@@ -138,8 +129,7 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  /* clear, so the lantern under the page shows through (html carries the ground) */
-  background-color: transparent;
+  background-color: var(--bg);
   font-family: var(--font);
   font-weight: 400;
   font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
@@ -293,8 +283,21 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   position: sticky;
   top: 0;
   background-color: var(--bg);
-  /* the lintel: a double rule, like the top rail of a screen */
-  box-shadow: 0 var(--rule) 0 var(--key), 0 calc(var(--rule) + 3px) 0 var(--bg), 0 calc(var(--rule) * 2 + 3px) 0 var(--key);
+  box-shadow: 0 var(--rule) 0 var(--key);
+}
+
+/* festival bunting strung under the header: two colours of flag, alternating */
+.topbar--sticky::after {
+  content: "";
+  position: absolute;
+  top: calc(100% + var(--rule));
+  left: 0;
+  right: 0;
+  height: 0.75rem;
+  pointer-events: none;
+  background:
+    conic-gradient(from 140deg at 50% 0, var(--flag-a) 0 80deg, transparent 0) 0 0 / 3rem 0.75rem repeat-x,
+    conic-gradient(from 140deg at 50% 0, var(--flag-b) 0 80deg, transparent 0) 1.5rem 0 / 3rem 0.75rem repeat-x;
 }
 
 .topbar__end {
@@ -506,6 +509,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .lang {
   display: flex;
   align-items: center;
+  overflow: hidden;
   border-radius: var(--radius);
   box-shadow: inset 0 0 0 var(--rule) var(--key);
 }
@@ -657,24 +661,26 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.25rem + 1.1vw, 2.3rem);
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   letter-spacing: 0;
   color: var(--fg-strong);
 }
 
-/* the Japanese name of a section, boxed like a name plate */
+/* the Japanese name of a section, on a festival tag */
 .sec-head__jp,
 .tag {
   display: inline-block;
-  padding: 0.2rem 0.55rem 0.25rem;
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  padding: 0.25rem 0.8rem 0.3rem;
+  border-radius: var(--radius);
+  background: var(--key);
   font-family: var(--font-jp);
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.4;
   letter-spacing: 0.14em;
-  color: var(--fg-strong);
+  white-space: nowrap;
+  color: var(--bg);
 }
 
 .sec-head__jp {
@@ -721,7 +727,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Washi: a faint paper grain over everything
+   A faint paper grain over everything
    -------------------------------------------------------------------------- */
 
 body::before {
@@ -730,215 +736,232 @@ body::before {
   inset: 0;
   z-index: 120;
   pointer-events: none;
-  opacity: 0.45;
+  opacity: 0.4;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* --------------------------------------------------------------------------
-   A shoji: paper in a lacquered frame, with the kumiko (the thin lattice)
-   over it. Used for the gate doors, the engawa strips, the page change
-   and the 404 wall. A shadow layer inside sits between paper and lattice.
+   Chochin: paper lanterns on a sagging rope (js/main.js hangs them, swings
+   them and lights them). Unlit they are dim paper; lit they glow blue-white.
    -------------------------------------------------------------------------- */
 
-.shoji {
+.lanterns {
   position: relative;
-  overflow: hidden;
-  background-color: var(--shoji-paper);
-  box-shadow: inset 0 0 0 var(--frame-w) var(--frame);
+  height: clamp(8.5rem, 6rem + 4vw, 10.5rem);
+  pointer-events: none;
 }
 
-.shoji::after {
+.lanterns__rope {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3rem;
+  overflow: visible;
+}
+
+.lanterns__rope path {
+  fill: none;
+  stroke: var(--rope);
+  stroke-width: 1.5;
+}
+
+.chochin {
+  --swing: 0deg;
+  --w: clamp(3rem, 2rem + 1.6vw, 4rem);
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--w);
+  padding-top: 0.55rem;
+  transform: translateX(-50%) rotate(var(--swing));
+  transform-origin: 50% 0;
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* the cord from the rope */
+.chochin::before {
   content: "";
   position: absolute;
-  inset: var(--frame-w);
-  z-index: 2;
-  pointer-events: none;
-  background-image: var(--kumiko-img);
-  background-size: var(--kumiko-size);
+  top: 0;
+  width: 1.5px;
+  height: 0.6rem;
+  background: var(--rope);
 }
 
-/* the recessed pull on the side you slide from */
-.door__hikite {
-  position: absolute;
-  top: 50%;
-  z-index: 3;
-  width: 0.7rem;
-  height: 2.4rem;
-  border-radius: 0.35rem;
-  background: rgba(12, 27, 77, 0.1);
-  box-shadow: inset 0 0 0 1.5px var(--frame);
-  transform: translateY(-50%);
+.chochin__cap {
+  width: 62%;
+  height: 0.38rem;
+  border-radius: 2px;
+  background: var(--lantern-cap);
+}
+
+.chochin__body {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: calc(var(--w) * 1.32);
+  border-radius: 46% / 40%;
+  background:
+    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.2) 0.42rem calc(0.42rem + 1px)),
+    radial-gradient(ellipse at 50% 45%, #b8c4e2, #7f8fbb);
+  color: rgba(12, 27, 77, 0.7);
+  font-family: var(--font-display);
+  font-size: calc(var(--w) * 0.44);
+  line-height: 1;
+  transition: box-shadow 0.45s var(--ease-out), color 0.3s var(--ease), background 0.3s var(--ease);
+  animation: idle var(--sway) ease-in-out infinite alternate;
+  transform-origin: 50% 0;
+}
+
+.chochin.is-lit .chochin__body {
+  background:
+    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.12) 0.42rem calc(0.42rem + 1px)),
+    radial-gradient(ellipse at 50% 42%, #ffffff, #e6eeff 55%, #b5c6f2);
+  box-shadow: 0 0 1.3rem 0.25rem rgba(142, 171, 227, 0.55), 0 0 4rem 1.2rem rgba(91, 124, 255, 0.22);
+  color: var(--ink);
+}
+
+.chochin__tassel {
+  width: 2px;
+  height: 0.9rem;
+  background: var(--lantern-cap);
+}
+
+.chochin:hover .chochin__body {
+  filter: brightness(1.08);
+}
+
+@keyframes idle {
+  from {
+    transform: rotate(-1.5deg);
+  }
+
+  to {
+    transform: rotate(1.5deg);
+  }
+}
+
+/* every lantern lit: they pulse together */
+.lanterns.is-all-lit .chochin__body {
+  animation: idle var(--sway) ease-in-out infinite alternate, all-lit 0.9s var(--ease-out) 3;
+}
+
+@keyframes all-lit {
+  50% {
+    box-shadow: 0 0 2rem 0.6rem rgba(142, 171, 227, 0.8), 0 0 6rem 2rem rgba(91, 124, 255, 0.4);
+  }
+}
+
+@media (max-width: 719.98px) {
+  .lanterns {
+    height: 6.5rem;
+  }
+
+  .chochin {
+    --w: 2.1rem;
+  }
 }
 
 /* --------------------------------------------------------------------------
-   The lantern. A soft light follows the pointer (or the last touch), and
-   where it falls you can see the lattice of the screen behind the page.
-   It sits under everything, so text and panels stay crisp over it.
-   js/main.js moves it.
+   A strip of night sky to launch fireworks in (js/hanabi.js), with a line
+   of hills along the bottom
    -------------------------------------------------------------------------- */
 
-.lantern {
-  --lx: 72vw;
-  --ly: 18vh;
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(circle 26rem at var(--lx) var(--ly), var(--glow), transparent 72%);
+.skystrip {
+  position: relative;
+  height: clamp(14rem, 30vw, 24rem);
+  overflow: hidden;
+  background: linear-gradient(var(--night-3), var(--night) 65%, #13235f);
+  cursor: crosshair;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.lantern::after {
+.skystrip::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(90deg, var(--lattice) 1.5px, transparent 0),
-    linear-gradient(var(--lattice) 1.5px, transparent 0);
-  background-size: 7.5rem 10rem;
-  -webkit-mask-image: radial-gradient(circle 20rem at var(--lx) var(--ly), #000, transparent 78%);
-  mask-image: radial-gradient(circle 20rem at var(--lx) var(--ly), #000, transparent 78%);
+  inset: auto 0 0;
+  height: 22%;
+  background: var(--night-3);
+  clip-path: polygon(0 60%, 8% 40%, 17% 55%, 28% 22%, 39% 48%, 50% 30%, 61% 52%, 72% 18%, 83% 44%, 92% 30%, 100% 50%, 100% 100%, 0 100%);
+  pointer-events: none;
 }
 
-/* --------------------------------------------------------------------------
-   The engawa: a run of four screens across the page, the garden behind.
-   The middle pair slides open as the page arrives; drag either one to
-   slide it yourself (js/main.js).
-   -------------------------------------------------------------------------- */
-
-.engawa {
-  position: relative;
-  height: clamp(11rem, 24vw, 20rem);
-  overflow: hidden;
-  border-block: 0.6rem solid var(--frame);
-  background: var(--frame);
-  touch-action: pan-y;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.engawa__view {
+.skystrip__canvas {
   position: absolute;
   inset: 0;
-}
-
-.engawa__view svg {
   width: 100%;
   height: 100%;
 }
 
-.engawa__panel {
-  --o: 0;
+.skystrip__hint {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(var(--i) * 25%);
-  width: 25%;
+  left: var(--gutter);
+  bottom: 0.9rem;
   z-index: 1;
-  transform: translateX(calc(var(--o) * var(--dir) * 100%));
-  transition: transform 1.5s var(--ease-out);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius);
+  background: rgba(5, 11, 46, 0.7);
+  color: #dfe7f7;
+  font-size: 0.8rem;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
 }
 
-.engawa__panel[data-panel="0"] {
-  --i: 0;
-  --dir: 0;
+.skystrip.is-played .skystrip__hint {
+  opacity: 0;
 }
 
-.engawa__panel[data-panel="1"] {
-  --i: 1;
-  --dir: -1;
-  z-index: 2;
-  cursor: grab;
+/* the sparkler that follows the pointer on night pages */
+.senko {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-.engawa__panel[data-panel="2"] {
-  --i: 2;
-  --dir: 1;
-  z-index: 2;
-  cursor: grab;
-}
-
-.engawa__panel[data-panel="3"] {
-  --i: 3;
-  --dir: 0;
-}
-
-.engawa__panel[data-panel="1"] .door__hikite {
-  right: 0.9rem;
-}
-
-.engawa__panel[data-panel="2"] .door__hikite {
-  left: 0.9rem;
-}
-
-.engawa__panel[data-panel="0"] .door__hikite,
-.engawa__panel[data-panel="3"] .door__hikite {
-  display: none;
-}
-
-.engawa.is-dragging .engawa__panel {
-  transition: none;
-  cursor: grabbing;
-}
-
-/* the stars come out slowly */
-.view__stars {
-  animation: twinkle 6s ease-in-out infinite alternate;
-}
-
-@keyframes twinkle {
-  from {
-    opacity: 0.55;
-  }
-}
-
-/* a title is revealed the way a pair of screens opens: from the middle out */
+/* a title arrives the way a lantern catches: it lifts in out of a blur */
 .unveil {
-  /* room for descenders inside the clip */
-  padding-bottom: 0.16em;
-  margin-bottom: -0.16em;
   color: var(--fg-strong);
 }
 
 .js .unveil {
-  animation: unveil 1.2s var(--ease) 0.35s both;
+  animation: unveil 1s var(--ease-out) 0.3s both;
 }
 
 @keyframes unveil {
   from {
-    clip-path: inset(0 50% 0 50%);
-  }
-
-  to {
-    clip-path: inset(0 0 0 0);
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(0.35em) scale(0.97);
   }
 }
 
 /* --------------------------------------------------------------------------
-   The willow is a shadow on the paper, cast by the lantern: it sways on
-   its own clock, leans toward the pointer and slides away from the light
-   (js/main.js sets --lean, --sx and --sy). On the night pages it is
-   moonlit instead.
+   The willow: strands hanging from the top edge. Each sways on its own
+   clock and leans a little toward the pointer (js/main.js sets --lean).
    -------------------------------------------------------------------------- */
 
 .willow {
   --lean: 0;
-  --sx: 0px;
-  --sy: 0px;
   position: absolute;
   top: 0;
   right: clamp(0.5rem, 5vw, 5rem);
   z-index: 0;
   width: clamp(5.5rem, 19vw, 16rem);
   pointer-events: none;
-  translate: var(--sx) var(--sy);
-  transition: translate 1.2s var(--ease-out);
 }
 
 .willow svg {
   width: 100%;
   height: auto;
   overflow: visible;
-  filter: blur(var(--shade-blur));
 }
 
 .willow__strand,
@@ -968,12 +991,14 @@ body::before {
 
 .willow__stem {
   fill: none;
-  stroke: var(--shade);
+  stroke: var(--key);
   stroke-width: 1.4;
+  opacity: 0.6;
 }
 
 .willow__leaves {
-  fill: var(--shade);
+  fill: var(--accent-text);
+  opacity: 0.75;
 }
 
 .js .willow {
@@ -995,13 +1020,12 @@ body::before {
   }
 
   .willow__sway,
-  .view__stars {
+  .chochin__body,
+  .lanterns.is-all-lit .chochin__body {
     animation: none;
   }
 
-  .willow,
-  .willow__strand,
-  .engawa__panel {
+  .willow__strand {
     transition: none;
   }
 }
@@ -1033,8 +1057,8 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* Changing pages: a pair of screens slides shut over this page, and the
-   next page opens them again. The tone is the ground of the next page. */
+/* Changing pages: a noren (four strips of cloth on a rod) drops over this
+   page in the next page's colour; the next page lifts it. */
 .veil {
   position: fixed;
   inset: 0;
@@ -1043,93 +1067,62 @@ html.i18n-pending body {
 }
 
 .veil::before,
-.veil::after,
-html.is-arriving::before,
-html.is-arriving::after {
+html.is-arriving::before {
   content: "";
   position: fixed;
-  top: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 150;
-  width: 50.5%;
   pointer-events: none;
-  background-color: var(--veil-paper, var(--shoji-paper));
-  background-image: var(--veil-kumiko, var(--kumiko-img));
-  background-size: calc(100% / 3) 100%, 100% calc(100% / 6);
-  box-shadow: inset 0 0 0 0.45rem var(--frame);
-}
-
-.veil::before,
-html.is-arriving::before {
-  left: 0;
-}
-
-.veil::after,
-html.is-arriving::after {
-  right: 0;
-}
-
-.veil[data-tone="dark"],
-html.is-arriving[data-arrive="dark"] {
-  --veil-paper: #13235f;
-  --veil-kumiko:
-    linear-gradient(90deg, rgba(223, 231, 247, 0.3) 2px, transparent 0),
-    linear-gradient(rgba(223, 231, 247, 0.3) 2px, transparent 0);
+  background:
+    linear-gradient(var(--veil-rod, #050b2e) 0 0.9rem, transparent 0.9rem),
+    linear-gradient(transparent calc(100% - 1.4rem), var(--veil-hem, rgba(91, 124, 255, 0.9)) calc(100% - 1.4rem) calc(100% - 0.9rem), transparent calc(100% - 0.9rem)),
+    repeating-linear-gradient(90deg, var(--veil-cloth, var(--night)) 0 calc(25% - 5px), transparent calc(25% - 5px) 25%);
 }
 
 .veil[data-tone="light"],
 html.is-arriving[data-arrive="light"] {
-  --veil-paper: #f7f9fc;
-  --veil-kumiko: var(--kumiko-light);
+  --veil-cloth: #f2f5fc;
+  --veil-rod: #0c1b4d;
+  --veil-hem: rgba(36, 73, 216, 0.85);
+}
+
+.veil[data-tone="dark"],
+html.is-arriving[data-arrive="dark"] {
+  --veil-cloth: #0c1b4d;
+  --veil-rod: #050b2e;
+  --veil-hem: rgba(91, 124, 255, 0.9);
 }
 
 .veil::before {
-  transform: translateX(-101%);
-  transition: transform 0.7s var(--ease);
-}
-
-.veil::after {
-  transform: translateX(101%);
-  transition: transform 0.7s var(--ease);
+  transform: translateY(-102%);
+  transition: transform 0.6s var(--ease);
 }
 
 html.is-leaving .veil {
   pointer-events: auto;
 }
 
-html.is-leaving .veil::before,
-html.is-leaving .veil::after {
+html.is-leaving .veil::before {
   transform: none;
 }
 
-/* arriving: the screens are already shut; js/main.js opens them on the
-   first frame the page can show. The long delay is only a failsafe. */
+/* arriving: the noren is already down; js/main.js lifts it on the first
+   frame the page can show. The long delay is only a failsafe. */
 html.is-arriving::before {
-  animation: veil-open-l 0.85s var(--ease) 2.5s forwards;
+  animation: noren-lift 0.8s var(--ease) 2.5s forwards;
 }
 
-html.is-arriving::after {
-  animation: veil-open-r 0.85s var(--ease) 2.5s forwards;
-}
-
-html.is-arriving.is-arrived::before,
-html.is-arriving.is-arrived::after {
+html.is-arriving.is-arrived::before {
   animation-delay: 0.08s;
 }
 
-@keyframes veil-open-l {
+@keyframes noren-lift {
   to {
-    transform: translateX(-101%);
+    transform: translateY(-102%);
   }
 }
 
-@keyframes veil-open-r {
-  to {
-    transform: translateX(101%);
-  }
-}
-
-/* under the screens the page is already there, so it does not fade in as well */
+/* under the noren the page is already there, so it does not fade in as well */
 .js.is-arriving body {
   animation: none;
 }
@@ -1161,15 +1154,13 @@ html.is-arriving.is-arrived::after {
     transition-delay: 0s;
   }
 
-  .veil::before,
-  .veil::after {
+  .veil::before {
     transform: none;
     opacity: 0;
     transition: opacity 0.25s linear;
   }
 
-  html.is-leaving .veil::before,
-  html.is-leaving .veil::after {
+  html.is-leaving .veil::before {
     opacity: 1;
   }
 
