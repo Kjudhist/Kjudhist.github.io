@@ -194,17 +194,25 @@ body.gate {
   transform: translateY(-5px);
 }
 
-/* the willow over the seam: ink strands on the day sheet, pale on the night.
-   Sized from the sheets' height, so it never reaches the captions. */
+/* the willow, one inside each print: ink strands on the right of the day
+   sheet, pale ones on the left of the night sheet, so side by side they still
+   meet over the seam. The print's frame clips them; sized from its height. */
 .willow--gate {
-  top: 10px;
-  left: 50%;
-  right: auto;
-  z-index: 2;
+  top: 0;
+  z-index: 1;
   width: auto;
-  height: 46%;
-  aspect-ratio: 520 / 600;
-  transform: translateX(-50%);
+  height: 64%;
+  aspect-ratio: 220 / 600;
+}
+
+.willow--day {
+  left: auto;
+  right: 3%;
+}
+
+.willow--night {
+  left: 3%;
+  right: auto;
 }
 
 .willow--gate svg {
@@ -287,16 +295,8 @@ body.gate {
   }
 
   .willow--gate {
-    left: auto;
-    right: 1.25rem;
-    width: 7.5rem;
-    height: auto;
-    transform: none;
-  }
-
-  /* on a phone the willow hangs over the day sheet only */
-  .willow--gate .willow__strand--pale {
-    display: none;
+    width: auto;
+    height: 58%;
   }
 }
 
