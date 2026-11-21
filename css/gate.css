@@ -10,6 +10,8 @@
    ========================================================================== */
 
 body.gate {
+  /* at night the lacquered frames are darker than the sky, so they read */
+  --frame: #040a29;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -79,7 +81,7 @@ body.gate {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(1rem, 2.4vw, 2rem);
-  min-height: 26rem;
+  min-height: 24rem;
 }
 
 .door {
@@ -392,12 +394,15 @@ body.gate {
   pointer-events: none;
 }
 
+/* it takes its own place in the header row, before the clock, so it can
+   never sit on top of anything; the bell and strip hang out of the box and
+   the cord runs up out of the window */
 .furin {
-  position: absolute;
-  top: 0;
-  left: 57%;
+  position: relative;
   z-index: 3;
-  width: 2.6rem;
+  flex: none;
+  align-self: stretch;
+  width: 2.2rem;
   padding: 0;
   border: 0;
   background: none;
@@ -406,6 +411,9 @@ body.gate {
 }
 
 .furin svg {
+  position: absolute;
+  top: -1.3rem;
+  left: 0;
   width: 100%;
   height: auto;
   overflow: visible;
@@ -542,10 +550,17 @@ body.gate {
     padding-right: 2.75rem;
   }
 
+  /* on a phone the header stacks: the chime hangs in the top corner */
   .furin {
-    left: auto;
+    position: absolute;
+    top: 0;
     right: 0.75rem;
     width: 2.1rem;
+    height: 5.3rem;
+  }
+
+  .furin svg {
+    top: 0;
   }
 }
 
