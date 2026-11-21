@@ -46,6 +46,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
+      'gate.hint': 'Slide a screen open, or just click it.',
 
       'qa.nav.label': 'Sections',
       'qa.nav.about': 'About',
@@ -207,7 +208,8 @@
       'world.lore.from': '[From: world name]',
 
       'nf.title': 'Nothing behind this door.',
-      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.'
+      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
+      'nf.poke': 'Go on, poke a hole in the paper.'
     },
 
     // Draft. Needs a native read.
@@ -238,6 +240,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
+      'gate.hint': 'Geser pintunya sampai terbuka, atau klik saja.',
 
       'qa.nav.label': 'Bagian',
       'qa.nav.about': 'Tentang',
@@ -399,7 +402,8 @@
       'world.lore.from': '[Dari: nama dunia]',
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
-      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.'
+      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
+      'nf.poke': 'Silakan, tusuk saja kertasnya.'
     },
 
     // Draft. Needs a native read.
@@ -430,6 +434,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
+      'gate.hint': '障子を引いて開けるか、そのままクリックしてください。',
 
       'qa.nav.label': 'セクション',
       'qa.nav.about': '私について',
@@ -591,7 +596,8 @@
       'world.lore.from': '[出典：世界の名前]',
 
       'nf.title': 'この扉の向こうには、何もありません。',
-      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。'
+      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
+      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
     }
   };
 

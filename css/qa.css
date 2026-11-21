@@ -1,10 +1,10 @@
 /* ==========================================================================
-   QA: the day sheet.
-   The name takes its ink at the top, the willow hangs beside it, and under
-   them runs a strip of sea printed by day. Each section sits on the grid:
-   its name in the left column, the content to the right. Contact is a block
-   printed solid, and the page ends where the sea turns to night, leading
-   to the atelier.
+   QA: the room by day.
+   The name opens from the middle, the willow's shadow hangs beside it, and
+   under them runs the engawa: four screens whose middle pair slides open on
+   the garden by day. Each section sits on the grid: its name in the left
+   column, the content to the right. Contact is a block in the night colour,
+   and the page ends on a sill over the night, leading to the atelier.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -21,7 +21,7 @@
   z-index: 1;
 }
 
-.hero .hanga--strip {
+.hero .engawa {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -412,13 +412,13 @@ html[lang="ja"] .hero__pitch {
   color: var(--fg);
 }
 
-/* the night sea rises over the end of the page */
+/* the sill of a screen runs along the top of the band: a double rail */
 .qa-end::before {
   content: "";
   position: absolute;
-  inset: -29px 0 auto;
-  height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%230b1848'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%230c1b4d' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+  inset: -0.75rem 0 auto;
+  height: 0.75rem;
+  background: linear-gradient(var(--frame) 0 0.3rem, transparent 0.3rem 0.45rem, var(--frame) 0.45rem);
 }
 
 .next-book {

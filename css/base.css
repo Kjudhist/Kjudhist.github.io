@@ -2,13 +2,13 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is hanga (版画), the Japanese woodblock print, and within it
-   aizuri-e: prints pulled almost entirely in one blue ink. Paper, a few
-   strengths of that blue, and a dark key line. Three things recur on every
-   page: the page prints itself in three passes as you arrive, a willow
-   hangs from the top edge, and printer's registration marks sit in the
-   corner of the window. Kaisei Tokumin for display, Zen Kaku Gothic New
-   for text in every language, Spline Sans Mono for small facts.
+   The world is shoji (障子): sliding screens of paper in a lacquered frame,
+   with a thin wooden lattice (kumiko) over the paper. The site is a house
+   at night. Each door is a pair of screens you slide open; every page
+   change is a pair of screens closing and opening again; a lantern follows
+   the pointer and shows the lattice wherever its light falls, and the
+   willow is a shadow cast on the paper. Shippori Mincho B1 for display,
+   Zen Kaku Gothic New for text in every language, DM Mono for small facts.
    ========================================================================== */
 
 :root {
@@ -23,13 +23,23 @@
   --royal-2: var(--ai-4);
   --royal-soft: var(--ai-2); /* the ink as text on the night ground */
 
-  --paper: #eef1f3;   /* washi */
-  --sheet: #f9fafb;
-  --ink: var(--ai-5); /* the key block */
+  --paper: #edf0f4;   /* the wall */
+  --sheet: #f7f9fc;
+  --ink: var(--ai-5);
   --ink-2: #2b3a66;
   --grey: #5c6788;
-  --night: #0b1848;   /* a sheet printed solid */
+  --night: #0b1848;
   --night-2: #13235f;
+
+  /* the screens */
+  --frame: #0c1b4d;    /* lacquered wood */
+  --frame-w: 0.35rem;
+  --shoji-paper: #f7f9fc;
+  --kumiko-light:
+    linear-gradient(90deg, rgba(12, 27, 77, 0.62) 2px, transparent 0),
+    linear-gradient(rgba(12, 27, 77, 0.62) 2px, transparent 0);
+  --kumiko-img: var(--kumiko-light);
+  --kumiko-size: calc(100% / 3) 100%, 100% calc(100% / 7);
 
   /* light pages (gate, QA, 404) */
   --bg: var(--paper);
@@ -38,23 +48,26 @@
   --fg-strong: var(--ink);
   --muted: var(--grey);
   --key: var(--ink);
-  --wash: #a9bfea;    /* the first, pale pass under a title */
   --line: rgba(12, 27, 77, 0.14);
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent: var(--royal);
   --accent-text: var(--royal);
   --accent-fg: #fff;
   --focus: var(--royal);
+  --glow: rgba(255, 255, 255, 0.85);
+  --lattice: rgba(12, 27, 77, 0.075);
+  --shade: rgba(12, 27, 77, 0.26);
+  --shade-blur: 1.2px;
 
   --font: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Kaisei Tokumin", "Noto Serif JP", "Yu Mincho", serif;
-  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-display: "Shippori Mincho B1", "Noto Serif JP", "Yu Mincho", serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
 
-  /* prints have square corners: everything does */
+  /* screens have square corners: everything does */
   --radius: 2px;
   --radius-box: 2px;
-  --rule: 1.5px;     /* the weight of a key line */
+  --rule: 1.5px;
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -63,7 +76,7 @@
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* the atelier and the worlds: the night sheet */
+/* the atelier and the worlds: the house at night */
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
@@ -71,13 +84,18 @@
   --fg-strong: #f1f4fa;
   --muted: #94a2c8;
   --key: #dfe7f7;
-  --wash: #3a55b4;
   --line: rgba(223, 231, 247, 0.16);
   --line-strong: rgba(223, 231, 247, 0.55);
   --accent: var(--royal);
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
   --focus: var(--royal-soft);
+  --glow: rgba(110, 140, 230, 0.16);
+  --lattice: rgba(223, 231, 247, 0.07);
+  --shade: rgba(142, 171, 227, 0.42);
+  --shade-blur: 0.4px;
+  /* paper at night, lit low */
+  --shoji-paper: #dbe3f2;
 }
 
 .theme-light {
@@ -87,11 +105,13 @@
   --fg-strong: var(--ink);
   --muted: var(--grey);
   --key: var(--ink);
-  --wash: #a9bfea;
   --line: rgba(12, 27, 77, 0.14);
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent-text: var(--royal);
   --focus: var(--royal);
+  --glow: rgba(255, 255, 255, 0.85);
+  --lattice: rgba(12, 27, 77, 0.075);
+  --shade: rgba(12, 27, 77, 0.26);
 }
 
 /* --------------------------------------------------------------------------
@@ -118,7 +138,8 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  background-color: var(--bg);
+  /* clear, so the lantern under the page shows through (html carries the ground) */
+  background-color: transparent;
   font-family: var(--font);
   font-weight: 400;
   font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
@@ -272,7 +293,8 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   position: sticky;
   top: 0;
   background-color: var(--bg);
-  box-shadow: 0 var(--rule) 0 var(--key);
+  /* the lintel: a double rule, like the top rail of a screen */
+  box-shadow: 0 var(--rule) 0 var(--key), 0 calc(var(--rule) + 3px) 0 var(--bg), 0 calc(var(--rule) * 2 + 3px) 0 var(--key);
 }
 
 .topbar__end {
@@ -641,7 +663,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   color: var(--fg-strong);
 }
 
-/* the Japanese name of a section, boxed like a print's title cartouche */
+/* the Japanese name of a section, boxed like a name plate */
 .sec-head__jp,
 .tag {
   display: inline-block;
@@ -699,10 +721,7 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   Washi: a faint paper grain over everything, and the registration marks.
-   A printer cuts two marks (kento) into every block so each colour lands
-   in the same place: an L at one corner and a bar further along the same
-   edge. Here they sit on the window's right edge, clear of the text.
+   Washi: a faint paper grain over everything
    -------------------------------------------------------------------------- */
 
 body::before {
@@ -711,68 +730,182 @@ body::before {
   inset: 0;
   z-index: 120;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0.45;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-body::after {
+/* --------------------------------------------------------------------------
+   A shoji: paper in a lacquered frame, with the kumiko (the thin lattice)
+   over it. Used for the gate doors, the engawa strips, the page change
+   and the 404 wall. A shadow layer inside sits between paper and lattice.
+   -------------------------------------------------------------------------- */
+
+.shoji {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--shoji-paper);
+  box-shadow: inset 0 0 0 var(--frame-w) var(--frame);
+}
+
+.shoji::after {
   content: "";
-  position: fixed;
-  inset: 7px;
-  z-index: 121;
+  position: absolute;
+  inset: var(--frame-w);
+  z-index: 2;
   pointer-events: none;
-  background:
-    linear-gradient(var(--key), var(--key)) right bottom / 14px var(--rule) no-repeat,
-    linear-gradient(var(--key), var(--key)) right bottom / var(--rule) 14px no-repeat,
-    linear-gradient(var(--key), var(--key)) right bottom 26% / var(--rule) 24px no-repeat;
+  background-image: var(--kumiko-img);
+  background-size: var(--kumiko-size);
+}
+
+/* the recessed pull on the side you slide from */
+.door__hikite {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 0.7rem;
+  height: 2.4rem;
+  border-radius: 0.35rem;
+  background: rgba(12, 27, 77, 0.1);
+  box-shadow: inset 0 0 0 1.5px var(--frame);
+  transform: translateY(-50%);
 }
 
 /* --------------------------------------------------------------------------
-   A print: three stacked layers, pulled one after another as the page
-   arrives. Key lines first, then the pale flats, then the deep flats.
+   The lantern. A soft light follows the pointer (or the last touch), and
+   where it falls you can see the lattice of the screen behind the page.
+   It sits under everything, so text and panels stay crisp over it.
+   js/main.js moves it.
    -------------------------------------------------------------------------- */
 
-.hanga {
-  position: relative;
-  overflow: hidden;
+.lantern {
+  --lx: 72vw;
+  --ly: 18vh;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
   pointer-events: none;
+  background: radial-gradient(circle 26rem at var(--lx) var(--ly), var(--glow), transparent 72%);
 }
 
-.hanga--day {
-  background: var(--paper);
-}
-
-.hanga--night {
-  background: var(--night);
-}
-
-.hanga__pass {
+.lantern::after {
+  content: "";
   position: absolute;
   inset: 0;
-  display: block;
+  background-image:
+    linear-gradient(90deg, var(--lattice) 1.5px, transparent 0),
+    linear-gradient(var(--lattice) 1.5px, transparent 0);
+  background-size: 7.5rem 10rem;
+  -webkit-mask-image: radial-gradient(circle 20rem at var(--lx) var(--ly), #000, transparent 78%);
+  mask-image: radial-gradient(circle 20rem at var(--lx) var(--ly), #000, transparent 78%);
+}
+
+/* --------------------------------------------------------------------------
+   The engawa: a run of four screens across the page, the garden behind.
+   The middle pair slides open as the page arrives; drag either one to
+   slide it yourself (js/main.js).
+   -------------------------------------------------------------------------- */
+
+.engawa {
+  position: relative;
+  height: clamp(11rem, 24vw, 20rem);
+  overflow: hidden;
+  border-block: 0.6rem solid var(--frame);
+  background: var(--frame);
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.engawa__view {
+  position: absolute;
+  inset: 0;
+}
+
+.engawa__view svg {
   width: 100%;
   height: 100%;
 }
 
-.js .hanga__pass {
-  animation: press 0.75s var(--ease) both;
+.engawa__panel {
+  --o: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--i) * 25%);
+  width: 25%;
+  z-index: 1;
+  transform: translateX(calc(var(--o) * var(--dir) * 100%));
+  transition: transform 1.5s var(--ease-out);
 }
 
-.js .hanga__pass--key {
-  animation-delay: 0.1s;
+.engawa__panel[data-panel="0"] {
+  --i: 0;
+  --dir: 0;
 }
 
-.js .hanga__pass--light {
-  animation-delay: 0.55s;
+.engawa__panel[data-panel="1"] {
+  --i: 1;
+  --dir: -1;
+  z-index: 2;
+  cursor: grab;
 }
 
-.js .hanga__pass--deep {
-  animation-delay: 1s;
+.engawa__panel[data-panel="2"] {
+  --i: 2;
+  --dir: 1;
+  z-index: 2;
+  cursor: grab;
 }
 
-@keyframes press {
+.engawa__panel[data-panel="3"] {
+  --i: 3;
+  --dir: 0;
+}
+
+.engawa__panel[data-panel="1"] .door__hikite {
+  right: 0.9rem;
+}
+
+.engawa__panel[data-panel="2"] .door__hikite {
+  left: 0.9rem;
+}
+
+.engawa__panel[data-panel="0"] .door__hikite,
+.engawa__panel[data-panel="3"] .door__hikite {
+  display: none;
+}
+
+.engawa.is-dragging .engawa__panel {
+  transition: none;
+  cursor: grabbing;
+}
+
+/* the stars come out slowly */
+.view__stars {
+  animation: twinkle 6s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
   from {
-    clip-path: inset(0 100% 0 0);
+    opacity: 0.55;
+  }
+}
+
+/* a title is revealed the way a pair of screens opens: from the middle out */
+.unveil {
+  /* room for descenders inside the clip */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
+  color: var(--fg-strong);
+}
+
+.js .unveil {
+  animation: unveil 1.2s var(--ease) 0.35s both;
+}
+
+@keyframes unveil {
+  from {
+    clip-path: inset(0 50% 0 50%);
   }
 
   to {
@@ -780,85 +913,32 @@ body::after {
   }
 }
 
-/* the top edge of the sky, wiped darker by hand (bokashi) */
-.hanga::after {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 30%;
-  background: linear-gradient(rgba(36, 73, 216, 0.5), rgba(36, 73, 216, 0));
-}
-
-.hanga--night::after {
-  height: 22%;
-  background: linear-gradient(#050c2e, rgba(5, 12, 46, 0));
-}
-
-/* a strip of sea across the page, ruled top and bottom */
-.hanga--strip {
-  height: clamp(10rem, 22vw, 19rem);
-  border-block: var(--rule) solid var(--key);
-}
-
-/* the night strip is shallow: keep the dark edge off the moon */
-.hanga--strip.hanga--night::after {
-  height: 12%;
-}
-
-/* the sea rolls: each band slides one wave-length, then starts again */
-.sea {
-  animation: sea var(--t) linear infinite;
-}
-
-@keyframes sea {
-  to {
-    transform: translateX(calc(var(--p) * -1px));
-  }
-}
-
-/* a title takes its ink from left to right over a pale first pass */
-.inked {
-  /* room for descenders: the ink is clipped to this box */
-  padding-bottom: 0.16em;
-  margin-bottom: -0.16em;
-  color: var(--fg-strong);
-}
-
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .js .inked {
-    background: linear-gradient(90deg, var(--fg-strong) 50%, var(--wash) 50%) 100% 0 / 200% 100% no-repeat;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    animation: ink 1.1s var(--ease) 0.3s forwards;
-  }
-}
-
-@keyframes ink {
-  to {
-    background-position: 0 0;
-  }
-}
-
 /* --------------------------------------------------------------------------
-   The willow: strands hanging from the top edge. Each sways on its own
-   clock and leans a little toward the pointer (js/main.js sets --lean).
+   The willow is a shadow on the paper, cast by the lantern: it sways on
+   its own clock, leans toward the pointer and slides away from the light
+   (js/main.js sets --lean, --sx and --sy). On the night pages it is
+   moonlit instead.
    -------------------------------------------------------------------------- */
 
 .willow {
   --lean: 0;
+  --sx: 0px;
+  --sy: 0px;
   position: absolute;
   top: 0;
   right: clamp(0.5rem, 5vw, 5rem);
   z-index: 0;
   width: clamp(5.5rem, 19vw, 16rem);
   pointer-events: none;
+  translate: var(--sx) var(--sy);
+  transition: translate 1.2s var(--ease-out);
 }
 
 .willow svg {
   width: 100%;
   height: auto;
   overflow: visible;
+  filter: blur(var(--shade-blur));
 }
 
 .willow__strand,
@@ -888,16 +968,16 @@ body::after {
 
 .willow__stem {
   fill: none;
-  stroke: var(--key);
+  stroke: var(--shade);
   stroke-width: 1.4;
 }
 
 .willow__leaves {
-  fill: var(--accent-text);
+  fill: var(--shade);
 }
 
 .js .willow {
-  animation: page-in 0.9s var(--ease) 0.1s both;
+  animation: page-in 1.2s var(--ease) 0.4s both;
 }
 
 @media (max-width: 719.98px) {
@@ -908,19 +988,20 @@ body::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .hanga__pass,
-  .js .inked,
+  .js .unveil,
   .js .willow {
     animation-duration: 0.01s;
     animation-delay: 0s;
   }
 
-  .sea,
-  .willow__sway {
+  .willow__sway,
+  .view__stars {
     animation: none;
   }
 
-  .willow__strand {
+  .willow,
+  .willow__strand,
+  .engawa__panel {
     transition: none;
   }
 }
@@ -952,56 +1033,103 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* leaving a page: the next sheet's ground is pulled across, a band of ink leading */
+/* Changing pages: a pair of screens slides shut over this page, and the
+   next page opens them again. The tone is the ground of the next page. */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
-  background: var(--night);
-  border-right: 10px solid var(--royal);
+}
+
+.veil::before,
+.veil::after,
+html.is-arriving::before,
+html.is-arriving::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 150;
+  width: 50.5%;
+  pointer-events: none;
+  background-color: var(--veil-paper, var(--shoji-paper));
+  background-image: var(--veil-kumiko, var(--kumiko-img));
+  background-size: calc(100% / 3) 100%, 100% calc(100% / 6);
+  box-shadow: inset 0 0 0 0.45rem var(--frame);
+}
+
+.veil::before,
+html.is-arriving::before {
+  left: 0;
+}
+
+.veil::after,
+html.is-arriving::after {
+  right: 0;
+}
+
+.veil[data-tone="dark"],
+html.is-arriving[data-arrive="dark"] {
+  --veil-paper: #13235f;
+  --veil-kumiko:
+    linear-gradient(90deg, rgba(223, 231, 247, 0.3) 2px, transparent 0),
+    linear-gradient(rgba(223, 231, 247, 0.3) 2px, transparent 0);
+}
+
+.veil[data-tone="light"],
+html.is-arriving[data-arrive="light"] {
+  --veil-paper: #f7f9fc;
+  --veil-kumiko: var(--kumiko-light);
+}
+
+.veil::before {
   transform: translateX(-101%);
   transition: transform 0.7s var(--ease);
 }
 
-.veil[data-tone="light"] {
-  background: var(--paper);
+.veil::after {
+  transform: translateX(101%);
+  transition: transform 0.7s var(--ease);
 }
 
 html.is-leaving .veil {
-  transform: translateX(0);
   pointer-events: auto;
 }
 
-/* arriving: the same veil, already across the window, carries on to the right */
+html.is-leaving .veil::before,
+html.is-leaving .veil::after {
+  transform: none;
+}
+
+/* arriving: the screens are already shut; js/main.js opens them on the
+   first frame the page can show. The long delay is only a failsafe. */
+html.is-arriving::before {
+  animation: veil-open-l 0.85s var(--ease) 2.5s forwards;
+}
+
 html.is-arriving::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 150;
-  pointer-events: none;
-  background: var(--night);
-  border-right: 10px solid var(--royal);
-  /* js/main.js starts it on the first frame the page can show; the long
-     delay is only a failsafe in case the script never runs */
-  animation: veil-out 0.75s var(--ease) 2.5s forwards;
+  animation: veil-open-r 0.85s var(--ease) 2.5s forwards;
 }
 
+html.is-arriving.is-arrived::before,
 html.is-arriving.is-arrived::after {
-  animation-delay: 0.05s;
+  animation-delay: 0.08s;
 }
 
-html.is-arriving[data-arrive="light"]::after {
-  background: var(--paper);
-}
-
-@keyframes veil-out {
+@keyframes veil-open-l {
   to {
-    transform: translateX(calc(100% + 12px));
+    transform: translateX(-101%);
   }
 }
 
-/* under the veil the page is already there, so it does not fade in as well */
+@keyframes veil-open-r {
+  to {
+    transform: translateX(101%);
+  }
+}
+
+/* under the screens the page is already there, so it does not fade in as well */
 .js.is-arriving body {
   animation: none;
 }
@@ -1033,14 +1161,15 @@ html.is-arriving[data-arrive="light"]::after {
     transition-delay: 0s;
   }
 
-  .veil {
+  .veil::before,
+  .veil::after {
     transform: none;
-    border: 0;
     opacity: 0;
     transition: opacity 0.25s linear;
   }
 
-  html.is-leaving .veil {
+  html.is-leaving .veil::before,
+  html.is-leaving .veil::after {
     opacity: 1;
   }
 

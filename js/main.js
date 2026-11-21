@@ -1,6 +1,7 @@
 /* ==========================================================================
-   Shared behaviour: local links, page transitions, scroll reveals,
-   mobile menu, current-section highlight, the clock, the willow.
+   Shared behaviour: local links, page transitions (screens closing and
+   opening), scroll reveals, mobile menu, current-section highlight, the
+   clock, the lantern and its shadows, the engawa screens, the 404 wall.
    ========================================================================== */
 
 (function () {
@@ -50,7 +51,7 @@
     return veil;
   }
 
-  // The next sheet's colour is pulled across this one, then go. tone: "light" | "dark".
+  // A pair of screens in the next page's tone slides shut, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -122,27 +123,184 @@
     window.setInterval(tick, 15000);
   }
 
-  // The willow leans a little toward the pointer: --lean runs from -1 to 1.
-  function initWillow() {
-    const willows = document.querySelectorAll('[data-willow]');
-    if (!willows.length || prefersReducedMotion()) return;
-    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    let pointerX = 0;
-    let queued = false;
-    function update() {
-      queued = false;
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  // The lantern: a soft light under the page that follows the pointer (or the
+  // last touch) a little behind it. The willow leans toward it (--lean, -1 to 1)
+  // and every shadow on the paper slides away from it (--sx, --sy).
+  function initLantern() {
+    const lantern = document.createElement('div');
+    lantern.className = 'lantern';
+    lantern.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(lantern, document.body.firstChild);
+    if (prefersReducedMotion()) return;
+
+    const willows = Array.from(document.querySelectorAll('[data-willow]'));
+    const casts = Array.from(document.querySelectorAll('[data-shadow]'));
+    const target = { x: window.innerWidth * 0.72, y: window.innerHeight * 0.18 };
+    const light = { x: target.x, y: target.y };
+    let running = false;
+    let lastShade = 0;
+
+    function shade() {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
       willows.forEach(function (el) {
         const box = el.getBoundingClientRect();
-        const offset = (pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2);
-        el.style.setProperty('--lean', Math.max(-1, Math.min(1, offset)).toFixed(3));
+        const lean = clamp((light.x - (box.left + box.width / 2)) / (w / 2), -1, 1);
+        el.style.setProperty('--lean', lean.toFixed(3));
+        el.style.setProperty('--sx', ((box.left + box.width / 2 - light.x) / w * 22).toFixed(1) + 'px');
+        el.style.setProperty('--sy', (clamp((box.top - light.y) / h, -1, 1) * 8).toFixed(1) + 'px');
+      });
+      casts.forEach(function (el) {
+        const box = el.parentNode.parentNode.getBoundingClientRect();
+        el.style.setProperty('--sx', ((box.left + box.width / 2 - light.x) / w * 26).toFixed(1) + 'px');
+        el.style.setProperty('--sy', ((box.top + box.height / 3 - light.y) / h * 12).toFixed(1) + 'px');
       });
     }
+
+    function frame(now) {
+      light.x += (target.x - light.x) * 0.14;
+      light.y += (target.y - light.y) * 0.14;
+      lantern.style.setProperty('--lx', light.x.toFixed(1) + 'px');
+      lantern.style.setProperty('--ly', light.y.toFixed(1) + 'px');
+      // shadows ease on their own (CSS transition), so they need fewer updates
+      if (now - lastShade > 90) {
+        lastShade = now;
+        shade();
+      }
+      if (Math.abs(target.x - light.x) > 0.5 || Math.abs(target.y - light.y) > 0.5) {
+        window.requestAnimationFrame(frame);
+      } else {
+        running = false;
+        shade();
+      }
+    }
+
+    function moveTo(x, y) {
+      target.x = x;
+      target.y = y;
+      if (running) return;
+      running = true;
+      window.requestAnimationFrame(frame);
+    }
+
     window.addEventListener('pointermove', function (event) {
-      pointerX = event.clientX;
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(update);
+      if (event.pointerType === 'mouse' || event.pointerType === 'pen') moveTo(event.clientX, event.clientY);
     }, { passive: true });
+    window.addEventListener('pointerdown', function (event) {
+      moveTo(event.clientX, event.clientY);
+    }, { passive: true });
+    window.addEventListener('scroll', function () {
+      if (!running) shade();
+    }, { passive: true });
+    shade();
+  }
+
+  // The engawa: the middle pair of four screens slides open once the page is
+  // up. Either one can be dragged; it stays wherever it is let go.
+  function initEngawa() {
+    document.querySelectorAll('[data-engawa]').forEach(function (strip) {
+      const panels = Array.from(strip.querySelectorAll('.engawa__panel[data-panel="1"], .engawa__panel[data-panel="2"]'));
+      const opening = prefersReducedMotion() ? 0 : 700;
+      window.setTimeout(function () {
+        panels.forEach(function (panel) {
+          panel.style.setProperty('--o', '1');
+        });
+      }, opening);
+
+      let drag = null;
+      panels.forEach(function (panel) {
+        const dir = panel.getAttribute('data-panel') === '1' ? -1 : 1;
+        panel.addEventListener('pointerdown', function (event) {
+          if (event.button !== 0) return;
+          drag = {
+            panel: panel,
+            dir: dir,
+            x: event.clientX,
+            y: event.clientY,
+            start: parseFloat(panel.style.getPropertyValue('--o')) || 0,
+            width: panel.getBoundingClientRect().width,
+            id: event.pointerId,
+            active: false
+          };
+        });
+      });
+      strip.addEventListener('pointermove', function (event) {
+        if (!drag) return;
+        const dx = event.clientX - drag.x;
+        const dy = event.clientY - drag.y;
+        if (!drag.active) {
+          if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)) {
+            drag = null;
+            return;
+          }
+          if (Math.abs(dx) < 6) return;
+          drag.active = true;
+          strip.classList.add('is-dragging');
+          try {
+            drag.panel.setPointerCapture(drag.id);
+          } catch (e) {
+            // capture is a nicety
+          }
+        }
+        const value = clamp(drag.start + (dx * drag.dir) / drag.width, 0, 1);
+        drag.panel.style.setProperty('--o', value.toFixed(3));
+      });
+      function end() {
+        drag = null;
+        strip.classList.remove('is-dragging');
+      }
+      strip.addEventListener('pointerup', end);
+      strip.addEventListener('pointercancel', end);
+    });
+  }
+
+  // The 404 wall: every click or tap pokes another hole in the paper. The
+  // holes are cut with one mask layer each, intersected.
+  function initPoke() {
+    const wall = document.querySelector('[data-poke] .poke__wall');
+    const paper = wall && wall.querySelector('[data-paper]');
+    if (!paper) return;
+    const MAX = 40;
+    const holes = [{ x: 0.64, y: 0.48, rx: 46, ry: 38 }];
+
+    function tear(hole) {
+      const ring = document.createElement('span');
+      ring.className = 'poke__tear';
+      ring.style.left = (hole.x * 100).toFixed(2) + '%';
+      ring.style.top = (hole.y * 100).toFixed(2) + '%';
+      ring.style.width = hole.rx * 2 + 'px';
+      ring.style.height = hole.ry * 2 + 'px';
+      wall.appendChild(ring);
+    }
+
+    function cut() {
+      const layers = holes.map(function (h) {
+        return 'radial-gradient(ellipse ' + h.rx + 'px ' + h.ry + 'px at ' + (h.x * 100).toFixed(2) + '% ' +
+          (h.y * 100).toFixed(2) + '%, transparent 94%, #000 100%)';
+      }).join(', ');
+      paper.style.webkitMaskImage = layers;
+      paper.style.maskImage = layers;
+    }
+
+    tear(holes[0]);
+    wall.addEventListener('click', function (event) {
+      if (holes.length >= MAX) return;
+      const box = wall.getBoundingClientRect();
+      const rx = Math.round(18 + Math.random() * 26);
+      const hole = {
+        x: (event.clientX - box.left) / box.width,
+        y: (event.clientY - box.top) / box.height,
+        rx: rx,
+        ry: Math.round(rx * (0.75 + Math.random() * 0.35))
+      };
+      holes.push(hole);
+      cut();
+      tear(hole);
+    });
   }
 
   function initMenu() {
@@ -216,7 +374,9 @@
     fixLocalLinks();
     initPageTransitions();
     initReveal();
-    initWillow();
+    initLantern();
+    initEngawa();
+    initPoke();
     initMenu();
     initSectionSpy();
     initClock();

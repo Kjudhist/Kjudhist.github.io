@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *hanga* (版画), the Japanese woodblock print, pulled in one blue ink: the same sea by day for QA and by night for the atelier. Every page prints itself in three passes as you arrive, a willow hangs from the top edge, and a printer's registration marks sit in the corner of the window. Type is Kaisei Tokumin for display, Zen Kaku Gothic New for text and Spline Sans Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *shoji* (障子), Japanese sliding paper screens, in one blue ink: the same garden by day for QA and by night for the atelier. Each door on the gate is a pair of screens you drag (or click) open, a lantern follows the pointer and shows the lattice behind the page, the willow is a shadow cast on the paper, and every page change is a pair of screens closing and opening. On the 404 you can poke holes in the paper. Type is Shippori Mincho B1 for display, Zen Kaku Gothic New for text and DM Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 

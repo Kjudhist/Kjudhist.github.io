@@ -1,61 +1,59 @@
-# Design system: hanga (版画)
+# Design system: shoji (障子)
 
-The Japanese woodblock print, and within it *aizuri-e*: prints pulled almost entirely in one blue ink. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
+Sliding screens of paper in a lacquered frame, with a thin wooden lattice (kumiko) over the paper. The site is one house at night: QA is the room by day, the atelier is the room after dark ("outside of work, I make art"), and both look out on the same garden. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, gate.js). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
 
 ## Idea
 
-The whole site is one series of prints from the same blocks. QA is the day sheet, the atelier is the night sheet ("outside of work, I make art"), and both show the same sea and the same mountain.
+The design is meant to be handled, not only looked at. Four things recur:
 
-Three things recur on every page, so both sides read as one person's:
-
-1. **The page prints itself.** On arrival the illustration is pulled in three passes, left to right: key lines, then the pale flats, then the deep flats. The page title takes its ink the same way, over a pale first pass.
-2. **The willow.** Strands hang from the top edge of every page (from the header rule; on the gate, over the seam between the two sheets). Each sways on its own clock and leans a little toward the pointer.
-3. **Registration marks (kento).** The printer's two marks, an L at the corner and a bar further along the same edge, sit fixed on the window's right edge. They are how a printer makes every colour land in the right place, which is also the QA job.
+1. **Doors you slide.** On the gate each door is a pair of shoji. Drag the pair apart and the screens follow your hand; let go past the middle and you go in, short of it they slide shut. A click, a tap or Enter slides them open for you. Hover parts them a finger's width.
+2. **The lantern.** A soft light under the page follows the pointer (or the last touch), and where it falls you can see the lattice of the screen behind the page.
+3. **Shadows on the paper.** The willow is a shadow cast by the lantern: it sways, leans toward the light and slides away from it. On the gate, bamboo throws its shadow on the day door and the willow on the night door; the shadow stays put while the paper slides under it.
+4. **Screens between pages.** Changing page, a pair of screens in the next page's tone slides shut; the next page opens them again.
 
 Pages:
 
-- Gate: a diptych. Two sheets of paper side by side, each with an image inside its margin: the sea by day (a sun, mist bars) and by night (a full moon, stars), one mountain split across the seam. Each sheet has a vertical title cartouche (品質保証 / 柳のアトリエ) on the image and, under it, a caption with the door’s name and an **Enter** block, so nothing covers the picture. The composition sits low in the frame so it survives short, wide windows. The whole sheet is the link.
-- QA: the name, the willow, then a strip of the day sea across the page. Contact is a block printed solid. The page ends where a wave edge rises into the night.
-- The Willow Atelier: printed solid, lines left pale. The name, the willow, a strip of the night sea, then the index of work.
-- Worlds (`/world/`, not on the gate; reached from the closing band of the atelier): the same night sheet, with stars joined into dashed charts.
-- 404: a misprint. The colour blocks and the title's pale pass have slipped off their registration.
+- Gate: two doors side by side (stacked on phones). Each is a frame with a heavy lintel and a sill, two panels with pulls (hikite), and a garden behind: by day for QA, under the moon for the atelier. A vertical name plate (品質保証 / 柳のアトリエ) hangs on the lintel's corner. Under each frame is a caption with the door's name and an **Enter** block: on paper for QA, on the night for the atelier. A line under both says how the doors work. The whole door is a plain link.
+- QA: the name, the willow's shadow, then the engawa: four screens across the page, the middle pair sliding open on arrival to show the garden by day. Either middle screen can be dragged. Contact is a block in the night colour. The page ends on a sill (a double rail) over the night, leading to the atelier.
+- The Willow Atelier: the same, after dark. The paper is lit low; the garden has the moon and stars.
+- Worlds (`/world/`, not on the gate; reached from the closing band of the atelier): the same night, with more stars and the charts.
+- 404: a shoji wall with a hole in it, and nothing behind but the night. Click or tap the paper to poke more holes; the lattice stays where the paper is torn.
 
-The illustrations are inline SVG, generated once and written into the pages. Each is three stacked `<svg>` layers (`.hanga__pass--light`, `--deep`, `--key`), which is what lets them print in sequence and slip on the 404.
+The garden views are inline SVG (sky gradient, sun or moon, mist bars, four ridges), generated once and written into the pages.
 
 ## Colour
 
-One ink in five strengths, plus paper. Nothing else.
+One ink in five strengths, paper, and the night. Nothing else.
 
 | Token | Value | Role |
 |---|---|---|
-| `--paper` | `#eef1f3` | washi: light ground |
-| `--sheet` | `#f9fafb` | bare paper: panels, labels, the gate sheets |
-| `--ai-1` | `#cfdcf1` | palest wash: mist, far waves |
-| `--ai-2` | `#8eabe3` | mid wash; the ink as text on night |
-| `--ai-3` / `--royal` | `#2449d8` | the ink at full strength: actions, near waves |
-| `--ai-4` | `#17318f` | deep: nearest waves, hover |
-| `--ai-5` / `--ink` | `#0c1b4d` | the key block: text and lines on paper |
-| `--night` | `#0b1848` | a sheet printed solid: dark ground |
-| `--night-2` | `#13235f` | panels and empty frames at night |
+| `--paper` | `#edf0f4` | the wall: light ground |
+| `--sheet` / `--shoji-paper` | `#f7f9fc` | screen paper, captions, name plates |
+| `--ai-1` | `#cfdcf1` | far ridge, mist |
+| `--ai-2` | `#8eabe3` | mid ridge; the ink as text on night |
+| `--ai-3` / `--royal` | `#2449d8` | actions |
+| `--ai-4` | `#17318f` | hover |
+| `--ai-5` / `--ink` / `--frame` | `#0c1b4d` | text, rules, the lacquered frames and lattice |
+| `--night` | `#0b1848` | dark ground |
+| `--night-2` | `#13235f` | panels at night; the dark page-change screens |
 
-Night text: `#f1f4fa` strong, `#c5cfe8` body, `#94a2c8` muted; key lines `#dfe7f7`.
+At night the screen paper is lit low (`#dbe3f2`). Night text: `#f1f4fa` strong, `#c5cfe8` body, `#94a2c8` muted.
 
 ## Type
 
-- Kaisei Tokumin 500 to 800 for display: names, titles, section names. It has the cut, slightly uneven feel of carved type and covers Latin and Japanese.
-- Zen Kaku Gothic New for text in every language; Spline Sans Mono for the clock, dates and small labels.
+- Shippori Mincho B1 500 to 800 for display: names, titles, section names. A mincho with a brushed finish, covering Latin and Japanese.
+- Zen Kaku Gothic New for text in every language; DM Mono for the clock, dates and small labels.
 
 ## Shape and line
 
-- Square corners everywhere (`--radius: 2px`), including buttons, the language switcher and the play buttons.
-- Key lines are `--rule` (1.5px) in `--key`: section rules, panel outlines, the header rule. Hairlines (`--line`) only divide rows inside a block.
-- Japanese section names sit in a small ruled box, like a print's title cartouche.
-- A faint paper grain lies over everything.
+- Square corners everywhere (`--radius: 2px`).
+- Frames are thick and solid: a heavier lintel on top, a sill below. The lattice is 2px bars in the frame colour, three columns by seven rows on a door.
+- The sticky header ends in a double rule, like the top rail of a screen. Hairlines (`--line`) only divide rows inside a block.
+- Japanese section names sit in a small ruled box. A faint paper grain lies over everything.
 
 ## Motion
 
-- Arrival: three print passes (0.75s each, staggered) and the title's ink wipe.
-- The sea rolls: each wave band slides one wave-length and loops, nearer bands faster.
-- The willow sways and leans toward the pointer.
-- Gate sheets lift on hover; one click goes in, and the next sheet's ground is pulled across with a band of ink leading.
-- Reduced motion: no passes, no rolling sea, no sway; everything is simply there.
+- Arrival: the screens open from the middle (0.85s); the title is revealed the same way, from the middle out; the engawa's middle pair slides open after 0.7s.
+- Gate: hover parts a door slightly; drag follows the hand; opening takes 0.8s, then a short step into the garden (the view scales up) before the page-change screens close.
+- Ambient: the willow and bamboo sway, the stars twinkle, the lantern trails the pointer.
+- Reduced motion: no sway, no twinkle, no lantern movement, the engawa is already open, and page changes are a short fade.

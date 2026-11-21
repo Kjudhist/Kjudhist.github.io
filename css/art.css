@@ -1,8 +1,8 @@
 /* ==========================================================================
-   The Willow Atelier: the night sheet.
-   The whole page is printed solid, with the lines left pale. The name
-   takes its ink at the top beside the willow, then a strip of the same sea
-   under a full moon, then an index of the three kinds of work. Sections
+   The Willow Atelier: the room after dark.
+   The ground is the night, with the lines left pale. The name opens from
+   the middle beside the moonlit willow, then the engawa opens on the same
+   garden under the moon, then an index of the three kinds of work. Sections
    share the QA page's grid; works hang in ruled frames, photographs scroll
    sideways, tracks are a ruled list, and the poem is set vertically
    beside the story.
@@ -22,7 +22,7 @@
   z-index: 1;
 }
 
-.art-hero .hanga--strip {
+.art-hero .engawa {
   margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -403,13 +403,13 @@ html[lang="ja"] .card__name {
   background: #060e33;
 }
 
-/* a deeper sea rises over the end of the page */
+/* the sill of a screen runs along the top of the band: a double rail */
 .onward::before {
   content: "";
   position: absolute;
-  inset: -29px 0 auto;
-  height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%23060e33'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%23dfe7f7' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+  inset: -0.75rem 0 auto;
+  height: 0.75rem;
+  background: linear-gradient(var(--frame) 0 0.3rem, transparent 0.3rem 0.45rem, var(--frame) 0.45rem);
 }
 
 .onward__link {
