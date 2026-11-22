@@ -6,7 +6,7 @@
   <title data-i18n="meta.qa.title">Kevin Judhistira Girsang · QA Engineer</title>
   <meta name="description" content="Product-focused QA engineer at Inteleq (Indivara Group) in Jakarta, testing payment and online banking products." data-i18n-attr="content:meta.qa.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#eef1f3">
+  <meta name="theme-color" content="#f5f4f0">
   <link rel="canonical" href="https://kjudhist.github.io/qa/">
 
   <meta property="og:type" content="profile">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Murecho:wght@300..700&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/qa.css">
 
@@ -45,6 +45,8 @@
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
+    <!-- reading progress: a branch grows along the header and its buds open -->
+    <div class="growth" aria-hidden="true" data-growth><span class="growth__line"></span></div>
     <a class="back-link" href="../" data-transition="dark" data-testid="back-to-gate">
       <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1"/></svg>
       <span class="back-link__full" data-i18n="common.back">Back to the gate</span>
@@ -74,18 +76,36 @@
 
     <!-- Hero -->
     <section class="hero" id="top" data-testid="section-hero">
-      <!-- a navy glazed plate, once broken and mended: one gold seam -->
-      <div class="hero__plate" aria-hidden="true">
-        <svg viewBox="0 0 400 400" focusable="false">
-          <path class="hero__seam-line" d="M12 168 L58 176 L83 171 L121 184 L150 180 L176 197 L203 194 L231 212 L262 207 L290 226 L318 224 L347 241 L388 246"/>
-          <path class="hero__seam-line hero__seam-line--fine" d="M203 194 L209 222 L204 251 L214 281 L211 309 L224 342"/>
-          <g class="hero__ticks"><path d="M60 186v8M84 181v5M108 186v5M132 190v8M156 190v5M180 207v5M204 204v8M228 222v5M252 217v5M276 236v8M300 236v5M324 234v5M348 251v8"/></g>
+      <!-- a still sprig of blossom: ornament only, kept clear of the words -->
+      <svg class="sprig" viewBox="0 0 520 360" aria-hidden="true" focusable="false">
+          <defs>
+            <path id="pt" d="M0 14C-13 6-12-10-3.4-14L0-10 3.4-14C12-10 13 6 0 14Z"/>
+            <g id="fl"><use href="#pt" transform="translate(0 -12)"/><use href="#pt" transform="rotate(72) translate(0 -12)"/><use href="#pt" transform="rotate(144) translate(0 -12)"/><use href="#pt" transform="rotate(216) translate(0 -12)"/><use href="#pt" transform="rotate(288) translate(0 -12)"/><circle r="4.5" class="fl-eye"/></g>
+          </defs>
+          <g class="sprig__wood">
+            <path d="M540 18C470 30 420 46 360 84S250 150 190 166 96 176 40 214" stroke-width="7"/>
+            <path d="M360 84C352 120 360 150 382 178" stroke-width="3.5"/>
+            <path d="M262 136C246 112 222 98 196 96" stroke-width="3"/>
+            <path d="M190 166C176 190 172 214 180 240" stroke-width="2.4"/>
+            <path d="M120 186C104 168 84 160 60 162" stroke-width="2.2"/>
+            <path d="M448 44C440 70 444 92 458 110" stroke-width="3"/>
+          </g>
+          <g class="sprig__bloom">
+            <use href="#fl" transform="translate(382 182) scale(.9) rotate(10)"/>
+            <use href="#fl" transform="translate(362 196) scale(.6) rotate(40)"/>
+            <use href="#fl" transform="translate(196 94) scale(.8) rotate(-20)"/>
+            <use href="#fl" transform="translate(218 110) scale(.55) rotate(15)"/>
+            <use href="#fl" transform="translate(180 244) scale(.75) rotate(30)"/>
+            <use href="#fl" transform="translate(58 160) scale(.7)"/>
+            <use href="#fl" transform="translate(40 214) scale(.85) rotate(-35)"/>
+            <use href="#fl" transform="translate(460 114) scale(.8) rotate(25)"/>
+            <use href="#fl" transform="translate(300 116) scale(.5) rotate(5)"/>
+          </g>
+          <g class="sprig__buds"><ellipse cx="404" cy="168" rx="4" ry="6" transform="rotate(30 404 168)"/><ellipse cx="236" cy="128" rx="3.5" ry="5.5" transform="rotate(-40 236 128)"/><ellipse cx="96" cy="196" rx="3.5" ry="5.5" transform="rotate(20 96 196)"/><ellipse cx="474" cy="96" rx="3" ry="5"/></g>
+          <g class="sprig__fallen"><use href="#pt" transform="translate(150 318) rotate(80) scale(.6)"/><use href="#pt" transform="translate(300 296) rotate(-50) scale(.5)"/><use href="#pt" transform="translate(420 330) rotate(120) scale(.55)"/></g>
         </svg>
-      </div>
       <div class="wrap">
-        <p class="hero__kicker" lang="ja" aria-hidden="true">品質保証</p>
         <h1 class="hero__name unveil" translate="no">Kevin Judhistira Girsang</h1>
-        <span class="seam hero__rule" aria-hidden="true"></span>
         <div class="hero__row">
           <div class="hero__copy">
             <p class="hero__pitch" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>
@@ -328,8 +348,12 @@
     </section>
   </main>
 
-  <!-- The end: the other door -->
+  <!-- The end: the other door, out into the night -->
   <div class="qa-end theme-dark">
+    <svg class="qa-end__petals" viewBox="0 0 280 140" aria-hidden="true" focusable="false">
+      <defs><path id="pe" d="M0 14C-13 6-12-10-3.4-14L0-10 3.4-14C12-10 13 6 0 14Z"/></defs>
+      <use href="#pe" transform="translate(40 40) rotate(30) scale(1.1)"/><use href="#pe" transform="translate(150 90) rotate(-70) scale(.8)" opacity=".7"/><use href="#pe" transform="translate(240 30) rotate(120) scale(.9)" opacity=".85"/><use href="#pe" transform="translate(200 120) rotate(200) scale(.6)" opacity=".55"/>
+    </svg>
     <aside class="wrap">
       <a class="next-book" href="../art/" data-transition="dark" data-testid="link-to-art">
         <span class="next-book__label" data-i18n="qa.toArt.label">The other door</span>

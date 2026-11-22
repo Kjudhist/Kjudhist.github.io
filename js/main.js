@@ -1,14 +1,14 @@
 /* ==========================================================================
-   Shared behaviour: local links, page transitions (the next page's glaze
-   washes across behind a gold seam), scroll reveals, mobile menu,
-   current-section highlight and the clock.
+   Shared behaviour: local links, page transitions (a wall of petals sweeps
+   across in the next page's colour), scroll reveals, mobile menu,
+   current-section highlight, the clock, and hanging things that sway.
    ========================================================================== */
 
 (function () {
   'use strict';
 
   const root = document.documentElement;
-  const LEAVE_MS = 800;
+  const LEAVE_MS = 850;
   const LEAVE_MS_REDUCED = 300;
 
   function prefersReducedMotion() {
@@ -51,7 +51,7 @@
     return veil;
   }
 
-  // The next page's glaze washes over this one, then go. tone: "light" | "dark".
+  // A wall of petals in the next page's tone sweeps over this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -123,6 +123,66 @@
     window.setInterval(tick, 15000);
   }
 
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  // Hanging things (tanzaku, cards) on a damped spring: the pointer passing
+  // through pushes them with its speed and they swing back. --swing is the
+  // angle; CSS adds the slow breeze on top.
+  function initSway() {
+    const items = Array.from(document.querySelectorAll('[data-sway]'));
+    if (!items.length || prefersReducedMotion()) return;
+    const state = items.map(function () {
+      return { a: 0, v: 0 };
+    });
+    let running = false;
+    let last = 0;
+    let px = null;
+    let pt = 0;
+
+    function frame(time) {
+      const dt = Math.min(0.05, (time - (last || time)) / 1000);
+      last = time;
+      let moving = false;
+      state.forEach(function (s, i) {
+        s.v += (-30 * s.a - 2.6 * s.v) * dt;
+        s.a += s.v * dt;
+        if (Math.abs(s.a) > 0.04 || Math.abs(s.v) > 0.04) moving = true;
+        items[i].style.setProperty('--swing', s.a.toFixed(2) + 'deg');
+      });
+      if (moving) {
+        window.requestAnimationFrame(frame);
+      } else {
+        running = false;
+      }
+    }
+
+    function kick() {
+      if (running) return;
+      running = true;
+      last = 0;
+      window.requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('pointermove', function (event) {
+      const now = window.performance.now();
+      if (px !== null && now - pt < 100) {
+        const vx = (event.clientX - px) / Math.max(1, now - pt) * 1000;
+        items.forEach(function (el, i) {
+          const box = el.getBoundingClientRect();
+          if (event.clientX > box.left - 16 && event.clientX < box.right + 16 &&
+              event.clientY > box.top - 16 && event.clientY < box.bottom + 16) {
+            state[i].v = clamp(state[i].v + vx * 0.02, -60, 60);
+            kick();
+          }
+        });
+      }
+      px = event.clientX;
+      pt = now;
+    }, { passive: true });
+  }
+
   function initMenu() {
     const nav = document.querySelector('[data-nav]');
     const toggle = nav && nav.querySelector('.nav__toggle');
@@ -178,8 +238,8 @@
     });
   }
 
-  // Arriving under the previous page's glaze (set up in js/i18n.js): wait
-  // until this page has painted a frame under it, then let it run on.
+  // Arriving under the previous page's veil (set up in js/i18n.js): wait until
+  // this page has painted a frame under it, then let it slide off.
   function initArrival() {
     if (!root.classList.contains('is-arriving')) return;
     window.requestAnimationFrame(function () {
@@ -194,6 +254,7 @@
     fixLocalLinks();
     initPageTransitions();
     initReveal();
+    initSway();
     initMenu();
     initSectionSpy();
     initClock();

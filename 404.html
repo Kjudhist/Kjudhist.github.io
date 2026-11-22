@@ -14,7 +14,7 @@
   <meta name="description" content="This page doesn’t exist. Head back to the gate." data-i18n-attr="content:meta.404.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#0a1440">
+  <meta name="theme-color" content="#0b1848">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Kevin JG">
@@ -31,16 +31,19 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Murecho:wght@300..700&family=DM+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js" defer></script>
-  <script src="js/kintsugi.js" defer></script>
+  <script src="js/sakura.js" defer></script>
   <script src="js/lost.js" defer></script>
 </head>
 <body class="lost-page">
+  <!-- a single bare branch on the night: touch it and it blossoms (js/lost.js) -->
+  <canvas class="night" data-lost aria-hidden="true"></canvas>
+
   <header class="topbar">
     <div class="topbar__end">
       <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
@@ -53,15 +56,10 @@
 
   <main class="lost" id="main" data-testid="section-not-found">
     <div class="lost__inner">
-      <!-- a broken cup (js/lost.js): tap it and the shards come home, mended with gold -->
-      <div class="lost__stage" data-cup-stage hidden>
-        <canvas class="lost__canvas" data-cup aria-hidden="true"></canvas>
-        <div class="lost__spot" data-cup-spot aria-hidden="true"></div>
-      </div>
       <p class="lost__number mono" aria-hidden="true">404</p>
       <h1 class="lost__title" data-i18n="nf.title">Nothing behind this door.</h1>
       <p class="lost__text" data-i18n="nf.text">The page you’re looking for isn’t here. The link may be old or mistyped.</p>
-      <p class="lost__hint" data-cup-hint hidden data-i18n="nf.hint">Tap the broken cup to mend it.</p>
+      <p class="lost__hint" data-i18n="nf.bloom" data-lost-hint>Touch the branch.</p>
       <a class="btn" href="./" data-transition="dark" data-testid="back-to-gate">
         <svg class="back-link__arrow" viewBox="0 0 28 10" aria-hidden="true" focusable="false"><path d="M27 5H1M5 1 1 5l4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         <span data-i18n="common.back">Back to the gate</span>

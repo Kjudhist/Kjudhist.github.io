@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *kintsugi* (金継ぎ): navy glazed ceramics mended with gold. Deep ruri glaze with pooling and a fine crackle; gold only as thin seams and highlights. The gate is a great glazed plate whose inner well is broken in two, and the halves are the doors (QA a clean cut with a ruled gold seam, the atelier a shard with branching rivers of gold); tap the glaze and it cracks, and gold flows in to mend it. The QA page is matte porcelain, calm and professional, with a gold reading line and a test runner that stamps each role with a gold 合格 seal. The atelier has a chawan you can shatter and mend (more gold every time), gold dust that drifts toward the pointer and tiles that crackle with gold. The worlds are a shattered realm that comes back together as you scroll, with a river of molten gold you steer. The 404 is a broken cup you mend. Page changes are the next page's glaze washing across behind a gold seam. Type is Kaisei Decol for display, Murecho for text and DM Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *yozakura* (夜桜), cherry blossoms at night under a deep navy sky. The gate is a hanami night: a great old cherry tree spans the sky, and the pointer is the wind, pushing the petals as they tumble and pile up; a fast swipe shakes blossom loose, and a click on a branch grows a new twig that flowers. One door is a lamp-lit shoji pavilion (QA), the other an arch of blossom that petals spiral into (the atelier). The QA page is calm paper and navy, with a branch growing along the header as you read and a test runner whose roles bloom a 合格 seal. The atelier is a night garden where you drag to paint branches that blossom and drop petals into a pond; the worlds are sakura islands floating under a giant moon, with a river of glowing petals that follows you; the 404 is a bare branch you can make blossom. Page changes are a wall of petals sweeping across. Type is Zen Old Mincho for display, IBM Plex Sans JP for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -19,19 +19,19 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the gate: the plate and its two halves (and the 404's broken cup)
+│   ├── gate.css          the gate: the night, the two doors (and the 404)
 │   ├── qa.css
 │   ├── art.css
-│   └── world.css         loads after art.css and reuses its index, frames and viewer
+│   └── world.css         loads after art.css and reuses its frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, clock, local links
-│   ├── kintsugi.js       the shared craft: glaze painting, shards, cracks, gold seams, the breakable vessel
-│   ├── gate.js           the gate: the glazed plate, its cracks and gold, the two halves as doors
-│   ├── qa.js             the QA test runner, the email Copy button and the gold reading line
-│   ├── art.js            the atelier's bowl, gold dust, tile crackle, and the full-size viewer
-│   ├── world.js          the shattered realm behind the worlds page, and its river of gold
-│   └── lost.js           the 404's broken cup
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the clock, hanging things that sway, local links
+│   ├── sakura.js         the blossom engine: petal physics, wind, sprites, branch growing and drawing
+│   ├── gate.js           the gate: the tree, wind, blooming on click, the two doors and the gust through
+│   ├── qa.js             the QA test runner, the email Copy button and the reading-progress branch
+│   ├── art.js            the atelier's painted garden and pond, drifting petals, and the full-size viewer
+│   ├── world.js          the worlds: the petal river, parallax depth and the floating islands
+│   └── lost.js           the 404's branch
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)
@@ -90,17 +90,16 @@ The Indonesian and Japanese strings are first drafts and need a read from a nati
 
 ## The pages
 
-- **Gate:** a navy glazed plate fills the window, with my name, Jakarta's local time and the language switcher above it. Its inner well is broken in two and each half is a door: one click, tap or Enter goes in, and the half lifts away.
-- **QA (porcelain):** the name large on a cool off-white ground beside a mended navy plate, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles with a test runner; skills lead with testing; contact sets the address large on a navy glazed panel. The page ends on a navy band leading to the atelier.
-- **The Willow Atelier (the studio at night):** the name large, the tagline, a chawan to break and mend, and an index of glazed tiles:
+- **Gate:** one landscape from morning (left) to dusk (right), with my name, Jakarta's local time and two cards over it. Each whole card is the link, with an **Enter** pill; one click or tap goes in.
+- **QA (the morning):** the name large over a pale sky and a band of misty hills, the pitch and two actions under it. Each section has its name in a sticky left column and the content on the right. Experience is a table of roles; skills lead with testing; contact sets the address large on a dark panel. The page ends on a dark band leading to the atelier.
+- **The Willow Atelier (the evening):** night over the hills, with stars, the moon and fireflies; the name large, the tagline, and an index of:
   1. **Drawing & Painting**, a grid of frames
   2. **Photography**, a row of frames scrolled sideways
   3. **Music**, a ruled list of tracks
 
-  Then the story with the poem set vertically beside a gold seam, two tiles for Instagram and the shop, and the way on to the worlds.
-- **Worlds:** the realms, maps, characters and lore, each on a shard of its own, over the shattered world.
+  Then the story with the poem set vertically, and two rows for Instagram and the shop.
 
-With reduced motion turned on nothing moves on its own: the canvases draw still frames, the worlds follow the scroll only, and page changes are a short fade. Everything still works.
+With reduced motion turned on, the mist and fireflies hold still; the doors still work.
 
 ## Replacing placeholders
 

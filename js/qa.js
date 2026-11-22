@@ -3,9 +3,9 @@
 
    "Run checks" walks every role and entry in order: each one is marked
    running, its fields light up one by one as they are asserted, and it gets
-   a gold 合格 (passed) seal. A role can be re-run on its own by clicking it. The
-   summary line is announced politely. Also: a Copy button for the email, and
-   a reading line drawn as a gold seam along the top.
+   a 合格 (passed) seal that blooms open. A role can be re-run on its own by
+   clicking it. The summary line is announced politely. Also: a Copy button
+   for the email, and the reading-progress branch in the header.
    Nothing here hides content; without scripts the page is the same, minus
    the runner.
    ========================================================================== */
@@ -157,67 +157,42 @@
   }
 
   /* ------------------------------------------------------------------------
-     The reading line: a gold seam along the top of the window, drawn as far
-     as you have read. It is a slightly broken line, the way a mend runs.
+     Reading progress: a branch grows along the bottom of the header as the
+     page is read, and its buds open as it passes them.
      ------------------------------------------------------------------------ */
-  function initProgress() {
-    const NS = 'http://www.w3.org/2000/svg';
-    const bar = document.createElement('div');
-    bar.className = 'progress';
-    bar.setAttribute('aria-hidden', 'true');
-    const svg = document.createElementNS(NS, 'svg');
-    svg.setAttribute('focusable', 'false');
-    const paths = ['', 'progress__hi'].map(function (cls) {
-      const path = document.createElementNS(NS, 'path');
-      if (cls) path.setAttribute('class', cls);
-      svg.appendChild(path);
-      return path;
-    });
-    bar.appendChild(svg);
-    document.body.appendChild(bar);
-    let length = 1;
-    let width = 0;
-
-    // the line is laid out in real pixels, so the dash is exact
-    function shape() {
-      width = window.innerWidth;
-      svg.setAttribute('viewBox', '0 0 ' + width + ' 6');
-      let d = 'M0 3';
-      let seed = 7;
-      for (let x = 22; x < width + 22; x += 22) {
-        seed = (seed * 16807) % 2147483647;
-        d += ' L' + Math.min(width, x) + ' ' + (1.5 + (seed % 1000) / 1000 * 3).toFixed(2);
-      }
-      paths.forEach(function (path) {
-        path.setAttribute('d', d);
-      });
-      length = paths[0].getTotalLength();
-      paths.forEach(function (path) {
-        path.style.strokeDasharray = length + ' ' + length;
-      });
+  function initGrowth() {
+    const growth = document.querySelector('[data-growth]');
+    if (!growth) return;
+    const buds = [];
+    for (let i = 0; i < 9; i++) {
+      const bud = document.createElement('span');
+      bud.className = 'growth__bud';
+      const at = 0.07 + i * 0.105;
+      bud.style.left = (at * 100).toFixed(2) + '%';
+      bud.style.rotate = (i * 47 % 72) + 'deg';
+      growth.appendChild(bud);
+      buds.push({ el: bud, at: at });
     }
     let queued = false;
     function update() {
       queued = false;
-      if (width !== window.innerWidth) shape();
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-      paths.forEach(function (path) {
-        path.style.strokeDashoffset = String(length * (1 - p));
+      growth.style.setProperty('--p', p.toFixed(4));
+      buds.forEach(function (b) {
+        b.el.classList.toggle('is-open', p >= b.at);
       });
     }
-    function queue() {
+    window.addEventListener('scroll', function () {
       if (queued) return;
       queued = true;
       window.requestAnimationFrame(update);
-    }
-    window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', queue);
-    shape();
+    }, { passive: true });
+    window.addEventListener('resize', update);
     update();
   }
 
   initRunner();
   initCopy();
-  initProgress();
+  initGrowth();
 })();

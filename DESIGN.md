@@ -1,65 +1,55 @@
-# Design system: kintsugi (金継ぎ)
+# Design system: yozakura (夜桜)
 
-Navy glazed ceramics, broken and mended with gold. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, kintsugi.js, gate.js, qa.js, art.js, world.js, lost.js). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
+Cherry blossoms at night under a deep navy sky: a hanami evening, moonlight, paper lamps, and petals that behave like petals. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/sakura.js, main.js, gate.js, qa.js, art.js, world.js, lost.js).
 
-## The idea
+## Idea
 
-Beauty in repair. Everything is a deep ruri (瑠璃) glaze, with depth: it pools glassy and bright where it is thick, darkens where it turns away, runs thin and pale at a rim, and carries a fine crackle (kannyū). Gold is the only second colour, and it only ever appears as a line: a seam, a tick, a thread, a glint. Never a field of gold. Navy dominates every page.
+Navy is the night and the ink; blossom is a pale, cool pink-white used sparingly, as light on that night. Everything that moves is a petal, a branch or the wind:
 
-The same craft runs through all the canvases (js/kintsugi.js): a glaze painted once into an offscreen canvas; shapes broken into Voronoi shards whose edges are a little jagged and identical on both sides, so they fit back together; branching cracks that grow from a point; and gold that flows into cracks outward from where they were struck, with a running glint and a soft bloom.
-
-The fantasy gradient:
-
-- **QA** is professional: porcelain, calm, useful. One thin gold rule. Nothing toy-like.
-- **The Willow Atelier** is extra: a studio of glaze at night where you break and mend things.
-- **Worlds** is the most: a shattered realm drifting in a void that you piece back together.
-- **The gate** foreshadows both: one half of the plate is calm and exact, the other is magic.
+- **Petals are physics** (js/sakura.js). Each petal tumbles (its flip angle squeezes it edge-on and back), flutters sideways, is dragged by the wind harder when it lies flat to it, falls, and can settle on a ground line and pile up. Strong wind lifts settled petals again.
+- **The pointer is wind.** Moving it pushes nearby petals with its velocity; a fast swipe is a gust.
+- **Branches grow.** A seeded grower makes trees of curved segments; branches are inked dark navy with a moonlit rim; flowers open with a little overshoot.
+- **Page changes** are a wall of petals in the next page's colour sweeping across from the left; the next page starts under it and the wall carries on off to the right.
 
 ## Pages
 
-- **Gate.** A large navy glazed plate fills the stage, lit by a soft highlight that follows the pointer, with the rim catching the light on the near side; gold dust drifts up in the void. The plate already carries two old gold mends. Tap the glaze (the outer ring) and it cracks from that point, the cracks racing out dark, and then gold flows slowly into them and stays. The plate's inner well is broken in two, and the halves are the doors. QA: a clean straight cut, its edge a straight gold seam with ruled measurement ticks and a dotted hairline beside it. The atelier: a shard whose gold seams branch across it like rivers, breathing, with light running down them. Hover or focus lifts a half (with a deeper shadow) and brightens its seam; click or Enter and that half lifts away and turns, the other dims, and the next page's glaze washes in. On narrow screens the well breaks across, QA above the atelier.
-- **QA.** Matte porcelain, cool (not cream). Navy type, a calm grid, hairline rules with one short gold run where each section begins. A mended navy plate sits beside the name, with one gold seam. A gold reading line is drawn across the top of the window as you read, as a slightly broken seam. The experience runs as a test suite: each field is checked in turn, a gold seam runs down the passed case's edge, and a fine double-ringed gold 合格 seal is stamped on it. Contact sits on a navy glazed panel crossed by one gold seam, with a Copy button. The page ends on a navy band to the atelier.
-- **The Willow Atelier.** A dark navy studio. In the hero, a chawan: tap it and it shatters into shards that fly apart and fall to the floor; press and hold and they are pulled home; once whole, gold flows into every crack from where it was struck, glows, sparks, and is fired into the glaze for good, so the bowl carries more gold each time (a button does the same for keyboards, and a count keeps the mends). Gold dust drifts over the page and is drawn toward the pointer in a slow swirl. The index and the link cards are glazed tiles that crackle with gold from wherever the pointer came in, and heal when it leaves. Frames are glazed tiles with a sheen that slides across on hover. The poem is set vertically beside a gold seam.
-- **Worlds.** A shattered realm behind the page: thirteen great shards of a world (navy glaze outside, the world painted inside as an old chart in gold line on a seigaiha sea) drift at different depths in a void, turning so they flash from glaze to painting, tied to their neighbours by gold threads with light running along them. Pointer (or a phone's tilt) moves them in parallax by depth. A river of molten gold runs through the void with embers rising off it, and bends toward the pointer. Clicking the void pushes nearby shards away. Scrolling reassembles the world shard by shard from the middle out; the cracks between home shards turn to gold, and at the end of the page the world is whole. Each section sits on a shard of its own: a glazed panel with a broken outline and a gold edge, which settles into place as it comes into view.
-- **404.** A broken cup lies in pieces. Tap it and the shards come home and the cracks fill with gold. Then "Nothing behind this door."
+- **Gate.** A great old cherry tree rises between the two doors and spans the sky, with the moon behind it, far hills and a pile of fallen petals along the bottom. Blossom clouds are kept clear of the words and the doors. Moving the pointer stirs the petals; a fast swipe through the canopy shakes blossom loose; clicking a branch grows a new twig there that flowers; clicking open sky scatters the petals near you. The QA door is a lamp-lit shoji pavilion: a precise kumiko grid a hair out of true and a light that flickers; on hover the light steadies and every line falls into place (and turns royal). The atelier door is a torii-like arch of blossom, drawn on the canvas, with a glow inside; on hover more flowers open and petals spiral into it. Click or Enter: a gust carries the petals through, then the wall sweeps in.
+- **QA (professional).** Pale paper, navy type, a 3/9 grid with sticky section names. A still sprig of blossom in the hero corner, kept clear of the words. A branch grows along the bottom of the header as you read and its buds open as it passes them. The test runner checks each role in turn and blooms a small 合格 seal (an ink disc on a blossom). Copy button for the email. Nothing moves over text.
+- **The Willow Atelier (extra).** A night garden hero: drag to paint a branch; the wood follows your stroke and thins as it goes, twigs sprout, buds swell and open. An invisible hand paints the first branch across the moon. Blossoms drop petals into a pond at the bottom where they ripple, float and melt; the pond mirrors the night above, wavering. The title stands in moonlight. The index is three tanzaku on a cord that sway in the breeze and swing when the pointer passes. A few petals drift behind the rest of the page.
+- **Worlds (super extra).** A vast navy night with a giant moon. Each part (worlds, maps, characters, lore) sits on its own floating island: a glassy plate with sakura trees on top and a rock underneath, drifting in from its side and bobbing. A river of glowing petals flows down the page between the islands and bends toward the pointer or finger. The moon, far islands, stars and islands move at different depths with scroll and with the pointer or the phone's tilt. The hero index is four small floating islets.
+- **404.** A single bare branch reaching in from the right. Touch it (or the hint) and it blossoms from the base outward and lets petals fall.
 
 ## Colour
 
-| Token | Value | Role |
-|---|---|---|
-| `--night-3` | `#060d2e` | the deepest ground: the gate's void, the 404 |
-| `--night` | `#0b1848` | dark ground: atelier, panels, the QA end band |
-| `--night-2` | `#112263` | raised on dark |
-| `--ai-5` / `--ink` | `#0c1b4d` | text on porcelain, buttons on porcelain |
-| `--ai-4` / `--royal-2` | `#17318f` | glaze body, hover |
-| `--ai-3` / `--royal` | `#2449d8` | glaze where it pools, actions on dark |
-| `--ai-2` | `#8ea4e0` | pale glaze at a rim, text accents on dark |
-| `--porcelain` | `#f1f3f7` | QA ground (cool off-white) |
-| `--porcelain-2` | `#fafbfd` | QA cards |
-| `--gold` | `#d9b45e` | seams, ticks, threads (lines only) |
-| `--gold-hi` | `#f6e2a8` | the bright core of a seam, glints, focus on dark |
-| `--gold-lo` | `#a07a2c` | the shadowed edge of a seam |
-| `--gold-ink` | `#8a6420` | gold dark enough to read on porcelain |
+| Token | Value | Use |
+| --- | --- | --- |
+| `--abyss` | `#040a26` | top of the night, deepest shadow |
+| `--deep` | `#070f36` | night gradient |
+| `--night` | `#0b1848` | the night ground, dark sections |
+| `--ink` | `#0c1b4d` | type on paper, branches on paper |
+| `--royal` | `#2449d8` | accents on paper, hover, the current role dot |
+| `--moon` | `#eef1fb` | type on the night, the moon |
+| `--blossom` | `#f3dce7` | secondary: blossom, accents on the night |
+| `--blossom-deep` | `#d9a3bc` | petal shade, seals, rules |
+| `--lamp` | `#fbefd9` | the lamp light in the shoji only |
+| `--paper` | `#f5f4f0` | the QA ground |
 
-Glaze in the canvases runs `#2c4fc2` → `#1a3591` → `#0f2063` → `#070f38`, with pools of `rgba(46, 86, 230, …)` and crackle in `rgba(150, 175, 255, 0.075)`.
+Navy leads every page. Blossom is light, never a ground.
 
 ## Type
 
-- Kaisei Decol for display: names, titles, section names, the Japanese labels, the 合格 seal, numbers in lists.
-- Murecho for text in every language; DM Mono for the clock, dates, counts and small labels.
+- Display: **Zen Old Mincho** (names, titles, roles, the poem).
+- Text: **IBM Plex Sans JP** (body, UI; covers Japanese too).
+- Small facts: **IBM Plex Mono** (dates, numbers, labels).
 
 ## Shape
 
-- Ceramic, not round: `--radius: 4px` for anything you press, `--radius-box: 6px` for cards and tiles. The track buttons and the viewer's close are circles.
-- Rules are hairlines; a section's top rule has one short gold run.
-- Japanese section names are small, wide-tracked, with a gold tick before them.
-- Worlds: panels and index tiles are clipped into irregular shards with a gold drop-shadow edge.
+Thin rules and square corners on the work side; pills for small controls; tanzaku strips, round-topped islands and rock undersides on the art side. Petal and five-petal flower shapes come from one path, used in canvas sprites, SVG and CSS masks.
 
 ## Motion
 
-- Page change: the next page's glaze (porcelain for QA, navy for the rest) washes across on a skew, led by a gold seam; the next page lets it run on and off the far side.
-- Arrival: titles settle in out of a blur.
-- Ambient: dust drifting on the gate and the atelier; the atelier half's rivers breathing; the worlds' shards drifting and turning, the river flowing.
-- Physics: shards fly and fall with gravity and bounce on the floor; holding pulls them home on a spring; the river's nodes are springs that lean toward the pointer.
-- Every canvas loop pauses when the tab is hidden, and the vessels' loops stop when they are at rest or off screen.
-- Reduced motion: nothing moves on its own. The gate draws still frames (a tap shows the crack already gilded; hover still lifts a half); a broken vessel falls to rest at once and mends straight to gold; no dust; the worlds draw a still frame that follows the scroll only, with no drift, no river flow and no settling panels; the test runner stamps at once; page changes are a short fade.
+Canvas loops (gate, garden, drift, river, 404) run on one shared frame loop that pauses when the tab is hidden or the element is offscreen. Springs for swaying things, ease-out for reveals, a slight overshoot for flowers opening.
+
+## Reduced motion
+
+`prefers-reduced-motion`: canvases render one still frame (and redraw only when you click or paint, with flowers appearing open); no drift, river flow, parallax, bob, sway or lamp flicker; reveals are a short fade; page changes are a plain fade in the next page's colour.

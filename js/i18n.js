@@ -20,6 +20,10 @@
 
   const DICT = {
     en: {
+      'nf.bloom': 'Touch the branch.',
+      'world.river.hint': 'The river of petals follows you.',
+      'art.paint.clear': 'Clear the branches',
+      'art.paint.hint': 'Drag across the night to paint a branch.',
       'common.skip': 'Skip to content',
       'common.back': 'Back to the gate',
       'common.backShort': 'Gate',
@@ -46,17 +50,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
-      'art.bowl.hint': 'Tap the bowl to break it.',
-      'art.bowl.hold': 'Press and hold to pull the pieces home.',
-      'art.bowl.mending': 'The pieces are finding their places…',
-      'art.bowl.gilding': 'Gold is filling the cracks.',
-      'art.bowl.again': 'Mended with gold, and more beautiful for it. Break it again?',
-      'art.bowl.break': 'Break the bowl',
-      'art.bowl.mend': 'Mend it',
-      'art.bowl.mended': 'Times mended',
-      'nf.hint': 'Tap the broken cup to mend it.',
-      'world.hint': 'Move to steer the river of gold. Scroll, and the world comes back together.',
-      'gate.hint': 'Tap the glaze to crack it, and watch the gold mend it. Then choose a half.',
+      'gate.hint': 'Move to stir the wind. Swipe fast for a gust. Click a branch and it blooms.',
       'qa.run.button': 'Run checks',
       'qa.run.again': 'Run again',
       'qa.run.idle': '6 checks, not run yet',
@@ -226,11 +220,14 @@
 
       'nf.title': 'Nothing behind this door.',
       'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
-      'nf.poke': 'Go on, poke a hole in the paper.'
     },
 
     // Draft. Needs a native read.
     id: {
+      'nf.bloom': 'Sentuh dahannya.',
+      'world.river.hint': 'Sungai kelopak ini mengikutimu.',
+      'art.paint.clear': 'Hapus dahan',
+      'art.paint.hint': 'Seret melintasi malam untuk melukis sebuah dahan.',
       'common.skip': 'Langsung ke konten',
       'common.back': 'Kembali ke gerbang',
       'common.backShort': 'Gerbang',
@@ -257,17 +254,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
-      'art.bowl.hint': 'Ketuk mangkuknya untuk memecahkannya.',
-      'art.bowl.hold': 'Tekan dan tahan untuk menarik pecahannya kembali.',
-      'art.bowl.mending': 'Pecahan-pecahannya mencari tempatnya…',
-      'art.bowl.gilding': 'Emas mengisi retakannya.',
-      'art.bowl.again': 'Ditambal dengan emas, dan jadi lebih indah. Pecahkan lagi?',
-      'art.bowl.break': 'Pecahkan mangkuk',
-      'art.bowl.mend': 'Tambal',
-      'art.bowl.mended': 'Kali ditambal',
-      'nf.hint': 'Ketuk cangkir yang pecah untuk menambalnya.',
-      'world.hint': 'Gerakkan penunjuk untuk mengarahkan sungai emas. Gulir, dan dunia ini menyatu kembali.',
-      'gate.hint': 'Ketuk glasirnya agar retak, lalu lihat emas menambalnya. Setelah itu, pilih salah satu belahan.',
+      'gate.hint': 'Gerakkan untuk mengembuskan angin. Usap cepat untuk embusan kencang. Klik sebuah dahan, dan ia akan mekar.',
       'qa.run.button': 'Jalankan pengecekan',
       'qa.run.again': 'Jalankan lagi',
       'qa.run.idle': '6 pengecekan, belum dijalankan',
@@ -437,11 +424,14 @@
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
       'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
-      'nf.poke': 'Silakan, tusuk saja kertasnya.'
     },
 
     // Draft. Needs a native read.
     ja: {
+      'nf.bloom': '枝にふれてみてください。',
+      'world.river.hint': '花びらの川が、あなたについてきます。',
+      'art.paint.clear': '枝を消す',
+      'art.paint.hint': '夜空をなぞって、枝を描いてください。',
       'common.skip': '本文へスキップ',
       'common.back': '門へ戻る',
       'common.backShort': '門へ',
@@ -468,17 +458,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
-      'art.bowl.hint': '茶碗をタップすると割れます。',
-      'art.bowl.hold': '長押しすると、破片が元の場所へ戻ります。',
-      'art.bowl.mending': '破片が元の場所を探しています…',
-      'art.bowl.gilding': 'ひびに金が満ちていきます。',
-      'art.bowl.again': '金で継がれ、前よりも美しく。もう一度割りますか？',
-      'art.bowl.break': '茶碗を割る',
-      'art.bowl.mend': '継ぐ',
-      'art.bowl.mended': '継いだ回数',
-      'nf.hint': '割れた湯呑みをタップすると、金で継がれます。',
-      'world.hint': 'ポインターで金の川を導いてください。スクロールすると、世界がひとつに戻っていきます。',
-      'gate.hint': '釉薬をタップするとひびが入り、金がそれを継ぎます。それから、どちらかの片をお選びください。',
+      'gate.hint': '動かすと風が起こります。素早く払えば突風に。枝をクリックすると花が咲きます。',
       'qa.run.button': 'チェックを実行',
       'qa.run.again': 'もう一度実行',
       'qa.run.idle': '6件のチェック、未実行',
@@ -648,7 +628,6 @@
 
       'nf.title': 'この扉の向こうには、何もありません。',
       'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
-      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
     }
   };
 
