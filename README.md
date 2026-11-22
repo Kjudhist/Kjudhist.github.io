@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *matsuri* (祭), a Japanese summer festival at night, in one blue ink. The gate is the sky: click it for fireworks, light the string of paper lanterns (light them all for a finale), and walk through the noren of one of two festival stalls. The QA page has lanterns, a bug hunt and a test runner that stamps each role 合格; the atelier has a tub of goldfish to scoop with a paper poi that tears; the worlds and the 404 have sky to launch fireworks in. Page changes are a noren dropping and lifting. Type is Dela Gothic One for display, Zen Maru Gothic for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *orikami* (折り紙), a world made of folded paper in navy washi and white kami. The gate is one large creased sheet lit by the pointer: hover a door and its gatefold half-opens (a white ruled checklist behind the QA door, a paper crane behind the atelier's), click and it opens flat, and drag the turned-back corner to fold the sheet. The QA page is clean white paper with folded cards, a reading-progress fold line and a test runner whose tickets flip to a 合格 seal; the atelier has a flock of paper cranes (click to fold a new one, tap one to unfold it) and its title on a folded banner; the worlds are a pop-up book whose scenes rise off the page as you scroll; the 404 is a crumpled sheet you can smooth out. Page changes are a sheet folding over the screen. Type is Shippori Mincho B1 for display, Zen Kaku Gothic New for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -19,18 +19,19 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the festival gate: sky, lanterns, the two stalls (and the 404)
+│   ├── gate.css          the gate: the creased sheet, the two folded doors (and the 404)
 │   ├── qa.css
 │   ├── art.css
-│   └── world.css         loads after art.css and reuses its hero, frames and viewer
+│   └── world.css         the pop-up book
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, lanterns, local links
-│   ├── hanabi.js         fireworks (gate, worlds, 404), their sound, and the sparkler pointer
-│   ├── gate.js           the gate: sky clicks, the noren on each stall, the Sound switch
-│   ├── qa.js             the QA test runner, the email Copy button and the bug hunt
-│   ├── kingyo.js         the atelier's goldfish tub and poi
-│   └── art.js            the full-size viewer for artworks
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, clock, local links
+│   ├── kami.js           paper lit by the pointer: the creased sheet (gate) and the crumpled sheet (404)
+│   ├── gate.js           the gate: the sheet, its folded corner, the two doors
+│   ├── qa.js             the QA test runner, the email Copy button and the reading progress line
+│   ├── tsuru.js          the atelier's paper cranes: the flock, folding and unfolding
+│   ├── art.js            the full-size viewer for artworks and the atelier's banner tilt
+│   └── world.js          the worlds' pop-up book: page turns, rising scenes, tilt, the dragon
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)

@@ -46,16 +46,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
-      'gate.hint': 'Click the sky for fireworks. Light every lantern. Walk through a noren.',
-      'gate.sound': 'Sound',
-      'sky.hint': 'Click the sky.',
-      'qa.bugs.found': 'Bugs caught',
-      'qa.bugs.caught': 'Bug #{n} caught. Logged.',
-      'art.kingyo.hint': 'Press to dip the poi, let go to scoop. The paper tears.',
-      'art.kingyo.bag': 'In the bag',
-      'art.kingyo.poi': 'Poi left',
-      'art.kingyo.again': 'New poi',
-      'art.kingyo.torn': 'Torn!',
+      'gate.hint': 'Move the light across the paper. Hover a door to unfold it. Drag the folded corner.',
       'qa.run.button': 'Run checks',
       'qa.run.again': 'Run again',
       'qa.run.idle': '6 checks, not run yet',
@@ -225,7 +216,12 @@
 
       'nf.title': 'Nothing behind this door.',
       'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
-      'nf.poke': 'Go on, poke a hole in the paper.'
+      'nf.smooth': 'Click the paper to smooth it out.',
+      'nf.smoothLabel': 'Smooth out the paper',
+      'art.cranes.hint': 'Click anywhere to fold a crane. Tap a crane to unfold it.',
+      'art.cranes.count': 'Cranes folded',
+      'world.hint': 'Scroll or drag to turn the pages. Move to tilt the book.',
+      'world.next': 'Turn the page'
     },
 
     // Draft. Needs a native read.
@@ -256,16 +252,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
-      'gate.hint': 'Klik langit untuk kembang api. Nyalakan semua lampion. Lewati noren-nya.',
-      'gate.sound': 'Suara',
-      'sky.hint': 'Klik langitnya.',
-      'qa.bugs.found': 'Bug tertangkap',
-      'qa.bugs.caught': 'Bug #{n} tertangkap. Dicatat.',
-      'art.kingyo.hint': 'Tekan untuk mencelupkan poi, lepas untuk menyendok. Kertasnya bisa sobek.',
-      'art.kingyo.bag': 'Di kantong',
-      'art.kingyo.poi': 'Sisa poi',
-      'art.kingyo.again': 'Poi baru',
-      'art.kingyo.torn': 'Sobek!',
+      'gate.hint': 'Gerakkan cahaya di atas kertas. Arahkan ke pintu untuk membuka lipatannya. Seret sudut yang terlipat.',
       'qa.run.button': 'Jalankan pengecekan',
       'qa.run.again': 'Jalankan lagi',
       'qa.run.idle': '6 pengecekan, belum dijalankan',
@@ -435,7 +422,12 @@
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
       'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
-      'nf.poke': 'Silakan, tusuk saja kertasnya.'
+      'nf.smooth': 'Klik kertasnya untuk merapikannya.',
+      'nf.smoothLabel': 'Rapikan kertasnya',
+      'art.cranes.hint': 'Klik di mana saja untuk melipat bangau. Ketuk bangau untuk membukanya.',
+      'art.cranes.count': 'Bangau terlipat',
+      'world.hint': 'Gulir atau seret untuk membalik halaman. Gerakkan untuk memiringkan buku.',
+      'world.next': 'Balik halaman'
     },
 
     // Draft. Needs a native read.
@@ -466,16 +458,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
-      'gate.hint': '空をクリックすると花火。提灯をすべて灯して、暖簾をくぐってください。',
-      'gate.sound': '効果音',
-      'sky.hint': '空をクリック。',
-      'qa.bugs.found': '捕まえたバグ',
-      'qa.bugs.caught': 'バグ #{n} を捕獲。記録しました。',
-      'art.kingyo.hint': '押してポイを水に入れ、離してすくいます。紙は破れます。',
-      'art.kingyo.bag': '袋の中',
-      'art.kingyo.poi': '残りのポイ',
-      'art.kingyo.again': '新しいポイ',
-      'art.kingyo.torn': '破れた！',
+      'gate.hint': '紙の上で光を動かしてみてください。扉にふれると折りが開きます。折れた角はドラッグできます。',
       'qa.run.button': 'チェックを実行',
       'qa.run.again': 'もう一度実行',
       'qa.run.idle': '6件のチェック、未実行',
@@ -645,7 +628,12 @@
 
       'nf.title': 'この扉の向こうには、何もありません。',
       'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
-      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
+      'nf.smooth': '紙をクリックして、しわを伸ばしてみてください。',
+      'nf.smoothLabel': '紙のしわを伸ばす',
+      'art.cranes.hint': 'どこかをクリックすると鶴が折られます。鶴をタップすると開きます。',
+      'art.cranes.count': '折った鶴',
+      'world.hint': 'スクロールかドラッグでページをめくります。動かすと本が傾きます。',
+      'world.next': 'ページをめくる'
     }
   };
 

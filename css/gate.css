@@ -1,22 +1,24 @@
 /* ==========================================================================
-   Gate: a summer festival at night. The whole window is sky (fireworks,
-   js/hanabi.js); a string of lanterns hangs under the header; two festival
-   stalls are the doors. QA's stall has a royal-and-white awning and a white
-   noren reading 品質保証; the atelier's has a navy awning and a navy noren
-   reading アトリエ. Glimpsed past each noren: jars ticked off on shelves,
-   and paintings and brushes. Also the 404.
+   The gate (and the 404): a sheet of navy washi on a dark table.
    ========================================================================== */
 
-body.gate {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-  isolation: isolate;
+@property --open {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
 }
 
-.sky {
+body.gate,
+body.lost-page {
+  --bg: #030820;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #030820;
+}
+
+.sheet {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -24,507 +26,613 @@ body.gate {
   height: 100%;
 }
 
-.gate .g-top,
-.gate .lanterns,
-.gate .g-main,
+/* the folded corner: grab it anywhere in this square */
+.peel {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 112px;
+  height: 112px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.peel.is-dragging {
+  cursor: grabbing;
+}
+
+.g-top,
+.g-main,
 .gate .credit {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .g-top {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem 2rem;
-  padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
-  pointer-events: none;
-}
-
-.g-top > * {
-  pointer-events: auto;
+  flex-wrap: wrap;
+  padding: clamp(1.1rem, 2.4vw, 1.9rem) clamp(1.25rem, 3.6vw, 3rem) 0;
 }
 
 .g-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 400;
-  line-height: 1.1;
-  text-shadow: 0 0 1.2rem rgba(91, 124, 255, 0.35);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  letter-spacing: 0.04em;
+  line-height: 1.3;
 }
 
 .g-meta {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1.25rem;
 }
 
 .g-clock {
-  display: flex;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.8125rem;
+  color: var(--mist);
   white-space: nowrap;
 }
 
 .g-clock .mono {
-  color: var(--fg-strong);
-}
-
-/* sound: off until you ask for it */
-.sound {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0 0.85rem 0 0.35rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: transparent;
-  box-shadow: inset 0 0 0 var(--rule) var(--line-strong);
-  color: var(--fg);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
-}
-
-.sound__icon {
-  display: grid;
-  place-items: center;
-  width: 1.55rem;
-  height: 1.55rem;
-  border-radius: 50%;
-  background: var(--line);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.sound[aria-pressed="true"] {
-  background: var(--royal);
-  box-shadow: none;
   color: #fff;
+  margin-left: 0.35rem;
 }
 
-.sound[aria-pressed="true"] .sound__icon {
-  background: #fff;
-  color: var(--royal);
-}
-
-.lanterns--gate {
-  margin: 0.4rem var(--gutter) 0;
+.gate .lang {
+  background: rgba(3, 8, 32, 0.4);
 }
 
 .g-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 0 var(--gutter) 0.25rem;
-  pointer-events: none;
-}
-
-.g-main > * {
-  pointer-events: auto;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3.4vh, 2.5rem);
+  padding: clamp(1.25rem, 3vh, 2.5rem) var(--gutter);
 }
 
 .g-intro {
-  font-size: 0.95rem;
-  color: var(--fg);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(3, 8, 32, 0.6);
+}
+
+.g-doors {
+  --dh: clamp(12.5rem, 42vh, 25rem);
+  --dw: calc(var(--dh) * 0.78);
+  display: flex;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vw, 8rem);
 }
 
 .g-hint {
-  font-size: 0.82rem;
-  color: var(--muted);
+  max-width: 36rem;
+  font-size: 0.875rem;
+  color: var(--mist);
   text-align: center;
-  pointer-events: none;
 }
 
-/* --------------------------------------------------------------------------
-   The stalls
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ a door */
 
-.g-stalls {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.25rem, 3.5vw, 3rem);
-  min-height: 22rem;
-  padding-top: 1rem;
-}
-
-.stall {
-  --awning-a: var(--royal);
-  --awning-b: #f2f5fc;
-  --noren: #f2f5fc;
-  --noren-ink: var(--royal);
-  --post: #050b2e;
-  position: relative;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 0.9rem;
-  color: var(--ink);
-  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out);
+.door {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--dw);
+  color: #fff;
+  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-drag: none;
+  transition: opacity 0.5s var(--ease), filter 0.5s var(--ease);
 }
 
-.stall--art {
-  --awning-a: #0c1b4d;
-  --awning-b: var(--ai-2);
-  --noren: #0c1b4d;
-  --noren-ink: #dfe7f7;
+.door:focus-visible {
+  outline-offset: 10px;
 }
 
-.stall:focus-visible {
-  outline: 3px solid var(--royal-soft);
-  outline-offset: 6px;
-  border-radius: var(--radius-box);
+.has-open .door:not(.is-open) {
+  opacity: 0.25;
+  filter: blur(2px);
 }
 
-.stall__booth {
+.door__frame {
   position: relative;
-  min-height: 12rem;
-  margin-top: 0.9rem;
-  border-inline: 0.7rem solid var(--post);
-  border-bottom: 0.5rem solid var(--post);
-  cursor: pointer;
+  width: var(--dw);
+  height: var(--dh);
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  transition: --open 0.85s var(--fold), transform 0.85s var(--fold);
 }
 
-/* the awning: striped, with a scalloped edge, wider than the posts */
-.stall__roof {
+.door:hover .door__frame,
+.door:focus-visible .door__frame {
+  --open: 0.36;
+}
+
+.door.is-open .door__frame {
+  --open: 1;
+  transform: scale(1.04);
+  transition-duration: 0.7s;
+}
+
+/* what lies inside the fold */
+.door__inside {
   position: absolute;
-  top: -0.9rem;
-  left: -1.4rem;
-  right: -1.4rem;
-  z-index: 3;
-  height: 3.2rem;
-  border-radius: 0.6rem 0.6rem 0 0;
-  background: repeating-linear-gradient(90deg, var(--awning-a) 0 2.2rem, var(--awning-b) 2.2rem 4.4rem);
-  box-shadow: inset 0 0.5rem 0 rgba(5, 11, 46, 0.25);
+  inset: 0;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.stall__roof::after {
+.door__inside::after {
   content: "";
   position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 1.1rem;
+  inset: 0;
+  pointer-events: none;
+  /* the leaves still cast shade into the opening */
   background:
-    radial-gradient(circle at 50% 0, var(--awning-a) 1.1rem, transparent calc(1.1rem + 1px)) 0 0 / 4.4rem 1.1rem repeat-x,
-    radial-gradient(circle at 50% 0, var(--awning-b) 1.1rem, transparent calc(1.1rem + 1px)) 2.2rem 0 / 4.4rem 1.1rem repeat-x;
+    linear-gradient(90deg, rgba(3, 8, 32, 0.55), transparent 22%, transparent 78%, rgba(3, 8, 32, 0.55));
+  opacity: calc(1 - var(--open) * 0.85);
 }
 
-/* inside the stall, lit */
-.stall__inside {
-  position: absolute;
-  inset: 2.3rem 0 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #eaf0fd, #b8c8ee 55%, #7f97d6);
-  transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
-}
-
-.stall--art .stall__inside {
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #2a3f9a, #13235f 60%, #0a1440);
-}
-
-.stall__inside svg {
+.door__inside svg {
   width: 100%;
   height: 100%;
 }
 
-.in-wood {
-  fill: #0c1b4d;
+/* QA: a crisp white ruled sheet */
+.door--qa .door__inside {
+  background:
+    linear-gradient(90deg, transparent 0 11.5%, rgba(194, 59, 38, 0.28) 11.5% calc(11.5% + 1px), transparent 0),
+    repeating-linear-gradient(0deg, rgba(12, 27, 77, 0.07) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(12, 27, 77, 0.07) 0 1px, transparent 1px 12px),
+    #fbfaf6;
 }
 
-.in-jars rect {
-  fill: rgba(36, 73, 216, 0.22);
-  stroke: var(--royal);
-  stroke-width: 2;
+.ledger__head {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  fill: var(--ink);
 }
 
-.in-ticks path {
+.ledger__rule {
+  stroke: var(--ink);
+  stroke-width: 1.2;
+}
+
+.ledger__rows path {
+  stroke: rgba(12, 27, 77, 0.5);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 3 7;
+}
+
+.ledger__ticks path {
   fill: none;
   stroke: var(--royal);
-  stroke-width: 3.5;
+  stroke-width: 2.4;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.35s var(--ease-out);
+  transition-delay: 0s;
 }
 
-.in-counter {
-  fill: #0c1b4d;
+.door:hover .ledger__ticks path,
+.door:focus-visible .ledger__ticks path,
+.door.is-open .ledger__ticks path {
+  stroke-dashoffset: 0;
+  transition-delay: calc(0.3s + var(--i) * 0.09s);
 }
 
-.stall--art .in-counter {
-  fill: #050b2e;
+.ledger__stamp {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(1.6) rotate(-8deg);
+  transition: opacity 0.2s, transform 0.35s var(--ease-out);
 }
 
-.in-frame {
-  fill: #f2f5fc;
-  stroke: #8eabe3;
-  stroke-width: 3;
-}
-
-.in-paint {
-  fill: var(--royal);
-}
-
-.in-moon {
-  fill: #8eabe3;
-}
-
-.in-line {
+.ledger__stamp rect {
   fill: none;
-  stroke: var(--royal);
-  stroke-width: 3;
-  stroke-linecap: round;
+  stroke: var(--shu);
+  stroke-width: 1.6;
 }
 
-.in-brushes rect {
-  fill: #8eabe3;
+.ledger__stamp text {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 12px;
+  text-anchor: middle;
+  fill: var(--shu);
 }
 
-.in-brushes path {
-  stroke: #dfe7f7;
-  stroke-width: 3;
-  stroke-linecap: round;
+.door:hover .ledger__stamp,
+.door:focus-visible .ledger__stamp,
+.door.is-open .ledger__stamp {
+  opacity: 1;
+  transform: rotate(-8deg);
+  transition-delay: 0.85s;
 }
 
-/* the noren: four strips on a rod, each swinging from the top (js/gate.js) */
-.noren {
+/* the atelier: night, and a paper crane */
+.door--art .door__inside {
+  background: radial-gradient(120% 90% at 70% 10%, #1b2f78, #0a1544 55%, #050c2e);
+}
+
+.nightfold__stars circle {
+  fill: #dfe6ff;
+  opacity: 0.8;
+}
+
+.nightfold__moon {
+  fill: #f3f1ea;
+  filter: drop-shadow(0 0 10px rgba(220, 230, 255, 0.5));
+}
+
+.nightfold__hill {
+  fill: #0e1d5a;
+}
+
+.nightfold__hill2 {
+  fill: #08133f;
+}
+
+.crane {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.crane .f1 { fill: #ffffff; }
+.crane .f2 { fill: #c9d1ea; }
+.crane .f3 { fill: #e9ecf6; }
+.crane .f4 { fill: #aab5da; }
+.crane .f5 { fill: #ffffff; }
+.crane .f6 { fill: #dde3f3; }
+
+.crane__wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.door--art:hover .crane,
+.door--art:focus-visible .crane {
+  transform: translate(0, -34px) rotate(-6deg);
+}
+
+.door--art:hover .crane__wing--front,
+.door--art:focus-visible .crane__wing--front,
+.door--art.is-open .crane__wing--front {
+  animation: flap 0.52s ease-in-out infinite;
+}
+
+.door--art:hover .crane__wing--back,
+.door--art:focus-visible .crane__wing--back,
+.door--art.is-open .crane__wing--back {
+  animation: flap 0.52s ease-in-out -0.08s infinite;
+}
+
+.door--art.is-open .crane {
+  transform: translate(46px, -120px) rotate(-14deg) scale(0.75);
+  transition-duration: 1.1s;
+}
+
+@keyframes flap {
+  50% {
+    transform: scaleY(-0.55);
+  }
+}
+
+/* the two leaves of the gatefold */
+.door__leaf {
   position: absolute;
-  top: 2.3rem;
-  left: 0.3rem;
-  right: 0.3rem;
-  z-index: 2;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  transform-style: preserve-3d;
+}
+
+.door__leaf--l {
+  left: 0;
+  transform-origin: 0 50%;
+  transform: rotateY(calc(var(--open) * -176deg));
+}
+
+.door__leaf--r {
+  right: 0;
+  transform-origin: 100% 50%;
+  transform: rotateY(calc(var(--open) * 176deg));
+}
+
+.door__face,
+.door__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.door__face {
   display: flex;
-  gap: 0.35rem;
-  height: 46%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  overflow: hidden;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: calc(var(--dw) * 0.19);
+  line-height: 1;
+  color: rgba(214, 223, 255, 0.82);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45), 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.door__face b {
+  font-weight: inherit;
+}
+
+/* each leaf is folded once more on a diagonal, so it has a lit and a shaded half */
+.door__leaf--l .door__face {
+  background:
+    linear-gradient(to bottom left, rgba(255, 255, 255, 0.07) 0 49.6%, rgba(0, 0, 0, 0.16) 50% 100%),
+    linear-gradient(90deg, #1d3277, #142661);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.45);
+}
+
+.door__leaf--r .door__face {
+  background:
+    linear-gradient(to bottom right, rgba(255, 255, 255, 0.07) 0 49.6%, rgba(0, 0, 0, 0.16) 50% 100%),
+    linear-gradient(90deg, #13245d, #1a2e71);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.door__face::before,
+.door__face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   pointer-events: none;
 }
 
-.noren::before {
-  content: "";
-  position: absolute;
-  top: -0.3rem;
-  left: -0.6rem;
-  right: -0.6rem;
-  height: 0.45rem;
-  border-radius: 0.3rem;
-  background: var(--post);
+/* the light where the pointer is */
+.door__face::before {
+  background: radial-gradient(circle at var(--hx, 30%) var(--hy, 20%), rgba(170, 195, 255, 0.3), transparent 60%);
+  mix-blend-mode: screen;
 }
 
-.noren__strip {
-  --a: 0deg;
-  flex: 1;
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  padding-top: clamp(0.8rem, 2vw, 1.4rem);
-  border-radius: 0 0 0.35rem 0.35rem;
-  background: var(--noren);
-  box-shadow: inset 0 -0.55rem 0 rgba(5, 11, 46, 0.12);
-  color: var(--noren-ink);
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1rem + 2.2vw, 3rem);
-  line-height: 1;
-  transform: rotate(var(--a));
-  transform-origin: 50% 0;
+/* turning away from the light, the leaf darkens */
+.door__face::after {
+  background: #020618;
+  opacity: calc(var(--open) * 0.9);
 }
 
-.noren__strip b {
-  font-weight: 400;
+.door__back {
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(to bottom right, rgba(12, 27, 77, 0.06) 0 49.6%, rgba(12, 27, 77, 0.16) 50% 100%),
+    #f3f2ec;
 }
 
-/* the caption under each stall */
-.stall__label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.2rem 1.5rem;
-  padding: 1rem 1.2rem;
-  border-radius: var(--radius-box);
-  background: var(--sheet);
+.door--art .door__back {
+  background:
+    linear-gradient(to bottom left, rgba(12, 27, 77, 0.08) 0 49.6%, rgba(12, 27, 77, 0.2) 50% 100%),
+    #dfe4f4;
 }
 
-.stall--art .stall__label {
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px rgba(223, 231, 247, 0.18);
-  color: #f1f4fa;
+/* caption under the fold */
+.door__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: clamp(0.9rem, 2.2vh, 1.4rem);
+  text-align: center;
 }
 
-.stall__no {
-  grid-column: 1 / -1;
-  color: var(--grey);
+.door__no {
+  font-size: 0.75rem;
+  color: var(--mist);
+  letter-spacing: 0.1em;
 }
 
-.stall--art .stall__no {
-  color: #94a2c8;
+.door__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+  line-height: 1.25;
 }
 
-.stall__title {
-  grid-column: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 0.9rem + 1.5vw, 2.4rem);
-  line-height: 1.1;
+.door__sub {
+  font-size: 0.8125rem;
+  color: var(--mist);
 }
 
-.stall__sub {
-  grid-column: 1;
-  font-size: 0.92rem;
-  color: var(--ink-2);
-}
-
-.stall--art .stall__sub {
-  color: #c5cfe8;
-}
-
-.stall__cta {
-  grid-column: 2;
-  grid-row: 2 / span 2;
+.door__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
-  min-height: 3rem;
-  padding: 0.6rem 1.4rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease-back);
+  gap: 0.6rem;
+  margin-top: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  box-shadow: inset 0 0 0 1px rgba(174, 187, 230, 0.4);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.stall:hover .stall__cta,
-.stall:focus-visible .stall__cta {
-  background: var(--spark);
-  transform: scale(1.04);
+.door__cta .arrow {
+  width: 1.3rem;
+  transition: transform 0.35s var(--ease-out);
 }
 
-.stall:hover .stall__cta .arrow,
-.stall:focus-visible .stall__cta .arrow {
-  transform: translateX(0.3rem);
+.door:hover .door__cta,
+.door:focus-visible .door__cta {
+  background: var(--kami);
+  color: var(--ink);
 }
 
-.stall:hover .stall__inside {
-  filter: brightness(1.08);
-}
-
-/* going in: the noren flings aside (js/gate.js) and you step up to the counter */
-.stall.is-open .stall__inside {
-  transform: scale(1.12);
-  filter: brightness(1.15);
-}
-
-.g-stalls.has-open .stall:not(.is-open) {
-  opacity: 0.3;
-  transform: scale(0.97);
+.door:hover .door__cta .arrow {
+  transform: translateX(3px);
 }
 
 .gate .credit {
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
+  color: var(--mist);
+  padding-right: 120px;
+  padding-left: 120px;
 }
 
-/* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the stalls stack
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ 404 */
 
-@media (max-width: 1099.98px) {
-  .stall__label {
-    grid-template-columns: 1fr;
-  }
-
-  .stall__cta {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: start;
-    margin-top: 0.7rem;
-  }
+.lost-page .topbar {
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 719.98px) {
+.lost {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 1rem var(--gutter) 2rem;
+}
+
+.lost__inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.crumple {
+  position: relative;
+  width: min(20rem, 70vw, 40vh);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.crumple canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.lost__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.lost__text {
+  color: var(--mist);
+}
+
+.lost__hint {
+  font-size: 0.8125rem;
+  color: var(--mist);
+}
+
+.lost .btn {
+  margin-top: 0.5rem;
+}
+
+.lost-page .credit {
+  position: relative;
+  z-index: 2;
+}
+
+/* ------------------------------------------------------------ small screens */
+
+@media (max-width: 640px) {
   .g-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.9rem;
+    padding-top: 1rem;
   }
 
   .g-meta {
-    flex-wrap: wrap;
+    width: 100%;
     justify-content: space-between;
-    gap: 0.75rem;
   }
 
-  .g-clock {
-    order: 3;
-    flex-basis: 100%;
+  .g-doors {
+    --dw: calc((100vw - 2 * var(--gutter) - 1rem) / 2);
+    --dh: min(calc(var(--dw) * 1.3), 34vh);
+    gap: 1rem;
   }
 
-  .g-stalls {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+  .door__sub {
+    font-size: 0.75rem;
   }
 
-  .stall__booth {
-    aspect-ratio: 5 / 4;
+  .peel {
+    width: 76px;
+    height: 76px;
+  }
+
+  .gate .credit {
+    padding-left: var(--gutter);
+    padding-right: 84px;
+    text-align: left;
+  }
+
+  .gate .credit p {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 641px) {
+  .g-doors {
+    --dh: clamp(11rem, 40vh, 25rem);
+  }
+
+  .g-main {
+    gap: 0.9rem;
+  }
+
+  .door__cta {
+    margin-top: 0.25rem;
+  }
+
+  .g-hint {
+    font-size: 0.8125rem;
+    max-width: 46rem;
+  }
+
+  .g-intro {
+    font-size: 1.6rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stall,
-  .stall__inside,
-  .stall__cta {
-    transition-duration: 0.01s;
+  .door__frame,
+  .crane,
+  .ledger__ticks path,
+  .ledger__stamp {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+
+  .door .crane__wing {
+    animation: none !important;
   }
 }
 
-/* ==========================================================================
-   404: lost at the festival. Nothing here but the sky; click it.
-   ========================================================================== */
-
 body.lost-page {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-}
-
-.lost-page .topbar__end {
-  margin-left: auto;
-}
-
-.lost {
-  display: grid;
-  align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(1.5rem, 4vw, 3rem);
-}
-
-.lost__inner {
-  width: min(100%, 84rem);
-  margin-inline: auto;
-}
-
-.lost__number {
-  font-size: 0.95rem;
-  color: var(--accent-text);
-}
-
-.lost__title {
-  max-width: 18ch;
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--fg-strong);
-}
-
-html[lang="ja"] .lost__title {
-  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.3;
-}
-
-.lost__text {
-  max-width: 36rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.1rem;
+  background: radial-gradient(90% 70% at 50% 30%, #172a6b, #0b1848 55%, #030820);
 }
