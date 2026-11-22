@@ -1,63 +1,71 @@
-# Design system: matsuri (祭)
+# Design system: orikami (折り紙)
 
-A Japanese summer festival at night, in one blue ink. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, hanabi.js, gate.js, qa.js, kingyo.js). Layout comes from folio: a 12-column grid with each section's name in a sticky left column.
+A world made of folded paper, in navy washi and white kami. Crisp creases, flat facets lit by one soft light, the light and dark sides of every fold. Recorded from the built site (css/base.css, gate.css, qa.css, art.css, world.css; js/main.js, kami.js, gate.js, qa.js, tsuru.js, art.js, world.js).
 
 ## Idea
 
-Every page has something to play with, and the play is the point:
+Everything is paper, and the paper behaves like paper:
 
-- **Fireworks (hanabi).** On the gate the whole window is sky: a shell goes up every few seconds, and a click anywhere that is not a control bursts one where you clicked. Five kinds: kiku (chrysanthemum, tailed), botan (peony, bright dots), shidare (willow: long silver trails that hang and fall, the atelier's own), ring (tilted), senrin (a thousand small crackling bursts). The worlds and the 404 have a strip of sky to launch in.
-- **Lanterns (chōchin).** A string of paper lanterns on a sagging rope. Brush past one and it swings on a damped spring; click it to light it or put it out. Light every lantern on the gate and the sky answers with a finale. The QA page's string reads 品質保証検査合格.
-- **Stalls with noren.** The gate's two doors are festival stalls. Each noren is four strips on springs: move the pointer through it and they swing with your speed; hover parts them; click and they fling aside and you go in. Past the noren: jars ticked off on shelves (QA) and paintings and brushes (the atelier).
-- **Bug hunt (QA).** Now and then a small bug walks in from an edge and wanders. Click it to catch it; a tally in the corner counts them ("Bug #3 caught. Logged.").
-- **Test runner (QA).** Run checks walks the experience as a test suite and stamps each role 合格.
-- **Kingyo-sukui (the atelier).** A blue tub of goldfish and a paper poi that follows the pointer. Press to dip, let go to scoop; fish scatter from the poi, slow ones are easier, and the paper weakens in the water and tears. Three poi, then a new set.
-- **Sparkler.** On the night pages the pointer throws a few short, branching sparks as it moves (senkō hanabi).
-- **Noren between pages.** Changing page, a noren in the next page's colour drops over this one; the next page lifts it.
-- Sound: fireworks can boom and crackle (synthesised); off until the Sound button on the gate is switched on.
+- **The light.** On the gate and the 404 the pointer is a light source. Each flat facet of the sheet is shaded from its normal and the direction to the light, so facets catch and lose light as you move. Until the pointer moves, the light drifts slowly by itself.
+- **Origami paper has a white back.** Wherever a fold turns over (the gate's corner, the inside of the door leaves, the atelier's dog-eared cards) the white side shows.
+- **Folds, not fades.** Reveals unfold from their top crease, menus and tips fold down, page changes are a sheet folding over the screen.
 
 Pages:
 
-- Gate: the night. Name in the corner, then Sound, the clock and the language pill. The lantern string under the header, then the two stalls: QA's with a royal-and-white striped awning and a white noren 品質保証, the atelier's with a navy-and-pale awning and a navy noren アトリエ. Captions under them with the name and an Enter pill. A line tells you what you can do.
-- QA: paper. Bunting under the header. The name, the willow, the lantern string. Sections on the grid; the test runner and the bug hunt; contact on the night colour with a Copy button.
-- The Willow Atelier: the night. The name, the willow, the goldfish tub with the bag and poi count beside it, then the index of work.
-- Worlds: the night, with a strip of sky to launch fireworks in.
-- 404: the night: "Nothing behind this door", and a strip of sky.
+- **Gate.** One large sheet of navy washi on a dark table, split by straight creases into flat facets (canvas, js/kami.js). Light follows the pointer. The two doors are gatefolds: hover or focus half-opens both leaves on their creases (CSS 3D, `--open` is a registered custom property so it animates). Inside the QA fold is a white ruled sheet, a 検査表 whose rows get ticked and stamped 合格: calm and precise. Inside the atelier fold is a night with a moon, and a paper crane that lifts off and flutters. Click (or Enter) opens the leaves flat and the page folds over into the next. The bottom-right corner is turned back; drag it to fold the sheet back as far as you like, and it springs back when you let go.
+- **QA (professional).** White kami with faint crease lines as a grid. Navy type. A crane crease pattern drawn on in the hero (mountain folds solid, valley folds dashed). Sections on folded white cards with a soft crease across the middle. The header's lower edge is a crease; the reading progress runs along it like a fold line. The experience is a stack of tickets (notched ends, a perforated stub); Run checks walks them and each stub flips to show a 合格 seal. The email has a Copy button. Nothing moves on its own.
+- **The Willow Atelier (extra).** Night-blue washi. A flock of paper cranes (boids) drifts toward the pointer from afar and shies from it up close. Click anywhere that is not a control and a square folds into a crane where you clicked (in half, in half again, then the crane) and joins the flock; a counter keeps how many you have folded. Tap a crane and it opens into its flat square printed with seigaiha waves, then folds up again. The title is set on a folded paper banner with swallowtail ends that tilts toward the pointer. The index is three white cards with a corner folded down; hover unfolds the corner and the kanji underneath (絵, 写, 音) comes up. Work hangs on white kami mats; photos are prints on a sideways strip.
+- **Worlds (super extra).** A pop-up book. Each section is a spread of navy washi with a page block under it. As a spread comes up the screen, the page before it turns over on the gutter and its scene rises off the paper in layers, back layers first (scroll-linked). The book and its scene tilt with the pointer, or the phone's orientation. Drag the book sideways to turn to the next or previous spread; a folded corner on each spread is a "Turn the page" link. Scenes: moon and three mountain ranges (cover), a castle on its hill (the worlds), waves with a boat and a lighthouse island (maps), a great faceted tree with falling leaves (characters), and a paper dragon that unfolds segment by segment across the last spread and swims there (lore). Placeholder content stays in brackets.
+- **404.** A crumpled sheet of white paper, lit by the pointer. Click it to smooth it out (and again to crumple it): 404 and 迷子の紙 are printed on it, and its grid creases with it.
 
 ## Colour
 
-One ink in five strengths, paper and the night, plus the bright blue of a firework.
+Navy leads every page; white kami is the second voice; one vermilion is kept for seals.
 
-| Token | Value | Role |
+| Token | Value | Use |
 |---|---|---|
-| `--paper` | `#eef1f6` | QA ground |
-| `--sheet` | `#f8f9fc` | cards, the QA caption, white noren and awning stripes |
-| `--ai-1` | `#cfdcf1` | pale wash |
-| `--ai-2` | `#8eabe3` | pale blue: awning stripes at night, text accents on night |
-| `--ai-3` / `--royal` | `#2449d8` | actions, awning stripes, the goldfish tub |
-| `--spark` | `#5b7cff` | firework blue, hover, bunting at night |
-| `--ai-5` / `--ink` | `#0c1b4d` | text on paper, navy noren |
-| `--night` | `#0a1440` | dark ground |
-| `--night-2` | `#121f5c` | cards at night |
-| `--night-3` | `#050b2e` | stall posts, the top of the sky, hills |
+| `--deep` | `#060d2c` | the table under the gate's sheet, deepest shadow |
+| `--night` | `#0b1848` | night pages, QA's end band and footer |
+| `--ink` | `#0c1b4d` | text on paper, buttons on paper |
+| `--washi` | `#14265f` | navy washi: slots, cards, book pages |
+| `--washi-hi` | `#1e3479` | the lit side of navy washi |
+| `--royal` | `#2449d8` | links, focus, ticks, the progress fold line |
+| `--royal-hi` | `#5b7cff` | focus on dark, lit canopy and waves |
+| `--kami` | `#f8f7f2` | white paper: QA background, mats, cards, the banner |
+| `--kami-2`, `--kami-3` | `#eeede6`, `#dfe0dc` | the shaded side of white paper |
+| `--mist` | `#aebbe6` | secondary text on navy |
+| `--shu` | `#c23b26` | the 合格 seal and "In progress" only |
 
-Fireworks use white, `#dfe7f7`, `#c9d6f0`, `#8eabe3`, `#5b7cff` and royal. Lit lanterns glow blue-white.
+The gate's sheet is shaded between `#040a2a` (turned away) and `#2d49b0` (facing the light). Pop-up layers run from pale `#c7d1f1` (far) through royal `#3a5bd0` to navy `#13256a` (near), with kami clouds and moons.
 
 ## Type
 
-- Dela Gothic One for display: names, titles, section names, noren and lantern characters. One weight; faux bold is switched off.
-- Zen Maru Gothic for text in every language; IBM Plex Mono for the clock, dates and counts.
+- Shippori Mincho B1 (500–800) for display: names, titles, section names, the kanji on the leaves, the banner, the book's headings.
+- Zen Kaku Gothic New (400/500/700) for text in every language: clean on the QA page, quiet elsewhere.
+- IBM Plex Mono for the clock, dates, counts and small labels.
+- Japanese section labels are set vertically beside each heading.
 
 ## Shape
 
-- Anything you press is a pill (`--radius: 999px`): buttons, the language switcher, Sound, tags. Cards are soft (`--radius-box: 14px`).
-- Section names in Japanese sit on a filled tag.
-- Bunting under the sticky header: two colours of triangular flag.
-- A faint paper grain lies over everything.
+- Square paper corners. Buttons, tabs and the active language have one corner clipped and folded back (a small lighter triangle).
+- Cards carry one soft horizontal crease: the lower half sits a shade lower than the upper.
+- Tickets have notched ends and a dashed perforation before the stub.
+- Shadows are long and soft, as paper lying on paper.
 
 ## Motion
 
-- Arrival: the noren lifts (0.8s); titles lift in out of a blur.
-- Ambient: lanterns sway, the willow sways, fireworks go up on the gate and in the sky strips.
-- Physics: lanterns and noren strips are damped springs driven by the pointer's speed.
-- Reduced motion: no autoplay fireworks (a click paints one still burst), no sparkler, no swinging or sway, no bugs, a still goldfish tub, the test runner stamps at once, and page changes are a short fade.
+- Easing: `--fold` `cubic-bezier(.55,.05,.25,1)` for folds, `--ease-out` for settling.
+- Page change: a sheet in the next page's paper (white for QA, navy for the rest, a diagonal crease across it) folds over the screen from the left edge (0.75s); the next page starts under it and it folds away to the right.
+- Reveals: blocks unfold from their top crease (rotateX from -28°).
+- Gate: leaves on `--open` (0, 0.36 on hover, 1 on enter), ticks drawn in one by one, the seal pressed last; the crane flaps while the door is open.
+- Atelier: boids at 38–120 px/s scaled by depth; a fold takes 1.2s; an unfold holds the flat sheet about 1.5s.
+- Worlds: `--p` (0 to 1) per spread from its scroll position; each layer stands with `rotateX((1 - clamp(p*1.8 - i*0.18)) * 88deg)`; the turning leaf has a single face, so it vanishes once it passes upright.
+- Every loop pauses while the tab is hidden; the dragon only swims while its spread is on screen.
+
+## Reduced motion
+
+- No page-change fold (a short fade instead), no reveals beyond a fade, no title lift.
+- Gate: the light stays still (it does not drift or follow), doors change state without a swing, the crane does not flap; the corner can still be dragged and returns at once.
+- Atelier: a still flock; a click places a crane without the folding sequence; no unfolding; the banner does not tilt.
+- Worlds: every scene stands, no page turns, no tilt, a still dragon, leaves still.
+- 404: the sheet smooths and crumples without animation.
