@@ -2,13 +2,13 @@
    Base: tokens, type, shared chrome (header, switcher, footer), motion.
    Every page loads this first.
 
-   The world is matsuri (祭): a Japanese summer festival at night, in one
-   blue ink. Paper lanterns on a sagging rope that swing when you brush past
-   and light when you click; fireworks you launch by clicking the sky; stalls
-   with split noren curtains that part as you walk through; a sparkler for a
-   pointer on the night pages; bunting under the header. Page changes are a
-   noren dropping and lifting. Dela Gothic One for display, Zen Maru Gothic
-   for text in every language, IBM Plex Mono for small facts.
+   The world is hanga (版画), the Japanese woodblock print, and within it
+   aizuri-e: prints pulled almost entirely in one blue ink. Paper, a few
+   strengths of that blue, and a dark key line. Three things recur on every
+   page: the page prints itself in three passes as you arrive, a willow
+   hangs from the top edge, and printer's registration marks sit in the
+   corner of the window. Kaisei Tokumin for display, Zen Kaku Gothic New
+   for text in every language, Spline Sans Mono for small facts.
    ========================================================================== */
 
 :root {
@@ -21,56 +21,49 @@
 
   --royal: var(--ai-3);
   --royal-2: var(--ai-4);
-  --royal-soft: var(--ai-2);
-  --spark: #5b7cff;   /* the bright blue of a firework */
+  --royal-soft: var(--ai-2); /* the ink as text on the night ground */
 
-  --paper: #eef1f6;
-  --sheet: #f8f9fc;
-  --ink: var(--ai-5);
+  --paper: #eef1f3;   /* washi */
+  --sheet: #f9fafb;
+  --ink: var(--ai-5); /* the key block */
   --ink-2: #2b3a66;
   --grey: #5c6788;
-  --night: #0a1440;
-  --night-2: #121f5c;
-  --night-3: #050b2e;
-  --frame: #0c1b4d;
+  --night: #0b1848;   /* a sheet printed solid */
+  --night-2: #13235f;
 
-  /* light pages (QA) */
+  /* light pages (gate, QA, 404) */
   --bg: var(--paper);
   --bg-raised: var(--sheet);
   --fg: var(--ink-2);
   --fg-strong: var(--ink);
   --muted: var(--grey);
   --key: var(--ink);
+  --wash: #a9bfea;    /* the first, pale pass under a title */
   --line: rgba(12, 27, 77, 0.14);
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent: var(--royal);
   --accent-text: var(--royal);
   --accent-fg: #fff;
   --focus: var(--royal);
-  --rope: rgba(12, 27, 77, 0.55);
-  --lantern-cap: #0c1b4d;
-  --flag-a: var(--royal);
-  --flag-b: var(--ai-2);
 
-  --font: "Zen Maru Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Dela Gothic One", "Zen Maru Gothic", "Hiragino Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  --font: "Zen Kaku Gothic New", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Kaisei Tokumin", "Noto Serif JP", "Yu Mincho", serif;
+  --font-mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-jp: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", sans-serif;
 
-  /* festival shapes: anything you press is a pill, cards are soft */
-  --radius: 999px;
-  --radius-box: 14px;
-  --rule: 1.5px;
+  /* prints have square corners: everything does */
+  --radius: 2px;
+  --radius-box: 2px;
+  --rule: 1.5px;     /* the weight of a key line */
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-back: cubic-bezier(0.34, 1.4, 0.64, 1);
 
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --section-space: clamp(5rem, 10vw, 9rem);
 }
 
-/* the gate, the atelier, the worlds and the 404: the festival at night */
+/* the atelier and the worlds: the night sheet */
 .theme-dark {
   --bg: var(--night);
   --bg-raised: var(--night-2);
@@ -78,16 +71,13 @@
   --fg-strong: #f1f4fa;
   --muted: #94a2c8;
   --key: #dfe7f7;
+  --wash: #3a55b4;
   --line: rgba(223, 231, 247, 0.16);
   --line-strong: rgba(223, 231, 247, 0.55);
   --accent: var(--royal);
   --accent-text: var(--royal-soft);
   --accent-fg: #fff;
   --focus: var(--royal-soft);
-  --rope: rgba(223, 231, 247, 0.45);
-  --lantern-cap: #050b2e;
-  --flag-a: var(--spark);
-  --flag-b: #dfe7f7;
 }
 
 .theme-light {
@@ -97,6 +87,7 @@
   --fg-strong: var(--ink);
   --muted: var(--grey);
   --key: var(--ink);
+  --wash: #a9bfea;
   --line: rgba(12, 27, 77, 0.14);
   --line-strong: rgba(12, 27, 77, 0.6);
   --accent-text: var(--royal);
@@ -115,8 +106,6 @@
 
 html {
   overflow-x: clip;
-  /* Dela Gothic One has a single weight: never fake a bold of it */
-  font-synthesis: none;
   background: var(--bg);
   color: var(--fg);
   -webkit-text-size-adjust: 100%;
@@ -284,20 +273,6 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   top: 0;
   background-color: var(--bg);
   box-shadow: 0 var(--rule) 0 var(--key);
-}
-
-/* festival bunting strung under the header: two colours of flag, alternating */
-.topbar--sticky::after {
-  content: "";
-  position: absolute;
-  top: calc(100% + var(--rule));
-  left: 0;
-  right: 0;
-  height: 0.75rem;
-  pointer-events: none;
-  background:
-    conic-gradient(from 140deg at 50% 0, var(--flag-a) 0 80deg, transparent 0) 0 0 / 3rem 0.75rem repeat-x,
-    conic-gradient(from 140deg at 50% 0, var(--flag-b) 0 80deg, transparent 0) 1.5rem 0 / 3rem 0.75rem repeat-x;
 }
 
 .topbar__end {
@@ -509,7 +484,6 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .lang {
   display: flex;
   align-items: center;
-  overflow: hidden;
   border-radius: var(--radius);
   box-shadow: inset 0 0 0 var(--rule) var(--key);
 }
@@ -661,26 +635,24 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 1.25rem + 1.1vw, 2.3rem);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.2;
   letter-spacing: 0;
   color: var(--fg-strong);
 }
 
-/* the Japanese name of a section, on a festival tag */
+/* the Japanese name of a section, boxed like a print's title cartouche */
 .sec-head__jp,
 .tag {
   display: inline-block;
-  padding: 0.25rem 0.8rem 0.3rem;
-  border-radius: var(--radius);
-  background: var(--key);
+  padding: 0.2rem 0.55rem 0.25rem;
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   font-family: var(--font-jp);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.4;
   letter-spacing: 0.14em;
-  white-space: nowrap;
-  color: var(--bg);
+  color: var(--fg-strong);
 }
 
 .sec-head__jp {
@@ -727,7 +699,10 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 }
 
 /* --------------------------------------------------------------------------
-   A faint paper grain over everything
+   Washi: a faint paper grain over everything, and the registration marks.
+   A printer cuts two marks (kento) into every block so each colour lands
+   in the same place: an L at one corner and a bar further along the same
+   edge. Here they sit on the window's right edge, clear of the text.
    -------------------------------------------------------------------------- */
 
 body::before {
@@ -736,210 +711,132 @@ body::before {
   inset: 0;
   z-index: 120;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.5;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+body::after {
+  content: "";
+  position: fixed;
+  inset: 7px;
+  z-index: 121;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--key), var(--key)) right bottom / 14px var(--rule) no-repeat,
+    linear-gradient(var(--key), var(--key)) right bottom / var(--rule) 14px no-repeat,
+    linear-gradient(var(--key), var(--key)) right bottom 26% / var(--rule) 24px no-repeat;
+}
+
 /* --------------------------------------------------------------------------
-   Chochin: paper lanterns on a sagging rope (js/main.js hangs them, swings
-   them and lights them). Unlit they are dim paper; lit they glow blue-white.
+   A print: three stacked layers, pulled one after another as the page
+   arrives. Key lines first, then the pale flats, then the deep flats.
    -------------------------------------------------------------------------- */
 
-.lanterns {
+.hanga {
   position: relative;
-  height: clamp(8.5rem, 6rem + 4vw, 10.5rem);
+  overflow: hidden;
   pointer-events: none;
 }
 
-.lanterns__rope {
+.hanga--day {
+  background: var(--paper);
+}
+
+.hanga--night {
+  background: var(--night);
+}
+
+.hanga__pass {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  display: block;
   width: 100%;
-  height: 3rem;
-  overflow: visible;
+  height: 100%;
 }
 
-.lanterns__rope path {
-  fill: none;
-  stroke: var(--rope);
-  stroke-width: 1.5;
+.js .hanga__pass {
+  animation: press 0.75s var(--ease) both;
 }
 
-.chochin {
-  --swing: 0deg;
-  --w: clamp(3rem, 2rem + 1.6vw, 4rem);
-  position: absolute;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: var(--w);
-  padding-top: 0.55rem;
-  transform: translateX(-50%) rotate(var(--swing));
-  transform-origin: 50% 0;
-  pointer-events: auto;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+.js .hanga__pass--key {
+  animation-delay: 0.1s;
 }
 
-/* the cord from the rope */
-.chochin::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 1.5px;
-  height: 0.6rem;
-  background: var(--rope);
+.js .hanga__pass--light {
+  animation-delay: 0.55s;
 }
 
-.chochin__cap {
-  width: 62%;
-  height: 0.38rem;
-  border-radius: 2px;
-  background: var(--lantern-cap);
+.js .hanga__pass--deep {
+  animation-delay: 1s;
 }
 
-.chochin__body {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: calc(var(--w) * 1.32);
-  border-radius: 46% / 40%;
-  background:
-    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.2) 0.42rem calc(0.42rem + 1px)),
-    radial-gradient(ellipse at 50% 45%, #b8c4e2, #7f8fbb);
-  color: rgba(12, 27, 77, 0.7);
-  font-family: var(--font-display);
-  font-size: calc(var(--w) * 0.44);
-  line-height: 1;
-  transition: box-shadow 0.45s var(--ease-out), color 0.3s var(--ease), background 0.3s var(--ease);
-  animation: idle var(--sway) ease-in-out infinite alternate;
-  transform-origin: 50% 0;
-}
-
-.chochin.is-lit .chochin__body {
-  background:
-    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.12) 0.42rem calc(0.42rem + 1px)),
-    radial-gradient(ellipse at 50% 42%, #ffffff, #e6eeff 55%, #b5c6f2);
-  box-shadow: 0 0 1.3rem 0.25rem rgba(142, 171, 227, 0.55), 0 0 4rem 1.2rem rgba(91, 124, 255, 0.22);
-  color: var(--ink);
-}
-
-.chochin__tassel {
-  width: 2px;
-  height: 0.9rem;
-  background: var(--lantern-cap);
-}
-
-.chochin:hover .chochin__body {
-  filter: brightness(1.08);
-}
-
-@keyframes idle {
+@keyframes press {
   from {
-    transform: rotate(-1.5deg);
+    clip-path: inset(0 100% 0 0);
   }
 
   to {
-    transform: rotate(1.5deg);
+    clip-path: inset(0 0 0 0);
   }
 }
 
-/* every lantern lit: they pulse together */
-.lanterns.is-all-lit .chochin__body {
-  animation: idle var(--sway) ease-in-out infinite alternate, all-lit 0.9s var(--ease-out) 3;
-}
-
-@keyframes all-lit {
-  50% {
-    box-shadow: 0 0 2rem 0.6rem rgba(142, 171, 227, 0.8), 0 0 6rem 2rem rgba(91, 124, 255, 0.4);
-  }
-}
-
-@media (max-width: 719.98px) {
-  .lanterns {
-    height: 6.5rem;
-  }
-
-  .chochin {
-    --w: 2.1rem;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   A strip of night sky to launch fireworks in (js/hanabi.js), with a line
-   of hills along the bottom
-   -------------------------------------------------------------------------- */
-
-.skystrip {
-  position: relative;
-  height: clamp(14rem, 30vw, 24rem);
-  overflow: hidden;
-  background: linear-gradient(var(--night-3), var(--night) 65%, #13235f);
-  cursor: crosshair;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.skystrip::after {
+/* the top edge of the sky, wiped darker by hand (bokashi) */
+.hanga::after {
   content: "";
   position: absolute;
-  inset: auto 0 0;
+  inset: 0 0 auto;
+  height: 30%;
+  background: linear-gradient(rgba(36, 73, 216, 0.5), rgba(36, 73, 216, 0));
+}
+
+.hanga--night::after {
   height: 22%;
-  background: var(--night-3);
-  clip-path: polygon(0 60%, 8% 40%, 17% 55%, 28% 22%, 39% 48%, 50% 30%, 61% 52%, 72% 18%, 83% 44%, 92% 30%, 100% 50%, 100% 100%, 0 100%);
-  pointer-events: none;
+  background: linear-gradient(#050c2e, rgba(5, 12, 46, 0));
 }
 
-.skystrip__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+/* a strip of sea across the page, ruled top and bottom */
+.hanga--strip {
+  height: clamp(10rem, 22vw, 19rem);
+  border-block: var(--rule) solid var(--key);
 }
 
-.skystrip__hint {
-  position: absolute;
-  left: var(--gutter);
-  bottom: 0.9rem;
-  z-index: 1;
-  padding: 0.3rem 0.85rem;
-  border-radius: var(--radius);
-  background: rgba(5, 11, 46, 0.7);
-  color: #dfe7f7;
-  font-size: 0.8rem;
-  pointer-events: none;
-  transition: opacity 0.6s var(--ease);
+/* the night strip is shallow: keep the dark edge off the moon */
+.hanga--strip.hanga--night::after {
+  height: 12%;
 }
 
-.skystrip.is-played .skystrip__hint {
-  opacity: 0;
+/* the sea rolls: each band slides one wave-length, then starts again */
+.sea {
+  animation: sea var(--t) linear infinite;
 }
 
-/* the sparkler that follows the pointer on night pages */
-.senko {
-  position: fixed;
-  inset: 0;
-  z-index: 130;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+@keyframes sea {
+  to {
+    transform: translateX(calc(var(--p) * -1px));
+  }
 }
 
-/* a title arrives the way a lantern catches: it lifts in out of a blur */
-.unveil {
+/* a title takes its ink from left to right over a pale first pass */
+.inked {
+  /* room for descenders: the ink is clipped to this box */
+  padding-bottom: 0.16em;
+  margin-bottom: -0.16em;
   color: var(--fg-strong);
 }
 
-.js .unveil {
-  animation: unveil 1s var(--ease-out) 0.3s both;
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .js .inked {
+    background: linear-gradient(90deg, var(--fg-strong) 50%, var(--wash) 50%) 100% 0 / 200% 100% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: ink 1.1s var(--ease) 0.3s forwards;
+  }
 }
 
-@keyframes unveil {
-  from {
-    opacity: 0;
-    filter: blur(8px);
-    transform: translateY(0.35em) scale(0.97);
+@keyframes ink {
+  to {
+    background-position: 0 0;
   }
 }
 
@@ -993,16 +890,14 @@ body::before {
   fill: none;
   stroke: var(--key);
   stroke-width: 1.4;
-  opacity: 0.6;
 }
 
 .willow__leaves {
   fill: var(--accent-text);
-  opacity: 0.75;
 }
 
 .js .willow {
-  animation: page-in 1.2s var(--ease) 0.4s both;
+  animation: page-in 0.9s var(--ease) 0.1s both;
 }
 
 @media (max-width: 719.98px) {
@@ -1013,15 +908,15 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .unveil,
+  .js .hanga__pass,
+  .js .inked,
   .js .willow {
     animation-duration: 0.01s;
     animation-delay: 0s;
   }
 
-  .willow__sway,
-  .chochin__body,
-  .lanterns.is-all-lit .chochin__body {
+  .sea,
+  .willow__sway {
     animation: none;
   }
 
@@ -1057,72 +952,56 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* Changing pages: a noren (four strips of cloth on a rod) drops over this
-   page in the next page's colour; the next page lifts it. */
+/* leaving a page: the next sheet's ground is pulled across, a band of ink leading */
 .veil {
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
+  background: var(--night);
+  border-right: 10px solid var(--royal);
+  transform: translateX(-101%);
+  transition: transform 0.7s var(--ease);
 }
 
-.veil::before,
-html.is-arriving::before {
+.veil[data-tone="light"] {
+  background: var(--paper);
+}
+
+html.is-leaving .veil {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* arriving: the same veil, already across the window, carries on to the right */
+html.is-arriving::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 150;
   pointer-events: none;
-  background:
-    linear-gradient(var(--veil-rod, #050b2e) 0 0.9rem, transparent 0.9rem),
-    linear-gradient(transparent calc(100% - 1.4rem), var(--veil-hem, rgba(91, 124, 255, 0.9)) calc(100% - 1.4rem) calc(100% - 0.9rem), transparent calc(100% - 0.9rem)),
-    repeating-linear-gradient(90deg, var(--veil-cloth, var(--night)) 0 calc(25% - 5px), transparent calc(25% - 5px) 25%);
+  background: var(--night);
+  border-right: 10px solid var(--royal);
+  /* js/main.js starts it on the first frame the page can show; the long
+     delay is only a failsafe in case the script never runs */
+  animation: veil-out 0.75s var(--ease) 2.5s forwards;
 }
 
-.veil[data-tone="light"],
-html.is-arriving[data-arrive="light"] {
-  --veil-cloth: #f2f5fc;
-  --veil-rod: #0c1b4d;
-  --veil-hem: rgba(36, 73, 216, 0.85);
+html.is-arriving.is-arrived::after {
+  animation-delay: 0.05s;
 }
 
-.veil[data-tone="dark"],
-html.is-arriving[data-arrive="dark"] {
-  --veil-cloth: #0c1b4d;
-  --veil-rod: #050b2e;
-  --veil-hem: rgba(91, 124, 255, 0.9);
+html.is-arriving[data-arrive="light"]::after {
+  background: var(--paper);
 }
 
-.veil::before {
-  transform: translateY(-102%);
-  transition: transform 0.6s var(--ease);
-}
-
-html.is-leaving .veil {
-  pointer-events: auto;
-}
-
-html.is-leaving .veil::before {
-  transform: none;
-}
-
-/* arriving: the noren is already down; js/main.js lifts it on the first
-   frame the page can show. The long delay is only a failsafe. */
-html.is-arriving::before {
-  animation: noren-lift 0.8s var(--ease) 2.5s forwards;
-}
-
-html.is-arriving.is-arrived::before {
-  animation-delay: 0.08s;
-}
-
-@keyframes noren-lift {
+@keyframes veil-out {
   to {
-    transform: translateY(-102%);
+    transform: translateX(calc(100% + 12px));
   }
 }
 
-/* under the noren the page is already there, so it does not fade in as well */
+/* under the veil the page is already there, so it does not fade in as well */
 .js.is-arriving body {
   animation: none;
 }
@@ -1154,13 +1033,14 @@ html.is-arriving.is-arrived::before {
     transition-delay: 0s;
   }
 
-  .veil::before {
+  .veil {
     transform: none;
+    border: 0;
     opacity: 0;
     transition: opacity 0.25s linear;
   }
 
-  html.is-leaving .veil::before {
+  html.is-leaving .veil {
     opacity: 1;
   }
 

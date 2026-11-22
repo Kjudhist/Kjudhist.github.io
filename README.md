@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *matsuri* (祭), a Japanese summer festival at night, in one blue ink. The gate is the sky: click it for fireworks, light the string of paper lanterns (light them all for a finale), and walk through the noren of one of two festival stalls. The QA page has lanterns, a bug hunt and a test runner that stamps each role 合格; the atelier has a tub of goldfish to scoop with a paper poi that tears; the worlds and the 404 have sky to launch fireworks in. Page changes are a noren dropping and lifting. Type is Dela Gothic One for display, Zen Maru Gothic for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *hanga* (版画), the Japanese woodblock print, pulled in one blue ink: the same sea by day for QA and by night for the atelier. Every page prints itself in three passes as you arrive, a willow hangs from the top edge, and a printer's registration marks sit in the corner of the window. Type is Kaisei Tokumin for display, Zen Kaku Gothic New for text and Spline Sans Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -19,17 +19,14 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the festival gate: sky, lanterns, the two stalls (and the 404)
+│   ├── gate.css          the two sheets of the gate (and the 404)
 │   ├── qa.css
 │   ├── art.css
 │   └── world.css         loads after art.css and reuses its hero, frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, lanterns, local links
-│   ├── hanabi.js         fireworks (gate, worlds, 404), their sound, and the sparkler pointer
-│   ├── gate.js           the gate: sky clicks, the noren on each stall, the Sound switch
-│   ├── qa.js             the QA test runner, the email Copy button and the bug hunt
-│   ├── kingyo.js         the atelier's goldfish tub and poi
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, local links
+│   ├── gate.js           door behaviour (one click or tap walks through)
 │   └── art.js            the full-size viewer for artworks
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)

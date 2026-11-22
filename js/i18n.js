@@ -46,23 +46,6 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
-      'gate.hint': 'Click the sky for fireworks. Light every lantern. Walk through a noren.',
-      'gate.sound': 'Sound',
-      'sky.hint': 'Click the sky.',
-      'qa.bugs.found': 'Bugs caught',
-      'qa.bugs.caught': 'Bug #{n} caught. Logged.',
-      'art.kingyo.hint': 'Press to dip the poi, let go to scoop. The paper tears.',
-      'art.kingyo.bag': 'In the bag',
-      'art.kingyo.poi': 'Poi left',
-      'art.kingyo.again': 'New poi',
-      'art.kingyo.torn': 'Torn!',
-      'qa.run.button': 'Run checks',
-      'qa.run.again': 'Run again',
-      'qa.run.idle': '6 checks, not run yet',
-      'qa.run.running': 'Running {i} of {n}…',
-      'qa.run.done': '{n} passed, 0 failed in {t}s',
-      'qa.contact.copy': 'Copy',
-      'qa.contact.copied': 'Copied',
 
       'qa.nav.label': 'Sections',
       'qa.nav.about': 'About',
@@ -224,8 +207,7 @@
       'world.lore.from': '[From: world name]',
 
       'nf.title': 'Nothing behind this door.',
-      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
-      'nf.poke': 'Go on, poke a hole in the paper.'
+      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.'
     },
 
     // Draft. Needs a native read.
@@ -256,23 +238,6 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
-      'gate.hint': 'Klik langit untuk kembang api. Nyalakan semua lampion. Lewati noren-nya.',
-      'gate.sound': 'Suara',
-      'sky.hint': 'Klik langitnya.',
-      'qa.bugs.found': 'Bug tertangkap',
-      'qa.bugs.caught': 'Bug #{n} tertangkap. Dicatat.',
-      'art.kingyo.hint': 'Tekan untuk mencelupkan poi, lepas untuk menyendok. Kertasnya bisa sobek.',
-      'art.kingyo.bag': 'Di kantong',
-      'art.kingyo.poi': 'Sisa poi',
-      'art.kingyo.again': 'Poi baru',
-      'art.kingyo.torn': 'Sobek!',
-      'qa.run.button': 'Jalankan pengecekan',
-      'qa.run.again': 'Jalankan lagi',
-      'qa.run.idle': '6 pengecekan, belum dijalankan',
-      'qa.run.running': 'Menjalankan {i} dari {n}…',
-      'qa.run.done': '{n} lulus, 0 gagal dalam {t} detik',
-      'qa.contact.copy': 'Salin',
-      'qa.contact.copied': 'Tersalin',
 
       'qa.nav.label': 'Bagian',
       'qa.nav.about': 'Tentang',
@@ -434,8 +399,7 @@
       'world.lore.from': '[Dari: nama dunia]',
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
-      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
-      'nf.poke': 'Silakan, tusuk saja kertasnya.'
+      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.'
     },
 
     // Draft. Needs a native read.
@@ -466,23 +430,6 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
-      'gate.hint': '空をクリックすると花火。提灯をすべて灯して、暖簾をくぐってください。',
-      'gate.sound': '効果音',
-      'sky.hint': '空をクリック。',
-      'qa.bugs.found': '捕まえたバグ',
-      'qa.bugs.caught': 'バグ #{n} を捕獲。記録しました。',
-      'art.kingyo.hint': '押してポイを水に入れ、離してすくいます。紙は破れます。',
-      'art.kingyo.bag': '袋の中',
-      'art.kingyo.poi': '残りのポイ',
-      'art.kingyo.again': '新しいポイ',
-      'art.kingyo.torn': '破れた！',
-      'qa.run.button': 'チェックを実行',
-      'qa.run.again': 'もう一度実行',
-      'qa.run.idle': '6件のチェック、未実行',
-      'qa.run.running': '{n}件中{i}件目を実行中…',
-      'qa.run.done': '{n}件合格、失敗0件({t}秒)',
-      'qa.contact.copy': 'コピー',
-      'qa.contact.copied': 'コピーしました',
 
       'qa.nav.label': 'セクション',
       'qa.nav.about': '私について',
@@ -644,8 +591,7 @@
       'world.lore.from': '[出典：世界の名前]',
 
       'nf.title': 'この扉の向こうには、何もありません。',
-      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
-      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
+      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。'
     }
   };
 

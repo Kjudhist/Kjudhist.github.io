@@ -1,35 +1,17 @@
 /* ==========================================================================
-   Gate: a summer festival at night. The whole window is sky (fireworks,
-   js/hanabi.js); a string of lanterns hangs under the header; two festival
-   stalls are the doors. QA's stall has a royal-and-white awning and a white
-   noren reading 品質保証; the atelier's has a navy awning and a navy noren
-   reading アトリエ. Glimpsed past each noren: jars ticked off on shelves,
-   and paintings and brushes. Also the 404.
+   Gate: a diptych. One sea, printed twice: by day on the left sheet, by
+   night on the right, the waves and the mountain running across both. A
+   willow hangs over the seam. Each sheet is a door and the whole sheet is
+   the link; the caption under its image carries an Enter block that says
+   so. Also the 404.
    ========================================================================== */
 
 body.gate {
   position: relative;
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   min-height: 100dvh;
-  isolation: isolate;
-}
-
-.sky {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.gate .g-top,
-.gate .lanterns,
-.gate .g-main,
-.gate .credit {
-  position: relative;
-  z-index: 1;
 }
 
 .g-top {
@@ -38,25 +20,19 @@ body.gate {
   justify-content: space-between;
   gap: 1rem 2rem;
   padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
-  pointer-events: none;
-}
-
-.g-top > * {
-  pointer-events: auto;
 }
 
 .g-name {
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.1;
-  text-shadow: 0 0 1.2rem rgba(91, 124, 255, 0.35);
 }
 
 .g-meta {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 1.25rem;
 }
 
 .g-clock {
@@ -68,318 +44,119 @@ body.gate {
 }
 
 .g-clock .mono {
-  color: var(--fg-strong);
-}
-
-/* sound: off until you ask for it */
-.sound {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0 0.85rem 0 0.35rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: transparent;
-  box-shadow: inset 0 0 0 var(--rule) var(--line-strong);
-  color: var(--fg);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
-}
-
-.sound__icon {
-  display: grid;
-  place-items: center;
-  width: 1.55rem;
-  height: 1.55rem;
-  border-radius: 50%;
-  background: var(--line);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.sound[aria-pressed="true"] {
-  background: var(--royal);
-  box-shadow: none;
-  color: #fff;
-}
-
-.sound[aria-pressed="true"] .sound__icon {
-  background: #fff;
-  color: var(--royal);
-}
-
-.lanterns--gate {
-  margin: 0.4rem var(--gutter) 0;
+  color: var(--ink);
 }
 
 .g-main {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  padding: 0 var(--gutter) 0.25rem;
-  pointer-events: none;
-}
-
-.g-main > * {
-  pointer-events: auto;
+  padding: clamp(0.9rem, 2vw, 1.4rem) var(--gutter) 0.25rem;
 }
 
 .g-intro {
   font-size: 0.95rem;
-  color: var(--fg);
-}
-
-.g-hint {
-  font-size: 0.82rem;
-  color: var(--muted);
-  text-align: center;
-  pointer-events: none;
+  color: var(--ink-2);
 }
 
 /* --------------------------------------------------------------------------
-   The stalls
+   The two sheets
    -------------------------------------------------------------------------- */
 
-.g-stalls {
+.g-doors {
+  position: relative;
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.25rem, 3.5vw, 3rem);
-  min-height: 22rem;
-  padding-top: 1rem;
+  gap: 10px;
+  min-height: 25rem;
 }
 
-.stall {
-  --awning-a: var(--royal);
-  --awning-b: #f2f5fc;
-  --noren: #f2f5fc;
-  --noren-ink: var(--royal);
-  --post: #050b2e;
+/* a sheet of paper: the image printed inside its margin, the caption under it */
+.door {
   position: relative;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: 0.9rem;
+  padding: 10px;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   color: var(--ink);
-  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out);
+  transition: transform 0.5s var(--ease-out), opacity 0.4s var(--ease);
   -webkit-tap-highlight-color: transparent;
-  -webkit-user-drag: none;
 }
 
-.stall--art {
-  --awning-a: #0c1b4d;
-  --awning-b: var(--ai-2);
-  --noren: #0c1b4d;
-  --noren-ink: #dfe7f7;
+.door .hanga {
+  min-height: 11rem;
+  outline: var(--rule) solid var(--key);
+  outline-offset: calc(var(--rule) * -1);
 }
 
-.stall:focus-visible {
-  outline: 3px solid var(--royal-soft);
-  outline-offset: 6px;
-  border-radius: var(--radius-box);
+/* keep the dark top edge of the night sky off the moon */
+.door .hanga--night::after {
+  height: 14%;
 }
 
-.stall__booth {
-  position: relative;
-  min-height: 12rem;
-  margin-top: 0.9rem;
-  border-inline: 0.7rem solid var(--post);
-  border-bottom: 0.5rem solid var(--post);
-  cursor: pointer;
+.door:hover,
+.door:focus-visible {
+  transform: translateY(-5px);
 }
 
-/* the awning: striped, with a scalloped edge, wider than the posts */
-.stall__roof {
+.door:focus-visible {
+  outline: 3px solid var(--royal);
+  outline-offset: 3px;
+}
+
+/* the title cartouche: the door's name in Japanese, set vertically */
+.door__tag {
   position: absolute;
-  top: -0.9rem;
-  left: -1.4rem;
-  right: -1.4rem;
-  z-index: 3;
-  height: 3.2rem;
-  border-radius: 0.6rem 0.6rem 0 0;
-  background: repeating-linear-gradient(90deg, var(--awning-a) 0 2.2rem, var(--awning-b) 2.2rem 4.4rem);
-  box-shadow: inset 0 0.5rem 0 rgba(5, 11, 46, 0.25);
-}
-
-.stall__roof::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 1.1rem;
-  background:
-    radial-gradient(circle at 50% 0, var(--awning-a) 1.1rem, transparent calc(1.1rem + 1px)) 0 0 / 4.4rem 1.1rem repeat-x,
-    radial-gradient(circle at 50% 0, var(--awning-b) 1.1rem, transparent calc(1.1rem + 1px)) 2.2rem 0 / 4.4rem 1.1rem repeat-x;
-}
-
-/* inside the stall, lit */
-.stall__inside {
-  position: absolute;
-  inset: 2.3rem 0 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #eaf0fd, #b8c8ee 55%, #7f97d6);
-  transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
-}
-
-.stall--art .stall__inside {
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #2a3f9a, #13235f 60%, #0a1440);
-}
-
-.stall__inside svg {
-  width: 100%;
-  height: 100%;
-}
-
-.in-wood {
-  fill: #0c1b4d;
-}
-
-.in-jars rect {
-  fill: rgba(36, 73, 216, 0.22);
-  stroke: var(--royal);
-  stroke-width: 2;
-}
-
-.in-ticks path {
-  fill: none;
-  stroke: var(--royal);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.in-counter {
-  fill: #0c1b4d;
-}
-
-.stall--art .in-counter {
-  fill: #050b2e;
-}
-
-.in-frame {
-  fill: #f2f5fc;
-  stroke: #8eabe3;
-  stroke-width: 3;
-}
-
-.in-paint {
-  fill: var(--royal);
-}
-
-.in-moon {
-  fill: #8eabe3;
-}
-
-.in-line {
-  fill: none;
-  stroke: var(--royal);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.in-brushes rect {
-  fill: #8eabe3;
-}
-
-.in-brushes path {
-  stroke: #dfe7f7;
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-/* the noren: four strips on a rod, each swinging from the top (js/gate.js) */
-.noren {
-  position: absolute;
-  top: 2.3rem;
-  left: 0.3rem;
-  right: 0.3rem;
-  z-index: 2;
-  display: flex;
-  gap: 0.35rem;
-  height: 46%;
-  pointer-events: none;
-}
-
-.noren::before {
-  content: "";
-  position: absolute;
-  top: -0.3rem;
-  left: -0.6rem;
-  right: -0.6rem;
-  height: 0.45rem;
-  border-radius: 0.3rem;
-  background: var(--post);
-}
-
-.noren__strip {
-  --a: 0deg;
-  flex: 1;
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  padding-top: clamp(0.8rem, 2vw, 1.4rem);
-  border-radius: 0 0 0.35rem 0.35rem;
-  background: var(--noren);
-  box-shadow: inset 0 -0.55rem 0 rgba(5, 11, 46, 0.12);
-  color: var(--noren-ink);
+  top: 24px;
+  left: 24px;
+  padding: 0.7rem 0.35rem;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1rem + 2.2vw, 3rem);
-  line-height: 1;
-  transform: rotate(var(--a));
-  transform-origin: 50% 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.22em;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
 }
 
-.noren__strip b {
-  font-weight: 400;
+.door--art .door__tag {
+  left: auto;
+  right: 24px;
 }
 
-/* the caption under each stall */
-.stall__label {
+/* the caption: number, name and what is inside on the left, Enter on the right */
+.door__label {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 0.2rem 1.5rem;
-  padding: 1rem 1.2rem;
-  border-radius: var(--radius-box);
-  background: var(--sheet);
+  padding: 1rem 0.6rem 0.55rem;
 }
 
-.stall--art .stall__label {
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px rgba(223, 231, 247, 0.18);
-  color: #f1f4fa;
-}
-
-.stall__no {
+.door__no {
   grid-column: 1 / -1;
   color: var(--grey);
 }
 
-.stall--art .stall__no {
-  color: #94a2c8;
-}
-
-.stall__title {
+.door__title {
   grid-column: 1;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 0.9rem + 1.5vw, 2.4rem);
+  font-size: clamp(1.6rem, 0.9rem + 1.6vw, 2.5rem);
+  font-weight: 800;
   line-height: 1.1;
 }
 
-.stall__sub {
+.door__sub {
   grid-column: 1;
   font-size: 0.92rem;
   color: var(--ink-2);
 }
 
-.stall--art .stall__sub {
-  color: #c5cfe8;
-}
-
-.stall__cta {
+.door__cta {
   grid-column: 2;
   grid-row: 2 / span 2;
   display: inline-flex;
@@ -392,33 +169,71 @@ body.gate {
   color: #fff;
   font-weight: 700;
   white-space: nowrap;
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease-back);
+  transition: background-color 0.3s var(--ease);
 }
 
-.stall:hover .stall__cta,
-.stall:focus-visible .stall__cta {
-  background: var(--spark);
-  transform: scale(1.04);
+.door--art .door__cta {
+  background: var(--night);
 }
 
-.stall:hover .stall__cta .arrow,
-.stall:focus-visible .stall__cta .arrow {
+.door:hover .door__cta,
+.door:focus-visible .door__cta {
+  background: var(--ai-4);
+}
+
+.door:hover .door__cta .arrow,
+.door:focus-visible .door__cta .arrow {
   transform: translateX(0.3rem);
 }
 
-.stall:hover .stall__inside {
-  filter: brightness(1.08);
+.g-doors.has-open .door:not(.is-open) {
+  opacity: 0.35;
 }
 
-/* going in: the noren flings aside (js/gate.js) and you step up to the counter */
-.stall.is-open .stall__inside {
-  transform: scale(1.12);
-  filter: brightness(1.15);
+.door.is-open {
+  transform: translateY(-5px);
 }
 
-.g-stalls.has-open .stall:not(.is-open) {
-  opacity: 0.3;
-  transform: scale(0.97);
+/* the willow, one inside each print: ink strands on the right of the day
+   sheet, pale ones on the left of the night sheet, so side by side they still
+   meet over the seam. The print's frame clips them; sized from its height. */
+.willow--gate {
+  top: 0;
+  z-index: 1;
+  width: auto;
+  height: 64%;
+  aspect-ratio: 220 / 600;
+}
+
+.willow--day {
+  left: auto;
+  right: 3%;
+}
+
+.willow--night {
+  left: 3%;
+  right: auto;
+}
+
+.willow--gate svg {
+  width: 100%;
+  height: 100%;
+}
+
+.willow__strand--ink .willow__stem {
+  stroke: var(--ai-5);
+}
+
+.willow__strand--ink .willow__leaves {
+  fill: var(--ai-4);
+}
+
+.willow__strand--pale .willow__stem {
+  stroke: #dfe7f7;
+}
+
+.willow__strand--pale .willow__leaves {
+  fill: var(--ai-2);
 }
 
 .gate .credit {
@@ -427,15 +242,15 @@ body.gate {
 }
 
 /* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the stalls stack
+   Narrower screens: Enter drops under the name; on phones the sheets stack
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1099.98px) {
-  .stall__label {
+  .door__label {
     grid-template-columns: 1fr;
   }
 
-  .stall__cta {
+  .door__cta {
     grid-column: 1;
     grid-row: auto;
     justify-self: start;
@@ -451,36 +266,48 @@ body.gate {
   }
 
   .g-meta {
-    flex-wrap: wrap;
     justify-content: space-between;
-    gap: 0.75rem;
   }
 
-  .g-clock {
-    order: 3;
-    flex-basis: 100%;
-  }
-
-  .g-stalls {
+  .g-doors {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 14px;
   }
 
-  .stall__booth {
-    aspect-ratio: 5 / 4;
+  .door .hanga {
+    aspect-ratio: 6 / 5;
+  }
+
+  .door__tag {
+    top: 20px;
+    left: 20px;
+    padding: 0.55rem 0.3rem;
+    font-size: 0.85rem;
+  }
+
+  .door--art .door__tag {
+    right: 20px;
+  }
+
+  /* the sheet is cropped closer here: keep the dark edge off the moon */
+  .door .hanga--night::after {
+    height: 9%;
+  }
+
+  .willow--gate {
+    width: auto;
+    height: 58%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stall,
-  .stall__inside,
-  .stall__cta {
+  .door {
     transition-duration: 0.01s;
   }
 }
 
 /* ==========================================================================
-   404: lost at the festival. Nothing here but the sky; click it.
+   404: a misprint. The colour blocks have slipped off their registration.
    ========================================================================== */
 
 body.lost-page {
@@ -508,14 +335,16 @@ body.lost-page {
   color: var(--accent-text);
 }
 
+/* the title's pale pass has landed beside its key line */
 .lost__title {
   max-width: 18ch;
   margin-top: 1rem;
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 1.1;
   color: var(--fg-strong);
+  text-shadow: 0.09em 0.07em 0 var(--ai-1);
 }
 
 html[lang="ja"] .lost__title {
@@ -527,4 +356,20 @@ html[lang="ja"] .lost__title {
   max-width: 36rem;
   margin: 1.5rem 0 2rem;
   font-size: 1.1rem;
+}
+
+/* cut a little large, so a slipped block still reaches the edges */
+.hanga--off .hanga__pass {
+  inset: -14px;
+  width: calc(100% + 28px);
+  max-width: none;
+  height: calc(100% + 28px);
+}
+
+.hanga--off .hanga__pass--light {
+  translate: 14px 9px;
+}
+
+.hanga--off .hanga__pass--deep {
+  translate: -11px -7px;
 }

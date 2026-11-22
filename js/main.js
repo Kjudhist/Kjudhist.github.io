@@ -1,7 +1,6 @@
 /* ==========================================================================
-   Shared behaviour: local links, page transitions (a noren drops and lifts),
-   scroll reveals, mobile menu, current-section highlight, the clock, the
-   willow, and strings of paper lanterns that swing and light.
+   Shared behaviour: local links, page transitions, scroll reveals,
+   mobile menu, current-section highlight, the clock, the willow.
    ========================================================================== */
 
 (function () {
@@ -51,7 +50,7 @@
     return veil;
   }
 
-  // A noren in the next page's tone drops over this one, then go. tone: "light" | "dark".
+  // The next sheet's colour is pulled across this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -123,10 +122,6 @@
     window.setInterval(tick, 15000);
   }
 
-  function clamp(value, min, max) {
-    return Math.max(min, Math.min(max, value));
-  }
-
   // The willow leans a little toward the pointer: --lean runs from -1 to 1.
   function initWillow() {
     const willows = document.querySelectorAll('[data-willow]');
@@ -138,7 +133,8 @@
       queued = false;
       willows.forEach(function (el) {
         const box = el.getBoundingClientRect();
-        el.style.setProperty('--lean', clamp((pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2), -1, 1).toFixed(3));
+        const offset = (pointerX - (box.left + box.width / 2)) / (window.innerWidth / 2);
+        el.style.setProperty('--lean', Math.max(-1, Math.min(1, offset)).toFixed(3));
       });
     }
     window.addEventListener('pointermove', function (event) {
@@ -147,105 +143,6 @@
       queued = true;
       window.requestAnimationFrame(update);
     }, { passive: true });
-  }
-
-  // Chochin: a string of paper lanterns hung on a sagging rope. Brush past one
-  // and it swings (a damped spring on its angle); click it to light or put it
-  // out. When every lantern on a string is lit, the string says so with a
-  // "lanterns:alllit" event (the gate answers with fireworks).
-  function initLanterns() {
-    const reduced = prefersReducedMotion();
-    document.querySelectorAll('[data-lanterns]').forEach(function (string) {
-      const lanterns = Array.from(string.querySelectorAll('[data-lantern]'));
-      const rope = string.querySelector('.lanterns__rope');
-      const path = rope && rope.querySelector('path');
-      const state = lanterns.map(function () {
-        return { a: 0, v: 0 };
-      });
-      let running = false;
-      let last = 0;
-      let px = null;
-      let py = null;
-      let pt = 0;
-
-      function layout() {
-        const w = string.clientWidth;
-        const sag = Math.min(54, Math.max(18, w * 0.035));
-        const n = lanterns.length;
-        lanterns.forEach(function (el, i) {
-          const f = (i + 0.5) / n;
-          el.style.left = (f * 100).toFixed(3) + '%';
-          el.style.top = (4 * sag * f * (1 - f)).toFixed(1) + 'px';
-        });
-        if (rope && path) {
-          rope.setAttribute('viewBox', '0 0 ' + w + ' ' + (sag * 2 + 4));
-          rope.style.height = (sag * 2 + 4) + 'px';
-          path.setAttribute('d', 'M0,1 Q' + w / 2 + ',' + (sag * 2 + 1) + ' ' + w + ',1');
-        }
-      }
-
-      function frame(time) {
-        const dt = Math.min(0.05, (time - (last || time)) / 1000);
-        last = time;
-        let moving = false;
-        state.forEach(function (s, i) {
-          s.v += (-38 * s.a - 3.2 * s.v) * dt;
-          s.a += s.v * dt;
-          if (Math.abs(s.a) > 0.05 || Math.abs(s.v) > 0.05) moving = true;
-          lanterns[i].style.setProperty('--swing', s.a.toFixed(2) + 'deg');
-        });
-        if (moving) {
-          window.requestAnimationFrame(frame);
-        } else {
-          running = false;
-        }
-      }
-
-      function kick() {
-        if (running || reduced) return;
-        running = true;
-        last = 0;
-        window.requestAnimationFrame(frame);
-      }
-
-      window.addEventListener('pointermove', function (event) {
-        const now = window.performance.now();
-        if (px !== null && now - pt < 100) {
-          const vx = (event.clientX - px) / Math.max(1, now - pt) * 1000;
-          lanterns.forEach(function (el, i) {
-            const box = el.getBoundingClientRect();
-            if (event.clientX > box.left - 12 && event.clientX < box.right + 12 &&
-                event.clientY > box.top - 8 && event.clientY < box.bottom + 8) {
-              state[i].v = clamp(state[i].v + vx * 0.06, -160, 160);
-              kick();
-            }
-          });
-        }
-        px = event.clientX;
-        py = event.clientY;
-        pt = now;
-      }, { passive: true });
-
-      lanterns.forEach(function (el, i) {
-        el.addEventListener('click', function (event) {
-          event.stopPropagation();
-          el.classList.toggle('is-lit');
-          state[i].v += (Math.random() < 0.5 ? -1 : 1) * 90;
-          kick();
-          if (lanterns.every(function (l) {
-            return l.classList.contains('is-lit');
-          })) {
-            string.classList.add('is-all-lit');
-            string.dispatchEvent(new CustomEvent('lanterns:alllit', { bubbles: true }));
-          } else {
-            string.classList.remove('is-all-lit');
-          }
-        });
-      });
-
-      layout();
-      window.addEventListener('resize', layout);
-    });
   }
 
   function initMenu() {
@@ -320,7 +217,6 @@
     initPageTransitions();
     initReveal();
     initWillow();
-    initLanterns();
     initMenu();
     initSectionSpy();
     initClock();

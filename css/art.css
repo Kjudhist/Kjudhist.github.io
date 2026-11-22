@@ -1,8 +1,8 @@
 /* ==========================================================================
-   The Willow Atelier: the festival after dark.
-   The ground is the night, with the lines left pale. The name lifts in
-   beside the willow, then a tub of goldfish to scoop (kingyo-sukui), then
-   an index of the three kinds of work. Sections
+   The Willow Atelier: the night sheet.
+   The whole page is printed solid, with the lines left pale. The name
+   takes its ink at the top beside the willow, then a strip of the same sea
+   under a full moon, then an index of the three kinds of work. Sections
    share the QA page's grid; works hang in ruled frames, photographs scroll
    sideways, tracks are a ruled list, and the poem is set vertically
    beside the story.
@@ -22,17 +22,20 @@
   z-index: 1;
 }
 
-/* the name in Japanese, on a festival tag */
+.art-hero .hanga--strip {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+/* the name in Japanese, boxed like a title cartouche */
 .art-hero__jp {
   display: inline-block;
-  padding: 0.3rem 0.9rem 0.35rem;
-  border-radius: var(--radius);
-  background: var(--key);
+  padding: 0.25rem 0.65rem 0.3rem;
+  box-shadow: inset 0 0 0 var(--rule) var(--key);
   font-family: var(--font-jp);
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.16em;
-  color: var(--bg);
+  color: var(--fg-strong);
 }
 
 .art-hero__title {
@@ -400,13 +403,13 @@ html[lang="ja"] .card__name {
   background: #060e33;
 }
 
-/* the sill of a screen runs along the top of the band: a double rail */
+/* a deeper sea rises over the end of the page */
 .onward::before {
   content: "";
   position: absolute;
-  inset: -0.75rem 0 auto;
-  height: 0.75rem;
-  background: linear-gradient(var(--frame) 0 0.3rem, transparent 0.3rem 0.45rem, var(--frame) 0.45rem);
+  inset: -29px 0 auto;
+  height: 30px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%23060e33'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%23dfe7f7' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
 }
 
 .onward__link {
@@ -620,132 +623,5 @@ html[lang="ja"] .onward__name {
   .index__link,
   .work__open img {
     transition: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Kingyo-sukui (js/kingyo.js): a blue festival tub of goldfish and a paper
-   poi, with the bag and the poi count beside it. Fireworks strips (the
-   worlds) use the shared .skystrip.
-   -------------------------------------------------------------------------- */
-
-.art-hero .kingyo,
-.art-hero .skystrip {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-}
-
-.kingyo {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 15rem;
-  gap: 1.5rem;
-  align-items: stretch;
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin-inline: auto;
-}
-
-.kingyo__tub {
-  position: relative;
-  height: clamp(16rem, 32vw, 26rem);
-  overflow: hidden;
-  border: 0.75rem solid var(--royal);
-  border-radius: 2.2rem;
-  background: #a9bfea;
-  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 1.5rem 3rem rgba(5, 11, 46, 0.5);
-}
-
-.kingyo__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: none;
-  touch-action: none;
-}
-
-.kingyo:not(.is-live) .kingyo__canvas {
-  cursor: default;
-}
-
-.kingyo__side {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.9rem;
-  padding: 1.25rem;
-  border-radius: var(--radius-box);
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line);
-}
-
-.kingyo__hint {
-  flex: 1;
-  font-size: 0.95rem;
-  color: var(--fg);
-}
-
-.kingyo.is-torn .kingyo__hint {
-  color: var(--fg-strong);
-  font-weight: 700;
-}
-
-.kingyo__bag,
-.kingyo__poi {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.kingyo__bag b,
-.kingyo__poi b {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--fg-strong);
-}
-
-.kingyo.is-bagged .kingyo__bag b {
-  animation: bagged 0.5s var(--ease-back);
-}
-
-@keyframes bagged {
-  40% {
-    transform: scale(1.35);
-    color: var(--spark);
-  }
-}
-
-.kingyo__again {
-  min-height: 2.75rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.kingyo__again:hover {
-  background: var(--spark);
-}
-
-@media (max-width: 879.98px) {
-  .kingyo {
-    grid-template-columns: 1fr;
-  }
-
-  .kingyo__side {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-  }
-
-  .kingyo__hint,
-  .kingyo__again {
-    grid-column: 1 / -1;
   }
 }
