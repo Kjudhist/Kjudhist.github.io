@@ -1,111 +1,74 @@
 /* ==========================================================================
-   Base: tokens, type, shared chrome (header, switcher, footer), motion.
-   Every page loads this first.
-
-   The world is matsuri (祭): a Japanese summer festival at night, in one
-   blue ink. Paper lanterns on a sagging rope that swing when you brush past
-   and light when you click; fireworks you launch by clicking the sky; stalls
-   with split noren curtains that part as you walk through; a sparkler for a
-   pointer on the night pages; bunting under the header. Page changes are a
-   noren dropping and lifting. Dela Gothic One for display, Zen Maru Gothic
-   for text in every language, IBM Plex Mono for small facts.
+   夜桜 yozakura: cherry blossoms at night under a deep navy sky.
+   Shared tokens, type, header, language switcher, sections, buttons,
+   reveals, the footer and the page change (a wall of petals sweeping
+   across in the next page's colour).
    ========================================================================== */
 
 :root {
-  /* one ink, in five strengths */
-  --ai-1: #cfdcf1;
-  --ai-2: #8eabe3;
-  --ai-3: #2449d8;
-  --ai-4: #17318f;
-  --ai-5: #0c1b4d;
+  /* the night, in navy */
+  --abyss: #040a26;
+  --deep: #070f36;
+  --night: #0b1848;
+  --ink: #0c1b4d;
+  --royal: #2449d8;
+  --royal-soft: #8fa5ff;
+  /* moonlight and blossom: secondary, used sparingly */
+  --moon: #eef1fb;
+  --moon-dim: rgba(238, 241, 251, 0.74);
+  --moon-faint: rgba(238, 241, 251, 0.5);
+  --blossom: #f3dce7;
+  --blossom-deep: #d9a3bc;
+  --lamp: #fbefd9;
+  /* paper, for the work side */
+  --paper: #f5f4f0;
+  --paper-2: #ebe9e2;
+  --paper-3: #fbfaf7;
 
-  --royal: var(--ai-3);
-  --royal-2: var(--ai-4);
-  --royal-soft: var(--ai-2);
-  --spark: #5b7cff;   /* the bright blue of a firework */
-
-  --paper: #eef1f6;
-  --sheet: #f8f9fc;
-  --ink: var(--ai-5);
-  --ink-2: #2b3a66;
-  --grey: #5c6788;
-  --night: #0a1440;
-  --night-2: #121f5c;
-  --night-3: #050b2e;
-  --frame: #0c1b4d;
-
-  /* light pages (QA) */
-  --bg: var(--paper);
-  --bg-raised: var(--sheet);
-  --fg: var(--ink-2);
-  --fg-strong: var(--ink);
-  --muted: var(--grey);
-  --key: var(--ink);
-  --line: rgba(12, 27, 77, 0.14);
-  --line-strong: rgba(12, 27, 77, 0.6);
-  --accent: var(--royal);
-  --accent-text: var(--royal);
-  --accent-fg: #fff;
-  --focus: var(--royal);
-  --rope: rgba(12, 27, 77, 0.55);
-  --lantern-cap: #0c1b4d;
-  --flag-a: var(--royal);
-  --flag-b: var(--ai-2);
-
-  --font: "Zen Maru Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-display: "Dela Gothic One", "Zen Maru Gothic", "Hiragino Sans", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-jp: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
-
-  /* festival shapes: anything you press is a pill, cards are soft */
-  --radius: 999px;
-  --radius-box: 14px;
-  --rule: 1.5px;
+  --f-display: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --f-text: "IBM Plex Sans JP", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --ease: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-back: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --gutter: clamp(16px, 5vw, 56px);
+  --maxw: 1180px;
 
-  --gutter: clamp(1.25rem, 4vw, 3.5rem);
-  --section-space: clamp(5rem, 10vw, 9rem);
+  /* light (paper) by default; .theme-dark swaps to the night */
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --muted: rgba(12, 27, 77, 0.66);
+  --faint: rgba(12, 27, 77, 0.42);
+  --line: rgba(12, 27, 77, 0.14);
+  --accent: var(--royal);
+  --focus: var(--royal);
+  --surface: var(--paper-3);
+  color-scheme: light;
 }
 
-/* the gate, the atelier, the worlds and the 404: the festival at night */
 .theme-dark {
   --bg: var(--night);
-  --bg-raised: var(--night-2);
-  --fg: #c5cfe8;
-  --fg-strong: #f1f4fa;
-  --muted: #94a2c8;
-  --key: #dfe7f7;
-  --line: rgba(223, 231, 247, 0.16);
-  --line-strong: rgba(223, 231, 247, 0.55);
-  --accent: var(--royal);
-  --accent-text: var(--royal-soft);
-  --accent-fg: #fff;
-  --focus: var(--royal-soft);
-  --rope: rgba(223, 231, 247, 0.45);
-  --lantern-cap: #050b2e;
-  --flag-a: var(--spark);
-  --flag-b: #dfe7f7;
+  --fg: var(--moon);
+  --muted: var(--moon-dim);
+  --faint: var(--moon-faint);
+  --line: rgba(238, 241, 251, 0.16);
+  --accent: var(--blossom);
+  --focus: var(--blossom);
+  --surface: rgba(7, 15, 54, 0.72);
+  color-scheme: dark;
 }
 
 .theme-light {
   --bg: var(--paper);
-  --bg-raised: var(--sheet);
-  --fg: var(--ink-2);
-  --fg-strong: var(--ink);
-  --muted: var(--grey);
-  --key: var(--ink);
+  --fg: var(--ink);
+  --muted: rgba(12, 27, 77, 0.66);
+  --faint: rgba(12, 27, 77, 0.42);
   --line: rgba(12, 27, 77, 0.14);
-  --line-strong: rgba(12, 27, 77, 0.6);
-  --accent-text: var(--royal);
+  --accent: var(--royal);
   --focus: var(--royal);
+  --surface: var(--paper-3);
+  color-scheme: light;
 }
-
-/* --------------------------------------------------------------------------
-   Reset
-   -------------------------------------------------------------------------- */
 
 *,
 *::before,
@@ -114,64 +77,44 @@
 }
 
 html {
-  overflow-x: clip;
-  /* Dela Gothic One has a single weight: never fake a bold of it */
-  font-synthesis: none;
-  background: var(--bg);
-  color: var(--fg);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scrollbar-color: var(--line-strong) var(--bg);
+  scroll-padding-top: 80px;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  min-height: 100dvh;
-  background-color: var(--bg);
-  font-family: var(--font);
-  font-weight: 400;
-  font-size: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
-  line-height: 1.65;
-  letter-spacing: -0.005em;
-  overflow-x: clip;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-text);
+  font-size: 1rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-p,
-ul,
-ol,
-dl,
-dd,
-figure {
-  margin: 0;
+.js body {
+  animation: page-in 0.7s var(--ease-out) both;
 }
 
-ul,
-ol {
-  padding: 0;
-  list-style: none;
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
 }
 
 img,
-svg {
+svg,
+canvas {
   display: block;
   max-width: 100%;
 }
 
-img {
-  height: auto;
-}
-
 a {
   color: inherit;
-  text-decoration: none;
 }
 
 button {
@@ -179,410 +122,340 @@ button {
   color: inherit;
 }
 
-::selection {
-  background: var(--royal);
-  color: #fff;
+p,
+h1,
+h2,
+h3,
+h4,
+ol,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: var(--radius);
+  border-radius: 2px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 500;
-  text-wrap: balance;
-}
-
-:lang(ja) {
-  line-break: strict;
-}
-
-html[lang="ja"] body {
-  line-height: 1.85;
-  letter-spacing: 0.02em;
-}
-
-html[lang="ja"] :is(h1, h2, h3, h4) {
-  letter-spacing: 0.01em;
-  word-break: keep-all;
-  word-break: auto-phrase;
-  overflow-wrap: anywhere;
-}
-
-/* --------------------------------------------------------------------------
-   Helpers
-   -------------------------------------------------------------------------- */
-
-.sr-only {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.wrap {
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin-inline: auto;
+::selection {
+  background: var(--blossom);
+  color: var(--ink);
 }
 
 .mono {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  letter-spacing: 0;
-  font-variant-numeric: tabular-nums;
+  font-family: var(--f-mono);
+  font-feature-settings: "tnum";
 }
 
-/* Anything still waiting for real content. */
+/* placeholders: muted, with a dotted underline */
 .ph {
-  color: var(--muted);
+  color: var(--faint);
+  text-decoration: underline dotted;
+  text-decoration-color: var(--line);
+  text-underline-offset: 0.3em;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--maxw) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 .skip-link {
   position: fixed;
-  top: 0.75rem;
-  left: var(--gutter);
+  top: 10px;
+  left: 10px;
   z-index: 200;
-  padding: 0.6rem 1.1rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
+  padding: 10px 16px;
+  background: var(--fg);
+  color: var(--bg);
   font-weight: 500;
+  text-decoration: none;
   transform: translateY(-160%);
-  transition: transform 0.4s var(--ease);
+  transition: transform 0.2s var(--ease-out);
 }
 
 .skip-link:focus {
   transform: none;
 }
 
-/* --------------------------------------------------------------------------
-   Header
-   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------- header */
 
 .topbar {
   position: relative;
-  z-index: 40;
+  z-index: 60;
   display: flex;
   align-items: center;
-  gap: 1rem 1.5rem;
-  min-height: 4rem;
-  padding: 0.6rem var(--gutter);
+  gap: 24px;
+  min-height: 64px;
+  padding: 10px var(--gutter);
+  padding-top: max(10px, env(safe-area-inset-top));
 }
 
 .topbar--sticky {
   position: sticky;
   top: 0;
-  background-color: var(--bg);
-  box-shadow: 0 var(--rule) 0 var(--key);
-}
-
-/* festival bunting strung under the header: two colours of flag, alternating */
-.topbar--sticky::after {
-  content: "";
-  position: absolute;
-  top: calc(100% + var(--rule));
-  left: 0;
-  right: 0;
-  height: 0.75rem;
-  pointer-events: none;
-  background:
-    conic-gradient(from 140deg at 50% 0, var(--flag-a) 0 80deg, transparent 0) 0 0 / 3rem 0.75rem repeat-x,
-    conic-gradient(from 140deg at 50% 0, var(--flag-b) 0 80deg, transparent 0) 1.5rem 0 / 3rem 0.75rem repeat-x;
-}
-
-.topbar__end {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid var(--line);
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 10px;
   min-height: 44px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--fg-strong);
-  white-space: nowrap;
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--fg);
 }
 
 .back-link__arrow {
-  width: 1.4rem;
-  height: 0.6rem;
-  flex: none;
-  transition: transform 0.4s var(--ease-out);
+  width: 26px;
+  height: 10px;
+  transition: transform 0.3s var(--ease-out);
 }
 
 .back-link:hover .back-link__arrow {
-  transform: translateX(-0.3rem);
+  transform: translateX(-4px);
 }
 
 .back-link__short {
   display: none;
 }
 
-@media (max-width: 719.98px) {
-  .topbar {
-    gap: 0.5rem;
-  }
-
-  .back-link__full {
-    display: none;
-  }
-
-  .back-link__short {
-    display: inline;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Section nav
-   -------------------------------------------------------------------------- */
-
 .nav {
-  display: flex;
-  align-items: center;
+  margin-left: auto;
 }
 
 .nav__list {
   display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  gap: 4px;
 }
 
 .nav__link {
   position: relative;
   display: inline-flex;
-  padding: 0.45rem 0.8rem;
-  border-radius: var(--radius);
-  font-size: 0.88rem;
-  font-weight: 500;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  font-size: 0.875rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
   color: var(--muted);
-  white-space: nowrap;
-  transition: color 0.25s var(--ease), background-color 0.25s var(--ease);
+  transition: color 0.2s;
 }
 
-.nav__link:hover {
-  color: var(--fg-strong);
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--accent);
+  opacity: 0;
+  transform: translateX(-50%) rotate(-45deg) scale(0.4);
+  transition: opacity 0.25s, transform 0.35s var(--ease-out);
 }
 
-.nav__link[aria-current="true"] {
-  color: var(--fg-strong);
-  background: var(--line);
+.nav__link:hover,
+.nav__link[aria-current] {
+  color: var(--fg);
+}
+
+.nav__link[aria-current]::after {
+  opacity: 1;
+  transform: translateX(-50%) rotate(-45deg) scale(1);
 }
 
 .nav__toggle {
   display: none;
-  position: relative;
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 0;
-  background: none;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
 }
 
 .nav__toggle-lines,
 .nav__toggle-lines::before {
-  position: absolute;
-  left: 50%;
-  width: 1.25rem;
+  display: block;
+  width: 16px;
   height: 1.5px;
-  background: var(--fg-strong);
-  transition: transform 0.4s var(--ease-out), top 0.4s var(--ease-out);
+  margin: 0 auto;
+  background: currentColor;
+  transition: transform 0.3s var(--ease-out);
 }
 
 .nav__toggle-lines {
-  top: 45%;
-  transform: translateX(-50%);
+  transform: translateY(-3px);
 }
 
 .nav__toggle-lines::before {
   content: "";
-  top: 0.4rem;
-  left: 0;
-  transform: none;
+  transform: translateY(6px);
 }
 
-.nav__toggle[aria-expanded="true"] .nav__toggle-lines {
-  transform: translateX(-50%) translateY(0.2rem) rotate(45deg);
+.nav.is-open .nav__toggle-lines {
+  transform: rotate(45deg);
 }
 
-.nav__toggle[aria-expanded="true"] .nav__toggle-lines::before {
-  top: 0;
+.nav.is-open .nav__toggle-lines::before {
   transform: rotate(-90deg);
 }
 
-@media (max-width: 1079.98px) {
-  .nav {
-    order: 2;
-  }
-
-  .nav__toggle {
-    display: block;
-  }
-
-  .nav__list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 0.25rem var(--gutter) 1.25rem;
-    background: var(--bg);
-    box-shadow: 0 var(--rule) 0 var(--key);
-    clip-path: inset(0 0 100% 0);
-    visibility: hidden;
-    transition: clip-path 0.45s var(--ease-out), visibility 0s 0.45s;
-  }
-
-  .nav.is-open .nav__list {
-    clip-path: inset(0 0 -40px 0);
-    visibility: visible;
-    transition: clip-path 0.45s var(--ease-out), visibility 0s;
-  }
-
-  .nav__list li + li {
-    border-top: 1px solid var(--line);
-  }
-
-  .nav__link {
-    display: flex;
-    padding: 0.95rem 0;
-    border-radius: 0;
-    font-size: 1.15rem;
-    color: var(--fg-strong);
-  }
-
-  .nav__link[aria-current="true"] {
-    background: none;
-    color: var(--accent-text);
-  }
-
-  html:not(.js) .nav__toggle {
-    display: none;
-  }
-
-  html:not(.js) .nav__list {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 0;
-    box-shadow: none;
-    background: none;
-    clip-path: none;
-    visibility: visible;
-  }
-
-  html:not(.js) .nav__list li + li {
-    border-top: 0;
-  }
-}
-
-@media (min-width: 1080px) {
-  .nav {
-    margin-left: auto;
-  }
-
-  .topbar__end {
-    margin-left: clamp(1rem, 2vw, 1.75rem);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Language switcher: a ruled box in three parts
-   -------------------------------------------------------------------------- */
-
-.lang {
+.topbar__end {
   display: flex;
   align-items: center;
-  overflow: hidden;
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
+  gap: 16px;
+  margin-left: 8px;
+}
+
+.topbar:not(:has(.nav)) .topbar__end {
+  margin-left: auto;
+}
+
+/* language pill */
+.lang {
+  flex: none;
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
 }
 
 .lang__opt {
-  min-width: 2.6rem;
-  min-height: 36px;
-  padding: 0 0.7rem;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  font-family: var(--font);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--fg);
   white-space: nowrap;
+  min-width: 44px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
   cursor: pointer;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+  transition: background 0.25s, color 0.25s;
+}
+
+.lang__opt:lang(ja) {
+  font-family: var(--f-text);
 }
 
 .lang__opt:hover {
-  color: var(--fg-strong);
+  color: var(--fg);
 }
 
 .lang__opt[aria-pressed="true"] {
-  background: var(--key);
+  background: var(--fg);
   color: var(--bg);
 }
 
-@media (max-width: 719.98px) {
-  .lang__opt {
-    min-width: 2.3rem;
-    padding: 0 0.5rem;
-  }
+/* ------------------------------------------------------------- sections */
+
+.section {
+  position: relative;
+  padding-block: clamp(72px, 12vh, 140px);
 }
 
-/* --------------------------------------------------------------------------
-   Buttons
-   -------------------------------------------------------------------------- */
+.sec-head {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: clamp(32px, 6vh, 56px);
+}
+
+.sec-head__jp {
+  font-family: var(--f-display);
+  font-size: 0.875rem;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+}
+
+.section-title {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------- controls */
+
+.arrow {
+  width: 30px;
+  height: 10px;
+  flex: none;
+  transition: transform 0.35s var(--ease-out);
+}
+
+a:hover > .arrow,
+.btn:hover .arrow {
+  transform: translateX(5px);
+}
 
 .btn {
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  min-height: 3rem;
-  padding: 0.7rem 1.4rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--accent);
-  color: var(--accent-fg);
-  font-family: var(--font);
-  font-size: 0.95rem;
-  font-weight: 500;
-  white-space: nowrap;
-  transition: background-color 0.25s var(--ease), transform 0.15s var(--ease);
+  gap: 14px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
 }
 
 .btn:hover {
-  background: var(--royal-2);
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
 }
 
-.btn:active {
-  transform: translateY(1px);
-}
-
-/* not ready yet: an outline, with a note on hover or focus */
 .btn.is-pending {
-  cursor: not-allowed;
+  cursor: help;
+  opacity: 0.86;
+}
+
+.btn.is-pending:hover {
   background: transparent;
-  color: var(--muted);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: inherit;
+  border-color: currentColor;
 }
 
 .btn.is-pending:hover .arrow {
@@ -592,24 +465,17 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
 .tip {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 0.6rem);
-  padding: 0.35rem 0.7rem;
-  border-radius: var(--radius-box);
+  bottom: calc(100% + 10px);
+  padding: 6px 12px;
+  border-radius: 2px;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 0.8125rem;
   white-space: nowrap;
-  font-family: var(--font);
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #fff;
-  background: var(--ai-5);
-  opacity: 0;
-  transform: translate(-50%, 0.3rem);
-  transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-out);
   pointer-events: none;
-}
-
-.theme-dark .tip {
-  color: var(--ai-5);
-  background: #f1f4fa;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.2s, transform 0.25s var(--ease-out);
 }
 
 .is-pending:hover .tip,
@@ -618,434 +484,55 @@ html[lang="ja"] :is(h1, h2, h3, h4) {
   transform: translate(-50%, 0);
 }
 
-.arrow {
-  width: 1.6rem;
-  height: 0.55rem;
-  flex: none;
-  transition: transform 0.4s var(--ease-out);
-}
-
-.btn:hover .arrow {
-  transform: translateX(0.25rem);
-}
-
-/* --------------------------------------------------------------------------
-   Sections: the head sits in a narrow left column, the content to its right
-   -------------------------------------------------------------------------- */
-
-.section {
-  padding-top: var(--section-space);
-  scroll-margin-top: 4rem;
-}
-
-.section > .wrap {
-  display: grid;
-  grid-template-columns: minmax(12rem, 3fr) minmax(0, 9fr);
-  column-gap: clamp(2rem, 5vw, 5rem);
-  align-items: start;
-  padding-top: 1.25rem;
-  border-top: var(--rule) solid var(--key);
-}
-
-.section > .wrap > * {
-  grid-column: 2;
-}
-
-.section > .wrap > .sec-head {
-  grid-column: 1;
-  grid-row: 1 / span 20;
-  position: sticky;
-  top: 5.5rem;
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.25rem + 1.1vw, 2.3rem);
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0;
-  color: var(--fg-strong);
-}
-
-/* the Japanese name of a section, on a festival tag */
-.sec-head__jp,
-.tag {
-  display: inline-block;
-  padding: 0.25rem 0.8rem 0.3rem;
-  border-radius: var(--radius);
-  background: var(--key);
-  font-family: var(--font-jp);
-  font-size: 0.8rem;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 0.14em;
-  white-space: nowrap;
-  color: var(--bg);
-}
-
-.sec-head__jp {
-  margin-top: 0.75rem;
-}
-
-@media (max-width: 879.98px) {
-  .section > .wrap {
-    grid-template-columns: 1fr;
-  }
-
-  .section > .wrap > *,
-  .section > .wrap > .sec-head {
-    grid-column: 1;
-  }
-
-  .section > .wrap > .sec-head {
-    grid-row: auto;
-    position: static;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .sec-head__jp {
-    margin-top: 0;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Footer credit
-   -------------------------------------------------------------------------- */
-
-.credit {
-  padding: 1.5rem var(--gutter) 1.75rem;
-  font-size: 0.82rem;
-  color: var(--muted);
-}
-
-.credit__dot {
-  margin: 0 0.5em;
-}
-
-/* --------------------------------------------------------------------------
-   A faint paper grain over everything
-   -------------------------------------------------------------------------- */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 120;
-  pointer-events: none;
-  opacity: 0.4;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .56 0 0 0 0 .7 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* --------------------------------------------------------------------------
-   Chochin: paper lanterns on a sagging rope (js/main.js hangs them, swings
-   them and lights them). Unlit they are dim paper; lit they glow blue-white.
-   -------------------------------------------------------------------------- */
-
-.lanterns {
-  position: relative;
-  height: clamp(8.5rem, 6rem + 4vw, 10.5rem);
-  pointer-events: none;
-}
-
-.lanterns__rope {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3rem;
-  overflow: visible;
-}
-
-.lanterns__rope path {
-  fill: none;
-  stroke: var(--rope);
-  stroke-width: 1.5;
-}
-
-.chochin {
-  --swing: 0deg;
-  --w: clamp(3rem, 2rem + 1.6vw, 4rem);
-  position: absolute;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: var(--w);
-  padding-top: 0.55rem;
-  transform: translateX(-50%) rotate(var(--swing));
-  transform-origin: 50% 0;
-  pointer-events: auto;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* the cord from the rope */
-.chochin::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 1.5px;
-  height: 0.6rem;
-  background: var(--rope);
-}
-
-.chochin__cap {
-  width: 62%;
-  height: 0.38rem;
-  border-radius: 2px;
-  background: var(--lantern-cap);
-}
-
-.chochin__body {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: calc(var(--w) * 1.32);
-  border-radius: 46% / 40%;
-  background:
-    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.2) 0.42rem calc(0.42rem + 1px)),
-    radial-gradient(ellipse at 50% 45%, #b8c4e2, #7f8fbb);
-  color: rgba(12, 27, 77, 0.7);
-  font-family: var(--font-display);
-  font-size: calc(var(--w) * 0.44);
-  line-height: 1;
-  transition: box-shadow 0.45s var(--ease-out), color 0.3s var(--ease), background 0.3s var(--ease);
-  animation: idle var(--sway) ease-in-out infinite alternate;
-  transform-origin: 50% 0;
-}
-
-.chochin.is-lit .chochin__body {
-  background:
-    repeating-linear-gradient(transparent 0 0.42rem, rgba(12, 27, 77, 0.12) 0.42rem calc(0.42rem + 1px)),
-    radial-gradient(ellipse at 50% 42%, #ffffff, #e6eeff 55%, #b5c6f2);
-  box-shadow: 0 0 1.3rem 0.25rem rgba(142, 171, 227, 0.55), 0 0 4rem 1.2rem rgba(91, 124, 255, 0.22);
-  color: var(--ink);
-}
-
-.chochin__tassel {
-  width: 2px;
-  height: 0.9rem;
-  background: var(--lantern-cap);
-}
-
-.chochin:hover .chochin__body {
-  filter: brightness(1.08);
-}
-
-@keyframes idle {
-  from {
-    transform: rotate(-1.5deg);
-  }
-
-  to {
-    transform: rotate(1.5deg);
-  }
-}
-
-/* every lantern lit: they pulse together */
-.lanterns.is-all-lit .chochin__body {
-  animation: idle var(--sway) ease-in-out infinite alternate, all-lit 0.9s var(--ease-out) 3;
-}
-
-@keyframes all-lit {
-  50% {
-    box-shadow: 0 0 2rem 0.6rem rgba(142, 171, 227, 0.8), 0 0 6rem 2rem rgba(91, 124, 255, 0.4);
-  }
-}
-
-@media (max-width: 719.98px) {
-  .lanterns {
-    height: 6.5rem;
-  }
-
-  .chochin {
-    --w: 2.1rem;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   A strip of night sky to launch fireworks in (js/hanabi.js), with a line
-   of hills along the bottom
-   -------------------------------------------------------------------------- */
-
-.skystrip {
-  position: relative;
-  height: clamp(14rem, 30vw, 24rem);
-  overflow: hidden;
-  background: linear-gradient(var(--night-3), var(--night) 65%, #13235f);
-  cursor: crosshair;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.skystrip::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 22%;
-  background: var(--night-3);
-  clip-path: polygon(0 60%, 8% 40%, 17% 55%, 28% 22%, 39% 48%, 50% 30%, 61% 52%, 72% 18%, 83% 44%, 92% 30%, 100% 50%, 100% 100%, 0 100%);
-  pointer-events: none;
-}
-
-.skystrip__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.skystrip__hint {
-  position: absolute;
-  left: var(--gutter);
-  bottom: 0.9rem;
-  z-index: 1;
-  padding: 0.3rem 0.85rem;
-  border-radius: var(--radius);
-  background: rgba(5, 11, 46, 0.7);
-  color: #dfe7f7;
-  font-size: 0.8rem;
-  pointer-events: none;
-  transition: opacity 0.6s var(--ease);
-}
-
-.skystrip.is-played .skystrip__hint {
-  opacity: 0;
-}
-
-/* the sparkler that follows the pointer on night pages */
-.senko {
-  position: fixed;
-  inset: 0;
-  z-index: 130;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-/* a title arrives the way a lantern catches: it lifts in out of a blur */
 .unveil {
-  color: var(--fg-strong);
+  text-wrap: balance;
 }
 
 .js .unveil {
-  animation: unveil 1s var(--ease-out) 0.3s both;
+  animation: unveil 1.2s var(--ease-out) 0.2s both;
 }
 
 @keyframes unveil {
   from {
     opacity: 0;
     filter: blur(8px);
-    transform: translateY(0.35em) scale(0.97);
+    transform: translateY(10px);
   }
 }
 
-/* --------------------------------------------------------------------------
-   The willow: strands hanging from the top edge. Each sways on its own
-   clock and leans a little toward the pointer (js/main.js sets --lean).
-   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------- footer */
 
-.willow {
-  --lean: 0;
-  position: absolute;
-  top: 0;
-  right: clamp(0.5rem, 5vw, 5rem);
-  z-index: 0;
-  width: clamp(5.5rem, 19vw, 16rem);
-  pointer-events: none;
+.credit {
+  position: relative;
+  padding: 28px var(--gutter) max(28px, env(safe-area-inset-bottom));
+  font-size: 0.8125rem;
+  color: var(--faint);
+  text-align: center;
 }
 
-.willow svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
+.credit p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 10px;
 }
 
-.willow__strand,
-.willow__sway {
-  transform-box: view-box;
-  transform-origin: var(--x) 0;
+/* --------------------------------------------------------------- reveal */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity 0.9s var(--ease-out), transform 1s var(--ease-out);
+  transition-delay: var(--delay, 0s);
 }
 
-.willow__strand {
-  transform: rotate(calc(var(--lean) * var(--k) * 1deg));
-  transition: transform 1.4s var(--ease-out);
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
 }
 
-.willow__sway {
-  animation: sway var(--t) ease-in-out var(--d) infinite alternate;
-}
+/* ------------------------------------------------------------ i18n wait */
 
-@keyframes sway {
-  from {
-    transform: rotate(-1.2deg);
-  }
-
-  to {
-    transform: rotate(1.4deg);
-  }
-}
-
-.willow__stem {
-  fill: none;
-  stroke: var(--key);
-  stroke-width: 1.4;
-  opacity: 0.6;
-}
-
-.willow__leaves {
-  fill: var(--accent-text);
-  opacity: 0.75;
-}
-
-.js .willow {
-  animation: page-in 1.2s var(--ease) 0.4s both;
-}
-
-@media (max-width: 719.98px) {
-  .willow {
-    right: 0.25rem;
-    width: 4.75rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .js .unveil,
-  .js .willow {
-    animation-duration: 0.01s;
-    animation-delay: 0s;
-  }
-
-  .willow__sway,
-  .chochin__body,
-  .lanterns.is-all-lit .chochin__body {
-    animation: none;
-  }
-
-  .willow__strand {
-    transition: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Motion
-   -------------------------------------------------------------------------- */
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-  }
-}
-
-.js body {
-  animation: page-in 0.5s var(--ease) both;
-}
-
-/* While a non-English page is being translated, hold the paint.
-   The animation is a failsafe in case the script never finishes. */
 @keyframes i18n-failsafe {
   to {
     visibility: visible;
@@ -1057,8 +544,12 @@ html.i18n-pending body {
   animation: i18n-failsafe 0s 2.5s forwards;
 }
 
-/* Changing pages: a noren (four strips of cloth on a rod) drops over this
-   page in the next page's colour; the next page lifts it. */
+/* ---------------------------------------------------------- page change
+   A wall of petals sweeps in from the left in the next page's colour; the
+   next page starts under it and the wall carries on off to the right. The
+   wall is 180vw wide: a feathered edge of petals on each side of a solid
+   middle. */
+
 .veil {
   position: fixed;
   inset: 0;
@@ -1067,77 +558,84 @@ html.i18n-pending body {
 }
 
 .veil::before,
-html.is-arriving::before {
+.veil::after,
+html.is-arriving::before,
+html.is-arriving::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   z-index: 150;
+  width: 180vw;
+  height: 100%;
   pointer-events: none;
-  background:
-    linear-gradient(var(--veil-rod, #050b2e) 0 0.9rem, transparent 0.9rem),
-    linear-gradient(transparent calc(100% - 1.4rem), var(--veil-hem, rgba(91, 124, 255, 0.9)) calc(100% - 1.4rem) calc(100% - 0.9rem), transparent calc(100% - 0.9rem)),
-    repeating-linear-gradient(90deg, var(--veil-cloth, var(--night)) 0 calc(25% - 5px), transparent calc(25% - 5px) 25%);
+  will-change: transform;
+}
+
+.veil::before,
+html.is-arriving::before {
+  background: linear-gradient(90deg, transparent 0, var(--wall) 22%, var(--wall) 78%, transparent 100%);
+}
+
+.veil::after,
+html.is-arriving::after {
+  background-image: var(--petals), var(--petals), var(--petals), var(--petals);
+  background-repeat: repeat-y;
+  background-size: 260px auto;
+  background-position: 4vw 0, 18vw 130px, 146vw 60px, 160vw 190px;
 }
 
 .veil[data-tone="light"],
 html.is-arriving[data-arrive="light"] {
-  --veil-cloth: #f2f5fc;
-  --veil-rod: #0c1b4d;
-  --veil-hem: rgba(36, 73, 216, 0.85);
+  --wall: var(--paper);
+  --petals: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><defs><path id='p' d='M0 14C-13 6-12-10-3.4-14L0-10 3.4-14C12-10 13 6 0 14Z'/></defs><g fill='%23e8bfd2'><use href='%23p' transform='translate(40 30) rotate(25)'/><use href='%23p' transform='translate(150 70) rotate(-60) scale(.8)'/><use href='%23p' transform='translate(90 150) rotate(110) scale(1.1)'/><use href='%23p' transform='translate(210 200) rotate(200) scale(.7)'/></g><g fill='%23f5f4f0'><use href='%23p' transform='translate(200 120) rotate(40) scale(1.2)'/><use href='%23p' transform='translate(30 220) rotate(-20)'/><use href='%23p' transform='translate(120 240) rotate(150) scale(.8)'/></g><g fill='%230c1b4d' fill-opacity='.18'><use href='%23p' transform='translate(240 30) rotate(80) scale(.6)'/></g></svg>");
 }
 
 .veil[data-tone="dark"],
 html.is-arriving[data-arrive="dark"] {
-  --veil-cloth: #0c1b4d;
-  --veil-rod: #050b2e;
-  --veil-hem: rgba(91, 124, 255, 0.9);
+  --wall: var(--night);
+  --petals: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><defs><path id='p' d='M0 14C-13 6-12-10-3.4-14L0-10 3.4-14C12-10 13 6 0 14Z'/></defs><g fill='%23f3dce7'><use href='%23p' transform='translate(40 30) rotate(25)'/><use href='%23p' transform='translate(150 70) rotate(-60) scale(.8)'/><use href='%23p' transform='translate(90 150) rotate(110) scale(1.1)'/><use href='%23p' transform='translate(210 200) rotate(200) scale(.7)'/></g><g fill='%230b1848'><use href='%23p' transform='translate(200 120) rotate(40) scale(1.2)'/><use href='%23p' transform='translate(30 220) rotate(-20)'/><use href='%23p' transform='translate(120 240) rotate(150) scale(.8)'/></g><g fill='%23d9a3bc' fill-opacity='.7'><use href='%23p' transform='translate(240 30) rotate(80) scale(.6)'/></g></svg>");
 }
 
-.veil::before {
-  transform: translateY(-102%);
-  transition: transform 0.6s var(--ease);
+.veil::before,
+.veil::after {
+  transform: translate3d(-180vw, 0, 0);
+  transition: transform 0.85s cubic-bezier(0.7, 0, 0.25, 1);
 }
 
 html.is-leaving .veil {
   pointer-events: auto;
 }
 
-html.is-leaving .veil::before {
-  transform: none;
+html.is-leaving .veil::before,
+html.is-leaving .veil::after {
+  transform: translate3d(-40vw, 0, 0);
 }
 
-/* arriving: the noren is already down; js/main.js lifts it on the first
-   frame the page can show. The long delay is only a failsafe. */
-html.is-arriving::before {
-  animation: noren-lift 0.8s var(--ease) 2.5s forwards;
+/* arriving: the wall is already across the window; js/main.js lets it go
+   on the first frame the page can show. The long delay is a failsafe. */
+html.is-arriving::before,
+html.is-arriving::after {
+  transform: translate3d(-40vw, 0, 0);
+  animation: wall-on 0.9s cubic-bezier(0.6, 0, 0.3, 1) 2.5s forwards;
 }
 
-html.is-arriving.is-arrived::before {
-  animation-delay: 0.08s;
+html.is-arriving.is-arrived::before,
+html.is-arriving.is-arrived::after {
+  animation-delay: 0.05s;
 }
 
-@keyframes noren-lift {
+@keyframes wall-on {
   to {
-    transform: translateY(-102%);
+    transform: translate3d(100vw, 0, 0);
   }
 }
 
-/* under the noren the page is already there, so it does not fade in as well */
 .js.is-arriving body {
   animation: none;
 }
 
-.js [data-reveal] {
-  opacity: 0;
-  transform: translate3d(0, 0.8rem, 0);
-  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
-  transition-delay: var(--delay, 0s);
-}
-
-.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
+/* ------------------------------------------------------- reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -1148,25 +646,104 @@ html.is-arriving.is-arrived::before {
     animation-duration: 0.2s;
   }
 
+  .js .unveil {
+    animation: none;
+  }
+
   .js [data-reveal] {
     transform: none;
     transition: opacity 0.3s linear;
     transition-delay: 0s;
   }
 
-  .veil::before {
+  .veil::before,
+  .veil::after {
+    left: 0;
+    width: 100vw;
     transform: none;
     opacity: 0;
     transition: opacity 0.25s linear;
   }
 
-  html.is-leaving .veil::before {
+  .veil::before {
+    background: var(--wall);
+  }
+
+  html.is-leaving .veil::before,
+  html.is-leaving .veil::after {
+    transform: none;
     opacity: 1;
   }
 
-  .arrow,
-  .back-link__arrow,
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* --------------------------------------------------------------- mobile */
+
+@media (max-width: 860px) {
+  .back-link__full {
+    display: none;
+  }
+
+  .back-link__short {
+    display: inline;
+  }
+
+  .nav {
+    position: relative;
+  }
+
+  .nav__toggle {
+    display: grid;
+    place-items: center;
+  }
+
   .nav__list {
-    transition-duration: 0.01s;
+    position: absolute;
+    top: calc(100% + 12px);
+    right: -60px;
+    flex-direction: column;
+    min-width: 220px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    box-shadow: 0 24px 60px -24px rgba(4, 10, 38, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.25s, transform 0.3s var(--ease-out), visibility 0s 0.3s;
+  }
+
+  .nav.is-open .nav__list {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.25s, transform 0.3s var(--ease-out), visibility 0s;
+  }
+
+  .nav__link {
+    display: flex;
+    width: 100%;
+  }
+
+  .nav__link::after {
+    left: auto;
+    right: 14px;
+    bottom: 50%;
+  }
+}
+
+@media (max-width: 420px) {
+  .topbar {
+    gap: 10px;
+  }
+
+  .lang__opt {
+    min-width: 40px;
+    padding: 0 7px;
   }
 }

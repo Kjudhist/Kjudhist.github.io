@@ -33,17 +33,47 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&family=Zen+Old+Mincho:wght@400;500;700;900&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
   <link rel="stylesheet" href="../css/world.css">
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/sakura.js" defer></script>
   <script src="../js/art.js" defer></script>
-  <script src="../js/hanabi.js" defer></script>
+  <script src="../js/world.js" defer></script>
 </head>
 <body class="world">
+  <!-- The sky beyond the atelier: a giant moon, far islands, stars, and a
+       river of glowing petals that flows between the islands and bends
+       toward the pointer (js/world.js). All decoration. -->
+  <div class="cosmos" aria-hidden="true">
+    <div class="cosmos__moon" data-depth="0.04"></div>
+    <svg class="cosmos__far" data-depth="0.12" viewBox="0 0 1440 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs>
+        <g id="farisle"><path d="M-80 0C-50-5 50-5 80 0L64 8 50 12 38 22 22 26 10 40 0 46-8 34-22 28-40 20-58 12Z"/><ellipse cx="-38" cy="-8" rx="14" ry="10"/><ellipse cx="-24" cy="-12" rx="12" ry="11"/><ellipse cx="30" cy="-6" rx="10" ry="7"/></g>
+      </defs>
+      <use href="#farisle" transform="translate(150 260) scale(1.2)"/>
+      <use href="#farisle" transform="translate(1270 420) scale(.9)"/>
+      <use href="#farisle" transform="translate(320 760) scale(.7)"/>
+      <use href="#farisle" transform="translate(1110 860) scale(1.4)"/>
+      <use href="#farisle" transform="translate(760 140) scale(.5)"/>
+    </svg>
+  </div>
+  <canvas class="river" data-river aria-hidden="true"></canvas>
+
+  <!-- a sakura tree for the islands, drawn once and reused -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <radialGradient id="bloomglow"><stop offset="0" stop-color="#f6e2ec" stop-opacity=".95"/><stop offset=".6" stop-color="#e6bcd0" stop-opacity=".6"/><stop offset="1" stop-color="#d9a3bc" stop-opacity="0"/></radialGradient>
+      <symbol id="isletree" viewBox="0 0 200 180">
+        <path d="M98 180C100 150 96 128 88 108S70 80 52 70M92 120C104 100 122 88 146 80M90 100C92 76 104 58 120 46M86 110C80 92 70 74 56 56" fill="none" stroke="#040a24" stroke-width="6" stroke-linecap="round"/>
+        <g fill="url(#bloomglow)"><circle cx="52" cy="62" r="34"/><circle cx="92" cy="40" r="40"/><circle cx="132" cy="42" r="34"/><circle cx="152" cy="76" r="30"/><circle cx="60" cy="96" r="22"/><circle cx="112" cy="70" r="30"/></g>
+        <g fill="#fbeff4" opacity=".9"><circle cx="40" cy="58" r="3"/><circle cx="66" cy="44" r="3"/><circle cx="84" cy="24" r="3.5"/><circle cx="104" cy="34" r="3"/><circle cx="128" cy="28" r="3"/><circle cx="146" cy="58" r="3.5"/><circle cx="160" cy="84" r="3"/><circle cx="118" cy="66" r="3"/><circle cx="96" cy="56" r="2.5"/><circle cx="58" cy="82" r="3"/><circle cx="72" cy="66" r="2.5"/><circle cx="140" cy="40" r="2.5"/></g>
+      </symbol>
+    </defs>
+  </svg>
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
@@ -74,40 +104,20 @@
 
   <main id="main">
 
-    <!-- Hero: the deep night past the atelier, stars joined into charts.
-         Reached from the end of the atelier page, not from the gate. -->
-    <section class="art-hero world-hero" id="top" data-testid="section-hero">
-      <div class="willow " aria-hidden="true" data-willow>
-        <svg viewBox="0 0 300 520" focusable="false">
-          <g class="willow__strand" style="--x:30px;--k:2.3"><g class="willow__sway" style="--t:7.1s;--d:-4.1s"><path class="willow__stem" d="M30,-6 C27.3,145.0 18.1,290.0 16.7,414.3"/><path class="willow__leaves" d="M29.0,39.1 Q21.5,44.6 20.1,53.7 Q27.6,48.2 29.0,39.1 M28.3,63.6 Q29.1,72.4 36.2,77.8 Q35.4,69.0 28.3,63.6 M27.3,95.6 Q20.9,103.4 19.6,113.5 Q26.0,105.7 27.3,95.6 M26.4,123.3 Q27.9,131.6 34.4,137.2 Q32.8,128.8 26.4,123.3 M25.6,145.9 Q19.4,153.3 18.3,162.9 Q24.5,155.5 25.6,145.9 M24.7,169.0 Q26.0,177.9 32.5,184.1 Q31.2,175.2 24.7,169.0 M23.7,194.1 Q16.3,199.3 14.2,208.1 Q21.6,202.9 23.7,194.1 M22.4,225.3 Q23.7,234.1 29.8,240.6 Q28.6,231.8 22.4,225.3 M21.3,253.1 Q14.5,259.7 13.9,269.3 Q20.7,262.6 21.3,253.1 M20.3,281.8 Q20.8,291.0 26.8,298.1 Q26.2,288.9 20.3,281.8 M19.4,305.1 Q13.2,310.7 11.8,319.0 Q18.0,313.4 19.4,305.1 M18.7,326.7 Q19.7,336.4 26.0,343.9 Q25.0,334.2 18.7,326.7 M18.0,350.7 Q10.0,357.7 7.0,368.0 Q15.1,361.0 18.0,350.7 M17.3,378.7 Q17.3,388.8 23.5,396.8 Q23.5,386.7 17.3,378.7 M16.9,401.6 Q10.1,407.6 9.3,416.6 Q16.1,410.6 16.9,401.6"/></g></g>
-          <g class="willow__strand" style="--x:66px;--k:2.6"><g class="willow__sway" style="--t:5.2s;--d:-3.0s"><path class="willow__stem" d="M66,-6 C63.6,176.1 55.1,352.2 53.9,503.2"/><path class="willow__leaves" d="M65.1,48.4 Q58.6,54.9 58.4,64.0 Q64.9,57.6 65.1,48.4 M64.4,83.3 Q66.0,92.7 73.1,99.1 Q71.5,89.7 64.4,83.3 M63.4,123.3 Q56.4,129.8 55.2,139.3 Q62.2,132.8 63.4,123.3 M62.4,161.4 Q65.0,170.7 72.0,177.4 Q69.5,168.0 62.4,161.4 M61.6,189.0 Q55.8,194.7 56.0,202.9 Q61.8,197.2 61.6,189.0 M60.7,220.0 Q61.2,230.8 67.6,239.4 Q67.2,228.6 60.7,220.0 M59.7,252.5 Q52.9,257.3 51.1,265.6 Q58.0,260.7 59.7,252.5 M58.8,285.6 Q59.2,294.5 65.7,300.6 Q65.3,291.6 58.8,285.6 M57.7,321.7 Q49.8,327.9 46.5,337.3 Q54.4,331.2 57.7,321.7 M56.9,349.7 Q57.6,361.0 64.0,370.4 Q63.3,359.0 56.9,349.7 M56.2,377.6 Q49.7,384.3 49.8,393.6 Q56.3,386.9 56.2,377.6 M55.4,410.0 Q54.9,419.0 61.1,425.6 Q61.6,416.6 55.4,410.0 M54.8,437.6 Q47.4,444.5 44.5,454.2 Q51.9,447.3 54.8,437.6 M54.3,471.2 Q57.5,481.8 65.4,489.6 Q62.1,479.0 54.3,471.2 M54.0,496.9 Q46.7,505.0 45.2,515.7 Q52.5,507.6 54.0,496.9"/></g></g>
-          <g class="willow__strand" style="--x:98px;--k:1.8"><g class="willow__sway" style="--t:7.7s;--d:-3.6s"><path class="willow__stem" d="M98,-6 C100.3,107.2 108.4,214.4 109.6,306.3"/><path class="willow__leaves" d="M98.9,27.8 Q93.1,34.8 93.5,43.9 Q99.2,36.8 98.9,27.8 M99.6,51.4 Q101.3,62.0 108.0,70.4 Q106.3,59.8 99.6,51.4 M100.4,71.1 Q93.1,77.6 91.7,87.1 Q98.9,80.7 100.4,71.1 M101.2,91.4 Q104.0,101.7 112.0,108.9 Q109.2,98.5 101.2,91.4 M102.0,109.2 Q96.5,117.0 96.4,126.5 Q101.9,118.7 102.0,109.2 M102.8,127.8 Q103.1,136.7 109.8,142.5 Q109.5,133.6 102.8,127.8 M103.7,146.4 Q97.1,151.4 96.0,159.6 Q102.5,154.6 103.7,146.4 M104.7,169.1 Q106.2,177.9 113.3,183.3 Q111.8,174.5 104.7,169.1 M105.6,188.9 Q98.7,196.1 97.7,206.1 Q104.7,198.9 105.6,188.9 M106.6,210.2 Q107.9,221.5 115.1,230.3 Q113.8,219.0 106.6,210.2 M107.3,228.1 Q102.1,235.0 101.9,243.7 Q107.1,236.8 107.3,228.1 M108.1,248.6 Q108.7,257.0 114.8,262.8 Q114.2,254.4 108.1,248.6 M108.7,268.3 Q101.7,276.8 101.4,287.8 Q108.4,279.4 108.7,268.3 M109.2,287.4 Q109.9,298.1 116.9,306.2 Q116.3,295.5 109.2,287.4 M109.5,304.3 Q102.7,310.3 100.4,319.1 Q107.3,313.1 109.5,304.3"/></g></g>
-          <g class="willow__strand" style="--x:134px;--k:2.2"><g class="willow__sway" style="--t:6.3s;--d:-3.0s"><path class="willow__stem" d="M134,-6 C134.7,134.1 137.0,268.1 137.3,383.1"/><path class="willow__leaves" d="M134.2,35.8 Q127.3,42.0 126.3,51.3 Q133.3,45.1 134.2,35.8 M134.5,65.2 Q135.2,75.4 142.1,82.9 Q141.4,72.7 134.5,65.2 M134.7,90.9 Q126.3,98.5 123.7,109.5 Q132.1,101.9 134.7,90.9 M134.9,113.1 Q138.4,123.5 146.8,130.7 Q143.2,120.3 134.9,113.1 M135.2,141.6 Q128.6,150.1 128.0,160.8 Q134.6,152.3 135.2,141.6 M135.5,170.4 Q136.9,180.9 144.4,188.3 Q143.0,177.8 135.5,170.4 M135.8,198.1 Q130.0,204.1 129.7,212.5 Q135.5,206.5 135.8,198.1 M136.0,220.6 Q137.6,228.9 144.8,233.3 Q143.2,225.0 136.0,220.6 M136.3,246.8 Q129.2,252.0 128.0,260.7 Q135.1,255.5 136.3,246.8 M136.6,274.2 Q139.2,284.3 147.2,290.9 Q144.7,280.8 136.6,274.2 M136.8,300.2 Q129.0,307.7 125.8,318.0 Q133.6,310.5 136.8,300.2 M137.0,319.1 Q137.6,327.3 144.1,332.3 Q143.5,324.1 137.0,319.1 M137.2,344.5 Q130.6,351.7 129.2,361.3 Q135.7,354.1 137.2,344.5 M137.3,364.9 Q138.0,374.0 144.7,380.2 Q144.0,371.1 137.3,364.9"/></g></g>
-          <g class="willow__strand" style="--x:170px;--k:2.4"><g class="willow__sway" style="--t:7.9s;--d:-5.0s"><path class="willow__stem" d="M170,-6 C166.5,144.3 154.1,288.7 152.3,412.4"/><path class="willow__leaves" d="M168.7,38.9 Q160.7,44.8 158.0,54.3 Q166.0,48.5 168.7,38.9 M167.5,71.8 Q168.9,82.2 176.3,89.6 Q174.9,79.2 167.5,71.8 M166.3,98.0 Q158.8,104.1 157.2,113.7 Q164.7,107.5 166.3,98.0 M165.0,127.2 Q166.2,135.6 172.7,140.8 Q171.5,132.5 165.0,127.2 M163.8,150.4 Q157.0,155.8 154.5,164.1 Q161.3,158.7 163.8,150.4 M162.5,175.0 Q163.6,185.7 170.5,194.0 Q169.5,183.3 162.5,175.0 M161.0,203.9 Q153.7,209.5 150.9,218.3 Q158.1,212.6 161.0,203.9 M159.8,226.7 Q160.6,235.2 167.0,240.7 Q166.2,232.2 159.8,226.7 M158.2,256.1 Q151.6,262.2 151.4,271.2 Q158.0,265.1 158.2,256.1 M156.8,284.4 Q156.8,292.9 163.1,298.6 Q163.0,290.1 156.8,284.4 M155.6,309.7 Q148.0,315.8 144.8,324.9 Q152.4,318.9 155.6,309.7 M154.4,338.6 Q156.1,348.0 163.4,354.1 Q161.7,344.8 154.4,338.6 M153.4,367.5 Q146.8,375.6 145.2,386.0 Q151.8,377.8 153.4,367.5 M152.7,394.0 Q154.1,402.0 160.7,406.7 Q159.3,398.8 152.7,394.0"/></g></g>
-          <g class="willow__strand" style="--x:206px;--k:2.9"><g class="willow__sway" style="--t:5.3s;--d:-5.0s"><path class="willow__stem" d="M206,-6 C207.0,109.9 210.6,219.9 211.1,314.1"/><path class="willow__leaves" d="M206.4,28.6 Q200.1,34.2 199.6,42.6 Q205.9,37.0 206.4,28.6 M206.7,49.8 Q208.8,58.3 215.8,63.7 Q213.6,55.2 206.7,49.8 M207.1,74.6 Q199.0,80.7 197.0,90.5 Q205.1,84.5 207.1,74.6 M207.4,92.5 Q207.8,100.9 214.3,106.0 Q213.9,97.7 207.4,92.5 M207.7,110.2 Q199.4,117.4 196.8,128.1 Q205.2,120.9 207.7,110.2 M208.1,131.9 Q209.9,141.4 216.7,148.4 Q214.9,138.8 208.1,131.9 M208.6,156.3 Q201.7,165.1 200.9,176.2 Q207.9,167.4 208.6,156.3 M209.1,180.3 Q211.3,189.7 219.2,195.2 Q217.0,185.8 209.1,180.3 M209.5,203.3 Q203.0,208.5 202.0,216.7 Q208.6,211.6 209.5,203.3 M210.0,225.8 Q211.6,234.5 218.5,239.9 Q216.9,231.3 210.0,225.8 M210.2,242.6 Q204.7,250.2 204.3,259.6 Q209.8,252.0 210.2,242.6 M210.6,263.7 Q212.5,274.1 219.8,281.8 Q217.8,271.4 210.6,263.7 M210.8,283.7 Q202.8,290.4 201.1,300.8 Q209.1,294.0 210.8,283.7 M211.0,305.1 Q212.4,315.4 219.7,323.0 Q218.3,312.6 211.0,305.1"/></g></g>
-          <g class="willow__strand" style="--x:240px;--k:2.5"><g class="willow__sway" style="--t:5.7s;--d:-0.7s"><path class="willow__stem" d="M240,-6 C240.7,148.0 243.0,296.0 243.3,422.8"/><path class="willow__leaves" d="M240.2,40.0 Q232.1,46.4 229.5,56.3 Q237.6,50.0 240.2,40.0 M240.4,64.2 Q241.4,74.6 248.6,82.1 Q247.7,71.7 240.4,64.2 M240.6,89.7 Q234.2,96.5 233.6,105.7 Q239.9,99.0 240.6,89.7 M240.9,120.5 Q243.3,130.0 250.9,136.2 Q248.4,126.7 240.9,120.5 M241.1,147.1 Q233.1,154.0 231.3,164.3 Q239.3,157.5 241.1,147.1 M241.3,172.2 Q244.1,182.8 252.9,189.4 Q250.1,178.8 241.3,172.2 M241.6,202.2 Q233.6,208.5 231.2,218.5 Q239.2,212.1 241.6,202.2 M241.9,228.1 Q243.3,237.5 250.6,243.4 Q249.2,234.1 241.9,228.1 M242.1,256.6 Q234.9,262.9 233.1,272.3 Q240.3,266.0 242.1,256.6 M242.4,281.6 Q245.2,292.6 254.0,299.8 Q251.2,288.8 242.4,281.6 M242.6,308.3 Q236.5,315.2 235.9,324.4 Q241.9,317.5 242.6,308.3 M242.8,334.2 Q243.6,343.5 250.4,349.9 Q249.7,340.5 242.8,334.2 M243.0,361.1 Q236.1,367.0 234.2,375.9 Q241.0,369.9 243.0,361.1 M243.2,388.7 Q243.4,397.7 250.0,403.8 Q249.8,394.8 243.2,388.7 M243.3,409.6 Q235.8,416.8 232.9,426.8 Q240.4,419.6 243.3,409.6"/></g></g>
-          <g class="willow__strand" style="--x:272px;--k:1.7"><g class="willow__sway" style="--t:5.7s;--d:-2.9s"><path class="willow__stem" d="M272,-6 C271.7,149.2 270.6,298.4 270.4,426.3"/><path class="willow__leaves" d="M271.9,40.4 Q265.4,47.0 265.6,56.3 Q272.1,49.6 271.9,40.4 M271.8,66.1 Q274.0,76.1 281.5,83.0 Q279.3,73.0 271.8,66.1 M271.7,97.7 Q264.4,103.8 263.3,113.3 Q270.6,107.2 271.7,97.7 M271.6,125.7 Q274.8,136.5 283.0,144.5 Q279.7,133.6 271.6,125.7 M271.4,159.3 Q263.1,166.4 260.6,177.1 Q269.0,170.0 271.4,159.3 M271.3,187.2 Q274.4,198.2 282.6,206.1 Q279.5,195.1 271.3,187.2 M271.2,214.1 Q265.2,219.8 264.9,228.1 Q270.8,222.4 271.2,214.1 M271.0,244.2 Q272.2,253.9 279.0,260.9 Q277.8,251.2 271.0,244.2 M270.9,267.4 Q263.8,274.5 262.1,284.5 Q269.3,277.4 270.9,267.4 M270.8,291.0 Q271.8,299.5 278.6,304.6 Q277.6,296.1 270.8,291.0 M270.7,320.3 Q264.0,325.7 262.1,334.0 Q268.8,328.6 270.7,320.3 M270.6,348.1 Q273.9,358.5 281.9,366.1 Q278.6,355.6 270.6,348.1 M270.5,372.4 Q263.8,378.6 262.6,387.6 Q269.3,381.4 270.5,372.4 M270.5,395.1 Q272.6,406.3 280.6,414.3 Q278.4,403.2 270.5,395.1 M270.4,422.2 Q264.6,429.2 263.8,438.3 Q269.6,431.3 270.4,422.2"/></g></g>
-        </svg>
-      </div>
-      <div class="wrap">
-        <p class="art-hero__jp" lang="ja" aria-hidden="true">世界観</p>
-        <h1 class="art-hero__title unveil" data-i18n="world.title">Worlds</h1>
-        <p class="art-hero__tagline ph" data-i18n="world.tagline">[A line about the worlds you build.]</p>
-      </div>
-
-      <!-- a strip of night sky: click it to launch fireworks (js/hanabi.js) -->
-      <div class="skystrip skystrip--hero" data-hanabi>
-        <canvas class="skystrip__canvas" aria-hidden="true"></canvas>
-        <p class="skystrip__hint" data-i18n="sky.hint" hidden>Click the sky.</p>
-      </div>
-
-      <div class="wrap">
-        <nav class="index" aria-label="What is here" data-i18n-attr="aria-label:world.index.label" data-testid="world-index">
-          <ol class="index__list">
-            <li><a class="index__link" href="#worlds" data-testid="index-worlds"><span class="index__no mono" aria-hidden="true">01</span><span class="index__name" data-i18n="world.worlds.title">The worlds</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            <li><a class="index__link" href="#maps" data-testid="index-maps"><span class="index__no mono" aria-hidden="true">02</span><span class="index__name" data-i18n="world.maps.title">Maps</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            <li><a class="index__link" href="#characters" data-testid="index-characters"><span class="index__no mono" aria-hidden="true">03</span><span class="index__name" data-i18n="world.chars.title">Characters</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            <li><a class="index__link" href="#lore" data-testid="index-lore"><span class="index__no mono" aria-hidden="true">04</span><span class="index__name" data-i18n="world.lore.title">Lore</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+    <!-- Hero: the giant moon, the title in its light, and the four islands
+         to visit, floating. Reached from the end of the atelier, not the gate. -->
+    <section class="w-hero" id="top" data-testid="section-hero">
+      <div class="wrap w-hero__inner">
+        <p class="w-hero__jp" lang="ja" aria-hidden="true">世界観</p>
+        <h1 class="w-hero__title unveil" data-i18n="world.title">Worlds</h1>
+        <p class="w-hero__tagline ph" data-i18n="world.tagline">[A line about the worlds you build.]</p>
+        <p class="w-hero__hint" data-i18n="world.river.hint">The river of petals follows you.</p>
+        <nav class="isles-nav" aria-label="What is here" data-i18n-attr="aria-label:world.index.label" data-testid="world-index">
+          <ol class="isles-nav__list">
+            <li><a class="islet" href="#worlds" data-testid="index-worlds"><span class="islet__no mono" aria-hidden="true">01</span><span class="islet__name" data-i18n="world.worlds.title">The worlds</span><span class="islet__rock" aria-hidden="true"></span></a></li>
+            <li><a class="islet" href="#maps" data-testid="index-maps"><span class="islet__no mono" aria-hidden="true">02</span><span class="islet__name" data-i18n="world.maps.title">Maps</span><span class="islet__rock" aria-hidden="true"></span></a></li>
+            <li><a class="islet" href="#characters" data-testid="index-characters"><span class="islet__no mono" aria-hidden="true">03</span><span class="islet__name" data-i18n="world.chars.title">Characters</span><span class="islet__rock" aria-hidden="true"></span></a></li>
+            <li><a class="islet" href="#lore" data-testid="index-lore"><span class="islet__no mono" aria-hidden="true">04</span><span class="islet__name" data-i18n="world.lore.title">Lore</span><span class="islet__rock" aria-hidden="true"></span></a></li>
           </ol>
         </nav>
       </div>
@@ -115,104 +125,140 @@
 
     <!-- The worlds: one row each. Replace the bracketed lines with the real ones;
          change "In progress" when a world is finished, or delete the status. -->
-    <section class="section" id="worlds" aria-labelledby="worlds-title" data-testid="section-worlds">
+    <section class="section isle-sec" id="worlds" aria-labelledby="worlds-title" data-testid="section-worlds">
       <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <h2 class="section-title" id="worlds-title" data-i18n="world.worlds.title">The worlds</h2>
-          <p class="sec-head__jp" lang="ja" aria-hidden="true">世界</p>
-        </header>
+        <div class="isle isle--l" data-isle>
+          <div class="isle__float">
+            <svg class="isle__tree isle__tree--a" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <svg class="isle__tree isle__tree--b" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <div class="isle__top">
+            <header class="sec-head">
+              <h2 class="section-title" id="worlds-title" data-i18n="world.worlds.title">The worlds</h2>
+              <p class="sec-head__jp" lang="ja" aria-hidden="true">世界</p>
+            </header>
 
-        <ol class="realms" data-reveal>
-          <li class="realm" data-testid="world-1">
-            <span class="realm__no mono" aria-hidden="true">I</span>
-            <span class="realm__body">
-              <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
-              <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
-            </span>
-            <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
-          </li>
-          <li class="realm" data-testid="world-2">
-            <span class="realm__no mono" aria-hidden="true">II</span>
-            <span class="realm__body">
-              <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
-              <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
-            </span>
-            <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
-          </li>
-          <li class="realm" data-testid="world-3">
-            <span class="realm__no mono" aria-hidden="true">III</span>
-            <span class="realm__body">
-              <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
-              <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
-            </span>
-            <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
-          </li>
-        </ol>
+            <ol class="realms">
+              <li class="realm" data-testid="world-1">
+                <span class="realm__no mono" aria-hidden="true">I</span>
+                <span class="realm__body">
+                  <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
+                  <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
+                </span>
+                <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
+              </li>
+              <li class="realm" data-testid="world-2">
+                <span class="realm__no mono" aria-hidden="true">II</span>
+                <span class="realm__body">
+                  <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
+                  <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
+                </span>
+                <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
+              </li>
+              <li class="realm" data-testid="world-3">
+                <span class="realm__no mono" aria-hidden="true">III</span>
+                <span class="realm__body">
+                  <span class="realm__name ph" data-i18n="world.realm.name">[World name]</span>
+                  <span class="realm__line ph" data-i18n="world.realm.line">[One line about this world: its tone, its age, what holds it together.]</span>
+                </span>
+                <span class="realm__status mono" data-i18n="world.realm.status">In progress</span>
+              </li>
+            </ol>
+            </div>
+            <div class="isle__rock" aria-hidden="true"></div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Maps. Same swap as the atelier's works: replace a <div class="slot"> with
          <button class="work__open" type="button" data-view data-title="Title" data-meta="World, Year"><img ...></button> -->
-    <section class="section" id="maps" aria-labelledby="maps-title" data-testid="section-maps">
+    <section class="section isle-sec" id="maps" aria-labelledby="maps-title" data-testid="section-maps">
       <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <div>
-            <h2 class="section-title" id="maps-title" data-i18n="world.maps.title">Maps</h2>
-            <p class="room__text ph" data-i18n="world.maps.text">[A line about the maps.]</p>
-          </div>
-          <p class="sec-head__jp" lang="ja" aria-hidden="true">地図</p>
-        </header>
+        <div class="isle isle--r" data-isle>
+          <div class="isle__float">
+            <svg class="isle__tree isle__tree--a" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <svg class="isle__tree isle__tree--b" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <div class="isle__top">
+            <header class="sec-head">
+              <div>
+                <h2 class="section-title" id="maps-title" data-i18n="world.maps.title">Maps</h2>
+                <p class="room__text ph" data-i18n="world.maps.text">[A line about the maps.]</p>
+              </div>
+              <p class="sec-head__jp" lang="ja" aria-hidden="true">地図</p>
+            </header>
 
-        <div class="wall wall--maps">
-          <figure class="piece piece--map" data-reveal data-testid="map-1"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 1</span></div></figure>
-          <figure class="piece piece--wide" data-reveal style="--delay: .06s" data-testid="map-2"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 2</span></div></figure>
-          <figure class="piece piece--wide" data-reveal style="--delay: .12s" data-testid="map-3"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 3</span></div></figure>
+            <div class="wall wall--maps">
+              <figure class="piece piece--map" data-testid="map-1"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 1</span></div></figure>
+              <figure class="piece piece--wide" style="--delay: .06s" data-testid="map-2"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 2</span></div></figure>
+              <figure class="piece piece--wide" style="--delay: .12s" data-testid="map-3"><div class="slot"><span><span data-i18n="world.slot.map">Map</span> 3</span></div></figure>
+            </div>
+            </div>
+            <div class="isle__rock" aria-hidden="true"></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Characters: portrait frames, same swap as above -->
-    <section class="section" id="characters" aria-labelledby="chars-title" data-testid="section-characters">
+    <section class="section isle-sec" id="characters" aria-labelledby="chars-title" data-testid="section-characters">
       <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <div>
-            <h2 class="section-title" id="chars-title" data-i18n="world.chars.title">Characters</h2>
-            <p class="room__text ph" data-i18n="world.chars.text">[A line about the people who live there.]</p>
-          </div>
-          <p class="sec-head__jp" lang="ja" aria-hidden="true">人物</p>
-        </header>
+        <div class="isle isle--l" data-isle>
+          <div class="isle__float">
+            <svg class="isle__tree isle__tree--a" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <svg class="isle__tree isle__tree--b" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <div class="isle__top">
+            <header class="sec-head">
+              <div>
+                <h2 class="section-title" id="chars-title" data-i18n="world.chars.title">Characters</h2>
+                <p class="room__text ph" data-i18n="world.chars.text">[A line about the people who live there.]</p>
+              </div>
+              <p class="sec-head__jp" lang="ja" aria-hidden="true">人物</p>
+            </header>
 
-        <div class="wall">
-          <figure class="piece" data-reveal data-testid="character-1"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 1</span></div></figure>
-          <figure class="piece" data-reveal style="--delay: .06s" data-testid="character-2"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 2</span></div></figure>
-          <figure class="piece" data-reveal style="--delay: .12s" data-testid="character-3"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 3</span></div></figure>
-          <figure class="piece" data-reveal style="--delay: .18s" data-testid="character-4"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 4</span></div></figure>
+            <div class="wall">
+              <figure class="piece" data-testid="character-1"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 1</span></div></figure>
+              <figure class="piece" style="--delay: .06s" data-testid="character-2"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 2</span></div></figure>
+              <figure class="piece" style="--delay: .12s" data-testid="character-3"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 3</span></div></figure>
+              <figure class="piece" style="--delay: .18s" data-testid="character-4"><div class="slot"><span><span data-i18n="world.slot.char">Character</span> 4</span></div></figure>
+            </div>
+            </div>
+            <div class="isle__rock" aria-hidden="true"></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Lore: short fragments, each with where it comes from -->
-    <section class="section" id="lore" aria-labelledby="lore-title" data-testid="section-lore">
+    <section class="section isle-sec" id="lore" aria-labelledby="lore-title" data-testid="section-lore">
       <div class="wrap">
-        <header class="sec-head" data-reveal>
-          <h2 class="section-title" id="lore-title" data-i18n="world.lore.title">Lore</h2>
-          <p class="sec-head__jp" lang="ja" aria-hidden="true">伝承</p>
-        </header>
+        <div class="isle isle--r" data-isle>
+          <div class="isle__float">
+            <svg class="isle__tree isle__tree--a" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <svg class="isle__tree isle__tree--b" aria-hidden="true" focusable="false"><use href="#isletree"/></svg>
+            <div class="isle__top">
+            <header class="sec-head">
+              <h2 class="section-title" id="lore-title" data-i18n="world.lore.title">Lore</h2>
+              <p class="sec-head__jp" lang="ja" aria-hidden="true">伝承</p>
+            </header>
 
-        <ol class="fragments" data-reveal>
-          <li class="fragment" data-testid="lore-1">
-            <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
-            <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
-          </li>
-          <li class="fragment" data-testid="lore-2">
-            <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
-            <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
-          </li>
-          <li class="fragment" data-testid="lore-3">
-            <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
-            <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
-          </li>
-        </ol>
+            <ol class="fragments">
+              <li class="fragment" data-testid="lore-1">
+                <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
+                <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
+              </li>
+              <li class="fragment" data-testid="lore-2">
+                <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
+                <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
+              </li>
+              <li class="fragment" data-testid="lore-3">
+                <p class="fragment__text ph" data-i18n="world.lore.text">[A fragment from the lore: a legend, a letter, a line from a history book.]</p>
+                <p class="fragment__from mono ph" data-i18n="world.lore.from">[From: world name]</p>
+              </li>
+            </ol>
+            </div>
+            <div class="isle__rock" aria-hidden="true"></div>
+          </div>
+        </div>
       </div>
     </section>
   </main>

@@ -3,8 +3,9 @@
 
    "Run checks" walks every role and entry in order: each one is marked
    running, its fields light up one by one as they are asserted, and it gets
-   a 合格 (passed) stamp. A role can be re-run on its own by clicking it. The
-   summary line is announced politely. Also: a Copy button for the email, and a bug hunt.
+   a 合格 (passed) seal that blooms open. A role can be re-run on its own by
+   clicking it. The summary line is announced politely. Also: a Copy button
+   for the email, and the reading-progress branch in the header.
    Nothing here hides content; without scripts the page is the same, minus
    the runner.
    ========================================================================== */
@@ -156,149 +157,42 @@
   }
 
   /* ------------------------------------------------------------------------
-     Bug hunt. Every so often a small bug walks onto the page from an edge and
-     wanders across. Click it to catch it: it is squashed, logged, and the
-     tally in the corner goes up. Never more than two at once; none at all
-     with reduced motion.
+     Reading progress: a branch grows along the bottom of the header as the
+     page is read, and its buds open as it passes them.
      ------------------------------------------------------------------------ */
-  const BUG_SVG = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
-    '<g class="bug__legs"><path d="M10 12L4 8M10 16H3M10 20L4 25M22 12L28 8M22 16H29M22 20L28 25"/></g>' +
-    '<path class="bug__feelers" d="M14 7Q12 3 9 2M18 7Q20 3 23 2"/>' +
-    '<ellipse class="bug__shell" cx="16" cy="18" rx="7" ry="9"/>' +
-    '<circle class="bug__head" cx="16" cy="8" r="3.6"/>' +
-    '<path class="bug__seam" d="M16 10V27"/><circle class="bug__dot" cx="13" cy="16" r="1.6"/><circle class="bug__dot" cx="19" cy="21" r="1.6"/>' +
-    '</svg>';
-
-  function initBugs() {
-    if (reduced) return;
-    const live = [];
-    let caught = 0;
-    let running = false;
-    let last = 0;
-
-    const hud = document.createElement('div');
-    hud.className = 'bughud';
-    hud.setAttribute('aria-live', 'polite');
-    hud.innerHTML = BUG_SVG + '<span class="bughud__label"></span> <b class="bughud__count mono">0</b>' +
-      '<span class="bughud__toast" aria-hidden="true"></span>';
-    hud.hidden = true;
-    document.body.appendChild(hud);
-    const label = hud.querySelector('.bughud__label');
-    const count = hud.querySelector('.bughud__count');
-    const toast = hud.querySelector('.bughud__toast');
-    function relabel() {
-      label.textContent = t('qa.bugs.found');
+  function initGrowth() {
+    const growth = document.querySelector('[data-growth]');
+    if (!growth) return;
+    const buds = [];
+    for (let i = 0; i < 9; i++) {
+      const bud = document.createElement('span');
+      bud.className = 'growth__bud';
+      const at = 0.07 + i * 0.105;
+      bud.style.left = (at * 100).toFixed(2) + '%';
+      bud.style.rotate = (i * 47 % 72) + 'deg';
+      growth.appendChild(bud);
+      buds.push({ el: bud, at: at });
     }
-    relabel();
-    document.addEventListener('langchange', relabel);
-
-    function spawn() {
-      if (document.hidden || live.length >= 2) return;
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const edge = Math.floor(Math.random() * 4);
-      const pos = [
-        { x: Math.random() * w, y: -30, a: Math.PI / 2 },
-        { x: w + 30, y: Math.random() * h, a: Math.PI },
-        { x: Math.random() * w, y: h + 30, a: -Math.PI / 2 },
-        { x: -30, y: Math.random() * h, a: 0 }
-      ][edge];
-      const el = document.createElement('div');
-      el.className = 'bug';
-      el.setAttribute('aria-hidden', 'true');
-      el.innerHTML = BUG_SVG;
-      document.body.appendChild(el);
-      const bug = {
-        el: el, x: pos.x, y: pos.y, a: pos.a + (Math.random() - 0.5) * 0.8,
-        speed: 45 + Math.random() * 40, turn: 0, age: 0, dead: false, pause: 0
-      };
-      el.addEventListener('pointerdown', function (event) {
-        event.preventDefault();
-        squash(bug);
+    let queued = false;
+    function update() {
+      queued = false;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      growth.style.setProperty('--p', p.toFixed(4));
+      buds.forEach(function (b) {
+        b.el.classList.toggle('is-open', p >= b.at);
       });
-      live.push(bug);
-      hud.hidden = false;
-      start();
     }
-
-    function squash(bug) {
-      if (bug.dead) return;
-      bug.dead = true;
-      bug.el.classList.add('is-squashed');
-      caught += 1;
-      count.textContent = String(caught);
-      toast.textContent = t('qa.bugs.caught', { n: caught });
-      hud.classList.remove('is-bumped');
-      void hud.offsetWidth;
-      hud.classList.add('is-bumped');
-      window.setTimeout(function () {
-        bug.el.remove();
-        live.splice(live.indexOf(bug), 1);
-      }, 1400);
-    }
-
-    function frame(time) {
-      const dt = Math.min(0.05, (time - (last || time)) / 1000);
-      last = time;
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      live.forEach(function (bug) {
-        if (bug.dead) return;
-        bug.age += dt;
-        // scuttle, stop, look about, scuttle on
-        if (bug.pause > 0) {
-          bug.pause -= dt;
-          bug.el.classList.add('is-still');
-        } else {
-          bug.el.classList.remove('is-still');
-          bug.turn += (Math.random() - 0.5) * 6 * dt;
-          bug.turn *= 0.96;
-          bug.a += bug.turn * dt * 3;
-          bug.x += Math.cos(bug.a) * bug.speed * dt;
-          bug.y += Math.sin(bug.a) * bug.speed * dt;
-          if (Math.random() < dt * 0.35) bug.pause = 0.4 + Math.random() * 0.9;
-        }
-        // keep to the window for a while, then let it wander off
-        if (bug.age < 14) {
-          const cx = w / 2 - bug.x;
-          const cy = h / 2 - bug.y;
-          if (bug.x < 20 || bug.x > w - 20 || bug.y < 20 || bug.y > h - 20) {
-            bug.a += (Math.atan2(cy, cx) - bug.a) * 0.08;
-          }
-        }
-        bug.el.style.transform = 'translate(' + bug.x.toFixed(1) + 'px,' + bug.y.toFixed(1) + 'px) rotate(' + (bug.a + Math.PI / 2).toFixed(3) + 'rad)';
-        if (bug.age > 14 && (bug.x < -60 || bug.x > w + 60 || bug.y < -60 || bug.y > h + 60)) {
-          bug.dead = true;
-          bug.el.remove();
-        }
-      });
-      for (let i = live.length - 1; i >= 0; i--) {
-        if (live[i].dead && !live[i].el.isConnected) live.splice(i, 1);
-      }
-      if (live.length) {
-        window.requestAnimationFrame(frame);
-      } else {
-        running = false;
-      }
-    }
-
-    function start() {
-      if (running) return;
-      running = true;
-      last = 0;
-      window.requestAnimationFrame(frame);
-    }
-
-    function schedule(ms) {
-      window.setTimeout(function () {
-        spawn();
-        schedule(9000 + Math.random() * 8000);
-      }, ms);
-    }
-    schedule(5000);
+    window.addEventListener('scroll', function () {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   }
 
   initRunner();
   initCopy();
-  initBugs();
+  initGrowth();
 })();

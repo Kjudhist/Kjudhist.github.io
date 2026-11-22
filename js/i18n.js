@@ -20,6 +20,10 @@
 
   const DICT = {
     en: {
+      'nf.bloom': 'Touch the branch.',
+      'world.river.hint': 'The river of petals follows you.',
+      'art.paint.clear': 'Clear the branches',
+      'art.paint.hint': 'Drag across the night to paint a branch.',
       'common.skip': 'Skip to content',
       'common.back': 'Back to the gate',
       'common.backShort': 'Gate',
@@ -46,16 +50,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
-      'gate.hint': 'Click the sky for fireworks. Light every lantern. Walk through a noren.',
-      'gate.sound': 'Sound',
-      'sky.hint': 'Click the sky.',
-      'qa.bugs.found': 'Bugs caught',
-      'qa.bugs.caught': 'Bug #{n} caught. Logged.',
-      'art.kingyo.hint': 'Press to dip the poi, let go to scoop. The paper tears.',
-      'art.kingyo.bag': 'In the bag',
-      'art.kingyo.poi': 'Poi left',
-      'art.kingyo.again': 'New poi',
-      'art.kingyo.torn': 'Torn!',
+      'gate.hint': 'Move to stir the wind. Swipe fast for a gust. Click a branch and it blooms.',
       'qa.run.button': 'Run checks',
       'qa.run.again': 'Run again',
       'qa.run.idle': '6 checks, not run yet',
@@ -225,11 +220,14 @@
 
       'nf.title': 'Nothing behind this door.',
       'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
-      'nf.poke': 'Go on, poke a hole in the paper.'
     },
 
     // Draft. Needs a native read.
     id: {
+      'nf.bloom': 'Sentuh dahannya.',
+      'world.river.hint': 'Sungai kelopak ini mengikutimu.',
+      'art.paint.clear': 'Hapus dahan',
+      'art.paint.hint': 'Seret melintasi malam untuk melukis sebuah dahan.',
       'common.skip': 'Langsung ke konten',
       'common.back': 'Kembali ke gerbang',
       'common.backShort': 'Gerbang',
@@ -256,16 +254,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
-      'gate.hint': 'Klik langit untuk kembang api. Nyalakan semua lampion. Lewati noren-nya.',
-      'gate.sound': 'Suara',
-      'sky.hint': 'Klik langitnya.',
-      'qa.bugs.found': 'Bug tertangkap',
-      'qa.bugs.caught': 'Bug #{n} tertangkap. Dicatat.',
-      'art.kingyo.hint': 'Tekan untuk mencelupkan poi, lepas untuk menyendok. Kertasnya bisa sobek.',
-      'art.kingyo.bag': 'Di kantong',
-      'art.kingyo.poi': 'Sisa poi',
-      'art.kingyo.again': 'Poi baru',
-      'art.kingyo.torn': 'Sobek!',
+      'gate.hint': 'Gerakkan untuk mengembuskan angin. Usap cepat untuk embusan kencang. Klik sebuah dahan, dan ia akan mekar.',
       'qa.run.button': 'Jalankan pengecekan',
       'qa.run.again': 'Jalankan lagi',
       'qa.run.idle': '6 pengecekan, belum dijalankan',
@@ -435,11 +424,14 @@
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
       'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
-      'nf.poke': 'Silakan, tusuk saja kertasnya.'
     },
 
     // Draft. Needs a native read.
     ja: {
+      'nf.bloom': '枝にふれてみてください。',
+      'world.river.hint': '花びらの川が、あなたについてきます。',
+      'art.paint.clear': '枝を消す',
+      'art.paint.hint': '夜空をなぞって、枝を描いてください。',
       'common.skip': '本文へスキップ',
       'common.back': '門へ戻る',
       'common.backShort': '門へ',
@@ -466,16 +458,7 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
-      'gate.hint': '空をクリックすると花火。提灯をすべて灯して、暖簾をくぐってください。',
-      'gate.sound': '効果音',
-      'sky.hint': '空をクリック。',
-      'qa.bugs.found': '捕まえたバグ',
-      'qa.bugs.caught': 'バグ #{n} を捕獲。記録しました。',
-      'art.kingyo.hint': '押してポイを水に入れ、離してすくいます。紙は破れます。',
-      'art.kingyo.bag': '袋の中',
-      'art.kingyo.poi': '残りのポイ',
-      'art.kingyo.again': '新しいポイ',
-      'art.kingyo.torn': '破れた！',
+      'gate.hint': '動かすと風が起こります。素早く払えば突風に。枝をクリックすると花が咲きます。',
       'qa.run.button': 'チェックを実行',
       'qa.run.again': 'もう一度実行',
       'qa.run.idle': '6件のチェック、未実行',
@@ -645,7 +628,6 @@
 
       'nf.title': 'この扉の向こうには、何もありません。',
       'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
-      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
     }
   };
 

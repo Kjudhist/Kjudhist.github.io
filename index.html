@@ -33,28 +33,27 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;500&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+JP:wght@400;500&family=Zen+Old+Mincho:wght@400;500;700&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js" defer></script>
-  <script src="js/hanabi.js" defer></script>
+  <script src="js/sakura.js" defer></script>
   <script src="js/gate.js" defer></script>
 </head>
 <body class="gate">
-  <!-- the night sky over the festival: stars, and fireworks you launch (js/hanabi.js) -->
-  <canvas class="sky" data-sky aria-hidden="true"></canvas>
+  <!-- the night: a great old cherry tree, the moon, and petals that fly on
+       the wind you make with the pointer (js/sakura.js, js/gate.js) -->
+  <canvas class="night" data-night aria-hidden="true"></canvas>
 
   <header class="g-top">
     <div class="g-id" data-testid="station-sign">
+      <p class="g-kicker" lang="ja" aria-hidden="true">夜桜</p>
       <h1 class="g-name unveil" translate="no">Kevin Judhistira Girsang</h1>
+      <p class="g-intro" data-i18n="gate.intro">Choose a door.</p>
     </div>
     <div class="g-meta">
-      <!-- fireworks can boom and crackle: off until you turn it on -->
-      <button class="sound" type="button" data-sound aria-pressed="false">
-        <span class="sound__icon" lang="ja" aria-hidden="true">音</span><span data-i18n="gate.sound">Sound</span>
-      </button>
       <p class="g-clock"><span data-i18n="gate.local">Local time</span> <span class="mono" translate="no">Jakarta <time data-clock>--:--</time> WIB</span></p>
       <div class="lang" role="group" aria-label="Language" data-i18n-attr="aria-label:common.lang" data-testid="lang-switcher">
         <button class="lang__opt" type="button" lang="en" title="English" aria-label="English" aria-pressed="true" data-lang-option="en" data-testid="lang-option-en">EN</button>
@@ -64,76 +63,45 @@
     </div>
   </header>
 
-  <!-- a string of paper lanterns: brush past them and they swing, click to light
-       them, and when every one is lit the sky answers -->
-  <div class="lanterns lanterns--gate" data-lanterns aria-hidden="true">
-        <svg class="lanterns__rope" preserveAspectRatio="none" focusable="false"><path/></svg>
-        <span class="chochin is-lit" data-lantern style="--sway:3.6s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">祭</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin" data-lantern style="--sway:4.3s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">夏</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin" data-lantern style="--sway:5.0s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">夜</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin is-lit" data-lantern style="--sway:3.6s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">灯</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin" data-lantern style="--sway:4.3s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">花</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin" data-lantern style="--sway:5.0s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">火</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin is-lit" data-lantern style="--sway:3.6s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">星</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span><span class="chochin" data-lantern style="--sway:4.3s"><span class="chochin__cap"></span><span class="chochin__body"><span class="chochin__kanji">夢</span></span><span class="chochin__cap chochin__cap--b"></span><span class="chochin__tassel"></span></span>
-      </div>
-
   <main class="g-main" id="main">
-    <p class="g-intro" data-i18n="gate.intro">Choose a door.</p>
-
-    <!-- Two stalls at the festival. Each noren parts as you pass the pointer
-         through it; the whole stall is the link. -->
-    <nav class="g-stalls" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
-      <a class="stall stall--qa" href="qa/" data-door data-tone="light" data-testid="door-qa" draggable="false">
-        <span class="stall__booth" aria-hidden="true">
-          <span class="stall__roof"></span>
-          <span class="stall__inside">
-            <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax meet" focusable="false">
-              <g class="in-jars">
-                <rect x="40" y="80" width="34" height="38" rx="8"/><rect x="86" y="88" width="26" height="30" rx="6"/>
-                <rect x="124" y="76" width="40" height="42" rx="9"/><rect x="176" y="86" width="30" height="32" rx="7"/>
-                <rect x="218" y="78" width="38" height="40" rx="9"/><rect x="268" y="88" width="28" height="30" rx="6"/>
-                <rect x="308" y="80" width="36" height="38" rx="8"/>
-                <rect x="58" y="138" width="30" height="34" rx="7"/><rect x="100" y="130" width="42" height="42" rx="10"/>
-                <rect x="232" y="136" width="36" height="36" rx="8"/><rect x="282" y="132" width="40" height="40" rx="9"/>
-              </g>
-              <rect x="24" y="118" width="352" height="6" rx="2" class="in-wood"/>
-              <g class="in-ticks"><path d="M48 98l6 6 12-14M132 96l6 6 12-14M226 97l6 6 12-14M316 98l6 6 12-14M110 150l6 6 12-14M290 151l6 6 12-14"/></g>
-              <rect x="160" y="128" width="58" height="44" rx="6" class="in-frame"/>
-              <path d="M170 150h16M170 160h30M170 140h24" class="in-line"/>
-              <rect x="0" y="172" width="400" height="28" class="in-counter"/>
-            </svg>
+    <!-- Two doors under the tree. QA: a lamp-lit shoji pavilion, a precise
+         grid. The atelier: an arch of blossom with petals spiralling in
+         (drawn on the canvas over the empty frame). The whole door is the link. -->
+    <nav class="g-doors" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
+      <a class="door door--qa" href="qa/" data-door data-tone="light" data-testid="door-qa" draggable="false">
+        <span class="door__frame" aria-hidden="true">
+          <span class="pavilion">
+            <span class="pavilion__roof"></span>
+            <span class="shoji">
+              <span class="shoji__light"></span>
+              <svg class="shoji__grid" viewBox="0 0 120 150" preserveAspectRatio="none" focusable="false">
+                <path class="k" style="--o:-1.6px" d="M30 0V150"/><path class="k" style="--o:1.2px" d="M60 0V150"/><path class="k" style="--o:-0.8px" d="M90 0V150"/>
+                <path class="k k--h" style="--o:1.4px" d="M0 30H120"/><path class="k k--h" style="--o:-1.8px" d="M0 60H120"/><path class="k k--h" style="--o:0.9px" d="M0 90H120"/><path class="k k--h" style="--o:-1.1px" d="M0 120H120"/>
+              </svg>
+            </span>
+            <span class="pavilion__base"></span>
           </span>
-          <span class="noren" data-noren><span class="noren__strip"><b>品</b></span><span class="noren__strip"><b>質</b></span><span class="noren__strip"><b>保</b></span><span class="noren__strip"><b>証</b></span></span>
         </span>
-        <span class="stall__label">
-          <span class="stall__no mono" aria-hidden="true">01</span>
-          <span class="stall__title" data-i18n="gate.qa">QA Engineer</span>
-          <span class="stall__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</span>
-          <span class="stall__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <span class="door__label">
+          <span class="door__no mono" aria-hidden="true">01</span>
+          <span class="door__title" data-i18n="gate.qa">QA Engineer</span>
+          <span class="door__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</span>
+          <span class="door__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
         </span>
       </a>
-      <a class="stall stall--art" href="art/" data-door data-tone="dark" data-testid="door-art" draggable="false">
-        <span class="stall__booth" aria-hidden="true">
-          <span class="stall__roof"></span>
-          <span class="stall__inside">
-            <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMax meet" focusable="false">
-              <rect x="36" y="52" width="86" height="104" rx="3" class="in-frame"/>
-              <path d="M46 146 Q70 104 88 128 T112 108 V146 H46Z" class="in-paint"/>
-              <circle cx="96" cy="76" r="11" class="in-moon"/>
-              <rect x="140" y="70" width="64" height="84" rx="3" class="in-frame"/>
-              <path d="M150 146 L172 104 L194 146Z" class="in-paint"/>
-              <rect x="222" y="64" width="74" height="74" rx="37" class="in-frame"/>
-              <path d="M234 112 q25 -28 50 0" class="in-line"/>
-              <g class="in-brushes"><rect x="316" y="120" width="40" height="52" rx="8"/>
-                <path d="M324 120 l-10 -46M334 120 l-2 -52M344 120 l8 -48M350 120 l18 -40"/></g>
-              <rect x="0" y="172" width="400" height="28" class="in-counter"/>
-            </svg>
-          </span>
-          <span class="noren" data-noren><span class="noren__strip"><b>ア</b></span><span class="noren__strip"><b>ト</b></span><span class="noren__strip"><b>リ</b></span><span class="noren__strip"><b>エ</b></span></span>
+      <a class="door door--art" href="art/" data-door data-tone="dark" data-testid="door-art" draggable="false">
+        <span class="door__frame" aria-hidden="true">
+          <span class="arch" data-arch></span>
         </span>
-        <span class="stall__label">
-          <span class="stall__no mono" aria-hidden="true">02</span>
-          <span class="stall__title" translate="no" data-i18n="gate.art">The Willow Atelier</span>
-          <span class="stall__sub"><span data-i18n="art.painting.title">Drawing &amp; Painting</span><span aria-hidden="true"> · </span><span data-i18n="art.photo.title">Photography</span><span aria-hidden="true"> · </span><span data-i18n="art.music.title">Music</span></span>
-          <span class="stall__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+        <span class="door__label">
+          <span class="door__no mono" aria-hidden="true">02</span>
+          <span class="door__title" translate="no" data-i18n="gate.art">The Willow Atelier</span>
+          <span class="door__sub"><span data-i18n="art.painting.title">Drawing &amp; Painting</span><span aria-hidden="true"> · </span><span data-i18n="art.photo.title">Photography</span><span aria-hidden="true"> · </span><span data-i18n="art.music.title">Music</span></span>
+          <span class="door__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
         </span>
       </a>
     </nav>
-    <p class="g-hint" data-i18n="gate.hint">Click the sky for fireworks. Light every lantern. Walk through a noren.</p>
+    <p class="g-hint" data-i18n="gate.hint">Move to stir the wind. Swipe fast for a gust. Click a branch and it blooms.</p>
   </main>
 
   <footer class="credit" data-testid="site-footer">

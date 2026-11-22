@@ -2,7 +2,7 @@
 
 My personal site. It opens on two doors: one goes to my QA work, the other to The Willow Atelier, where I keep my art.
 
-The look is *matsuri* (祭), a Japanese summer festival at night, in one blue ink. The gate is the sky: click it for fireworks, light the string of paper lanterns (light them all for a finale), and walk through the noren of one of two festival stalls. The QA page has lanterns, a bug hunt and a test runner that stamps each role 合格; the atelier has a tub of goldfish to scoop with a paper poi that tears; the worlds and the 404 have sky to launch fireworks in. Page changes are a noren dropping and lifting. Type is Dela Gothic One for display, Zen Maru Gothic for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
+The look is *yozakura* (夜桜), cherry blossoms at night under a deep navy sky. The gate is a hanami night: a great old cherry tree spans the sky, and the pointer is the wind, pushing the petals as they tumble and pile up; a fast swipe shakes blossom loose, and a click on a branch grows a new twig that flowers. One door is a lamp-lit shoji pavilion (QA), the other an arch of blossom that petals spiral into (the atelier). The QA page is calm paper and navy, with a branch growing along the header as you read and a test runner whose roles bloom a 合格 seal. The atelier is a night garden where you drag to paint branches that blossom and drop petals into a pond; the worlds are sakura islands floating under a giant moon, with a river of glowing petals that follows you; the 404 is a bare branch you can make blossom. Page changes are a wall of petals sweeping across. Type is Zen Old Mincho for display, IBM Plex Sans JP for text and IBM Plex Mono for small facts. The design system is written down in `DESIGN.md`.
 
 Plain HTML, CSS and JavaScript. No framework, no build step. GitHub Pages serves the files as they are.
 
@@ -19,18 +19,19 @@ Live at https://kjudhist.github.io/
 ├── 404.html              shown by GitHub Pages for any missing page
 ├── css/
 │   ├── base.css          colours, type, header, language switcher, footer, motion
-│   ├── gate.css          the festival gate: sky, lanterns, the two stalls (and the 404)
+│   ├── gate.css          the gate: the night, the two doors (and the 404)
 │   ├── qa.css
 │   ├── art.css
-│   └── world.css         loads after art.css and reuses its hero, frames and viewer
+│   └── world.css         loads after art.css and reuses its frames and viewer
 ├── js/
 │   ├── i18n.js           the EN / ID / JA dictionary and the switcher
-│   ├── main.js           shared bits: page changes, scroll reveals, menu, the willow, lanterns, local links
-│   ├── hanabi.js         fireworks (gate, worlds, 404), their sound, and the sparkler pointer
-│   ├── gate.js           the gate: sky clicks, the noren on each stall, the Sound switch
-│   ├── qa.js             the QA test runner, the email Copy button and the bug hunt
-│   ├── kingyo.js         the atelier's goldfish tub and poi
-│   └── art.js            the full-size viewer for artworks
+│   ├── main.js           shared bits: page changes, scroll reveals, menu, the clock, hanging things that sway, local links
+│   ├── sakura.js         the blossom engine: petal physics, wind, sprites, branch growing and drawing
+│   ├── gate.js           the gate: the tree, wind, blooming on click, the two doors and the gust through
+│   ├── qa.js             the QA test runner, the email Copy button and the reading-progress branch
+│   ├── art.js            the atelier's painted garden and pond, drifting petals, and the full-size viewer
+│   ├── world.js          the worlds: the petal river, parallax depth and the floating islands
+│   └── lost.js           the 404's branch
 ├── assets/
 │   ├── art/              artworks, photos and covers (empty for now)
 │   ├── cv/               kevin-jg-cv.pdf (placeholder)

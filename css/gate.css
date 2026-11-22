@@ -1,43 +1,45 @@
 /* ==========================================================================
-   Gate: a summer festival at night. The whole window is sky (fireworks,
-   js/hanabi.js); a string of lanterns hangs under the header; two festival
-   stalls are the doors. QA's stall has a royal-and-white awning and a white
-   noren reading 品質保証; the atelier's has a navy awning and a navy noren
-   reading アトリエ. Glimpsed past each noren: jars ticked off on shelves,
-   and paintings and brushes. Also the 404.
+   The gate (and the 404): a hanami night. The window is the night sky with
+   a great old cherry tree drawn on a canvas; two doors stand under it.
    ========================================================================== */
 
-body.gate {
+.gate,
+.lost-page {
   position: relative;
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  min-height: 100dvh;
-  isolation: isolate;
+  min-height: 100svh;
+  background: var(--abyss);
 }
 
-.sky {
+.night {
   position: fixed;
   inset: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
+  background:
+    radial-gradient(120% 70% at 78% 18%, rgba(36, 73, 216, 0.22), transparent 60%),
+    linear-gradient(180deg, var(--abyss) 0%, var(--deep) 38%, var(--night) 100%);
 }
 
-.gate .g-top,
-.gate .lanterns,
-.gate .g-main,
-.gate .credit {
+.g-top,
+.g-main,
+.gate .credit,
+.lost-page .topbar,
+.lost,
+.lost-page .credit {
   position: relative;
   z-index: 1;
 }
 
 .g-top {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem 2rem;
-  padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
+  gap: 24px;
+  padding: max(24px, env(safe-area-inset-top)) var(--gutter) 0;
   pointer-events: none;
 }
 
@@ -45,81 +47,60 @@ body.gate {
   pointer-events: auto;
 }
 
+.g-kicker {
+  font-family: var(--f-display);
+  font-size: 0.8125rem;
+  letter-spacing: 0.6em;
+  color: var(--blossom);
+  opacity: 0.85;
+}
+
 .g-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 400;
+  margin-top: 6px;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3.4vw, 2.75rem);
   line-height: 1.1;
-  text-shadow: 0 0 1.2rem rgba(91, 124, 255, 0.35);
+  letter-spacing: 0.01em;
+  color: var(--moon);
+  text-shadow: 0 0 28px rgba(4, 10, 38, 0.9), 0 0 2px rgba(4, 10, 38, 0.6);
+}
+
+.g-intro {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: var(--moon-dim);
+  text-shadow: 0 0 16px rgba(4, 10, 38, 0.9);
 }
 
 .g-meta {
   display: flex;
   align-items: center;
-  gap: 1.1rem;
+  gap: 18px;
 }
 
 .g-clock {
-  display: flex;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--muted);
-  white-space: nowrap;
+  font-size: 0.8125rem;
+  color: var(--moon-dim);
+  text-shadow: 0 0 12px rgba(4, 10, 38, 0.9);
 }
 
 .g-clock .mono {
-  color: var(--fg-strong);
+  color: var(--moon);
 }
 
-/* sound: off until you ask for it */
-.sound {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 36px;
-  padding: 0 0.85rem 0 0.35rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: transparent;
-  box-shadow: inset 0 0 0 var(--rule) var(--line-strong);
-  color: var(--fg);
-  font-size: 0.8rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
-}
-
-.sound__icon {
-  display: grid;
-  place-items: center;
-  width: 1.55rem;
-  height: 1.55rem;
-  border-radius: 50%;
-  background: var(--line);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.sound[aria-pressed="true"] {
-  background: var(--royal);
-  box-shadow: none;
-  color: #fff;
-}
-
-.sound[aria-pressed="true"] .sound__icon {
-  background: #fff;
-  color: var(--royal);
-}
-
-.lanterns--gate {
-  margin: 0.4rem var(--gutter) 0;
+.gate .lang {
+  background: rgba(4, 10, 38, 0.55);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .g-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 0 var(--gutter) 0.25rem;
+  justify-content: flex-end;
+  padding: 24px 0 8px;
   pointer-events: none;
 }
 
@@ -127,404 +108,378 @@ body.gate {
   pointer-events: auto;
 }
 
-.g-intro {
-  font-size: 0.95rem;
-  color: var(--fg);
+.g-doors {
+  --dw: clamp(140px, min(17vw, 29vh), 240px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-inline: clamp(16px, 11vw, 200px);
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ doors */
+
+.door {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--dw);
+  color: var(--moon);
+  text-decoration: none;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.door:focus-visible {
+  outline: none;
+}
+
+.door:focus-visible .door__cta {
+  outline: 2px solid var(--blossom);
+  outline-offset: 4px;
+}
+
+.door__frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+.door__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 18px;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(4, 10, 38, 0.95);
+}
+
+.door__no {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--moon-faint);
+}
+
+.door__title {
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+  line-height: 1.25;
+}
+
+.door__sub {
+  max-width: 26ch;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--moon-dim);
+}
+
+.door__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  margin-top: 10px;
+  padding: 0 18px;
+  border: 1px solid rgba(238, 241, 251, 0.32);
+  border-radius: 999px;
+  background: rgba(4, 10, 38, 0.5);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.door:hover .door__cta,
+.door:focus-visible .door__cta {
+  background: var(--moon);
+  border-color: var(--moon);
+  color: var(--ink);
+  text-shadow: none;
+}
+
+.door:hover .arrow,
+.door:focus-visible .arrow {
+  transform: translateX(5px);
+}
+
+/* QA: a lamp-lit pavilion with a shoji panel. The light flickers a little
+   and the lattice is a hair out of true; hover and the light steadies and
+   every line falls into place. */
+
+.pavilion {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pavilion__roof {
+  position: relative;
+  width: 118%;
+  height: 15%;
+  flex: none;
+  background: linear-gradient(180deg, #13205a, #040a26 70%);
+  clip-path: polygon(0 100%, 3% 86%, 8% 70%, 16% 56%, 30% 44%, 38% 18%, 62% 18%, 70% 44%, 84% 56%, 92% 70%, 97% 86%, 100% 100%, 93% 100%, 50% 92%, 7% 100%);
+}
+
+.pavilion__roof::after {
+  content: "";
+  position: absolute;
+  left: 37%;
+  right: 37%;
+  top: 18%;
+  height: 1.5px;
+  background: rgba(143, 165, 255, 0.55);
+}
+
+.pavilion__base::after {
+  content: "";
+  display: block;
+  width: 180%;
+  height: 60px;
+  margin: 0 -40%;
+  background: radial-gradient(50% 50% at 50% 0, rgba(251, 239, 217, 0.18), transparent);
+  pointer-events: none;
+}
+
+.shoji {
+  position: relative;
+  flex: 1;
+  width: 86%;
+  border: 5px solid #071035;
+  outline: 1px solid rgba(143, 165, 255, 0.28);
+  background: var(--paper);
+  box-shadow: 0 0 60px 6px rgba(251, 239, 217, 0.16), 0 0 140px 20px rgba(143, 165, 255, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.6s var(--ease-out);
+}
+
+.shoji__light {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(70% 55% at 50% 72%, rgba(251, 239, 217, 1), rgba(251, 239, 217, 0) 70%),
+    linear-gradient(180deg, #e3e7f3 0%, #f2f1ec 55%, #f6efe1 100%);
+  animation: lamp 3.4s steps(1) infinite;
+}
+
+@keyframes lamp {
+  0% { opacity: 1; }
+  12% { opacity: 0.9; }
+  16% { opacity: 0.97; }
+  41% { opacity: 0.86; }
+  44% { opacity: 0.95; }
+  70% { opacity: 0.9; }
+  74% { opacity: 1; }
+}
+
+.shoji__grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.k {
+  fill: none;
+  stroke: #0c1b4d;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  transform: translateX(var(--o));
+  transition: transform 0.7s var(--ease-out), stroke 0.5s;
+}
+
+.k--h {
+  transform: translateY(var(--o));
+}
+
+.pavilion__base {
+  width: 100%;
+  height: 4%;
+  flex: none;
+  margin-top: 2px;
+  background: linear-gradient(180deg, #1a2a66, #070f36);
+}
+
+.door--qa:hover .shoji__light,
+.door--qa:focus-visible .shoji__light {
+  animation: none;
+  opacity: 1;
+}
+
+.door--qa:hover .shoji,
+.door--qa:focus-visible .shoji {
+  box-shadow: 0 0 70px 10px rgba(251, 239, 217, 0.26), 0 0 160px 30px rgba(143, 165, 255, 0.14);
+}
+
+.door--qa:hover .k,
+.door--qa:focus-visible .k {
+  transform: none;
+  stroke: #2449d8;
+}
+
+/* the atelier: the arch is drawn by js/gate.js over this empty frame */
+.arch {
+  position: absolute;
+  inset: 0;
+}
+
+html:not(.js) .arch {
+  inset: 6% 14% 0;
+  border: 8px solid var(--blossom);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 0 40px rgba(243, 220, 231, 0.3);
 }
 
 .g-hint {
-  font-size: 0.82rem;
-  color: var(--muted);
+  max-width: 36rem;
+  margin: 22px auto 0;
+  padding-inline: var(--gutter);
+  font-size: 0.8125rem;
+  color: var(--moon-faint);
   text-align: center;
-  pointer-events: none;
-}
-
-/* --------------------------------------------------------------------------
-   The stalls
-   -------------------------------------------------------------------------- */
-
-.g-stalls {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.25rem, 3.5vw, 3rem);
-  min-height: 22rem;
-  padding-top: 1rem;
-}
-
-.stall {
-  --awning-a: var(--royal);
-  --awning-b: #f2f5fc;
-  --noren: #f2f5fc;
-  --noren-ink: var(--royal);
-  --post: #050b2e;
-  position: relative;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 0.9rem;
-  color: var(--ink);
-  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out);
-  -webkit-tap-highlight-color: transparent;
-  -webkit-user-drag: none;
-}
-
-.stall--art {
-  --awning-a: #0c1b4d;
-  --awning-b: var(--ai-2);
-  --noren: #0c1b4d;
-  --noren-ink: #dfe7f7;
-}
-
-.stall:focus-visible {
-  outline: 3px solid var(--royal-soft);
-  outline-offset: 6px;
-  border-radius: var(--radius-box);
-}
-
-.stall__booth {
-  position: relative;
-  min-height: 12rem;
-  margin-top: 0.9rem;
-  border-inline: 0.7rem solid var(--post);
-  border-bottom: 0.5rem solid var(--post);
-  cursor: pointer;
-}
-
-/* the awning: striped, with a scalloped edge, wider than the posts */
-.stall__roof {
-  position: absolute;
-  top: -0.9rem;
-  left: -1.4rem;
-  right: -1.4rem;
-  z-index: 3;
-  height: 3.2rem;
-  border-radius: 0.6rem 0.6rem 0 0;
-  background: repeating-linear-gradient(90deg, var(--awning-a) 0 2.2rem, var(--awning-b) 2.2rem 4.4rem);
-  box-shadow: inset 0 0.5rem 0 rgba(5, 11, 46, 0.25);
-}
-
-.stall__roof::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 1.1rem;
-  background:
-    radial-gradient(circle at 50% 0, var(--awning-a) 1.1rem, transparent calc(1.1rem + 1px)) 0 0 / 4.4rem 1.1rem repeat-x,
-    radial-gradient(circle at 50% 0, var(--awning-b) 1.1rem, transparent calc(1.1rem + 1px)) 2.2rem 0 / 4.4rem 1.1rem repeat-x;
-}
-
-/* inside the stall, lit */
-.stall__inside {
-  position: absolute;
-  inset: 2.3rem 0 0;
-  overflow: hidden;
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #eaf0fd, #b8c8ee 55%, #7f97d6);
-  transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
-}
-
-.stall--art .stall__inside {
-  background: radial-gradient(ellipse 90% 80% at 50% 30%, #2a3f9a, #13235f 60%, #0a1440);
-}
-
-.stall__inside svg {
-  width: 100%;
-  height: 100%;
-}
-
-.in-wood {
-  fill: #0c1b4d;
-}
-
-.in-jars rect {
-  fill: rgba(36, 73, 216, 0.22);
-  stroke: var(--royal);
-  stroke-width: 2;
-}
-
-.in-ticks path {
-  fill: none;
-  stroke: var(--royal);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.in-counter {
-  fill: #0c1b4d;
-}
-
-.stall--art .in-counter {
-  fill: #050b2e;
-}
-
-.in-frame {
-  fill: #f2f5fc;
-  stroke: #8eabe3;
-  stroke-width: 3;
-}
-
-.in-paint {
-  fill: var(--royal);
-}
-
-.in-moon {
-  fill: #8eabe3;
-}
-
-.in-line {
-  fill: none;
-  stroke: var(--royal);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.in-brushes rect {
-  fill: #8eabe3;
-}
-
-.in-brushes path {
-  stroke: #dfe7f7;
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-/* the noren: four strips on a rod, each swinging from the top (js/gate.js) */
-.noren {
-  position: absolute;
-  top: 2.3rem;
-  left: 0.3rem;
-  right: 0.3rem;
-  z-index: 2;
-  display: flex;
-  gap: 0.35rem;
-  height: 46%;
-  pointer-events: none;
-}
-
-.noren::before {
-  content: "";
-  position: absolute;
-  top: -0.3rem;
-  left: -0.6rem;
-  right: -0.6rem;
-  height: 0.45rem;
-  border-radius: 0.3rem;
-  background: var(--post);
-}
-
-.noren__strip {
-  --a: 0deg;
-  flex: 1;
-  display: grid;
-  justify-items: center;
-  align-content: start;
-  padding-top: clamp(0.8rem, 2vw, 1.4rem);
-  border-radius: 0 0 0.35rem 0.35rem;
-  background: var(--noren);
-  box-shadow: inset 0 -0.55rem 0 rgba(5, 11, 46, 0.12);
-  color: var(--noren-ink);
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 1rem + 2.2vw, 3rem);
-  line-height: 1;
-  transform: rotate(var(--a));
-  transform-origin: 50% 0;
-}
-
-.noren__strip b {
-  font-weight: 400;
-}
-
-/* the caption under each stall */
-.stall__label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.2rem 1.5rem;
-  padding: 1rem 1.2rem;
-  border-radius: var(--radius-box);
-  background: var(--sheet);
-}
-
-.stall--art .stall__label {
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px rgba(223, 231, 247, 0.18);
-  color: #f1f4fa;
-}
-
-.stall__no {
-  grid-column: 1 / -1;
-  color: var(--grey);
-}
-
-.stall--art .stall__no {
-  color: #94a2c8;
-}
-
-.stall__title {
-  grid-column: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 0.9rem + 1.5vw, 2.4rem);
-  line-height: 1.1;
-}
-
-.stall__sub {
-  grid-column: 1;
-  font-size: 0.92rem;
-  color: var(--ink-2);
-}
-
-.stall--art .stall__sub {
-  color: #c5cfe8;
-}
-
-.stall__cta {
-  grid-column: 2;
-  grid-row: 2 / span 2;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  min-height: 3rem;
-  padding: 0.6rem 1.4rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: background-color 0.3s var(--ease), transform 0.3s var(--ease-back);
-}
-
-.stall:hover .stall__cta,
-.stall:focus-visible .stall__cta {
-  background: var(--spark);
-  transform: scale(1.04);
-}
-
-.stall:hover .stall__cta .arrow,
-.stall:focus-visible .stall__cta .arrow {
-  transform: translateX(0.3rem);
-}
-
-.stall:hover .stall__inside {
-  filter: brightness(1.08);
-}
-
-/* going in: the noren flings aside (js/gate.js) and you step up to the counter */
-.stall.is-open .stall__inside {
-  transform: scale(1.12);
-  filter: brightness(1.15);
-}
-
-.g-stalls.has-open .stall:not(.is-open) {
-  opacity: 0.3;
-  transform: scale(0.97);
+  text-shadow: 0 0 14px rgba(4, 10, 38, 0.95);
 }
 
 .gate .credit {
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
+  padding-top: 10px;
+  color: var(--moon-faint);
 }
 
-/* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the stalls stack
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ narrow */
 
-@media (max-width: 1099.98px) {
-  .stall__label {
-    grid-template-columns: 1fr;
-  }
-
-  .stall__cta {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: start;
-    margin-top: 0.7rem;
-  }
-}
-
-@media (max-width: 719.98px) {
+@media (max-width: 720px) {
   .g-top {
     flex-direction: column;
-    align-items: stretch;
-    gap: 0.9rem;
+    gap: 14px;
   }
 
   .g-meta {
-    flex-wrap: wrap;
+    width: 100%;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 12px;
   }
 
   .g-clock {
-    order: 3;
-    flex-basis: 100%;
+    font-size: 0.75rem;
+    line-height: 1.5;
   }
 
-  .g-stalls {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+  .g-doors {
+    --dw: min(42vw, 30vh, 190px);
+    gap: 12px;
   }
 
-  .stall__booth {
-    aspect-ratio: 5 / 4;
+  .door__sub {
+    font-size: 0.75rem;
+  }
+
+  .door__cta {
+    padding: 0 14px;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 721px) {
+  .g-doors {
+    --dw: clamp(130px, 26vh, 200px);
+  }
+
+  .door__label {
+    margin-top: 10px;
+  }
+
+  .door__sub {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .stall,
-  .stall__inside,
-  .stall__cta {
-    transition-duration: 0.01s;
+  .shoji__light {
+    animation: none;
   }
 }
 
-/* ==========================================================================
-   404: lost at the festival. Nothing here but the sky; click it.
-   ========================================================================== */
+/* ===================================================================== 404
+   A single bare branch. Touch it and it blossoms. */
 
-body.lost-page {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-}
-
-.lost-page .topbar__end {
-  margin-left: auto;
+.lost-page .topbar {
+  justify-content: flex-end;
 }
 
 .lost {
-  display: grid;
+  flex: 1;
+  display: flex;
   align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(1.5rem, 4vw, 3rem);
+  padding: 24px var(--gutter) 40px;
+  pointer-events: none;
 }
 
 .lost__inner {
-  width: min(100%, 84rem);
-  margin-inline: auto;
+  max-width: 34rem;
+  pointer-events: auto;
 }
 
 .lost__number {
-  font-size: 0.95rem;
-  color: var(--accent-text);
+  font-size: 0.875rem;
+  letter-spacing: 0.4em;
+  color: var(--blossom);
 }
 
 .lost__title {
-  max-width: 18ch;
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--fg-strong);
-}
-
-html[lang="ja"] .lost__title {
-  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.3;
+  margin-top: 16px;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.12;
+  text-wrap: balance;
+  text-shadow: 0 0 30px rgba(4, 10, 38, 0.9);
 }
 
 .lost__text {
-  max-width: 36rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.1rem;
+  margin-top: 18px;
+  max-width: 30rem;
+  color: var(--moon-dim);
+  text-shadow: 0 0 16px rgba(4, 10, 38, 0.9);
+}
+
+.lost__hint {
+  margin-top: 28px;
+  font-size: 0.8125rem;
+  color: var(--moon-faint);
+}
+
+.lost .btn {
+  margin-top: 20px;
+  background: rgba(4, 10, 38, 0.6);
+}
+
+.lost .btn:hover {
+  background: var(--moon);
+}
+
+@media (max-width: 720px) {
+  .lost {
+    align-items: flex-end;
+    padding-bottom: 24px;
+  }
+}
+
+.lost__hint[role="button"] {
+  display: block;
+  width: fit-content;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--moon-faint);
+}
+
+.is-bloomed .lost__hint {
+  opacity: 0;
+  transition: opacity 1s;
 }

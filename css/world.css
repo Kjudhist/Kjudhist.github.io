@@ -1,104 +1,396 @@
 /* ==========================================================================
-   Worlds: a third sheet in the same series, reached from the atelier.
-   Loads after art.css and borrows its hero, index, frames and viewer. What
-   is new here: a sky whose stars are joined into dashed charts, the worlds
-   as a numbered register, a large map frame, and lore fragments.
+   Worlds: sky islands of sakura in a vast navy night under a giant moon.
+   Each part of the page (realms, maps, characters, lore) sits on its own
+   floating island that drifts into view; a river of glowing petals flows
+   between them and follows the pointer. Layers move at different depths
+   with scroll and with the pointer or the tilt of the phone.
+   Builds on art.css for frames and the viewer.
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   The worlds: a numbered register
-   -------------------------------------------------------------------------- */
+.world {
+  background:
+    radial-gradient(80% 60% at 85% 0%, rgba(36, 73, 216, 0.3), transparent 70%),
+    linear-gradient(180deg, var(--abyss) 0%, var(--deep) 40%, var(--night) 100%) fixed;
+}
 
+.cosmos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cosmos__moon {
+  position: absolute;
+  top: -26vmin;
+  right: -26vmin;
+  width: 72vmin;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(160, 170, 205, 0.18) 0 7%, transparent 7.5%),
+    radial-gradient(circle at 62% 40%, rgba(160, 170, 205, 0.14) 0 10%, transparent 10.5%),
+    radial-gradient(circle at 44% 28%, rgba(160, 170, 205, 0.12) 0 5%, transparent 5.5%),
+    radial-gradient(circle at 36% 36%, #fbfaf4, #e6e8f1 60%, #cfd5ea 100%);
+  box-shadow:
+    0 0 120px 30px rgba(220, 228, 255, 0.28),
+    0 0 400px 140px rgba(143, 165, 255, 0.16);
+  transform: translate3d(var(--dx, 0), var(--dy, 0), 0);
+  will-change: transform;
+}
+
+.cosmos__far {
+  position: absolute;
+  inset: -6%;
+  width: 112%;
+  height: 112%;
+  fill: #0d1a56;
+  opacity: 0.55;
+  transform: translate3d(var(--dx, 0), var(--dy, 0), 0);
+  will-change: transform;
+}
+
+.river {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.world .topbar,
+.world main,
+.world .credit {
+  position: relative;
+  z-index: 2;
+}
+
+.world .topbar--sticky {
+  background: rgba(4, 10, 38, 0.6);
+}
+
+/* ---------------------------------------------------------------- hero */
+
+.w-hero {
+  display: grid;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100svh - 64px);
+  padding: 48px 0 64px;
+}
+
+.w-hero__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.w-hero__jp {
+  font-family: var(--f-display);
+  font-size: 0.9375rem;
+  letter-spacing: 0.8em;
+  margin-right: -0.8em;
+  color: var(--blossom);
+}
+
+.w-hero__title {
+  margin-top: 10px;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 17vw, 14rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  background: linear-gradient(175deg, #ffffff 25%, #dbe2ff 60%, #f3dce7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--moon);
+  filter: drop-shadow(0 0 2px rgba(4, 10, 38, 0.7)) drop-shadow(0 0 40px rgba(190, 205, 255, 0.35));
+}
+
+.w-hero__tagline {
+  margin-top: 18px;
+  font-family: var(--f-display);
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+}
+
+.w-hero__hint {
+  margin-top: 14px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+.isles-nav {
+  width: 100%;
+  margin-top: clamp(40px, 8vh, 80px);
+}
+
+.isles-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 56px);
+}
+
+.islet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 132px;
+  padding: 16px 18px 0;
+  text-decoration: none;
+  animation: bob 6s ease-in-out infinite alternate;
+}
+
+.isles-nav__list li:nth-child(2) .islet {
+  animation-delay: -1.5s;
+  animation-duration: 7s;
+}
+
+.isles-nav__list li:nth-child(3) .islet {
+  animation-delay: -3s;
+}
+
+.isles-nav__list li:nth-child(4) .islet {
+  animation-delay: -4.2s;
+  animation-duration: 6.6s;
+}
+
+.islet::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 0;
+  bottom: 30px;
+  border-top: 1.5px solid rgba(243, 220, 231, 0.6);
+  border-radius: 999px 999px 10px 10px;
+  background: linear-gradient(180deg, rgba(20, 38, 110, 0.85), rgba(7, 15, 54, 0.9));
+  z-index: -1;
+  transition: box-shadow 0.5s;
+}
+
+.islet__no {
+  font-size: 0.6875rem;
+  color: var(--blossom);
+}
+
+.islet__name {
+  font-family: var(--f-display);
+  font-size: 1.125rem;
+  padding-bottom: 12px;
+}
+
+.islet__rock {
+  width: 72%;
+  height: 30px;
+  background: linear-gradient(180deg, #0a1546, #040a26);
+  clip-path: polygon(0 0, 100% 0, 86% 40%, 66% 60%, 52% 100%, 38% 64%, 16% 44%);
+}
+
+.islet:hover::before,
+.islet:focus-visible::before {
+  box-shadow: 0 0 40px 4px rgba(243, 220, 231, 0.3);
+}
+
+.islet:focus-visible {
+  outline-offset: 6px;
+}
+
+@keyframes bob {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 -10px;
+  }
+}
+
+/* ------------------------------------------------------------- islands */
+
+.isle-sec {
+  padding-block: clamp(96px, 16vh, 180px) clamp(40px, 6vh, 80px);
+}
+
+.isle {
+  --ix: 0px;
+  --iy: 0px;
+  position: relative;
+  max-width: 980px;
+  transform: translate3d(var(--ix), var(--iy), 0);
+}
+
+.isle--l {
+  margin-right: auto;
+}
+
+.isle--r {
+  margin-left: auto;
+}
+
+.js .isle {
+  opacity: 0;
+  translate: -90px 50px;
+  transition: opacity 1.2s var(--ease-out), translate 1.6s var(--ease-out);
+}
+
+.js .isle--r {
+  translate: 90px 50px;
+}
+
+.js .isle.is-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.isle__float {
+  position: relative;
+  animation: bob 9s ease-in-out infinite alternate;
+}
+
+.isle--r .isle__float {
+  animation-duration: 10.5s;
+  animation-delay: -4s;
+}
+
+.isle__top {
+  position: relative;
+  z-index: 1;
+  padding: clamp(28px, 4.4vw, 56px);
+  border-radius: 34px 34px 8px 8px;
+  border-top: 2px solid rgba(243, 220, 231, 0.55);
+  background:
+    radial-gradient(70% 40% at 50% 0%, rgba(243, 220, 231, 0.1), transparent),
+    linear-gradient(180deg, rgba(16, 33, 100, 0.92), rgba(7, 15, 54, 0.95));
+  box-shadow: 0 -10px 60px -20px rgba(243, 220, 231, 0.35), 0 40px 80px -30px rgba(0, 0, 0, 0.6);
+}
+
+.isle__rock {
+  position: relative;
+  height: clamp(90px, 14vw, 190px);
+  margin: -1px 5% 0;
+  background: linear-gradient(180deg, #0b1748, #050b2c 60%, #040a26);
+  clip-path: polygon(0 0, 100% 0, 94% 16%, 86% 30%, 80% 46%, 70% 54%, 62% 76%, 54% 92%, 49% 100%, 43% 82%, 34% 66%, 24% 56%, 16% 38%, 7% 20%);
+}
+
+.isle__rock::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(143, 165, 255, 0.16), transparent 40%);
+}
+
+.isle__tree {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  width: clamp(120px, 15vw, 210px);
+  height: auto;
+  aspect-ratio: 200 / 180;
+  translate: 0 -86%;
+  pointer-events: none;
+}
+
+.isle__tree--a {
+  left: 4%;
+}
+
+.isle__tree--b {
+  right: 7%;
+  width: clamp(90px, 11vw, 160px);
+  transform: scaleX(-1);
+}
+
+/* realms */
 .realms {
-  border-top: var(--rule) solid var(--key);
+  border-top: 1px solid var(--line);
 }
 
 .realm {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
+  grid-template-columns: 3rem 1fr auto;
   align-items: baseline;
-  gap: 0.5rem 1.5rem;
-  padding: 1.6rem 0;
+  gap: 12px 20px;
+  padding: 20px 0;
   border-bottom: 1px solid var(--line);
 }
 
 .realm__no {
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-family: var(--f-display);
+  font-size: 1.25rem;
+  color: var(--blossom);
 }
 
 .realm__body {
-  display: grid;
-  gap: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .realm__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-}
-
-html[lang="ja"] .realm__name {
-  letter-spacing: 0;
-}
-
-.realm__line {
-  max-width: 44rem;
-  font-size: 0.98rem;
+  font-family: var(--f-display);
+  font-size: 1.375rem;
 }
 
 .realm__status {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
   font-size: 0.75rem;
-  color: var(--fg-strong);
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
   white-space: nowrap;
 }
 
-/* --------------------------------------------------------------------------
-   Maps: one large frame over two wide ones
-   -------------------------------------------------------------------------- */
-
-.piece--map {
-  grid-column: 1 / -1;
-  aspect-ratio: 16 / 8;
+/* maps and characters reuse the atelier's frames */
+.world .piece {
+  background: rgba(4, 10, 38, 0.55);
 }
 
-.wall--maps .piece--wide {
-  aspect-ratio: 8 / 5;
+.wall--maps .piece--map {
+  aspect-ratio: 1;
 }
 
-/* --------------------------------------------------------------------------
-   Lore: fragments, set like quotations
-   -------------------------------------------------------------------------- */
-
+/* lore */
 .fragments {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 20px;
 }
 
 .fragment {
-  padding-left: clamp(1rem, 2vw, 1.75rem);
-  border-left: var(--rule) solid var(--key);
+  position: relative;
+  padding: 22px 24px 22px 28px;
+  border-left: 2px solid var(--blossom-deep);
+  background: rgba(4, 10, 38, 0.4);
 }
 
 .fragment__text {
-  max-width: 40rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem);
-  line-height: 1.45;
+  font-family: var(--f-display);
+  font-size: clamp(1.0625rem, 1.6vw, 1.3125rem);
+  line-height: 1.7;
 }
 
 .fragment__from {
-  margin-top: 0.75rem;
-  font-size: 0.78rem;
+  margin-top: 10px;
+  font-size: 0.75rem;
 }
 
-@media (max-width: 639.98px) {
+.world .credit {
+  margin-top: 40px;
+}
+
+/* -------------------------------------------------------------- narrow */
+
+@media (max-width: 760px) {
   .realm {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
+    grid-template-columns: 2rem 1fr;
   }
 
   .realm__status {
@@ -106,7 +398,35 @@ html[lang="ja"] .realm__name {
     justify-self: start;
   }
 
-  .piece--map {
-    aspect-ratio: 4 / 3;
+  .isle__top {
+    border-radius: 24px 24px 6px 6px;
+  }
+
+  .isles-nav__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 12px;
+  }
+
+  .islet {
+    min-width: 0;
+  }
+
+  .js .isle,
+  .js .isle--r {
+    translate: 0 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .islet,
+  .isle__float {
+    animation: none;
+  }
+
+  .js .isle,
+  .js .isle--r {
+    translate: none;
+    transition: opacity 0.3s linear;
   }
 }

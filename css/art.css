@@ -1,161 +1,298 @@
 /* ==========================================================================
-   The Willow Atelier: the festival after dark.
-   The ground is the night, with the lines left pale. The name lifts in
-   beside the willow, then a tub of goldfish to scoop (kingyo-sukui), then
-   an index of the three kinds of work. Sections
-   share the QA page's grid; works hang in ruled frames, photographs scroll
-   sideways, tracks are a ruled list, and the poem is set vertically
-   beside the story.
+   The Willow Atelier: a night garden. Paint branches into the dark and
+   watch them blossom; the index hangs as tanzaku on a cord; the rooms sit
+   on the night with petals drifting behind them.
+   Also the shared pieces the worlds page reuses: frames, the viewer.
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   Hero
-   -------------------------------------------------------------------------- */
-
-.art-hero {
-  position: relative;
-  padding: clamp(3rem, 6vw, 5rem) 0 0;
+.art {
+  background: var(--night);
 }
 
-.art-hero > .wrap {
+.drift {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.art main,
+.art .onward,
+.art .credit {
   position: relative;
   z-index: 1;
 }
 
-/* the name in Japanese, on a festival tag */
+.art .topbar--sticky {
+  background: rgba(7, 15, 54, 0.78);
+}
+
+/* --------------------------------------------------------------- garden */
+
+.garden {
+  position: relative;
+  height: calc(100vh - 64px);
+  height: calc(100svh - 64px);
+  min-height: 520px;
+  max-height: 1000px;
+  overflow: hidden;
+  background: var(--abyss);
+  cursor: crosshair;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.garden__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.garden__text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 27%;
+  z-index: 3;
+  pointer-events: none;
+}
+
 .art-hero__jp {
-  display: inline-block;
-  padding: 0.3rem 0.9rem 0.35rem;
-  border-radius: var(--radius);
-  background: var(--key);
-  font-family: var(--font-jp);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: var(--bg);
+  font-family: var(--f-display);
+  font-size: 0.875rem;
+  letter-spacing: 0.6em;
+  color: var(--blossom);
 }
 
 .art-hero__title {
-  max-width: 10ch;
-  margin-top: 1.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.9rem, 1rem + 5.6vw, 6.4rem);
-  font-weight: 800;
-  line-height: 1.04;
+  max-width: 12ch;
+  margin-top: 12px;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(3rem, 8.4vw, 7.5rem);
+  line-height: 0.98;
   letter-spacing: -0.01em;
+  color: var(--moon);
+  background: linear-gradient(170deg, #ffffff 20%, #dfe5ff 55%, #f3dce7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 22px rgba(200, 212, 255, 0.35));
 }
 
 .art-hero__tagline {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
-  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
-  letter-spacing: -0.015em;
-  color: var(--fg);
+  margin-top: 18px;
+  font-family: var(--f-display);
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  color: var(--moon-dim);
+  text-shadow: 0 0 18px rgba(4, 10, 38, 0.9);
 }
 
-/* the index: one row for each kind of work, each a link */
-.index {
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
-}
-
-.index__link {
-  display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
+.garden__ui {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--fg-strong);
-  transition: color 0.3s var(--ease), padding 0.45s var(--ease-out);
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 14px var(--gutter);
+  pointer-events: none;
+}
+
+.garden__hint {
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--moon-dim);
+  transition: opacity 0.4s;
+}
+
+.garden__ui.is-painting .garden__hint {
+  opacity: 0.3;
+}
+
+.garden__clear {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid rgba(238, 241, 251, 0.3);
+  border-radius: 999px;
+  background: rgba(4, 10, 38, 0.5);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.25s, color 0.25s;
+}
+
+.garden__clear:hover {
+  background: var(--moon);
+  color: var(--ink);
+}
+
+/* ------------------------------------------------------- tanzaku index */
+
+.index {
+  position: relative;
+  padding: 44px 0 clamp(48px, 8vh, 96px);
+}
+
+.index::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 44px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(238, 241, 251, 0.4) 20%, rgba(238, 241, 251, 0.4) 80%, transparent);
+}
+
+.index__list {
+  display: flex;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 72px);
+}
+
+.tanzaku {
+  --len: 34px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: clamp(96px, 12vw, 132px);
+  min-height: clamp(250px, 30vw, 320px);
+  margin-top: var(--len);
+  padding: 22px 10px 18px;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 30%),
+    #e9edf9;
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  transform-origin: 50% calc(var(--len) * -1);
+  transform: rotate(var(--swing, 0deg));
+  animation: breeze 5.2s ease-in-out infinite alternate;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+.index__list li:nth-child(2) .tanzaku {
+  --len: 52px;
+  animation-duration: 6.1s;
+  animation-delay: -2s;
+}
+
+.index__list li:nth-child(3) .tanzaku {
+  --len: 26px;
+  animation-duration: 4.7s;
+  animation-delay: -3.4s;
+}
+
+.tanzaku::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 1px;
+  height: var(--len);
+  background: rgba(238, 241, 251, 0.5);
+}
+
+.tanzaku::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--night);
+  opacity: 0.6;
+}
+
+@keyframes breeze {
+  from {
+    rotate: -1.6deg;
+  }
+
+  to {
+    rotate: 1.8deg;
+  }
+}
+
+.tanzaku__jp {
+  writing-mode: vertical-rl;
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: 0.3em;
+  line-height: 1;
 }
 
 .index__no {
-  color: var(--muted);
+  margin-top: auto;
+  font-size: 0.6875rem;
+  color: rgba(12, 27, 77, 0.6);
 }
 
 .index__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.5rem);
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  text-align: center;
 }
 
-html[lang="ja"] .index__name {
-  letter-spacing: 0;
+.tanzaku .arrow {
+  width: 24px;
 }
 
-.index__link .arrow {
-  width: 2rem;
-  color: var(--muted);
+.tanzaku:hover,
+.tanzaku:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6), transparent 30%),
+    var(--blossom);
+  box-shadow: 0 18px 50px -12px rgba(243, 220, 231, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
 }
 
-.index__link:hover {
-  color: var(--accent-text);
-  padding-left: 0.75rem;
+.tanzaku:focus-visible {
+  outline-color: var(--moon);
 }
 
-.index__link:hover .arrow {
-  color: var(--accent-text);
-  transform: translateX(0.3rem);
+/* --------------------------------------------------------------- rooms */
+
+.art .section {
+  border-top: 1px solid var(--line);
 }
 
-/* --------------------------------------------------------------------------
-   Sections
-   -------------------------------------------------------------------------- */
+.sec-head > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
 .room__text {
-  margin-top: 0.6rem;
-  font-size: 0.95rem;
-}
-
-/* an empty frame, waiting for a piece */
-.slot {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-box);
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
+  max-width: 50ch;
   color: var(--muted);
 }
-
-.work__open {
-  display: block;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: 0;
-  border-radius: var(--radius-box);
-  overflow: hidden;
-  background: none;
-  cursor: zoom-in;
-}
-
-.work__open img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-out);
-}
-
-.work__open:hover img {
-  transform: scale(1.03);
-}
-
-/* --------------------------------------------------------------------------
-   Drawing & painting
-   -------------------------------------------------------------------------- */
 
 .wall {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: clamp(16px, 2.4vw, 32px);
 }
 
 .piece {
-  aspect-ratio: 4 / 5;
+  position: relative;
+  aspect-ratio: 3 / 4;
+  padding: 10px;
+  border: 1px solid rgba(238, 241, 251, 0.18);
+  background: rgba(4, 10, 38, 0.5);
+  transition: border-color 0.4s, transform 0.5s var(--ease-out);
 }
 
 .piece--wide {
@@ -163,350 +300,302 @@ html[lang="ja"] .index__name {
   aspect-ratio: auto;
 }
 
-/* --------------------------------------------------------------------------
-   Photography: a row that scrolls sideways, starting on the content column
-   -------------------------------------------------------------------------- */
+.piece:hover {
+  border-color: rgba(243, 220, 231, 0.55);
+}
 
-.room--photo .album {
-  grid-column: 1 / -1;
+.slot,
+.work__open {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background:
+    radial-gradient(80% 60% at 70% 20%, rgba(243, 220, 231, 0.08), transparent),
+    linear-gradient(180deg, #0d1c55, #081240);
+  color: var(--moon-faint);
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.work__open {
+  cursor: zoom-in;
+}
+
+.work__open img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* photography: a strip scrolled sideways */
+.album {
+  position: relative;
 }
 
 .strip {
   overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  padding-bottom: 1.25rem;
-}
-
-.strip:focus-visible {
-  outline-offset: -4px;
+  scrollbar-color: rgba(238, 241, 251, 0.3) transparent;
+  padding-bottom: 14px;
 }
 
 .strip__track {
   display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
+  gap: 18px;
   width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 84rem) / 2);
+  padding-inline: var(--gutter);
 }
 
 .print {
-  flex: none;
-  width: clamp(16rem, 34vw, 28rem);
+  width: clamp(240px, 34vw, 440px);
   aspect-ratio: 3 / 2;
-  scroll-snap-align: start;
+  padding: 10px 10px 34px;
+  background: #e9edf9;
+  scroll-snap-align: center;
+}
+
+.print .slot {
+  background: linear-gradient(180deg, #13235e, #0b1848);
 }
 
 .print--tall {
-  width: clamp(11rem, 20vw, 17rem);
+  width: clamp(180px, 22vw, 290px);
   aspect-ratio: 2 / 3;
 }
 
 .strip__hint {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin: 0.25rem auto 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--muted);
+  gap: 10px;
+  margin-top: 12px;
+  padding-inline: var(--gutter);
+  font-size: 0.8125rem;
+  color: var(--faint);
 }
 
-.strip__hint .arrow {
-  animation: nudge 2.4s var(--ease) infinite;
-}
-
-@keyframes nudge {
-  50% {
-    transform: translateX(0.35rem);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Music
-   -------------------------------------------------------------------------- */
-
+/* music */
 .tracks {
-  border-top: var(--rule) solid var(--key);
+  max-width: 820px;
+  border-top: 1px solid var(--line);
 }
 
 .track {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  grid-template-columns: 3rem 1fr auto;
   align-items: center;
-  gap: 1rem;
-  padding: 1.1rem 0;
+  gap: 16px;
+  padding: 18px 0;
   border-bottom: 1px solid var(--line);
 }
 
 .track__no {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  color: var(--blossom);
 }
 
 .track__body {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.15rem 1.1rem;
+  flex-direction: column;
 }
 
 .track__title {
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.015em;
+  font-family: var(--f-display);
+  font-size: 1.1875rem;
 }
 
 .track__meta {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .track__play {
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(238, 241, 251, 0.3);
+  border-radius: 50%;
+  cursor: help;
 }
 
 .track__play svg {
-  width: 1rem;
-  height: 1rem;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
 
-.track__play.is-pending {
-  cursor: not-allowed;
-  background: transparent;
-  color: var(--muted);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-}
-
-.tracks .tip {
-  left: auto;
-  right: 0;
-  transform: translate(0, 0.3rem);
-}
-
-.tracks .is-pending:hover .tip,
-.tracks .is-pending:focus-visible .tip {
-  transform: none;
-}
-
-/* --------------------------------------------------------------------------
-   About: the poem set vertically beside the story
-   -------------------------------------------------------------------------- */
-
+/* about: the poem set vertically beside the story */
 .story__grid {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
+  gap: 40px;
+}
+
+@media (min-width: 760px) {
+  .story__grid {
+    grid-template-columns: auto 1fr;
+    gap: clamp(48px, 8vw, 120px);
+  }
 }
 
 .poem {
-  font-family: var(--font-jp);
-  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
-  font-weight: 500;
-  line-height: 1.7;
-  letter-spacing: 0.2em;
   writing-mode: vertical-rl;
-  white-space: nowrap;
-  color: var(--fg-strong);
-}
-
-.story__body {
-  display: grid;
-  gap: 1rem;
-  max-width: 40rem;
+  font-family: var(--f-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.9;
+  letter-spacing: 0.2em;
+  color: var(--blossom);
+  height: 11em;
 }
 
 .story__lead {
-  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.7rem);
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  font-family: var(--f-display);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
 }
 
-/* --------------------------------------------------------------------------
-   Find us
-   -------------------------------------------------------------------------- */
+.story__text {
+  margin-top: 18px;
+}
 
+/* find us */
 .cards {
-  border-top: var(--rule) solid var(--key);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 18px;
+  max-width: 820px;
 }
 
 .card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.2rem 1.5rem;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--fg-strong);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 26px 26px 28px;
+  border: 1px solid var(--line);
+  background: rgba(4, 10, 38, 0.45);
+  text-decoration: none;
 }
 
 .card__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-}
-
-html[lang="ja"] .card__name {
-  letter-spacing: 0;
+  font-family: var(--f-display);
+  font-size: 1.5rem;
 }
 
 .card__note {
-  grid-row: 2;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--muted);
+  font-size: 0.875rem;
+  color: var(--faint);
 }
 
 .card__arrow {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  width: 2.25rem;
-  height: auto;
-  aspect-ratio: 32 / 10;
+  position: absolute;
+  right: 24px;
+  top: 32px;
+  opacity: 0.5;
 }
 
-.card[href]:hover {
-  color: var(--accent-text);
-}
-
-.card[href]:hover .card__arrow {
-  transform: translateX(0.35rem);
-}
-
-.card:not([href]) .card__arrow {
-  color: var(--line-strong);
-}
-
-/* --------------------------------------------------------------------------
-   Onward: the way out to the worlds, under a deeper sky
-   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------- onward */
 
 .onward {
-  position: relative;
-  margin-top: calc(var(--section-space) + 30px);
-  background: #060e33;
-}
-
-/* the sill of a screen runs along the top of the band: a double rail */
-.onward::before {
-  content: "";
-  position: absolute;
-  inset: -0.75rem 0 auto;
-  height: 0.75rem;
-  background: linear-gradient(var(--frame) 0 0.3rem, transparent 0.3rem 0.45rem, var(--frame) 0.45rem);
+  padding: clamp(80px, 14vh, 140px) 0;
+  border-top: 1px solid var(--line);
+  background: radial-gradient(60% 80% at 80% 50%, rgba(36, 73, 216, 0.25), transparent 70%);
 }
 
 .onward__link {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.75rem 2rem;
-  padding: clamp(3rem, 7vw, 6rem) 0;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px 32px;
+  text-decoration: none;
 }
 
 .onward__label {
   grid-column: 1 / -1;
   display: flex;
-  gap: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--muted);
+  gap: 16px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  color: var(--blossom);
 }
 
 .onward__jp {
-  font-family: var(--font-jp);
-  letter-spacing: 0.12em;
-  color: var(--fg-strong);
+  font-family: var(--f-display);
+  letter-spacing: 0.4em;
+}
+
+.onward__moon {
+  grid-row: 2 / 4;
+  grid-column: 2;
+  width: clamp(90px, 14vw, 180px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 34%, #fbfaf5, #dfe3ef 72%);
+  box-shadow: 0 0 80px 10px rgba(220, 228, 255, 0.22);
+  transition: transform 0.8s var(--ease-out), box-shadow 0.8s;
 }
 
 .onward__name {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--fg-strong);
-  transition: color 0.3s var(--ease);
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-size: clamp(2rem, 5.6vw, 4.5rem);
+  line-height: 1.05;
 }
 
-html[lang="ja"] .onward__name {
-  font-size: clamp(1.7rem, 1rem + 3vw, 4rem);
-  line-height: 1.25;
-  letter-spacing: 0;
+.onward .arrow {
+  width: 48px;
+  height: 14px;
 }
 
-.onward__link .arrow {
-  width: clamp(2.5rem, 5vw, 4rem);
-  height: auto;
-  aspect-ratio: 32 / 10;
-  margin-bottom: 0.6rem;
-  color: var(--fg-strong);
+.onward__link:hover .onward__moon {
+  transform: scale(1.06);
+  box-shadow: 0 0 120px 30px rgba(243, 220, 231, 0.3);
 }
-
-.onward__link:hover .onward__name {
-  color: var(--accent-text);
-}
-
-.onward__link:hover .arrow {
-  transform: translateX(0.5rem);
-}
-
-/* --------------------------------------------------------------------------
-   Footer
-   -------------------------------------------------------------------------- */
 
 .art-credit {
-  margin-top: var(--section-space);
-  border-top: 1px solid var(--line);
+  color: var(--faint);
 }
 
-.onward + .art-credit {
-  margin-top: 0;
-  background: #060e33;
-}
-
-/* --------------------------------------------------------------------------
-   Viewer
-   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------- viewer */
 
 .viewer {
+  max-width: none;
+  max-height: none;
   width: 100%;
-  max-width: 100%;
   height: 100%;
-  max-height: 100%;
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
-  color: #c5cfe8;
+  background: rgba(4, 10, 38, 0.94);
+  color: var(--moon);
 }
 
 .viewer::backdrop {
-  background: rgba(6, 14, 51, 0.97);
+  background: transparent;
 }
 
 .viewer[open] {
-  animation: fade 0.35s var(--ease);
+  animation: viewer-in 0.4s var(--ease-out);
 }
 
 .viewer.is-closing {
-  animation: fade 0.3s var(--ease) reverse forwards;
+  animation: viewer-out 0.34s var(--ease) forwards;
 }
 
-@keyframes fade {
+@keyframes viewer-in {
   from {
+    opacity: 0;
+  }
+}
+
+@keyframes viewer-out {
+  to {
     opacity: 0;
   }
 }
@@ -515,237 +604,108 @@ html[lang="ja"] .onward__name {
   display: grid;
   place-items: center;
   height: 100%;
-  padding: 4.5rem var(--gutter) 2rem;
+  padding: 64px var(--gutter);
 }
 
 .viewer__figure {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  gap: 14px;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .viewer__img {
-  max-width: min(100%, 72rem);
-  max-height: 78dvh;
-  width: auto;
-  border-radius: var(--radius-box);
+  max-width: 100%;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
 }
 
 .viewer__caption {
   display: flex;
-  gap: 1rem;
-  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 16px;
 }
 
 .viewer__title {
-  font-weight: 500;
-  color: #f1f4fa;
+  font-family: var(--f-display);
+  font-size: 1.25rem;
 }
 
 .viewer__meta {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #94a2c8;
+  color: var(--muted);
 }
 
 .viewer__close {
   position: fixed;
-  top: 1rem;
-  right: var(--gutter);
-  width: 44px;
-  height: 44px;
-  border: 0;
-  border-radius: var(--radius);
-  background: #f1f4fa;
+  top: 18px;
+  right: 18px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
   cursor: pointer;
 }
 
-.viewer__close span::before,
-.viewer__close span::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1.1rem;
+.viewer__close span,
+.viewer__close span::before {
+  display: block;
+  width: 18px;
   height: 1.5px;
-  background: var(--ink);
-  transform: translate(-50%, -50%) rotate(45deg);
+  margin: auto;
+  background: currentColor;
+  transform: rotate(45deg);
 }
 
-.viewer__close span::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+.viewer__close span::before {
+  content: "";
+  transform: rotate(90deg);
 }
 
-/* --------------------------------------------------------------------------
-   Smaller screens
-   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------- narrow */
 
-@media (max-width: 959.98px) {
-  .wall {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 760px) {
+  .garden {
+    min-height: 560px;
+  }
+
+  .garden__text {
+    bottom: 25%;
   }
 
   .piece--wide {
-    aspect-ratio: 8 / 5;
-  }
-}
-
-@media (max-width: 639.98px) {
-  .index__link {
-    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    grid-column: auto;
+    aspect-ratio: 4 / 3;
   }
 
-  .story__grid {
+  .index__list {
+    gap: 14px;
+  }
+
+  .tanzaku {
+    width: 30vw;
+    min-height: 230px;
+    padding-inline: 6px;
+  }
+
+  .index__name {
+    font-size: 0.75rem;
+  }
+
+  .onward__link {
     grid-template-columns: 1fr;
   }
 
-  .poem {
-    justify-self: end;
-  }
-
-  .track {
-    grid-template-columns: 2rem minmax(0, 1fr) auto;
-    gap: 0.75rem;
+  .onward__moon {
+    grid-row: auto;
+    grid-column: 1;
+    width: 90px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .strip__hint .arrow,
-  .viewer[open],
-  .viewer.is-closing {
+  .tanzaku {
     animation: none;
-  }
-
-  .index__link,
-  .work__open img {
-    transition: none;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Kingyo-sukui (js/kingyo.js): a blue festival tub of goldfish and a paper
-   poi, with the bag and the poi count beside it. Fireworks strips (the
-   worlds) use the shared .skystrip.
-   -------------------------------------------------------------------------- */
-
-.art-hero .kingyo,
-.art-hero .skystrip {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
-}
-
-.kingyo {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 15rem;
-  gap: 1.5rem;
-  align-items: stretch;
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin-inline: auto;
-}
-
-.kingyo__tub {
-  position: relative;
-  height: clamp(16rem, 32vw, 26rem);
-  overflow: hidden;
-  border: 0.75rem solid var(--royal);
-  border-radius: 2.2rem;
-  background: #a9bfea;
-  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.35), 0 1.5rem 3rem rgba(5, 11, 46, 0.5);
-}
-
-.kingyo__canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  cursor: none;
-  touch-action: none;
-}
-
-.kingyo:not(.is-live) .kingyo__canvas {
-  cursor: default;
-}
-
-.kingyo__side {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.9rem;
-  padding: 1.25rem;
-  border-radius: var(--radius-box);
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line);
-}
-
-.kingyo__hint {
-  flex: 1;
-  font-size: 0.95rem;
-  color: var(--fg);
-}
-
-.kingyo.is-torn .kingyo__hint {
-  color: var(--fg-strong);
-  font-weight: 700;
-}
-
-.kingyo__bag,
-.kingyo__poi {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-top: 0.7rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-
-.kingyo__bag b,
-.kingyo__poi b {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--fg-strong);
-}
-
-.kingyo.is-bagged .kingyo__bag b {
-  animation: bagged 0.5s var(--ease-back);
-}
-
-@keyframes bagged {
-  40% {
-    transform: scale(1.35);
-    color: var(--spark);
-  }
-}
-
-.kingyo__again {
-  min-height: 2.75rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.kingyo__again:hover {
-  background: var(--spark);
-}
-
-@media (max-width: 879.98px) {
-  .kingyo {
-    grid-template-columns: 1fr;
-  }
-
-  .kingyo__side {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-  }
-
-  .kingyo__hint,
-  .kingyo__again {
-    grid-column: 1 / -1;
   }
 }
