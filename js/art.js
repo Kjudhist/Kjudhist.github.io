@@ -1,8 +1,9 @@
 /* ==========================================================================
-   The atelier.
-   Everything that moves on this page is CSS. This file only opens a piece
-   full size: any [data-view] button with an <img> inside, carrying
-   data-title and data-meta for the caption.
+   The atelier (and the worlds, for the viewer).
+   - The full-size viewer: any [data-view] button with an <img> inside,
+     carrying data-title and data-meta for the caption.
+   - The folded banner under the title tilts toward the pointer.
+   The cranes are in js/tsuru.js.
    ========================================================================== */
 
 (function () {
@@ -64,5 +65,31 @@
     });
   }
 
+  function initBanner() {
+    const banner = document.querySelector('[data-banner]');
+    if (!banner || reduced) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    let queued = false;
+    let px = 0;
+    let py = 0;
+    function update() {
+      queued = false;
+      const box = banner.getBoundingClientRect();
+      const x = Math.max(-1, Math.min(1, (px - (box.left + box.width / 2)) / (window.innerWidth / 2)));
+      const y = Math.max(-1, Math.min(1, (py - (box.top + box.height / 2)) / (window.innerHeight / 2)));
+      banner.style.setProperty('--tilt-x', (y * -7).toFixed(2) + 'deg');
+      banner.style.setProperty('--tilt-y', (x * 9).toFixed(2) + 'deg');
+      banner.style.setProperty('--shine', (50 + x * 40).toFixed(1) + '%');
+    }
+    window.addEventListener('pointermove', function (event) {
+      px = event.clientX;
+      py = event.clientY;
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }, { passive: true });
+  }
+
   initViewer();
+  initBanner();
 })();

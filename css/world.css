@@ -1,112 +1,502 @@
 /* ==========================================================================
-   Worlds: a third sheet in the same series, reached from the atelier.
-   Loads after art.css and borrows its hero, index, frames and viewer. What
-   is new here: a sky whose stars are joined into dashed charts, the worlds
-   as a numbered register, a large map frame, and lore fragments.
+   Worlds: a pop-up book. Each section is a spread of navy washi; its scene
+   stands up off the paper in layers as you reach it, the page before it
+   turns over, and the whole book tilts with the pointer (or the phone).
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   The worlds: a numbered register
-   -------------------------------------------------------------------------- */
+body.world {
+  background:
+    radial-gradient(90% 60% at 50% 0%, #142464, transparent 70%),
+    #050b28;
+}
+
+.book-wrap {
+  display: grid;
+  gap: clamp(3rem, 8vw, 6rem);
+  padding: clamp(1.5rem, 4vw, 3rem) var(--gutter) clamp(3rem, 8vw, 6rem);
+}
+
+.spread {
+  --p: 1;
+  --turn: 1;
+  scroll-margin-top: calc(var(--top-h) + 1rem);
+  perspective: 2200px;
+}
+
+/* the open book: two pages and a gutter, the page block's edges beneath */
+.book {
+  position: relative;
+  max-width: 76rem;
+  margin-inline: auto;
+  border-radius: 4px 4px 6px 6px;
+  background:
+    linear-gradient(90deg, transparent 0 47%, rgba(0, 0, 0, 0.32) 49.6%, rgba(255, 255, 255, 0.05) 50%, rgba(0, 0, 0, 0.22) 50.6%, transparent 53%),
+    linear-gradient(90deg, #13245f, #172a6b 46%, #13245f 50%, #172a6b 54%, #13245f);
+  box-shadow:
+    0 2px 0 -1px #e3e6f0,
+    0 4px 0 -1px #a9b3d6,
+    0 6px 0 -2px #e3e6f0,
+    0 8px 0 -3px #a9b3d6,
+    0 10px 0 -4px #d5dae9,
+    0 40px 80px -30px rgba(0, 0, 0, 0.85);
+  transform: rotateX(calc(var(--ty, 0) * -2deg)) rotateY(calc(var(--tx, 0) * 2.5deg));
+  transition: transform 0.4s var(--ease-out);
+  touch-action: pan-y;
+}
+
+/* washi fibres over the pages */
+.book::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.5;
+  background:
+    repeating-linear-gradient(17deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(-31deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 13px);
+}
+
+/* ------------------------------------------------------------ the pop-up */
+
+.stage {
+  position: relative;
+  height: clamp(13rem, 32vw, 25rem);
+  perspective: 1300px;
+  perspective-origin: 50% -30%;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+}
+
+.stage__scene {
+  position: absolute;
+  inset: 0 4% 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--ty, 0) * -5deg)) rotateY(calc(var(--tx, 0) * 7deg));
+  transition: transform 0.35s var(--ease-out);
+}
+
+/* each layer is hinged on its foot: lying flat in the book until the spread
+   opens, then standing; nearer layers stand a moment later */
+.layer {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 100%;
+  transform:
+    translateZ(var(--z))
+    rotateX(calc((1 - clamp(0, var(--p) * 1.8 - var(--i) * 0.18, 1)) * 88deg));
+  filter: drop-shadow(0 -2px 0 rgba(255, 255, 255, 0.05)) drop-shadow(0 8px 10px rgba(2, 6, 24, 0.45));
+}
+
+.layer svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* the paper floor the scene stands on */
+.stage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 18%;
+  background: linear-gradient(transparent, rgba(4, 9, 36, 0.55));
+  pointer-events: none;
+}
+
+.falling {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: leaf-fall var(--t) linear var(--d) infinite;
+  opacity: 0;
+}
+
+@keyframes leaf-fall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(60px, 190px) rotate(540deg);
+  }
+}
+
+/* ------------------------------------------------------------ the pages */
+
+.pages {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 7vw, 6rem);
+  padding: clamp(1.75rem, 3.5vw, 3rem) clamp(1.5rem, 4vw, 3.5rem) clamp(3.5rem, 6vw, 4.5rem);
+}
+
+.page {
+  min-width: 0;
+}
+
+.world .sec-head {
+  margin-bottom: 1rem;
+  border-bottom-color: rgba(174, 187, 230, 0.2);
+}
+
+.world .section-title {
+  color: #fff;
+}
+
+.room__text {
+  margin-top: 0.6rem;
+  color: var(--mist);
+}
+
+/* the turning page: one face, hinged on the gutter; once it passes upright
+   it is gone (its back is never drawn) */
+.leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  right: 0;
+  z-index: 5;
+  transform-origin: 0 50%;
+  transform: rotateY(calc(var(--turn) * -180deg));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  border-radius: 0 4px 6px 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 12%),
+    repeating-linear-gradient(17deg, rgba(255, 255, 255, 0.02) 0 2px, transparent 2px 9px),
+    #172a6b;
+  box-shadow: -20px 0 40px rgba(0, 0, 0, 0.25);
+}
+
+.leaf::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: calc(var(--turn) * 0.9);
+  border-radius: inherit;
+}
+
+/* turn the page: a corner folded up at the foot of the right page */
+.turn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 3.6rem 0.9rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--mist);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.turn::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  background: linear-gradient(315deg, #050b28 50%, #dfe4f4 50%);
+  box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.25);
+  transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out);
+}
+
+.turn:hover {
+  color: #fff;
+}
+
+.turn:hover::after {
+  width: 3.4rem;
+  height: 3.4rem;
+}
+
+.turn .arrow {
+  width: 1.3rem;
+  transform: rotate(90deg);
+}
+
+/* ------------------------------------------------------------ hero spread */
+
+.world-hero__jp {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: 0.6em;
+  color: var(--mist);
+  margin-bottom: 1rem;
+}
+
+.world-hero__title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 1;
+  color: #fff;
+}
+
+.world-hero__tagline {
+  margin-top: 1.25rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  color: #e8ecfb;
+}
+
+.world-hero__hint {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--mist);
+}
+
+.index__list {
+  display: grid;
+  border-top: 1px solid rgba(174, 187, 230, 0.2);
+}
+
+.index__link {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3.75rem;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid rgba(174, 187, 230, 0.2);
+  text-decoration: none;
+  transition: padding 0.4s var(--ease-out), background-color 0.3s;
+}
+
+.index__link:hover {
+  padding-left: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.index__no {
+  font-size: 0.75rem;
+  color: var(--mist);
+}
+
+.index__name {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+.index__link .arrow {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.index__link:hover .arrow {
+  transform: translateX(6px);
+}
+
+/* ------------------------------------------------------------ worlds */
 
 .realms {
-  border-top: var(--rule) solid var(--key);
+  display: grid;
+  gap: 0.75rem;
 }
 
 .realm {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 0.5rem 1.5rem;
-  padding: 1.6rem 0;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  gap: 0.25rem 1rem;
+  padding: 1rem 1.1rem;
+  background: var(--kami);
+  color: var(--ink);
+  box-shadow: 0 16px 30px -22px rgba(0, 0, 0, 0.8);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
 }
 
 .realm__no {
-  font-size: 0.85rem;
-  color: var(--muted);
+  grid-row: span 2;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--royal);
 }
 
 .realm__body {
   display: grid;
-  gap: 0.4rem;
 }
 
 .realm__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
+  font-family: var(--display);
   font-weight: 700;
-  line-height: 1.15;
-}
-
-html[lang="ja"] .realm__name {
-  letter-spacing: 0;
+  font-size: 1.15rem;
 }
 
 .realm__line {
-  max-width: 44rem;
-  font-size: 0.98rem;
+  font-size: 0.9rem;
+  color: #46527a;
 }
 
 .realm__status {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  font-size: 0.75rem;
-  color: var(--fg-strong);
-  white-space: nowrap;
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 0.35rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--shu);
+  box-shadow: inset 0 0 0 1px rgba(194, 59, 38, 0.45);
 }
 
-/* --------------------------------------------------------------------------
-   Maps: one large frame over two wide ones
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ maps, characters */
 
-.piece--map {
+.wall {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.wall--maps .piece--map {
   grid-column: 1 / -1;
-  aspect-ratio: 16 / 8;
 }
 
-.wall--maps .piece--wide {
-  aspect-ratio: 8 / 5;
+.piece {
+  padding: 0.55rem;
+  background: var(--kami);
+  box-shadow: 0 18px 30px -20px rgba(0, 0, 0, 0.85);
+  transition: transform 0.5s var(--ease-out);
 }
 
-/* --------------------------------------------------------------------------
-   Lore: fragments, set like quotations
-   -------------------------------------------------------------------------- */
+.piece:nth-child(even) {
+  transform: rotate(0.8deg);
+}
+
+.piece:nth-child(odd) {
+  transform: rotate(-0.6deg);
+}
+
+.piece:hover {
+  transform: translateY(-5px) rotate(0);
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 50%, rgba(0, 0, 0, 0.16) 50% 100%),
+    var(--washi);
+  color: var(--mist);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+}
+
+.piece--wide .slot,
+.piece--map .slot {
+  aspect-ratio: 16 / 10;
+}
+
+.work__open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.work__open img {
+  width: 100%;
+  height: auto;
+}
+
+/* ------------------------------------------------------------ lore */
 
 .fragments {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
+  gap: 1rem;
 }
 
 .fragment {
-  padding-left: clamp(1rem, 2vw, 1.75rem);
-  border-left: var(--rule) solid var(--key);
+  padding: 1.25rem 1.4rem;
+  background:
+    linear-gradient(180deg, transparent 0 49.6%, rgba(12, 27, 77, 0.05) 50%, transparent 64%),
+    var(--kami);
+  color: var(--ink);
+  box-shadow: 0 16px 30px -22px rgba(0, 0, 0, 0.8);
+}
+
+.fragment:nth-child(2) {
+  transform: rotate(-0.8deg) translateX(0.75rem);
 }
 
 .fragment__text {
-  max-width: 40rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.6rem);
-  line-height: 1.45;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .fragment__from {
-  margin-top: 0.75rem;
-  font-size: 0.78rem;
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: #46527a;
 }
 
-@media (max-width: 639.98px) {
-  .realm {
-    grid-template-columns: 2.5rem minmax(0, 1fr);
+.world .credit {
+  color: var(--mist);
+}
+
+/* ------------------------------------------------------------ small screens */
+
+@media (max-width: 760px) {
+  .book {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.3), transparent 6%),
+      linear-gradient(160deg, #172a6b, #13245f);
   }
 
-  .realm__status {
-    grid-column: 2;
-    justify-self: start;
+  .pages {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .piece--map {
-    aspect-ratio: 4 / 3;
+  .leaf {
+    left: 0;
+    border-radius: 4px;
+  }
+
+  .stage {
+    height: clamp(11rem, 52vw, 16rem);
+  }
+
+  .stage__scene {
+    inset: 0 -10%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book,
+  .stage__scene {
+    transform: none;
+    transition: none;
+  }
+
+  .leaf {
+    display: none;
+  }
+
+  .falling {
+    animation: none;
+    opacity: 0.8;
   }
 }

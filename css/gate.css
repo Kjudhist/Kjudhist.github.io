@@ -1,32 +1,69 @@
 /* ==========================================================================
-   Gate: a diptych. One sea, printed twice: by day on the left sheet, by
-   night on the right, the waves and the mountain running across both. A
-   willow hangs over the seam. Each sheet is a door and the whole sheet is
-   the link; the caption under its image carries an Enter block that says
-   so. Also the 404.
+   The gate (and the 404): a sheet of navy washi on a dark table.
    ========================================================================== */
 
-body.gate {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+@property --open {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+body.gate,
+body.lost-page {
+  --bg: #030820;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;
+  background: #030820;
+}
+
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* the folded corner: grab it anywhere in this square */
+.peel {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  width: 112px;
+  height: 112px;
+  cursor: grab;
+  touch-action: none;
+}
+
+.peel.is-dragging {
+  cursor: grabbing;
+}
+
+.g-top,
+.g-main,
+.gate .credit {
+  position: relative;
+  z-index: 2;
 }
 
 .g-top {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem 2rem;
-  padding: clamp(1.1rem, 2.4vw, 1.75rem) var(--gutter) 0;
+  flex-wrap: wrap;
+  padding: clamp(1.1rem, 2.4vw, 1.9rem) clamp(1.25rem, 3.6vw, 3rem) 0;
 }
 
 .g-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 1.15rem + 1.7vw, 2.7rem);
-  font-weight: 800;
-  line-height: 1.1;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  letter-spacing: 0.04em;
+  line-height: 1.3;
 }
 
 .g-meta {
@@ -36,340 +73,566 @@ body.gate {
 }
 
 .g-clock {
-  display: flex;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.8125rem;
+  color: var(--mist);
   white-space: nowrap;
 }
 
 .g-clock .mono {
-  color: var(--ink);
+  color: #fff;
+  margin-left: 0.35rem;
+}
+
+.gate .lang {
+  background: rgba(3, 8, 32, 0.4);
 }
 
 .g-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: clamp(0.9rem, 2vw, 1.4rem) var(--gutter) 0.25rem;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3.4vh, 2.5rem);
+  padding: clamp(1.25rem, 3vh, 2.5rem) var(--gutter);
 }
 
 .g-intro {
-  font-size: 0.95rem;
-  color: var(--ink-2);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(3, 8, 32, 0.6);
 }
-
-/* --------------------------------------------------------------------------
-   The two sheets
-   -------------------------------------------------------------------------- */
 
 .g-doors {
-  position: relative;
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  min-height: 25rem;
+  --dh: clamp(12.5rem, 42vh, 25rem);
+  --dw: calc(var(--dh) * 0.78);
+  display: flex;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vw, 8rem);
 }
 
-/* a sheet of paper: the image printed inside its margin, the caption under it */
+.g-hint {
+  max-width: 36rem;
+  font-size: 0.875rem;
+  color: var(--mist);
+  text-align: center;
+}
+
+/* ------------------------------------------------------------ a door */
+
 .door {
-  position: relative;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  padding: 10px;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  color: var(--ink);
-  transition: transform 0.5s var(--ease-out), opacity 0.4s var(--ease);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.door .hanga {
-  min-height: 11rem;
-  outline: var(--rule) solid var(--key);
-  outline-offset: calc(var(--rule) * -1);
-}
-
-/* keep the dark top edge of the night sky off the moon */
-.door .hanga--night::after {
-  height: 14%;
-}
-
-.door:hover,
-.door:focus-visible {
-  transform: translateY(-5px);
-}
-
-.door:focus-visible {
-  outline: 3px solid var(--royal);
-  outline-offset: 3px;
-}
-
-/* the title cartouche: the door's name in Japanese, set vertically */
-.door__tag {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  padding: 0.7rem 0.35rem;
-  background: var(--sheet);
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.22em;
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-}
-
-.door--art .door__tag {
-  left: auto;
-  right: 24px;
-}
-
-/* the caption: number, name and what is inside on the left, Enter on the right */
-.door__label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 0.2rem 1.5rem;
-  padding: 1rem 0.6rem 0.55rem;
-}
-
-.door__no {
-  grid-column: 1 / -1;
-  color: var(--grey);
-}
-
-.door__title {
-  grid-column: 1;
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 0.9rem + 1.6vw, 2.5rem);
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.door__sub {
-  grid-column: 1;
-  font-size: 0.92rem;
-  color: var(--ink-2);
-}
-
-.door__cta {
-  grid-column: 2;
-  grid-row: 2 / span 2;
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
-  min-height: 3rem;
-  padding: 0.6rem 1.4rem;
-  border-radius: var(--radius);
-  background: var(--royal);
+  width: var(--dw);
   color: #fff;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: background-color 0.3s var(--ease);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.5s var(--ease), filter 0.5s var(--ease);
 }
 
-.door--art .door__cta {
-  background: var(--night);
+.door:focus-visible {
+  outline-offset: 10px;
 }
 
-.door:hover .door__cta,
-.door:focus-visible .door__cta {
-  background: var(--ai-4);
+.has-open .door:not(.is-open) {
+  opacity: 0.25;
+  filter: blur(2px);
 }
 
-.door:hover .door__cta .arrow,
-.door:focus-visible .door__cta .arrow {
-  transform: translateX(0.3rem);
+.door__frame {
+  position: relative;
+  width: var(--dw);
+  height: var(--dh);
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  transition: --open 0.85s var(--fold), transform 0.85s var(--fold);
 }
 
-.g-doors.has-open .door:not(.is-open) {
-  opacity: 0.35;
+.door:hover .door__frame,
+.door:focus-visible .door__frame {
+  --open: 0.36;
 }
 
-.door.is-open {
-  transform: translateY(-5px);
+.door.is-open .door__frame {
+  --open: 1;
+  transform: scale(1.04);
+  transition-duration: 0.7s;
 }
 
-/* the willow, one inside each print: ink strands on the right of the day
-   sheet, pale ones on the left of the night sheet, so side by side they still
-   meet over the seam. The print's frame clips them; sized from its height. */
-.willow--gate {
-  top: 0;
-  z-index: 1;
-  width: auto;
-  height: 64%;
-  aspect-ratio: 220 / 600;
+/* what lies inside the fold */
+.door__inside {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.willow--day {
-  left: auto;
-  right: 3%;
+.door__inside::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* the leaves still cast shade into the opening */
+  background:
+    linear-gradient(90deg, rgba(3, 8, 32, 0.55), transparent 22%, transparent 78%, rgba(3, 8, 32, 0.55));
+  opacity: calc(1 - var(--open) * 0.85);
 }
 
-.willow--night {
-  left: 3%;
-  right: auto;
-}
-
-.willow--gate svg {
+.door__inside svg {
   width: 100%;
   height: 100%;
 }
 
-.willow__strand--ink .willow__stem {
-  stroke: var(--ai-5);
+/* QA: a crisp white ruled sheet */
+.door--qa .door__inside {
+  background:
+    linear-gradient(90deg, transparent 0 11.5%, rgba(194, 59, 38, 0.28) 11.5% calc(11.5% + 1px), transparent 0),
+    repeating-linear-gradient(0deg, rgba(12, 27, 77, 0.07) 0 1px, transparent 1px 12px),
+    repeating-linear-gradient(90deg, rgba(12, 27, 77, 0.07) 0 1px, transparent 1px 12px),
+    #fbfaf6;
 }
 
-.willow__strand--ink .willow__leaves {
-  fill: var(--ai-4);
+.ledger__head {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  fill: var(--ink);
 }
 
-.willow__strand--pale .willow__stem {
-  stroke: #dfe7f7;
+.ledger__rule {
+  stroke: var(--ink);
+  stroke-width: 1.2;
 }
 
-.willow__strand--pale .willow__leaves {
-  fill: var(--ai-2);
+.ledger__rows path {
+  stroke: rgba(12, 27, 77, 0.5);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 3 7;
+}
+
+.ledger__ticks path {
+  fill: none;
+  stroke: var(--royal);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.35s var(--ease-out);
+  transition-delay: 0s;
+}
+
+.door:hover .ledger__ticks path,
+.door:focus-visible .ledger__ticks path,
+.door.is-open .ledger__ticks path {
+  stroke-dashoffset: 0;
+  transition-delay: calc(0.3s + var(--i) * 0.09s);
+}
+
+.ledger__stamp {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transform: scale(1.6) rotate(-8deg);
+  transition: opacity 0.2s, transform 0.35s var(--ease-out);
+}
+
+.ledger__stamp rect {
+  fill: none;
+  stroke: var(--shu);
+  stroke-width: 1.6;
+}
+
+.ledger__stamp text {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 12px;
+  text-anchor: middle;
+  fill: var(--shu);
+}
+
+.door:hover .ledger__stamp,
+.door:focus-visible .ledger__stamp,
+.door.is-open .ledger__stamp {
+  opacity: 1;
+  transform: rotate(-8deg);
+  transition-delay: 0.85s;
+}
+
+/* the atelier: night, and a paper crane */
+.door--art .door__inside {
+  background: radial-gradient(120% 90% at 70% 10%, #1b2f78, #0a1544 55%, #050c2e);
+}
+
+.nightfold__stars circle {
+  fill: #dfe6ff;
+  opacity: 0.8;
+}
+
+.nightfold__moon {
+  fill: #f3f1ea;
+  filter: drop-shadow(0 0 10px rgba(220, 230, 255, 0.5));
+}
+
+.nightfold__hill {
+  fill: #0e1d5a;
+}
+
+.nightfold__hill2 {
+  fill: #08133f;
+}
+
+.crane {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.crane .f1 { fill: #ffffff; }
+.crane .f2 { fill: #c9d1ea; }
+.crane .f3 { fill: #e9ecf6; }
+.crane .f4 { fill: #aab5da; }
+.crane .f5 { fill: #ffffff; }
+.crane .f6 { fill: #dde3f3; }
+
+.crane__wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.door--art:hover .crane,
+.door--art:focus-visible .crane {
+  transform: translate(0, -34px) rotate(-6deg);
+}
+
+.door--art:hover .crane__wing--front,
+.door--art:focus-visible .crane__wing--front,
+.door--art.is-open .crane__wing--front {
+  animation: flap 0.52s ease-in-out infinite;
+}
+
+.door--art:hover .crane__wing--back,
+.door--art:focus-visible .crane__wing--back,
+.door--art.is-open .crane__wing--back {
+  animation: flap 0.52s ease-in-out -0.08s infinite;
+}
+
+.door--art.is-open .crane {
+  transform: translate(46px, -120px) rotate(-14deg) scale(0.75);
+  transition-duration: 1.1s;
+}
+
+@keyframes flap {
+  50% {
+    transform: scaleY(-0.55);
+  }
+}
+
+/* the two leaves of the gatefold */
+.door__leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  transform-style: preserve-3d;
+}
+
+.door__leaf--l {
+  left: 0;
+  transform-origin: 0 50%;
+  transform: rotateY(calc(var(--open) * -176deg));
+}
+
+.door__leaf--r {
+  right: 0;
+  transform-origin: 100% 50%;
+  transform: rotateY(calc(var(--open) * 176deg));
+}
+
+.door__face,
+.door__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.door__face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  overflow: hidden;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: calc(var(--dw) * 0.19);
+  line-height: 1;
+  color: rgba(214, 223, 255, 0.82);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45), 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.door__face b {
+  font-weight: inherit;
+}
+
+/* each leaf is folded once more on a diagonal, so it has a lit and a shaded half */
+.door__leaf--l .door__face {
+  background:
+    linear-gradient(to bottom left, rgba(255, 255, 255, 0.07) 0 49.6%, rgba(0, 0, 0, 0.16) 50% 100%),
+    linear-gradient(90deg, #1d3277, #142661);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.45);
+}
+
+.door__leaf--r .door__face {
+  background:
+    linear-gradient(to bottom right, rgba(255, 255, 255, 0.07) 0 49.6%, rgba(0, 0, 0, 0.16) 50% 100%),
+    linear-gradient(90deg, #13245d, #1a2e71);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.door__face::before,
+.door__face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* the light where the pointer is */
+.door__face::before {
+  background: radial-gradient(circle at var(--hx, 30%) var(--hy, 20%), rgba(170, 195, 255, 0.3), transparent 60%);
+  mix-blend-mode: screen;
+}
+
+/* turning away from the light, the leaf darkens */
+.door__face::after {
+  background: #020618;
+  opacity: calc(var(--open) * 0.9);
+}
+
+.door__back {
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(to bottom right, rgba(12, 27, 77, 0.06) 0 49.6%, rgba(12, 27, 77, 0.16) 50% 100%),
+    #f3f2ec;
+}
+
+.door--art .door__back {
+  background:
+    linear-gradient(to bottom left, rgba(12, 27, 77, 0.08) 0 49.6%, rgba(12, 27, 77, 0.2) 50% 100%),
+    #dfe4f4;
+}
+
+/* caption under the fold */
+.door__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  margin-top: clamp(0.9rem, 2.2vh, 1.4rem);
+  text-align: center;
+}
+
+.door__no {
+  font-size: 0.75rem;
+  color: var(--mist);
+  letter-spacing: 0.1em;
+}
+
+.door__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 1.9vw, 1.6rem);
+  line-height: 1.25;
+}
+
+.door__sub {
+  font-size: 0.8125rem;
+  color: var(--mist);
+}
+
+.door__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.45rem;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  box-shadow: inset 0 0 0 1px rgba(174, 187, 230, 0.4);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.door__cta .arrow {
+  width: 1.3rem;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.door:hover .door__cta,
+.door:focus-visible .door__cta {
+  background: var(--kami);
+  color: var(--ink);
+}
+
+.door:hover .door__cta .arrow {
+  transform: translateX(3px);
 }
 
 .gate .credit {
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
+  color: var(--mist);
+  padding-right: 120px;
+  padding-left: 120px;
 }
 
-/* --------------------------------------------------------------------------
-   Narrower screens: Enter drops under the name; on phones the sheets stack
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ 404 */
 
-@media (max-width: 1099.98px) {
-  .door__label {
-    grid-template-columns: 1fr;
-  }
-
-  .door__cta {
-    grid-column: 1;
-    grid-row: auto;
-    justify-self: start;
-    margin-top: 0.7rem;
-  }
+.lost-page .topbar {
+  position: relative;
+  z-index: 2;
 }
 
-@media (max-width: 719.98px) {
+.lost {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 1rem var(--gutter) 2rem;
+}
+
+.lost__inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.crumple {
+  position: relative;
+  width: min(20rem, 70vw, 40vh);
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.crumple canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.lost__title {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.lost__text {
+  color: var(--mist);
+}
+
+.lost__hint {
+  font-size: 0.8125rem;
+  color: var(--mist);
+}
+
+.lost .btn {
+  margin-top: 0.5rem;
+}
+
+.lost-page .credit {
+  position: relative;
+  z-index: 2;
+}
+
+/* ------------------------------------------------------------ small screens */
+
+@media (max-width: 640px) {
   .g-top {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.9rem;
+    padding-top: 1rem;
   }
 
   .g-meta {
+    width: 100%;
     justify-content: space-between;
   }
 
   .g-doors {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    --dw: calc((100vw - 2 * var(--gutter) - 1rem) / 2);
+    --dh: min(calc(var(--dw) * 1.3), 34vh);
+    gap: 1rem;
   }
 
-  .door .hanga {
-    aspect-ratio: 6 / 5;
+  .door__sub {
+    font-size: 0.75rem;
   }
 
-  .door__tag {
-    top: 20px;
-    left: 20px;
-    padding: 0.55rem 0.3rem;
-    font-size: 0.85rem;
+  .peel {
+    width: 76px;
+    height: 76px;
   }
 
-  .door--art .door__tag {
-    right: 20px;
+  .gate .credit {
+    padding-left: var(--gutter);
+    padding-right: 84px;
+    text-align: left;
   }
 
-  /* the sheet is cropped closer here: keep the dark edge off the moon */
-  .door .hanga--night::after {
-    height: 9%;
+  .gate .credit p {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 641px) {
+  .g-doors {
+    --dh: clamp(11rem, 40vh, 25rem);
   }
 
-  .willow--gate {
-    width: auto;
-    height: 58%;
+  .g-main {
+    gap: 0.9rem;
+  }
+
+  .door__cta {
+    margin-top: 0.25rem;
+  }
+
+  .g-hint {
+    font-size: 0.8125rem;
+    max-width: 46rem;
+  }
+
+  .g-intro {
+    font-size: 1.6rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .door {
-    transition-duration: 0.01s;
+  .door__frame,
+  .crane,
+  .ledger__ticks path,
+  .ledger__stamp {
+    transition-duration: 0.01s !important;
+    transition-delay: 0s !important;
+  }
+
+  .door .crane__wing {
+    animation: none !important;
   }
 }
 
-/* ==========================================================================
-   404: a misprint. The colour blocks have slipped off their registration.
-   ========================================================================== */
-
 body.lost-page {
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-}
-
-.lost-page .topbar__end {
-  margin-left: auto;
-}
-
-.lost {
-  display: grid;
-  align-items: center;
-  padding: clamp(1rem, 4vw, 3rem) var(--gutter) clamp(1.5rem, 4vw, 3rem);
-}
-
-.lost__inner {
-  width: min(100%, 84rem);
-  margin-inline: auto;
-}
-
-.lost__number {
-  font-size: 0.95rem;
-  color: var(--accent-text);
-}
-
-/* the title's pale pass has landed beside its key line */
-.lost__title {
-  max-width: 18ch;
-  margin-top: 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 5.2rem);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--fg-strong);
-  text-shadow: 0.09em 0.07em 0 var(--ai-1);
-}
-
-html[lang="ja"] .lost__title {
-  font-size: clamp(2rem, 1.2rem + 3vw, 4rem);
-  line-height: 1.3;
-}
-
-.lost__text {
-  max-width: 36rem;
-  margin: 1.5rem 0 2rem;
-  font-size: 1.1rem;
-}
-
-/* cut a little large, so a slipped block still reaches the edges */
-.hanga--off .hanga__pass {
-  inset: -14px;
-  width: calc(100% + 28px);
-  max-width: none;
-  height: calc(100% + 28px);
-}
-
-.hanga--off .hanga__pass--light {
-  translate: 14px 9px;
-}
-
-.hanga--off .hanga__pass--deep {
-  translate: -11px -7px;
+  background: radial-gradient(90% 70% at 50% 30%, #172a6b, #0b1848 55%, #030820);
 }

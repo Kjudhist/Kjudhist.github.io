@@ -46,6 +46,14 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
+      'gate.hint': 'Move the light across the paper. Hover a door to unfold it. Drag the folded corner.',
+      'qa.run.button': 'Run checks',
+      'qa.run.again': 'Run again',
+      'qa.run.idle': '6 checks, not run yet',
+      'qa.run.running': 'Running {i} of {n}…',
+      'qa.run.done': '{n} passed, 0 failed in {t}s',
+      'qa.contact.copy': 'Copy',
+      'qa.contact.copied': 'Copied',
 
       'qa.nav.label': 'Sections',
       'qa.nav.about': 'About',
@@ -207,7 +215,13 @@
       'world.lore.from': '[From: world name]',
 
       'nf.title': 'Nothing behind this door.',
-      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.'
+      'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
+      'nf.smooth': 'Click the paper to smooth it out.',
+      'nf.smoothLabel': 'Smooth out the paper',
+      'art.cranes.hint': 'Click anywhere to fold a crane. Tap a crane to unfold it.',
+      'art.cranes.count': 'Cranes folded',
+      'world.hint': 'Scroll or drag to turn the pages. Move to tilt the book.',
+      'world.next': 'Turn the page'
     },
 
     // Draft. Needs a native read.
@@ -238,6 +252,14 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
+      'gate.hint': 'Gerakkan cahaya di atas kertas. Arahkan ke pintu untuk membuka lipatannya. Seret sudut yang terlipat.',
+      'qa.run.button': 'Jalankan pengecekan',
+      'qa.run.again': 'Jalankan lagi',
+      'qa.run.idle': '6 pengecekan, belum dijalankan',
+      'qa.run.running': 'Menjalankan {i} dari {n}…',
+      'qa.run.done': '{n} lulus, 0 gagal dalam {t} detik',
+      'qa.contact.copy': 'Salin',
+      'qa.contact.copied': 'Tersalin',
 
       'qa.nav.label': 'Bagian',
       'qa.nav.about': 'Tentang',
@@ -399,7 +421,13 @@
       'world.lore.from': '[Dari: nama dunia]',
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
-      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.'
+      'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
+      'nf.smooth': 'Klik kertasnya untuk merapikannya.',
+      'nf.smoothLabel': 'Rapikan kertasnya',
+      'art.cranes.hint': 'Klik di mana saja untuk melipat bangau. Ketuk bangau untuk membukanya.',
+      'art.cranes.count': 'Bangau terlipat',
+      'world.hint': 'Gulir atau seret untuk membalik halaman. Gerakkan untuk memiringkan buku.',
+      'world.next': 'Balik halaman'
     },
 
     // Draft. Needs a native read.
@@ -430,6 +458,14 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
+      'gate.hint': '紙の上で光を動かしてみてください。扉にふれると折りが開きます。折れた角はドラッグできます。',
+      'qa.run.button': 'チェックを実行',
+      'qa.run.again': 'もう一度実行',
+      'qa.run.idle': '6件のチェック、未実行',
+      'qa.run.running': '{n}件中{i}件目を実行中…',
+      'qa.run.done': '{n}件合格、失敗0件({t}秒)',
+      'qa.contact.copy': 'コピー',
+      'qa.contact.copied': 'コピーしました',
 
       'qa.nav.label': 'セクション',
       'qa.nav.about': '私について',
@@ -591,7 +627,13 @@
       'world.lore.from': '[出典：世界の名前]',
 
       'nf.title': 'この扉の向こうには、何もありません。',
-      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。'
+      'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
+      'nf.smooth': '紙をクリックして、しわを伸ばしてみてください。',
+      'nf.smoothLabel': '紙のしわを伸ばす',
+      'art.cranes.hint': 'どこかをクリックすると鶴が折られます。鶴をタップすると開きます。',
+      'art.cranes.count': '折った鶴',
+      'world.hint': 'スクロールかドラッグでページをめくります。動かすと本が傾きます。',
+      'world.next': 'ページをめくる'
     }
   };
 

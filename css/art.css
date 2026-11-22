@@ -1,239 +1,413 @@
 /* ==========================================================================
-   The Willow Atelier: the night sheet.
-   The whole page is printed solid, with the lines left pale. The name
-   takes its ink at the top beside the willow, then a strip of the same sea
-   under a full moon, then an index of the three kinds of work. Sections
-   share the QA page's grid; works hang in ruled frames, photographs scroll
-   sideways, tracks are a ruled list, and the poem is set vertically
-   beside the story.
+   The Willow Atelier: night-blue washi, a flock of paper cranes, the title
+   on a folded banner, and every piece of work on a sheet of white kami.
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   Hero
-   -------------------------------------------------------------------------- */
-
-.art-hero {
-  position: relative;
-  padding: clamp(3rem, 6vw, 5rem) 0 0;
+body.art {
+  background:
+    linear-gradient(122deg, rgba(255, 255, 255, 0.035) 0 38%, rgba(0, 0, 0, 0.12) 38% 64%, rgba(255, 255, 255, 0.02) 64%) fixed,
+    radial-gradient(120% 80% at 70% 0%, #1a2e74, var(--night) 55%, #070f36) fixed;
 }
 
-.art-hero > .wrap {
+.flock {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.art main,
+.art .onward,
+.art .credit {
   position: relative;
   z-index: 1;
 }
 
-.art-hero .hanga--strip {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
+/* ------------------------------------------------------------ hero */
+
+.art-hero {
+  position: relative;
+  padding: clamp(3.5rem, 9vh, 6.5rem) 0 clamp(3rem, 7vw, 5rem);
+  text-align: center;
 }
 
-/* the name in Japanese, boxed like a title cartouche */
+.art-hero > .wrap:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .art-hero__jp {
-  display: inline-block;
-  padding: 0.25rem 0.65rem 0.3rem;
-  box-shadow: inset 0 0 0 var(--rule) var(--key);
-  font-family: var(--font-jp);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  color: var(--fg-strong);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.6em;
+  color: var(--mist);
+  margin-bottom: 1.75rem;
 }
 
-.art-hero__title {
-  max-width: 10ch;
-  margin-top: 1.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.9rem, 1rem + 5.6vw, 6.4rem);
+/* the banner: a long strip of white kami, folded twice into a shallow zigzag,
+   with swallowtail ends tucked behind */
+.banner {
+  position: relative;
+  max-width: 100%;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.banner__title {
+  position: relative;
+  padding: 0.12em 0.55em 0.18em;
+  font-family: var(--display);
   font-weight: 800;
-  line-height: 1.04;
+  font-size: clamp(2.2rem, 6.6vw, 5.8rem);
+  line-height: 1.08;
   letter-spacing: -0.01em;
+  color: var(--ink);
+  background:
+    linear-gradient(90deg, transparent 0 33.2%, rgba(12, 27, 77, 0.07) 33.3% 66.6%, transparent 66.7%),
+    linear-gradient(90deg, transparent 33.1%, rgba(12, 27, 77, 0.2) 33.3%, transparent 33.6%, transparent 66.5%, rgba(255, 255, 255, 0.9) 66.7%, transparent 67%),
+    linear-gradient(90deg, #e8e7df, #fdfcf8 var(--shine, 50%), #e5e4dc);
+  box-shadow: 0 26px 50px -24px rgba(0, 0, 0, 0.7);
+}
+
+.banner__end {
+  position: absolute;
+  top: 0.55em;
+  bottom: -0.55em;
+  width: 1.5em;
+  font-size: clamp(2.2rem, 6.6vw, 5.8rem);
+  transform: translateZ(-2px);
+}
+
+.banner__end--l {
+  left: -0.95em;
+  background: linear-gradient(90deg, #b6bfdc, #d9ddea);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 34% 50%);
+}
+
+.banner__end--r {
+  right: -0.95em;
+  background: linear-gradient(90deg, #d9ddea, #b6bfdc);
+  clip-path: polygon(0 0, 100% 0, 66% 50%, 100% 100%, 0 100%);
+}
+
+/* the little dark fold where the end tucks under the strip */
+.banner__end::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0.55em;
+  height: 0.55em;
+  background: #7d89b8;
+}
+
+.banner__end--l::after {
+  right: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.banner__end--r::after {
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
 }
 
 .art-hero__tagline {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
-  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
-  letter-spacing: -0.015em;
-  color: var(--fg);
+  margin-top: 2.25rem;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  color: #e8ecfb;
 }
 
-/* the index: one row for each kind of work, each a link */
+.flock-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.4rem 1.5rem;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--mist);
+}
+
+.flock-bar[hidden] {
+  display: none;
+}
+
+.flock-bar__count b {
+  margin-left: 0.35rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------ index cards */
+
 .index {
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  margin-top: clamp(3rem, 7vw, 5rem);
 }
 
-.index__link {
+.index__list {
   display: grid;
-  grid-template-columns: 4rem minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--fg-strong);
-  transition: color 0.3s var(--ease), padding 0.45s var(--ease-out);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+  text-align: left;
+}
+
+/* a card of white kami with its top-right corner folded down; hover and it
+   unfolds, and the kanji underneath comes up */
+.index__link {
+  --s: 3.4rem;
+  position: relative;
+  display: grid;
+  align-content: end;
+  gap: 0.25rem;
+  min-height: clamp(9rem, 15vw, 12rem);
+  padding: 1.3rem 1.4rem 1.2rem;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, transparent 0 49.6%, rgba(12, 27, 77, 0.05) 50%, transparent 66%),
+    var(--kami);
+  color: var(--ink);
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - var(--s)) 0, 100% var(--s), 100% 100%, 0 100%);
+  transition: clip-path 0.6s var(--fold), transform 0.5s var(--ease-out);
+}
+
+.index__link:hover,
+.index__link:focus-visible {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+  transform: translateY(-4px);
+}
+
+.index__link:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--royal);
+}
+
+.index__fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--s);
+  height: var(--s);
+  transform-style: preserve-3d;
+  transform: perspective(500px) rotate3d(1, 1, 0, 180deg);
+  transition: transform 0.6s var(--fold);
+}
+
+.index__link:hover .index__fold,
+.index__link:focus-visible .index__fold {
+  transform: perspective(500px) rotate3d(1, 1, 0, 0deg);
+}
+
+.index__front,
+.index__back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.index__front {
+  background: var(--kami);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.index__back {
+  background: linear-gradient(225deg, #c9d0e8, #e9ecf5);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  transform: rotate3d(1, 1, 0, 180deg);
+  box-shadow: inset 0 0 12px rgba(12, 27, 77, 0.15);
+}
+
+.index__kanji {
+  position: absolute;
+  right: 0.9rem;
+  bottom: -0.15em;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  line-height: 1;
+  color: rgba(12, 27, 77, 0.07);
+  transform: translateY(12%);
+  transition: color 0.6s var(--ease-out), transform 0.7s var(--ease-out);
+  pointer-events: none;
+}
+
+.index__link:hover .index__kanji,
+.index__link:focus-visible .index__kanji {
+  color: rgba(36, 73, 216, 0.22);
+  transform: none;
 }
 
 .index__no {
-  color: var(--muted);
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  color: #46527a;
 }
 
 .index__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.5rem);
+  position: relative;
+  font-family: var(--display);
   font-weight: 700;
-  line-height: 1.2;
-}
-
-html[lang="ja"] .index__name {
-  letter-spacing: 0;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  line-height: 1.25;
 }
 
 .index__link .arrow {
-  width: 2rem;
-  color: var(--muted);
-}
-
-.index__link:hover {
-  color: var(--accent-text);
-  padding-left: 0.75rem;
+  position: relative;
+  margin-top: 0.6rem;
+  width: 1.8rem;
+  transition: transform 0.4s var(--ease-out);
 }
 
 .index__link:hover .arrow {
-  color: var(--accent-text);
-  transform: translateX(0.3rem);
+  transform: translateX(6px);
 }
 
-/* --------------------------------------------------------------------------
-   Sections
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ rooms */
+
+.art .section-title {
+  color: #fff;
+}
 
 .room__text {
   margin-top: 0.6rem;
-  font-size: 0.95rem;
+  color: var(--mist);
 }
 
-/* an empty frame, waiting for a piece */
+.wall {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
+}
+
+/* each piece hangs on a mat of white kami */
+.piece {
+  padding: clamp(0.6rem, 1.2vw, 0.9rem);
+  background: var(--kami);
+  box-shadow: 0 24px 40px -26px rgba(0, 0, 0, 0.8);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.piece:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+  box-shadow: 0 36px 50px -28px rgba(0, 0, 0, 0.85);
+}
+
+.piece--wide {
+  grid-column: span 2;
+}
+
 .slot {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 100%;
+  aspect-ratio: 4 / 5;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0 50%, rgba(0, 0, 0, 0.14) 50% 100%),
+    var(--washi);
+  color: var(--mist);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+
+.piece--wide .slot {
+  aspect-ratio: auto;
   height: 100%;
-  border-radius: var(--radius-box);
-  background: var(--night-2);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--muted);
+  min-height: 12rem;
 }
 
 .work__open {
   display: block;
   width: 100%;
-  height: 100%;
   padding: 0;
   border: 0;
-  border-radius: var(--radius-box);
-  overflow: hidden;
   background: none;
   cursor: zoom-in;
 }
 
 .work__open img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.8s var(--ease-out);
+  height: auto;
 }
 
-.work__open:hover img {
-  transform: scale(1.03);
-}
-
-/* --------------------------------------------------------------------------
-   Drawing & painting
-   -------------------------------------------------------------------------- */
-
-.wall {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.piece {
-  aspect-ratio: 4 / 5;
-}
-
-.piece--wide {
-  grid-column: span 2;
-  aspect-ratio: auto;
-}
-
-/* --------------------------------------------------------------------------
-   Photography: a row that scrolls sideways, starting on the content column
-   -------------------------------------------------------------------------- */
-
-.room--photo .album {
-  grid-column: 1 / -1;
+/* photographs: a sideways strip of prints */
+.album {
+  position: relative;
 }
 
 .strip {
   overflow-x: auto;
-  overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
+  scroll-padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
+  padding: 0.5rem 0 1.5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--line-strong) transparent;
-  padding-bottom: 1.25rem;
+  scrollbar-color: var(--mist) transparent;
 }
 
 .strip:focus-visible {
-  outline-offset: -4px;
+  outline-offset: -2px;
 }
 
 .strip__track {
   display: flex;
-  align-items: flex-end;
-  gap: 0.75rem;
+  gap: clamp(1rem, 2vw, 1.5rem);
   width: max-content;
-  padding-inline: max(var(--gutter), (100vw - 84rem) / 2);
+  padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
 }
 
 .print {
-  flex: none;
-  width: clamp(16rem, 34vw, 28rem);
-  aspect-ratio: 3 / 2;
+  width: clamp(15rem, 28vw, 22rem);
+  padding: 0.75rem 0.75rem 2.25rem;
+  background: var(--kami);
   scroll-snap-align: start;
+  box-shadow: 0 24px 40px -26px rgba(0, 0, 0, 0.8);
+  transform: rotate(var(--r, -0.8deg));
+  transition: transform 0.5s var(--ease-out);
+}
+
+.print:nth-child(even) {
+  --r: 1deg;
+}
+
+.print:hover {
+  transform: rotate(0) translateY(-6px);
+}
+
+.print .slot {
+  aspect-ratio: 3 / 2;
 }
 
 .print--tall {
-  width: clamp(11rem, 20vw, 17rem);
-  aspect-ratio: 2 / 3;
+  width: clamp(11rem, 20vw, 15rem);
+}
+
+.print--tall .slot {
+  aspect-ratio: 3 / 4;
 }
 
 .strip__hint {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  width: min(100% - 2 * var(--gutter), 84rem);
-  margin: 0.25rem auto 0;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--muted);
+  justify-content: flex-end;
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  font-size: 0.8125rem;
+  color: var(--mist);
 }
 
-.strip__hint .arrow {
-  animation: nudge 2.4s var(--ease) infinite;
-}
-
-@keyframes nudge {
-  50% {
-    transform: translateX(0.35rem);
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Music
-   -------------------------------------------------------------------------- */
-
+/* music: each track a folded strip */
 .tracks {
-  border-top: var(--rule) solid var(--key);
+  display: grid;
+  gap: 0.6rem;
 }
 
 .track {
@@ -241,31 +415,39 @@ html[lang="ja"] .index__name {
   grid-template-columns: 3rem minmax(0, 1fr) auto;
   align-items: center;
   gap: 1rem;
-  padding: 1.1rem 0;
-  border-bottom: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 3.5rem, rgba(0, 0, 0, 0.12) 3.5rem calc(3.5rem + 1px), transparent calc(3.5rem + 1px)),
+    rgba(20, 38, 95, 0.75);
+  box-shadow: inset 0 0 0 1px rgba(174, 187, 230, 0.14);
+  transition: background-color 0.3s, transform 0.4s var(--ease-out);
+}
+
+.track:hover {
+  transform: translateX(6px);
 }
 
 .track__no {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--mist);
+  text-align: center;
 }
 
 .track__body {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.15rem 1.1rem;
+  display: grid;
 }
 
 .track__title {
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: -0.015em;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
 .track__meta {
-  font-size: 0.9rem;
+  font-size: 0.8125rem;
+  color: var(--mist);
 }
 
 .track__play {
@@ -274,329 +456,192 @@ html[lang="ja"] .index__name {
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: var(--radius);
-  background: var(--royal);
-  color: #fff;
+  border: 1px solid rgba(174, 187, 230, 0.4);
+  cursor: not-allowed;
+  overflow: visible;
 }
 
 .track__play svg {
   width: 1rem;
-  height: 1rem;
   fill: currentColor;
 }
 
-.track__play.is-pending {
-  cursor: not-allowed;
-  background: transparent;
-  color: var(--muted);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-}
-
-.tracks .tip {
+.track__play .tip {
   left: auto;
   right: 0;
-  transform: translate(0, 0.3rem);
+  transform: perspective(400px) rotateX(-70deg);
 }
 
-.tracks .is-pending:hover .tip,
-.tracks .is-pending:focus-visible .tip {
+.track__play.is-pending:hover .tip,
+.track__play.is-pending:focus-visible .tip {
   transform: none;
 }
 
-/* --------------------------------------------------------------------------
-   About: the poem set vertically beside the story
-   -------------------------------------------------------------------------- */
-
+/* about: the poem set vertically beside the story */
 .story__grid {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
   align-items: start;
-  gap: clamp(2rem, 5vw, 4.5rem);
 }
 
 .poem {
-  font-family: var(--font-jp);
-  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
-  font-weight: 500;
-  line-height: 1.7;
-  letter-spacing: 0.2em;
   writing-mode: vertical-rl;
-  white-space: nowrap;
-  color: var(--fg-strong);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  line-height: 1.9;
+  letter-spacing: 0.18em;
+  padding: 1.5rem 1.1rem;
+  background: var(--kami);
+  color: var(--ink);
+  box-shadow: 0 24px 40px -26px rgba(0, 0, 0, 0.8);
 }
 
 .story__body {
   display: grid;
-  gap: 1rem;
+  gap: 1.1rem;
   max-width: 40rem;
 }
 
 .story__lead {
-  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.7rem);
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
 }
 
-/* --------------------------------------------------------------------------
-   Find us
-   -------------------------------------------------------------------------- */
+.story__text {
+  color: var(--mist);
+}
 
+/* find us */
 .cards {
-  border-top: var(--rule) solid var(--key);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 2rem);
 }
 
 .card {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 0.2rem 1.5rem;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid var(--line);
-  color: var(--fg-strong);
+  gap: 0.25rem;
+  padding: 1.6rem 1.6rem 1.5rem;
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, 0.07) 0 50%, rgba(0, 0, 0, 0.14) 50% 100%),
+    var(--washi);
+  box-shadow: inset 0 0 0 1px rgba(174, 187, 230, 0.16);
+  text-decoration: none;
 }
 
 .card__name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 1.1rem + 2vw, 3rem);
+  font-family: var(--display);
   font-weight: 700;
-  line-height: 1.15;
-}
-
-html[lang="ja"] .card__name {
-  letter-spacing: 0;
+  font-size: 1.5rem;
 }
 
 .card__note {
-  grid-row: 2;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--muted);
+  font-size: 0.875rem;
+  color: var(--mist);
 }
 
 .card__arrow {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  width: 2.25rem;
-  height: auto;
-  aspect-ratio: 32 / 10;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.9rem;
+  color: var(--mist);
 }
 
-.card[href]:hover {
-  color: var(--accent-text);
-}
-
-.card[href]:hover .card__arrow {
-  transform: translateX(0.35rem);
-}
-
-.card:not([href]) .card__arrow {
-  color: var(--line-strong);
-}
-
-/* --------------------------------------------------------------------------
-   Onward: the way out to the worlds, under a deeper sky
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ onward */
 
 .onward {
-  position: relative;
-  margin-top: calc(var(--section-space) + 30px);
-  background: #060e33;
-}
-
-/* a deeper sea rises over the end of the page */
-.onward::before {
-  content: "";
-  position: absolute;
-  inset: -29px 0 auto;
-  height: 30px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30' viewBox='0 0 120 30'%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28V30H0Z' fill='%23060e33'/%3E%3Cpath d='M0 28Q66 25 96 4Q96 21 120 28' fill='none' stroke='%23dfe7f7' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+  padding: clamp(2rem, 6vw, 4rem) 0 clamp(3rem, 7vw, 5rem);
 }
 
 .onward__link {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr auto;
   align-items: end;
-  gap: 0.75rem 2rem;
-  padding: clamp(3rem, 7vw, 6rem) 0;
+  gap: 0.5rem 2rem;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  background: var(--kami);
+  color: var(--ink);
+  text-decoration: none;
+  clip-path: polygon(0 0, calc(100% - 3.5rem) 0, 100% 3.5rem, 100% 100%, 0 100%);
+  transition: clip-path 0.6s var(--fold);
+}
+
+.onward__link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: linear-gradient(225deg, transparent 50%, #c3cbe6 50%);
+  box-shadow: -4px 4px 10px rgba(12, 27, 77, 0.15);
+  transition: transform 0.6s var(--fold), opacity 0.4s;
+  transform-origin: 100% 0;
+}
+
+.onward__link:hover {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.onward__link:hover::after {
+  transform: scale(0);
+  opacity: 0;
 }
 
 .onward__label {
   grid-column: 1 / -1;
   display: flex;
-  gap: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--muted);
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #46527a;
 }
 
 .onward__jp {
-  font-family: var(--font-jp);
-  letter-spacing: 0.12em;
-  color: var(--fg-strong);
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--royal);
 }
 
 .onward__name {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 0.9rem + 4vw, 4.8rem);
+  font-family: var(--display);
   font-weight: 800;
-  line-height: 1.1;
-  color: var(--fg-strong);
-  transition: color 0.3s var(--ease);
+  font-size: clamp(1.8rem, 4.6vw, 3.6rem);
+  line-height: 1.12;
 }
 
-html[lang="ja"] .onward__name {
-  font-size: clamp(1.7rem, 1rem + 3vw, 4rem);
-  line-height: 1.25;
-  letter-spacing: 0;
-}
-
-.onward__link .arrow {
-  width: clamp(2.5rem, 5vw, 4rem);
-  height: auto;
-  aspect-ratio: 32 / 10;
-  margin-bottom: 0.6rem;
-  color: var(--fg-strong);
-}
-
-.onward__link:hover .onward__name {
-  color: var(--accent-text);
+.onward .arrow {
+  width: 3rem;
+  margin-bottom: 0.8rem;
+  transition: transform 0.45s var(--ease-out);
 }
 
 .onward__link:hover .arrow {
-  transform: translateX(0.5rem);
+  transform: translateX(8px);
 }
 
-/* --------------------------------------------------------------------------
-   Footer
-   -------------------------------------------------------------------------- */
+/* ------------------------------------------------------------ small screens */
 
-.art-credit {
-  margin-top: var(--section-space);
-  border-top: 1px solid var(--line);
-}
-
-.onward + .art-credit {
-  margin-top: 0;
-  background: #060e33;
-}
-
-/* --------------------------------------------------------------------------
-   Viewer
-   -------------------------------------------------------------------------- */
-
-.viewer {
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  max-height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #c5cfe8;
-}
-
-.viewer::backdrop {
-  background: rgba(6, 14, 51, 0.97);
-}
-
-.viewer[open] {
-  animation: fade 0.35s var(--ease);
-}
-
-.viewer.is-closing {
-  animation: fade 0.3s var(--ease) reverse forwards;
-}
-
-@keyframes fade {
-  from {
-    opacity: 0;
+@media (max-width: 860px) {
+  .index__list {
+    grid-template-columns: 1fr;
   }
-}
 
-.viewer__inner {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  padding: 4.5rem var(--gutter) 2rem;
-}
+  .index__link {
+    min-height: 7.5rem;
+  }
 
-.viewer__figure {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.viewer__img {
-  max-width: min(100%, 72rem);
-  max-height: 78dvh;
-  width: auto;
-  border-radius: var(--radius-box);
-}
-
-.viewer__caption {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-}
-
-.viewer__title {
-  font-weight: 500;
-  color: #f1f4fa;
-}
-
-.viewer__meta {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #94a2c8;
-}
-
-.viewer__close {
-  position: fixed;
-  top: 1rem;
-  right: var(--gutter);
-  width: 44px;
-  height: 44px;
-  border: 0;
-  border-radius: var(--radius);
-  background: #f1f4fa;
-  cursor: pointer;
-}
-
-.viewer__close span::before,
-.viewer__close span::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1.1rem;
-  height: 1.5px;
-  background: var(--ink);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.viewer__close span::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* --------------------------------------------------------------------------
-   Smaller screens
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 959.98px) {
   .wall {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .piece--wide {
-    aspect-ratio: 8 / 5;
-  }
-}
-
-@media (max-width: 639.98px) {
-  .index__link {
-    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
   }
 
   .story__grid {
@@ -604,24 +649,50 @@ html[lang="ja"] .onward__name {
   }
 
   .poem {
-    justify-self: end;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .wall {
+    gap: 0.75rem;
   }
 
-  .track {
-    grid-template-columns: 2rem minmax(0, 1fr) auto;
-    gap: 0.75rem;
+  .piece--wide .slot {
+    min-height: 9rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .banner__end {
+    width: 1.1em;
+  }
+
+  .banner__end--l {
+    left: -0.6em;
+  }
+
+  .banner__end--r {
+    right: -0.6em;
+  }
+
+  .art-hero > .wrap:first-child {
+    padding-inline: calc(var(--gutter) + 1.2rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .strip__hint .arrow,
-  .viewer[open],
-  .viewer.is-closing {
-    animation: none;
-  }
-
+  .banner,
   .index__link,
-  .work__open img {
-    transition: none;
+  .index__fold,
+  .index__kanji,
+  .onward__link,
+  .onward__link::after,
+  .piece,
+  .print,
+  .track {
+    transition-duration: 0.01s;
   }
 }
