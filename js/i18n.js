@@ -46,7 +46,17 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Enter',
       'gate.local': 'Local time',
-      'gate.hint': 'Move the light across the paper. Hover a door to unfold it. Drag the folded corner.',
+      'art.bowl.hint': 'Tap the bowl to break it.',
+      'art.bowl.hold': 'Press and hold to pull the pieces home.',
+      'art.bowl.mending': 'The pieces are finding their places…',
+      'art.bowl.gilding': 'Gold is filling the cracks.',
+      'art.bowl.again': 'Mended with gold, and more beautiful for it. Break it again?',
+      'art.bowl.break': 'Break the bowl',
+      'art.bowl.mend': 'Mend it',
+      'art.bowl.mended': 'Times mended',
+      'nf.hint': 'Tap the broken cup to mend it.',
+      'world.hint': 'Move to steer the river of gold. Scroll, and the world comes back together.',
+      'gate.hint': 'Tap the glaze to crack it, and watch the gold mend it. Then choose a half.',
       'qa.run.button': 'Run checks',
       'qa.run.again': 'Run again',
       'qa.run.idle': '6 checks, not run yet',
@@ -216,12 +226,7 @@
 
       'nf.title': 'Nothing behind this door.',
       'nf.text': 'The page you’re looking for isn’t here. The link may be old or mistyped.',
-      'nf.smooth': 'Click the paper to smooth it out.',
-      'nf.smoothLabel': 'Smooth out the paper',
-      'art.cranes.hint': 'Click anywhere to fold a crane. Tap a crane to unfold it.',
-      'art.cranes.count': 'Cranes folded',
-      'world.hint': 'Scroll or drag to turn the pages. Move to tilt the book.',
-      'world.next': 'Turn the page'
+      'nf.poke': 'Go on, poke a hole in the paper.'
     },
 
     // Draft. Needs a native read.
@@ -252,7 +257,17 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': 'Masuk',
       'gate.local': 'Waktu setempat',
-      'gate.hint': 'Gerakkan cahaya di atas kertas. Arahkan ke pintu untuk membuka lipatannya. Seret sudut yang terlipat.',
+      'art.bowl.hint': 'Ketuk mangkuknya untuk memecahkannya.',
+      'art.bowl.hold': 'Tekan dan tahan untuk menarik pecahannya kembali.',
+      'art.bowl.mending': 'Pecahan-pecahannya mencari tempatnya…',
+      'art.bowl.gilding': 'Emas mengisi retakannya.',
+      'art.bowl.again': 'Ditambal dengan emas, dan jadi lebih indah. Pecahkan lagi?',
+      'art.bowl.break': 'Pecahkan mangkuk',
+      'art.bowl.mend': 'Tambal',
+      'art.bowl.mended': 'Kali ditambal',
+      'nf.hint': 'Ketuk cangkir yang pecah untuk menambalnya.',
+      'world.hint': 'Gerakkan penunjuk untuk mengarahkan sungai emas. Gulir, dan dunia ini menyatu kembali.',
+      'gate.hint': 'Ketuk glasirnya agar retak, lalu lihat emas menambalnya. Setelah itu, pilih salah satu belahan.',
       'qa.run.button': 'Jalankan pengecekan',
       'qa.run.again': 'Jalankan lagi',
       'qa.run.idle': '6 pengecekan, belum dijalankan',
@@ -422,12 +437,7 @@
 
       'nf.title': 'Tidak ada apa-apa di balik pintu ini.',
       'nf.text': 'Halaman yang Anda cari tidak ada di sini. Tautannya mungkin sudah lama atau salah ketik.',
-      'nf.smooth': 'Klik kertasnya untuk merapikannya.',
-      'nf.smoothLabel': 'Rapikan kertasnya',
-      'art.cranes.hint': 'Klik di mana saja untuk melipat bangau. Ketuk bangau untuk membukanya.',
-      'art.cranes.count': 'Bangau terlipat',
-      'world.hint': 'Gulir atau seret untuk membalik halaman. Gerakkan untuk memiringkan buku.',
-      'world.next': 'Balik halaman'
+      'nf.poke': 'Silakan, tusuk saja kertasnya.'
     },
 
     // Draft. Needs a native read.
@@ -458,7 +468,17 @@
       'gate.art': 'The Willow Atelier',
       'gate.enter': '入る',
       'gate.local': '現地時刻',
-      'gate.hint': '紙の上で光を動かしてみてください。扉にふれると折りが開きます。折れた角はドラッグできます。',
+      'art.bowl.hint': '茶碗をタップすると割れます。',
+      'art.bowl.hold': '長押しすると、破片が元の場所へ戻ります。',
+      'art.bowl.mending': '破片が元の場所を探しています…',
+      'art.bowl.gilding': 'ひびに金が満ちていきます。',
+      'art.bowl.again': '金で継がれ、前よりも美しく。もう一度割りますか？',
+      'art.bowl.break': '茶碗を割る',
+      'art.bowl.mend': '継ぐ',
+      'art.bowl.mended': '継いだ回数',
+      'nf.hint': '割れた湯呑みをタップすると、金で継がれます。',
+      'world.hint': 'ポインターで金の川を導いてください。スクロールすると、世界がひとつに戻っていきます。',
+      'gate.hint': '釉薬をタップするとひびが入り、金がそれを継ぎます。それから、どちらかの片をお選びください。',
       'qa.run.button': 'チェックを実行',
       'qa.run.again': 'もう一度実行',
       'qa.run.idle': '6件のチェック、未実行',
@@ -628,12 +648,7 @@
 
       'nf.title': 'この扉の向こうには、何もありません。',
       'nf.text': 'お探しのページは見つかりませんでした。リンクが古いか、入力に誤りがあるかもしれません。',
-      'nf.smooth': '紙をクリックして、しわを伸ばしてみてください。',
-      'nf.smoothLabel': '紙のしわを伸ばす',
-      'art.cranes.hint': 'どこかをクリックすると鶴が折られます。鶴をタップすると開きます。',
-      'art.cranes.count': '折った鶴',
-      'world.hint': 'スクロールかドラッグでページをめくります。動かすと本が傾きます。',
-      'world.next': 'ページをめくる'
+      'nf.poke': 'どうぞ、障子に穴をあけてみてください。'
     }
   };
 

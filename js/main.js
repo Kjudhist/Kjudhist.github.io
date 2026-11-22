@@ -1,14 +1,14 @@
 /* ==========================================================================
-   Shared behaviour: local links, page transitions (a sheet of paper folds
-   over the screen and away), scroll reveals, mobile menu, current-section
-   highlight and the clock.
+   Shared behaviour: local links, page transitions (the next page's glaze
+   washes across behind a gold seam), scroll reveals, mobile menu,
+   current-section highlight and the clock.
    ========================================================================== */
 
 (function () {
   'use strict';
 
   const root = document.documentElement;
-  const LEAVE_MS = 820;
+  const LEAVE_MS = 800;
   const LEAVE_MS_REDUCED = 300;
 
   function prefersReducedMotion() {
@@ -51,7 +51,7 @@
     return veil;
   }
 
-  // A sheet in the next page's paper folds over this one, then go. tone: "light" | "dark".
+  // The next page's glaze washes over this one, then go. tone: "light" | "dark".
   function leaveTo(url, tone) {
     const veil = ensureVeil();
     veil.setAttribute('data-tone', tone === 'light' ? 'light' : 'dark');
@@ -178,8 +178,8 @@
     });
   }
 
-  // Arriving under the previous page's veil (set up in js/i18n.js): wait until
-  // this page has painted a frame under it, then let it slide off.
+  // Arriving under the previous page's glaze (set up in js/i18n.js): wait
+  // until this page has painted a frame under it, then let it run on.
   function initArrival() {
     if (!root.classList.contains('is-arriving')) return;
     window.requestAnimationFrame(function () {

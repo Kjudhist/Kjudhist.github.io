@@ -33,19 +33,16 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Murecho:wght@300..700&family=DM+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/art.css">
 
   <script src="../js/i18n.js"></script>
   <script src="../js/main.js" defer></script>
+  <script src="../js/kintsugi.js" defer></script>
   <script src="../js/art.js" defer></script>
-  <script src="../js/tsuru.js" defer></script>
 </head>
 <body class="art">
-  <!-- a flock of paper cranes (js/tsuru.js): they follow the pointer and
-       shy from it; click anywhere to fold a new one, tap one to unfold it -->
-  <canvas class="flock" data-flock aria-hidden="true"></canvas>
   <a class="skip-link" href="#main" data-i18n="common.skip">Skip to content</a>
 
   <header class="topbar topbar--sticky">
@@ -79,28 +76,34 @@
 
     <!-- Hero: the name, and an index of the three kinds of work -->
     <section class="art-hero" id="top" data-testid="section-hero">
-      <div class="wrap">
-        <p class="art-hero__jp" lang="ja" aria-hidden="true">柳のアトリエ</p>
-        <!-- the title is set on a folded paper banner that tilts toward the pointer -->
-        <div class="banner" data-banner>
-          <span class="banner__end banner__end--l" aria-hidden="true"></span>
-          <h1 class="art-hero__title banner__title unveil" translate="no">The Willow Atelier</h1>
-          <span class="banner__end banner__end--r" aria-hidden="true"></span>
+      <!-- a chawan you can break and mend (js/kintsugi.js, js/art.js): tap it
+           and it shatters; press and hold and the pieces come home, and the
+           cracks fill with gold. Without scripts it is simply not there. -->
+      <div class="art-hero__stage">
+      <canvas class="art-hero__canvas" data-bowl aria-hidden="true"></canvas>
+      <div class="wrap art-hero__grid">
+        <div class="art-hero__copy">
+          <p class="art-hero__jp" lang="ja" aria-hidden="true">柳のアトリエ</p>
+          <h1 class="art-hero__title unveil" translate="no">The Willow Atelier</h1>
+          <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
+          <div class="bowl-ui" data-bowl-ui hidden>
+            <p class="bowl-ui__hint" aria-live="polite" data-bowl-hint data-i18n="art.bowl.hint">Tap the bowl to break it.</p>
+            <div class="bowl-ui__row">
+              <button class="bowl-ui__btn" type="button" data-bowl-btn><span data-i18n="art.bowl.break">Break the bowl</span></button>
+              <p class="bowl-ui__count"><span data-i18n="art.bowl.mended">Times mended</span> <b class="mono" data-bowl-count>0</b></p>
+            </div>
+          </div>
         </div>
-        <p class="art-hero__tagline" data-i18n="art.tagline">Where the lost come to rest.</p>
-        <div class="flock-bar" data-flock-bar hidden>
-          <p class="flock-bar__hint" data-i18n="art.cranes.hint">Click anywhere to fold a crane. Tap a crane to unfold it.</p>
-          <p class="flock-bar__count"><span data-i18n="art.cranes.count">Cranes folded</span> <b class="mono" data-crane-count>0</b></p>
-        </div>
+        <div class="art-hero__spot" data-bowl-spot aria-hidden="true"></div>
       </div>
-
+      </div>
 
       <div class="wrap">
         <nav class="index" aria-label="What the atelier makes" data-i18n-attr="aria-label:art.index.label" data-testid="art-index">
           <ol class="index__list">
-            <li><a class="index__link" href="#painting" data-testid="index-painting"><span class="index__fold" aria-hidden="true"><span class="index__front"></span><span class="index__back"></span></span><span class="index__kanji" lang="ja" aria-hidden="true">絵</span><span class="index__no mono" aria-hidden="true">01</span><span class="index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            <li><a class="index__link" href="#photography" data-testid="index-photography"><span class="index__fold" aria-hidden="true"><span class="index__front"></span><span class="index__back"></span></span><span class="index__kanji" lang="ja" aria-hidden="true">写</span><span class="index__no mono" aria-hidden="true">02</span><span class="index__name" data-i18n="art.photo.title">Photography</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            <li><a class="index__link" href="#music" data-testid="index-music"><span class="index__fold" aria-hidden="true"><span class="index__front"></span><span class="index__back"></span></span><span class="index__kanji" lang="ja" aria-hidden="true">音</span><span class="index__no mono" aria-hidden="true">03</span><span class="index__name" data-i18n="art.music.title">Music</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+            <li><a class="index__link" href="#painting" data-testid="index-painting"><span class="index__no mono" aria-hidden="true">01</span><span class="index__name" data-i18n="art.painting.title">Drawing &amp; Painting</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+            <li><a class="index__link" href="#photography" data-testid="index-photography"><span class="index__no mono" aria-hidden="true">02</span><span class="index__name" data-i18n="art.photo.title">Photography</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
+            <li><a class="index__link" href="#music" data-testid="index-music"><span class="index__no mono" aria-hidden="true">03</span><span class="index__name" data-i18n="art.music.title">Music</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
           </ol>
         </nav>
       </div>

@@ -6,7 +6,7 @@
   <title data-i18n="meta.qa.title">Kevin Judhistira Girsang · QA Engineer</title>
   <meta name="description" content="Product-focused QA engineer at Inteleq (Indivara Group) in Jakarta, testing payment and online banking products." data-i18n-attr="content:meta.qa.desc">
   <meta name="author" content="Kevin Judhistira Girsang">
-  <meta name="theme-color" content="#f8f7f2">
+  <meta name="theme-color" content="#eef1f3">
   <link rel="canonical" href="https://kjudhist.github.io/qa/">
 
   <meta property="og:type" content="profile">
@@ -33,7 +33,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Murecho:wght@300..700&family=DM+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/qa.css">
 
@@ -68,20 +68,24 @@
         <button class="lang__opt" type="button" lang="ja" title="日本語" aria-label="日本語" aria-pressed="false" data-lang-option="ja" data-testid="lang-option-ja">日本語</button>
       </div>
     </div>
-    <div class="progress" aria-hidden="true"><span class="progress__line" data-progress></span></div>
   </header>
 
   <main id="main">
 
     <!-- Hero -->
     <section class="hero" id="top" data-testid="section-hero">
-      <div class="hero__crease" aria-hidden="true">
-        <!-- the crease pattern for a crane: mountain folds solid, valley folds dashed -->
-        <svg class="crease" viewBox="-2 -2 404 404" aria-hidden="true" focusable="false"><rect class="cp-edge" x="0" y="0" width="400" height="400" pathLength="1"/><path class="cp-v" pathLength="1" d="M0.0 0.0L400.0 400.0"/><path class="cp-v" pathLength="1" d="M400.0 0.0L0.0 400.0"/><path class="cp-m" pathLength="1" d="M200.0 0.0L200.0 400.0"/><path class="cp-m" pathLength="1" d="M0.0 200.0L400.0 200.0"/><path class="cp-m" pathLength="1" d="M200.0 0.0L400.0 200.0"/><path class="cp-m" pathLength="1" d="M400.0 200.0L200.0 400.0"/><path class="cp-m" pathLength="1" d="M200.0 400.0L0.0 200.0"/><path class="cp-m" pathLength="1" d="M0.0 200.0L200.0 0.0"/><path class="cp-v" pathLength="1" d="M0.0 0.0L141.4 58.6"/><path class="cp-m" pathLength="1" d="M0.0 0.0L58.6 141.4"/><path class="cp-v" pathLength="1" d="M200.0 200.0L58.6 141.4"/><path class="cp-v" pathLength="1" d="M200.0 200.0L141.4 58.6"/><path class="cp-v" pathLength="1" d="M400.0 0.0L341.4 141.4"/><path class="cp-m" pathLength="1" d="M400.0 0.0L258.6 58.6"/><path class="cp-v" pathLength="1" d="M200.0 200.0L258.6 58.6"/><path class="cp-v" pathLength="1" d="M200.0 200.0L341.4 141.4"/><path class="cp-v" pathLength="1" d="M400.0 400.0L258.6 341.4"/><path class="cp-m" pathLength="1" d="M400.0 400.0L341.4 258.6"/><path class="cp-v" pathLength="1" d="M200.0 200.0L341.4 258.6"/><path class="cp-v" pathLength="1" d="M200.0 200.0L258.6 341.4"/><path class="cp-v" pathLength="1" d="M0.0 400.0L58.6 258.6"/><path class="cp-m" pathLength="1" d="M0.0 400.0L141.4 341.4"/><path class="cp-v" pathLength="1" d="M200.0 200.0L141.4 341.4"/><path class="cp-v" pathLength="1" d="M200.0 200.0L58.6 258.6"/></svg>
+      <!-- a navy glazed plate, once broken and mended: one gold seam -->
+      <div class="hero__plate" aria-hidden="true">
+        <svg viewBox="0 0 400 400" focusable="false">
+          <path class="hero__seam-line" d="M12 168 L58 176 L83 171 L121 184 L150 180 L176 197 L203 194 L231 212 L262 207 L290 226 L318 224 L347 241 L388 246"/>
+          <path class="hero__seam-line hero__seam-line--fine" d="M203 194 L209 222 L204 251 L214 281 L211 309 L224 342"/>
+          <g class="hero__ticks"><path d="M60 186v8M84 181v5M108 186v5M132 190v8M156 190v5M180 207v5M204 204v8M228 222v5M252 217v5M276 236v8M300 236v5M324 234v5M348 251v8"/></g>
+        </svg>
       </div>
       <div class="wrap">
         <p class="hero__kicker" lang="ja" aria-hidden="true">品質保証</p>
         <h1 class="hero__name unveil" translate="no">Kevin Judhistira Girsang</h1>
+        <span class="seam hero__rule" aria-hidden="true"></span>
         <div class="hero__row">
           <div class="hero__copy">
             <p class="hero__pitch" data-i18n="qa.hero.pitch">Product-focused QA Engineer</p>

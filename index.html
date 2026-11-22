@@ -33,20 +33,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Shippori+Mincho+B1:wght@500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;500;700&family=Murecho:wght@300..700&family=DM+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/gate.css">
 
   <script src="js/i18n.js"></script>
   <script src="js/main.js" defer></script>
-  <script src="js/kami.js" defer></script>
+  <script src="js/kintsugi.js" defer></script>
   <script src="js/gate.js" defer></script>
 </head>
 <body class="gate">
-  <!-- one large sheet of navy washi, creased, lit by the pointer; drag the
-       folded corner to turn it back (js/kami.js, js/gate.js) -->
-  <canvas class="sheet" data-sheet aria-hidden="true"></canvas>
-  <div class="peel" data-peel aria-hidden="true"></div>
+  <!-- a navy glazed plate fills the stage (js/gate.js): the light follows the
+       pointer, a tap on the glaze cracks it and gold flows in to mend it.
+       Its inner well is broken in two, and the two halves are the doors. -->
+  <canvas class="g-canvas" data-plate aria-hidden="true"></canvas>
 
   <header class="g-top">
     <div class="g-id" data-testid="station-sign">
@@ -65,67 +65,39 @@
   <main class="g-main" id="main">
     <p class="g-intro" data-i18n="gate.intro">Choose a door.</p>
 
-    <!-- Two folded panels are the doors. Hover (or focus) half-opens the
-         gatefold on its creases; click and it opens flat and you go through. -->
-    <nav class="g-doors" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
-      <a class="door door--qa" href="qa/" data-door data-tone="light" data-testid="door-qa" draggable="false">
-        <span class="door__frame" aria-hidden="true">
-          <span class="door__inside">
-            <svg class="ledger" viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet" focusable="false">
-              <text class="ledger__head" x="24" y="40">検査表</text>
-              <path class="ledger__rule" d="M24 52H176"/>
-              <g class="ledger__rows">
-                <path d="M24 80H150M24 110H138M24 140H156M24 170H128M24 200H146"/>
-              </g>
-              <g class="ledger__ticks">
-                <path style="--i:0" d="M160 74l4 5 9-11"/><path style="--i:1" d="M160 104l4 5 9-11"/><path style="--i:2" d="M160 134l4 5 9-11"/><path style="--i:3" d="M160 164l4 5 9-11"/><path style="--i:4" d="M160 194l4 5 9-11"/>
-              </g>
-              <g class="ledger__stamp"><rect x="132" y="210" width="40" height="28" rx="2"/><text x="152" y="230">合格</text></g>
-            </svg>
+    <!-- The well of the plate, broken in two. Each half is a link; its hit
+         area is the half itself (the svg path), not the square box. -->
+    <nav class="g-plate" aria-label="Doors" data-i18n-attr="aria-label:gate.doors" data-gate data-testid="gate-doors">
+      <a class="shard shard--qa" href="qa/" data-door data-tone="light" data-testid="door-qa" draggable="false">
+        <span class="shard__lift">
+          <svg class="shard__hit" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="shard__wide" d="M569.6 4.9A500 500 0 0 0 430.4 995.1Z"/>
+            <path class="shard__tall" d="M2.7 552.3A500 500 0 0 1 997.3 447.7Z"/>
+          </svg>
+          <span class="shard__label">
+            <span class="shard__no mono" aria-hidden="true">01</span>
+            <span class="shard__title" data-i18n="gate.qa">QA Engineer</span>
+            <span class="shard__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</span>
+            <span class="shard__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.25"/></svg></span>
           </span>
-          <span class="door__leaf door__leaf--l"><span class="door__face"><b>品</b><b>質</b></span><span class="door__back"></span></span>
-          <span class="door__leaf door__leaf--r"><span class="door__face"><b>保</b><b>証</b></span><span class="door__back"></span></span>
-        </span>
-        <span class="door__label">
-          <span class="door__no mono" aria-hidden="true">01</span>
-          <span class="door__title" data-i18n="gate.qa">QA Engineer</span>
-          <span class="door__sub" data-i18n="qa.hero.sub">Payments · Online Banking · Jakarta</span>
-          <span class="door__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
         </span>
       </a>
-      <a class="door door--art" href="art/" data-door data-tone="dark" data-testid="door-art" draggable="false">
-        <span class="door__frame" aria-hidden="true">
-          <span class="door__inside">
-            <svg class="nightfold" viewBox="0 0 200 250" preserveAspectRatio="xMidYMid slice" focusable="false">
-              <g class="nightfold__stars"><circle cx="30" cy="40" r="1.2"/><circle cx="160" cy="30" r="1"/><circle cx="120" cy="70" r="1.4"/><circle cx="50" cy="120" r="1"/><circle cx="175" cy="110" r="1.2"/><circle cx="20" cy="190" r="1.1"/><circle cx="150" cy="200" r="1"/><circle cx="90" cy="28" r="0.9"/></g>
-              <circle class="nightfold__moon" cx="150" cy="58" r="20"/>
-              <path class="nightfold__hill" d="M0 250V214L52 188L96 206L150 180L200 200V250Z"/>
-              <path class="nightfold__hill2" d="M52 188L96 206L74 250H34Z"/>
-              <g transform="translate(100 140)"><g class="crane">
-                <g class="crane__body">
-                  <polygon class="f1" points="-44,-2 -18,4 -10,14"/>
-                  <polygon class="f2" points="-44,-2 -50,6 -40,2"/>
-                  <polygon class="f3" points="38,-30 14,4 22,10"/>
-                  <polygon class="f1" points="-18,4 22,10 0,20"/>
-                  <polygon class="f2" points="-18,4 14,4 22,10"/>
-                </g>
-                <g class="crane__wing crane__wing--back"><polygon class="f4" points="-8,4 14,4 2,-52"/></g>
-                <g class="crane__wing crane__wing--front"><polygon class="f5" points="-14,6 10,6 -10,-50"/><polygon class="f6" points="-14,6 -2,6 -10,-50"/></g>
-              </g></g>
-            </svg>
+      <a class="shard shard--art" href="art/" data-door data-tone="dark" data-testid="door-art" draggable="false">
+        <span class="shard__lift">
+          <svg class="shard__hit" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path class="shard__wide" d="M569.6 4.9A500 500 0 0 1 430.4 995.1Z"/>
+            <path class="shard__tall" d="M2.7 552.3A500 500 0 0 0 997.3 447.7Z"/>
+          </svg>
+          <span class="shard__label">
+            <span class="shard__no mono" aria-hidden="true">02</span>
+            <span class="shard__title" translate="no" data-i18n="gate.art">The Willow Atelier</span>
+            <span class="shard__sub"><span data-i18n="art.painting.title">Drawing &amp; Painting</span><span aria-hidden="true"> · </span><span data-i18n="art.photo.title">Photography</span><span aria-hidden="true"> · </span><span data-i18n="art.music.title">Music</span></span>
+            <span class="shard__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.25"/></svg></span>
           </span>
-          <span class="door__leaf door__leaf--l"><span class="door__face"><b>ア</b><b>ト</b></span><span class="door__back"></span></span>
-          <span class="door__leaf door__leaf--r"><span class="door__face"><b>リ</b><b>エ</b></span><span class="door__back"></span></span>
-        </span>
-        <span class="door__label">
-          <span class="door__no mono" aria-hidden="true">02</span>
-          <span class="door__title" translate="no" data-i18n="gate.art">The Willow Atelier</span>
-          <span class="door__sub"><span data-i18n="art.painting.title">Drawing &amp; Painting</span><span aria-hidden="true"> · </span><span data-i18n="art.photo.title">Photography</span><span aria-hidden="true"> · </span><span data-i18n="art.music.title">Music</span></span>
-          <span class="door__cta"><span data-i18n="gate.enter">Enter</span><svg class="arrow" viewBox="0 0 32 10" aria-hidden="true" focusable="false"><path d="M0 5h31M27 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
         </span>
       </a>
     </nav>
-    <p class="g-hint" data-i18n="gate.hint">Move the light across the paper. Hover a door to unfold it. Drag the folded corner.</p>
+    <p class="g-hint" data-i18n="gate.hint">Tap the glaze to crack it, and watch the gold mend it. Then choose a half.</p>
   </main>
 
   <footer class="credit" data-testid="site-footer">
